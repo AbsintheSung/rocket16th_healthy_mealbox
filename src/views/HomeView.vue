@@ -1,9 +1,8 @@
 <script setup lang="ts"></script>
 
 <template>
-  <main>
-    <h1 class="text-3xl font-bold underline">Hello world!</h1>
-    <h2 class="font-bold text-el-primary underline">Hello world!</h2>
-    <!-- <el-button type="primary">點我</el-button> -->
+  <main class="container">
+    <el-text class="mx-1" size="large">首頁</el-text>
+    <p class="text-el-primary">首頁</p>
   </main>
 </template>
