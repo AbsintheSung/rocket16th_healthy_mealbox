@@ -1,0 +1,25 @@
+//我們element-plus使用 自動導入，所以以下引入會設定在 vite.config內
+@forward '../../../../node_modules/element-plus/theme-chalk/src/common/var.scss' with (
+  $colors: (
+    'white': #ffffff,
+    'black': #000000,
+    'primary': (
+      'base': #e0561f
+    ),
+    'success': (
+      'base': #67c23a
+    ),
+    'warning': (
+      'base': #e6a23c
+    ),
+    'danger': (
+      'base': #f56c6c
+    ),
+    'error': (
+      'base': #f56c6c
+    ),
+    'info': (
+      'base': #909399
+    )
+  )
+);
