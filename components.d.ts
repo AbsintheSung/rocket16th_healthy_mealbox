@@ -7,6 +7,7 @@ export {}
 /* prettier-ignore */
 declare module 'vue' {
   export interface GlobalComponents {
+    AuthNavigation: typeof import('./src/components/global/AuthNavigation.vue')['default']
     ElButton: typeof import('element-plus/es')['ElButton']
     ElCheckbox: typeof import('element-plus/es')['ElCheckbox']
     ElCheckboxGroup: typeof import('element-plus/es')['ElCheckboxGroup']
@@ -16,8 +17,9 @@ declare module 'vue' {
     ElLink: typeof import('element-plus/es')['ElLink']
     ElText: typeof import('element-plus/es')['ElText']
     LoginForm: typeof import('./src/components/member-auth-page/LoginForm.vue')['default']
-    RegisterForm: typeof import('./src/components/member-auth-page/RegisterForm.vue')['default']
+    RegisterForm: typeof import('./src/components/register-page/RegisterForm.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    SigninForm: typeof import('./src/components/signin-page/SigninForm.vue')['default']
   }
 }
