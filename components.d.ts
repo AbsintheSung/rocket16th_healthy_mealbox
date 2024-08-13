@@ -14,8 +14,6 @@ declare module 'vue' {
     ElFormItem: typeof import('element-plus/es')['ElFormItem']
     ElInput: typeof import('element-plus/es')['ElInput']
     ElLink: typeof import('element-plus/es')['ElLink']
-    ElOption: typeof import('element-plus/es')['ElOption']
-    ElSelect: typeof import('element-plus/es')['ElSelect']
     ElText: typeof import('element-plus/es')['ElText']
     LoginForm: typeof import('./src/components/member-auth-page/LoginForm.vue')['default']
     RegisterForm: typeof import('./src/components/member-auth-page/RegisterForm.vue')['default']
