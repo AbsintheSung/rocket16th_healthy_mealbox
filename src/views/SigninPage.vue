@@ -1,8 +1,10 @@
 <script lang="ts" setup>
 import SigninForm from '@/components/signin-page/SigninForm.vue'
+import AuthNavigation from '@/components/global/AuthNavigation.vue'
 </script>
 <template>
   <div>
+    <AuthNavigation />
     <SigninForm />
   </div>
 </template>
