@@ -3,7 +3,7 @@ import SigninForm from '@/components/signin-page/SigninForm.vue'
 import AuthNavigation from '@/components/global/AuthNavigation.vue'
 </script>
 <template>
-  <div>
+  <div class="container">
     <AuthNavigation />
     <SigninForm />
   </div>
