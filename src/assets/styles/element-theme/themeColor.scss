@@ -4,7 +4,7 @@
     'white': #ffffff,
     'black': #000000,
     'primary': (
-      'base': #e0561f
+      'base': #58C067
     ),
     'success': (
       'base': #67c23a
@@ -23,3 +23,6 @@
     )
   )
 );
+
+//自定義變數-可以讓 .vue檔案內的style lang='scss' 內取得這些變數
+$primary: #58C067;

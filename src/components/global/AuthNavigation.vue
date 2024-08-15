@@ -13,8 +13,8 @@
     </RouterLink>
   </div>
 </template>
-<style scoped>
+<style scoped lang="scss">
 .router-link-active {
-  background-color: #e0561f;
+  background-color: $primary;
 }
 </style>
