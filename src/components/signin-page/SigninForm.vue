@@ -33,15 +33,28 @@ const handleRegister = async (formEl: FormInstance | undefined) => {
 }
 </script>
 <template>
-  <h2>會員登入</h2>
   <el-form ref="ruleFormRef" :rules="registerRules" :model="loginInput">
     <el-form-item label="登入電子信箱帳號:" label-position="top" prop="userEmail">
       <el-input v-model="loginInput.userEmail" />
     </el-form-item>
-    <el-form-item label="密碼:" label-position="top" prop="userPassWord">
-      <el-input v-model="loginInput.userPassWord" />
-    </el-form-item>
-    <el-button type="primary" @click="handleRegister(ruleFormRef)">測試</el-button>
+    <div class="relative">
+      <el-link type="danger" :underline="false" class="forget-link ms-2">忘記密碼?</el-link>
+      <el-form-item label="密碼:" label-position="top" prop="userPassWord">
+        <el-input v-model="loginInput.userPassWord" />
+      </el-form-item>
+    </div>
+    <el-button class="w-full" type="primary" @click="handleRegister(ruleFormRef)">登入</el-button>
   </el-form>
 </template>
-<style scoped></style>
+<style lang="scss" scoped>
+:deep(.el-form-item__label) {
+  margin-bottom: 16px;
+}
+.el-form-item {
+  margin-bottom: 24px;
+}
+.forget-link {
+  position: absolute;
+  right: 0;
+}
+</style>
