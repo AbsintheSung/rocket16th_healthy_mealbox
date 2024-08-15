@@ -6,7 +6,8 @@ const registerInput = ref({
   userEmail: '',
   userPassWord: '',
   checkPassWord: '',
-  privacy: []
+  privacy: [],
+  newSletter: []
 })
 const validatePass = (rule: any, value: any, callback: any) => {
   if (value === '') {
@@ -66,10 +67,10 @@ const handleRegister = async (formEl: FormInstance | undefined) => {
       console.log('error submit!', fields)
     }
   })
+  console.log(registerInput.value)
 }
 </script>
 <template>
-  <h2>會員註冊</h2>
   <el-form ref="ruleFormRef" :rules="registerRules" :model="registerInput">
     <el-form-item label="登入電子信箱帳號:" label-position="top" prop="userEmail">
       <el-input v-model="registerInput.userEmail" />
@@ -83,12 +84,47 @@ const handleRegister = async (formEl: FormInstance | undefined) => {
     <el-form-item prop="privacy">
       <el-checkbox-group v-model="registerInput.privacy">
         <el-checkbox value="agree_privacy" name="privacy"> 已詳細閱讀 </el-checkbox>
-        <!-- <span class="text-el-danger">隱私條款</span> -->
       </el-checkbox-group>
-      <el-link type="success" :underline="false" class="ms-2">隱私條款</el-link>
+      <el-link type="success" :underline="false" class="ms-1">隱私條款</el-link>
     </el-form-item>
-
-    <el-button type="primary" @click="handleRegister(ruleFormRef)">測試</el-button>
+    <el-form-item prop="newSletter">
+      <el-checkbox-group v-model="registerInput.newSletter">
+        <el-checkbox :value="true" name="newSletter">訂閱電子報</el-checkbox>
+      </el-checkbox-group>
+    </el-form-item>
+    <button
+      class="w-full rounded-md bg-el-primary px-4 py-3 text-center font-bold"
+      @click.prevent="handleRegister(ruleFormRef)"
+    >
+      註冊
+    </button>
+    <!-- <el-button type="primary" @click="handleRegister(ruleFormRef)">測試</el-button> -->
   </el-form>
+  <el-divider><p style="color: #9cb0c9">OR</p></el-divider>
+  <div>
+    <button
+      class="relative my-5 flex w-full items-center justify-center rounded-md border px-4 py-3"
+    >
+      <span class="absolute left-4">Icon</span>
+      <p>使用Facebook註冊</p>
+    </button>
+    <button
+      class="relative my-5 flex w-full items-center justify-center rounded-md border px-4 py-3"
+    >
+      <span class="absolute left-4">Icon</span>
+      <p>使用Line註冊</p>
+    </button>
+  </div>
 </template>
-<style scoped></style>
+<style scoped lang="scss">
+:deep(.el-form-item) {
+  margin-bottom: 16px;
+}
+:deep(.el-form-item:nth-child(4)) {
+  margin-bottom: 12px;
+}
+
+.el-form-item {
+  margin-bottom: 24px;
+}
+</style>
