@@ -1,9 +1,21 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-html{
-    @apply h-screen
+@layer base {
+ html {
+  @apply h-screen;
 }
-#app,body,.container {
-    @apply h-full
+ body, #app {
+  @apply h-full;
+ }
+}
+  
+@layer components {
+ #app {
+  @apply flex flex-col;
+}
+
+.container {
+  @apply flex-grow;
+ }
 }
