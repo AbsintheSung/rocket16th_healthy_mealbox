@@ -33,15 +33,59 @@ const handleRegister = async (formEl: FormInstance | undefined) => {
 }
 </script>
 <template>
-  <h2>會員登入</h2>
   <el-form ref="ruleFormRef" :rules="registerRules" :model="loginInput">
     <el-form-item label="登入電子信箱帳號:" label-position="top" prop="userEmail">
       <el-input v-model="loginInput.userEmail" />
     </el-form-item>
-    <el-form-item label="密碼:" label-position="top" prop="userPassWord">
-      <el-input v-model="loginInput.userPassWord" />
-    </el-form-item>
-    <el-button type="primary" @click="handleRegister(ruleFormRef)">測試</el-button>
+    <div class="relative">
+      <el-link type="danger" :underline="false" class="forget-link ms-2">忘記密碼?</el-link>
+      <el-form-item label="密碼:" label-position="top" prop="userPassWord">
+        <el-input v-model="loginInput.userPassWord" />
+      </el-form-item>
+    </div>
+    <button class="w-full rounded-md bg-el-primary px-4 py-3 text-center font-bold">登入</button>
+    <!-- <el-button
+      style="padding: 12px"
+      type="primary"
+      class="siginBtn w-full"
+      @click="handleRegister(ruleFormRef)"
+    >
+    </el-button> -->
   </el-form>
+  <el-divider><p style="color: #9cb0c9">OR</p></el-divider>
+  <div>
+    <button
+      class="relative my-5 flex w-full items-center justify-center rounded-md border px-4 py-3"
+    >
+      <span class="absolute left-4">Icon</span>
+      <p>使用FB登入</p>
+    </button>
+    <button
+      class="relative my-5 flex w-full items-center justify-center rounded-md border px-4 py-3"
+    >
+      <span class="absolute left-4">Icon</span>
+      <p>使用Line登入</p>
+    </button>
+  </div>
+  <el-divider></el-divider>
+  <div>
+    <p class="text-center">
+      還沒帳號嗎?<RouterLink class="ps-1 text-red-700" to="/register">建立帳號</RouterLink>
+    </p>
+  </div>
 </template>
-<style scoped></style>
+<style lang="scss" scoped>
+:deep(.el-form-item__label) {
+  margin-bottom: 16px;
+}
+.el-form-item {
+  margin-bottom: 24px;
+}
+.forget-link {
+  position: absolute;
+  right: 0;
+}
+// .siginBtn {
+//   padding: 16px !important;
+// }
+</style>
