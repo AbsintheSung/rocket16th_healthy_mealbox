@@ -1,7 +1,7 @@
 /** @type {import('tailwindcss').Config} */
 import { getElementPlusThemColor } from './src/utils/getThemeColor'
 export default {
-  content: ["./index.html", "./src/**/*.{vue,js,ts,jsx,tsx}"],
+  content: ['./index.html', './src/**/*.{vue,js,ts,jsx,tsx}'],
   theme: {
     /*自訂斷點，蓋過官方預設值 */
     screens: {
@@ -23,9 +23,11 @@ export default {
       }
     },
     extend: {
-      colors: { ...getElementPlusThemColor() }
-    },
+      colors: {
+        ...getElementPlusThemColor(),
+        primary: '#58C067'
+      }
+    }
   },
-  plugins: [],
+  plugins: []
 }
-
