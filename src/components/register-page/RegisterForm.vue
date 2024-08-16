@@ -85,7 +85,7 @@ const handleRegister = async (formEl: FormInstance | undefined) => {
       <el-checkbox-group v-model="registerInput.privacy">
         <el-checkbox value="agree_privacy" name="privacy"> 已詳細閱讀 </el-checkbox>
       </el-checkbox-group>
-      <el-link type="success" :underline="false" class="ms-1">隱私條款</el-link>
+      <el-link type="success" :underline="false">隱私條款</el-link>
     </el-form-item>
     <el-form-item prop="newSletter">
       <el-checkbox-group v-model="registerInput.newSletter">
@@ -108,7 +108,9 @@ const handleRegister = async (formEl: FormInstance | undefined) => {
 :deep(.el-form-item:nth-child(4)) {
   margin-bottom: 12px;
 }
-
+.el-link {
+  margin-left: 4px;
+}
 .el-form-item {
   margin-bottom: 24px;
 }
