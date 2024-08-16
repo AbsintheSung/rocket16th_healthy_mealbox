@@ -21,16 +21,16 @@
                 <div class="flex flex-row flex-nowrap justify-center pb-24">
                     <ul class="space-y-2">
                         <li>
-                            <p><span>✔️</span>想要快快決定吃什麼的人</p>
+                            <p><span class="text-primary pr-1"><font-awesome-icon :icon="['fas', 'check']" /></span>想要快快決定吃什麼的人</p>
                         </li>
                         <li>
-                            <p><span>✔️</span>不想花時間思考餐盒搭配的人</p>
+                            <p><span class="text-primary pr-1"><font-awesome-icon :icon="['fas', 'check']" /></span>不想花時間思考餐盒搭配的人</p>
                         </li>
                         <li>
-                            <p><span>✔️</span>有選擇困難症的人</p>
+                            <p><span class="text-primary pr-1"><font-awesome-icon :icon="['fas', 'check']" /></span>有選擇困難症的人</p>
                         </li>
                         <li>
-                            <p><span>✔️</span>口頭禪是「都可以，你決定就好～」的P人</p>
+                            <p><span class="text-primary pr-1"><font-awesome-icon :icon="['fas', 'check']" /></span>口頭禪是「都可以，你決定就好～」的P人</p>
                         </li>
                     </ul>
                 </div>
@@ -50,16 +50,16 @@
                 <div class="flex flex-row flex-nowrap justify-center pb-24">
                     <ul class="space-y-2">
                         <li>
-                            <p><span>✔️</span>有點小挑食，會精挑細選的人</p>
+                            <p><span class="text-primary pr-1"><font-awesome-icon :icon="['fas', 'check']" /></span>有點小挑食，會精挑細選的人</p>
                         </li>
                         <li>
-                            <p><span>✔️</span>想要慢慢決定吃什麼的人</p>
+                            <p><span class="text-primary pr-1"><font-awesome-icon :icon="['fas', 'check']" /></span>想要慢慢決定吃什麼的人</p>
                         </li>
                         <li>
-                            <p><span>✔️</span>沒有選擇困難症的人</p>
+                            <p><span class="text-primary pr-1"><font-awesome-icon :icon="['fas', 'check']" /></span>沒有選擇困難症的人</p>
                         </li>
                         <li>
-                            <p><span>✔️</span>口頭禪是「就這麼決定了！」的J人</p>
+                            <p><span class="text-primary pr-1"><font-awesome-icon :icon="['fas', 'check']" /></span>口頭禪是「就這麼決定了！」的J人</p>
                         </li>
                     </ul>
                 </div>
