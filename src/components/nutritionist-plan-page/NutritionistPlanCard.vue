@@ -1,8 +1,11 @@
 <script setup>
+// 測試用ㄉ假資料
+defineProps({
+  title: String,
+  imageUrl: String,
+})
 </script>
 <template>
-    <div class="grid grid-cols-2 gap-6">
-    </div>
+<div></div>
 </template>
-<style scoped>
-</style>
+<style scoped></style>
