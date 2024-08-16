@@ -105,13 +105,17 @@ const handleRegister = async (formEl: FormInstance | undefined) => {
     <button
       class="relative my-5 flex w-full items-center justify-center rounded-md border px-4 py-3"
     >
-      <span class="absolute left-4">Icon</span>
+      <span class="absolute left-4">
+        <FontAwesomeIcon :icon="['fab', 'facebook']" />
+      </span>
       <p>使用Facebook註冊</p>
     </button>
     <button
       class="relative my-5 flex w-full items-center justify-center rounded-md border px-4 py-3"
     >
-      <span class="absolute left-4">Icon</span>
+      <span class="absolute left-4">
+        <FontAwesomeIcon :icon="['fab', 'line']" />
+      </span>
       <p>使用Line註冊</p>
     </button>
   </div>
