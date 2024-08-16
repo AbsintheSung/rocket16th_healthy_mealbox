@@ -2,7 +2,7 @@
 import NutritionistPlanCard from '@/components/nutritionist-plan-page/NutritionistPlanCard.vue'
 </script>
 <template>
-    <div class="container">
+    <div class="container py-20">
         <NutritionistPlanCard />
     </div>
 </template>

@@ -1,7 +1,8 @@
 <script setup>
 </script>
 <template>
-    <div>我是營養師方案頁</div>
+    <div class="grid grid-cols-2 gap-6">
+    </div>
 </template>
 <style scoped>
 </style>
