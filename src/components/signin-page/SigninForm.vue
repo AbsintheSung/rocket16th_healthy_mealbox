@@ -43,7 +43,12 @@ const handleRegister = async (formEl: FormInstance | undefined) => {
         <el-input v-model="loginInput.userPassWord" />
       </el-form-item>
     </div>
-    <button class="w-full rounded-md bg-el-primary px-4 py-3 text-center font-bold">登入</button>
+    <button
+      class="w-full rounded-md bg-el-primary px-4 py-3 text-center font-bold"
+      @click.prevent="handleRegister(ruleFormRef)"
+    >
+      登入
+    </button>
   </el-form>
 </template>
 <style lang="scss" scoped>
