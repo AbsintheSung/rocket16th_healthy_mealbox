@@ -35,7 +35,7 @@
                     </ul>
                 </div>
                 <div class="flex justify-center">
-                    <button class="w-4/5 rounded-md border-2 px-4 py-3">
+                    <button class="order-btn">
                         <p>直接訂購</p>
                     </button>
                 </div>
@@ -47,7 +47,7 @@
                 </div>
                 <h3 class="py-8 text-3xl font-medium text-center">自定義方案</h3>
                 <p class="text-center mb-4">由您挑選喜歡的餐盒，不喜歡還能自定義餐盒！</p>
-                <div class="flex flex-row flex-nowrap justify-center pb-28">
+                <div class="flex flex-row flex-nowrap justify-center pb-24">
                     <ul class="space-y-2">
                         <li>
                             <p><span>✔️</span>有點小挑食，會精挑細選的人</p>
@@ -64,7 +64,7 @@
                     </ul>
                 </div>
                 <div class="flex justify-center">
-                    <button class="w-4/5 rounded-md border-2 px-4 py-3">
+                    <button class="order-btn">
                         <p>直接訂購</p>
                     </button>
                 </div>
@@ -75,4 +75,22 @@
 
 </template>
 <style scoped>
+.order-btn{
+  width: 80%; 
+  border-radius: 0.375rem; 
+  border-width: 2px; 
+  border-color: #FE7F5F;
+  color: #FE7F5F;
+  background-color: #fff;
+  padding-left: 1rem; 
+  padding-right: 1rem; 
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+  &:hover{
+    border-color: #000;
+    color: #000;
+    background-color: #FE7F5F;
+    transition: .3s;
+  }
+}
 </style>
