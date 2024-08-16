@@ -26,6 +26,7 @@ export default {
       colors: {
         ...getElementPlusThemColor(),
         primary: '#58C067',
+        primaryDark:'#286D33',
         primary2: '#FE7F5F'
       }
     }
