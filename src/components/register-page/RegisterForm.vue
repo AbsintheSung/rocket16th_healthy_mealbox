@@ -100,21 +100,6 @@ const handleRegister = async (formEl: FormInstance | undefined) => {
     </button>
     <!-- <el-button type="primary" @click="handleRegister(ruleFormRef)">測試</el-button> -->
   </el-form>
-  <el-divider><p style="color: #9cb0c9">OR</p></el-divider>
-  <!-- <div>
-    <button
-      class="relative my-5 flex w-full items-center justify-center rounded-md border border-[#358AF9] px-4 py-3 text-[#358AF9]"
-    >
-      <FontAwesomeIcon class="absolute left-4" :icon="['fab', 'facebook']" size="xl" />
-      <p>使用Facebook註冊</p>
-    </button>
-    <button
-      class="relative my-5 flex w-full items-center justify-center rounded-md border border-[#58C067] px-4 py-3 text-[#58C067]"
-    >
-      <FontAwesomeIcon class="absolute left-4" :icon="['fab', 'line']" size="xl" />
-      <p>使用Line註冊</p>
-    </button>
-  </div> -->
 </template>
 <style scoped lang="scss">
 :deep(.el-form-item) {

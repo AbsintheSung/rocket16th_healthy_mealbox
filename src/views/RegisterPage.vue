@@ -28,6 +28,7 @@ const authButtonData = [
     <div class="mx-auto mt-20 w-full md:w-1/2">
       <AuthNavigation class="mb-12" />
       <RegisterForm />
+      <el-divider><p style="color: #9cb0c9">OR</p></el-divider>
       <ExternalAuthButton
         v-for="buttonOption in authButtonData"
         :key="buttonOption.buttonTitle"
