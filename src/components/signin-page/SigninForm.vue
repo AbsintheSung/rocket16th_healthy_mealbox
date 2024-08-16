@@ -53,7 +53,7 @@ const handleRegister = async (formEl: FormInstance | undefined) => {
     </el-button> -->
   </el-form>
   <el-divider><p style="color: #9cb0c9">OR</p></el-divider>
-  <div>
+  <!-- <div>
     <button
       class="relative my-5 flex w-full items-center justify-center rounded-md border px-4 py-3"
     >
@@ -66,7 +66,7 @@ const handleRegister = async (formEl: FormInstance | undefined) => {
       <span class="absolute left-4">Icon</span>
       <p>使用Line登入</p>
     </button>
-  </div>
+  </div> -->
   <el-divider></el-divider>
   <div>
     <p class="text-center">
