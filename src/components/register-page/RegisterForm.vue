@@ -85,7 +85,7 @@ const handleRegister = async (formEl: FormInstance | undefined) => {
       <el-checkbox-group v-model="registerInput.privacy">
         <el-checkbox value="agree_privacy" name="privacy"> 已詳細閱讀 </el-checkbox>
       </el-checkbox-group>
-      <el-link type="success" :underline="false" class="ms-1">隱私條款</el-link>
+      <el-link type="success" :underline="false">隱私條款</el-link>
     </el-form-item>
     <el-form-item prop="newSletter">
       <el-checkbox-group v-model="registerInput.newSletter">
@@ -98,32 +98,21 @@ const handleRegister = async (formEl: FormInstance | undefined) => {
     >
       註冊
     </button>
-    <!-- <el-button type="primary" @click="handleRegister(ruleFormRef)">測試</el-button> -->
   </el-form>
-  <el-divider><p style="color: #9cb0c9">OR</p></el-divider>
-  <div>
-    <button
-      class="relative my-5 flex w-full items-center justify-center rounded-md border px-4 py-3"
-    >
-      <span class="absolute left-4">Icon</span>
-      <p>使用Facebook註冊</p>
-    </button>
-    <button
-      class="relative my-5 flex w-full items-center justify-center rounded-md border px-4 py-3"
-    >
-      <span class="absolute left-4">Icon</span>
-      <p>使用Line註冊</p>
-    </button>
-  </div>
 </template>
-<style scoped lang="scss">
-:deep(.el-form-item) {
+<style lang="scss" scoped>
+:deep(.el-form-item__label) {
   margin-bottom: 16px;
 }
 :deep(.el-form-item:nth-child(4)) {
   margin-bottom: 12px;
 }
-
+:deep(.el-input__wrapper) {
+  padding: 10px 12px;
+}
+.el-link {
+  margin-left: 4px;
+}
 .el-form-item {
   margin-bottom: 24px;
 }
