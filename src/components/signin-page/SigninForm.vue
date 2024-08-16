@@ -56,7 +56,7 @@ const handleRegister = async (formEl: FormInstance | undefined) => {
   margin-bottom: 16px;
 }
 :deep(.el-input__wrapper) {
-  padding: 12px;
+  padding: 10px 12px;
 }
 .el-form-item {
   margin-bottom: 24px;
@@ -65,7 +65,4 @@ const handleRegister = async (formEl: FormInstance | undefined) => {
   position: absolute;
   right: 0;
 }
-// .siginBtn {
-//   padding: 16px !important;
-// }
 </style>
