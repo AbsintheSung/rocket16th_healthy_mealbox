@@ -103,19 +103,15 @@ const handleRegister = async (formEl: FormInstance | undefined) => {
   <el-divider><p style="color: #9cb0c9">OR</p></el-divider>
   <div>
     <button
-      class="relative my-5 flex w-full items-center justify-center rounded-md border px-4 py-3"
+      class="relative my-5 flex w-full items-center justify-center rounded-md border border-[#358AF9] px-4 py-3 text-[#358AF9]"
     >
-      <span class="absolute left-4">
-        <FontAwesomeIcon :icon="['fab', 'facebook']" />
-      </span>
+      <FontAwesomeIcon class="absolute left-4" :icon="['fab', 'facebook']" size="xl" />
       <p>使用Facebook註冊</p>
     </button>
     <button
-      class="relative my-5 flex w-full items-center justify-center rounded-md border px-4 py-3"
+      class="relative my-5 flex w-full items-center justify-center rounded-md border border-[#58C067] px-4 py-3 text-[#58C067]"
     >
-      <span class="absolute left-4">
-        <FontAwesomeIcon :icon="['fab', 'line']" />
-      </span>
+      <FontAwesomeIcon class="absolute left-4" :icon="['fab', 'line']" size="xl" />
       <p>使用Line註冊</p>
     </button>
   </div>
