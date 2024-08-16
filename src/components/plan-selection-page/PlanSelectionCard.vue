@@ -12,9 +12,9 @@
     <div class="container py-20">
         <div class="grid grid-cols-12 gap-6">
             <!-- 營養師方案 -->
-            <div class="col-span-4 col-start-2">
+            <div class="flex flex-col justify-evenly col-span-4 col-start-2">
                 <div class="flex justify-center">
-                    <img src="@/assets/image/營養師.svg" alt="營養師方案" class="w-fit">
+                    <img src="@/assets/image/營養師.svg" alt="營養師方案" class="w-fit pb-2">
                 </div>
                 <div class="relative">
                     <h3 class="py-8 text-3xl font-medium text-center">營養師方案</h3>
@@ -49,7 +49,7 @@
                 </div>
             </div>
             <!-- 自定義方案 -->
-            <div class="col-span-4 col-start-8">
+            <div class="flex flex-col justify-evenly col-span-4 col-start-8">
                 <div class="flex justify-center">
                     <img src="@/assets/image/自定義.svg" alt="自定義方案" class="w-fit">
                 </div>
@@ -82,9 +82,9 @@
                 </div>
             </div>
         </div>
-        <div class="relative -z-10 overflow-visible pointer-events-none mb-24">
-            <img src="@/assets/image/Star 3.svg" alt="" class="w-fit absolute left-20 ">
-            <img src="@/assets/image/Star 2.svg" alt="" class="w-fit absolute left-4 top-10">
+        <div class="relative -z-10 overflow-visible pointer-events-none mb-20">
+            <img src="@/assets/image/Star 3.svg" alt="" class="w-fit absolute left-20 top-2">
+            <img src="@/assets/image/Star 2.svg" alt="" class="w-fit absolute left-4 top-12">
         </div>
     </div>
     <div>我是footer</div>
