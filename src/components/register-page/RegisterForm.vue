@@ -107,6 +107,9 @@ const handleRegister = async (formEl: FormInstance | undefined) => {
 :deep(.el-form-item:nth-child(4)) {
   margin-bottom: 12px;
 }
+:deep(.el-input__wrapper) {
+  padding: 12px;
+}
 .el-link {
   margin-left: 4px;
 }

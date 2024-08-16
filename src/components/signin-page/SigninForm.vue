@@ -55,6 +55,9 @@ const handleRegister = async (formEl: FormInstance | undefined) => {
 :deep(.el-form-item__label) {
   margin-bottom: 16px;
 }
+:deep(.el-input__wrapper) {
+  padding: 12px;
+}
 .el-form-item {
   margin-bottom: 24px;
 }
