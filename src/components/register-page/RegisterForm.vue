@@ -100,8 +100,8 @@ const handleRegister = async (formEl: FormInstance | undefined) => {
     </button>
   </el-form>
 </template>
-<style scoped lang="scss">
-:deep(.el-form-item) {
+<style lang="scss" scoped>
+:deep(.el-form-item__label) {
   margin-bottom: 16px;
 }
 :deep(.el-form-item:nth-child(4)) {
