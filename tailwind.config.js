@@ -25,7 +25,8 @@ export default {
     extend: {
       colors: {
         ...getElementPlusThemColor(),
-        primary: '#58C067'
+        primary: '#58C067',
+        primary2: '#FE7F5F'
       }
     }
   },
