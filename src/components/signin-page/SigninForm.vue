@@ -44,35 +44,7 @@ const handleRegister = async (formEl: FormInstance | undefined) => {
       </el-form-item>
     </div>
     <button class="w-full rounded-md bg-el-primary px-4 py-3 text-center font-bold">登入</button>
-    <!-- <el-button
-      style="padding: 12px"
-      type="primary"
-      class="siginBtn w-full"
-      @click="handleRegister(ruleFormRef)"
-    >
-    </el-button> -->
   </el-form>
-  <el-divider><p style="color: #9cb0c9">OR</p></el-divider>
-  <!-- <div>
-    <button
-      class="relative my-5 flex w-full items-center justify-center rounded-md border px-4 py-3"
-    >
-      <span class="absolute left-4">Icon</span>
-      <p>使用FB登入</p>
-    </button>
-    <button
-      class="relative my-5 flex w-full items-center justify-center rounded-md border px-4 py-3"
-    >
-      <span class="absolute left-4">Icon</span>
-      <p>使用Line登入</p>
-    </button>
-  </div> -->
-  <el-divider></el-divider>
-  <div>
-    <p class="text-center">
-      還沒帳號嗎?<RouterLink class="ps-1 text-red-700" to="/register">建立帳號</RouterLink>
-    </p>
-  </div>
 </template>
 <style lang="scss" scoped>
 :deep(.el-form-item__label) {

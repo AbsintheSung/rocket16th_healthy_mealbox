@@ -98,7 +98,6 @@ const handleRegister = async (formEl: FormInstance | undefined) => {
     >
       註冊
     </button>
-    <!-- <el-button type="primary" @click="handleRegister(ruleFormRef)">測試</el-button> -->
   </el-form>
 </template>
 <style scoped lang="scss">
