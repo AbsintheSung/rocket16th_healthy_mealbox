@@ -13,8 +13,8 @@
         <div class="grid grid-cols-12 gap-6">
             <div class="col-span-4 col-start-2">
                 <div class="flex justify-center">
-                    <img src="https://s3-alpha-sig.figma.com/img/7f12/ea13/00756f144a0fb5daaf68dbfc01103a46?Expires=1724630400&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=JHhc4Q0WYH0I5cy4bml2i3ZUOxEhUp0XqvXKQerXRHWtsZTZZrizj63EZIeDpC8LKVhd8WyzmBDqMVjzPVtoBCnbJGAp9sasZQlfGnAtsuRLIHLc~heWKMBAtuTsfmYvX436gGnNNau2RXOQfKxh3qFXkAWoI-HLmi8ygOfYtx0Zmrl9pizTccAazXJt4GFBByKkQLgmSp2-zCAGG6PdvbOx8zh-OIBHbYUrDYMeWk-Zr1syEaCnEqSDPI1fdFZG59Zrp-srnhLuPGQfD~3Fi7yVR1r-5QB1alp4zPdVjn~Bfo5I5bk9VJQtOumEmMeP56lQHFuqvop41IDdAeNM4Q__"
-                        alt="營養師方案" class="card-img">
+                    <img src="@/assets/image/營養師.svg"
+                        alt="營養師方案" class="w-fit">
                 </div>
                 <h3 class="py-8 text-3xl font-medium text-center">營養師方案</h3>
                 <p class="text-center mb-4">由專業營養師依照成人一日所需搭配餐盒</p>
@@ -42,8 +42,8 @@
             </div>
             <div class="col-span-4 col-start-8">
                 <div class="flex justify-center">
-                    <img src="https://s3-alpha-sig.figma.com/img/7f12/ea13/00756f144a0fb5daaf68dbfc01103a46?Expires=1724630400&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=JHhc4Q0WYH0I5cy4bml2i3ZUOxEhUp0XqvXKQerXRHWtsZTZZrizj63EZIeDpC8LKVhd8WyzmBDqMVjzPVtoBCnbJGAp9sasZQlfGnAtsuRLIHLc~heWKMBAtuTsfmYvX436gGnNNau2RXOQfKxh3qFXkAWoI-HLmi8ygOfYtx0Zmrl9pizTccAazXJt4GFBByKkQLgmSp2-zCAGG6PdvbOx8zh-OIBHbYUrDYMeWk-Zr1syEaCnEqSDPI1fdFZG59Zrp-srnhLuPGQfD~3Fi7yVR1r-5QB1alp4zPdVjn~Bfo5I5bk9VJQtOumEmMeP56lQHFuqvop41IDdAeNM4Q__"
-                        alt="自定義方案" class="card-img">
+                    <img src="@/assets/image/自定義.svg"
+                        alt="自定義方案" class="w-fit">
                 </div>
                 <h3 class="py-8 text-3xl font-medium text-center">自定義方案</h3>
                 <p class="text-center mb-4">由您挑選喜歡的餐盒，不喜歡還能自定義餐盒！</p>
@@ -75,9 +75,4 @@
 
 </template>
 <style scoped>
-.card-img {
-    height: 96px;
-    width: 445px;
-    object-fit: cover;
-}
 </style>
