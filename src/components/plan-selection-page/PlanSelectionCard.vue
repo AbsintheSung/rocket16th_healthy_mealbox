@@ -9,7 +9,7 @@
         <button>21餐</button>
     </div>
     <!-- 方案選擇區塊 -->
-    <div class="container pt-20">
+    <div class="container py-20">
         <div class="grid grid-cols-12 gap-6">
             <div class="col-span-4 col-start-2">
                 <div class="flex justify-center">
@@ -18,7 +18,7 @@
                 </div>
                 <h3 class="py-8 text-3xl font-medium text-center">營養師方案</h3>
                 <p class="text-center mb-4">由專業營養師依照成人一日所需搭配餐盒</p>
-                <div class="flex flex-row flex-nowrap justify-center">
+                <div class="flex flex-row flex-nowrap justify-center pb-28">
                     <ul class="space-y-2">
                         <li>
                             <p><span>✔️</span>想要快快決定吃什麼的人</p>
@@ -33,6 +33,7 @@
                             <p><span>✔️</span>口頭禪是「都可以，你決定就好～」的P人</p>
                         </li>
                     </ul>
+                    <button class="flex justify-center border-2 text-center py-7 w-9/12">直接訂購</button>
                 </div>
             </div>
             <div class="col-span-4 col-start-8">
@@ -42,7 +43,7 @@
                 </div>
                 <h3 class="py-8 text-3xl font-medium text-center">自定義方案</h3>
                 <p class="text-center mb-4">由您挑選喜歡的餐盒，不喜歡還能自定義餐盒！</p>
-                <div class="flex flex-row flex-nowrap justify-center">
+                <div class="flex flex-row flex-nowrap justify-center pb-28">
                     <ul class="space-y-2">
                         <li>
                             <p><span>✔️</span>有點小挑食，會精挑細選的人</p>
