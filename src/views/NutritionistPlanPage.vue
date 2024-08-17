@@ -1,9 +1,9 @@
 <script setup>
-import NutritionistPlanCard from '@/components/nutritionist-plan-page/NutritionistPlanCard.vue'
+import NutritionistPlanCards from '@/components/nutritionist-plan-page/NutritionistPlanCards.vue'
 </script>
 <template>
     <div class="container py-20">
-        <NutritionistPlanCard />
+        <NutritionistPlanCards />
     </div>
 </template>
 <style scoped>
