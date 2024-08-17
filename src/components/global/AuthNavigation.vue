@@ -2,14 +2,14 @@
 <template>
   <div class="auth-border flex">
     <RouterLink
-      class="flex-grow py-6 text-center text-primary"
+      class="flex-grow py-6 text-center text-primary-base"
       to="/register"
       linkExactActiveClass="link-active"
     >
       會員註冊
     </RouterLink>
     <RouterLink
-      class="flex-grow py-6 text-center text-primary"
+      class="flex-grow py-6 text-center text-primary-base"
       to="/signin"
       linkExactActiveClass="link-active"
     >
