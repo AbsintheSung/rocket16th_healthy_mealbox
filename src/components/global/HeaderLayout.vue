@@ -11,6 +11,12 @@ const utilNav = ref([
   { id: 'user', iconStyle: ['fas', 'user'], path: '/' },
   { id: 'cart', iconStyle: ['fas', 'cart-shopping'], path: '/' }
 ])
+const selectedAction = ref('')
+
+const handleCommand = (command: string) => {
+  selectedAction.value = command
+  console.log(`你選擇了: ${selectedAction.value}`)
+}
 </script>
 <template>
   <header>
@@ -18,7 +24,18 @@ const utilNav = ref([
       <!-- <h1>我是LOGO</h1> -->
       <div class="flex flex-grow items-center justify-between">
         <ul class="flex gap-x-4">
-          <li></li>
+          <li class="flex items-center justify-center">
+            <el-dropdown trigger="click" @command="handleCommand">
+              <span class="el-dropdown-link">餐盒選擇</span>
+              <template #dropdown>
+                <el-dropdown-menu>
+                  <el-dropdown-item command="7">7 餐</el-dropdown-item>
+                  <el-dropdown-item command="14">14 餐</el-dropdown-item>
+                  <el-dropdown-item command="21">21 餐</el-dropdown-item>
+                </el-dropdown-menu>
+              </template>
+            </el-dropdown>
+          </li>
           <li v-for="mainNavItem in mainNav" :key="mainNavItem.id">
             <RouterLink class="block p-2" :to="`${mainNavItem.path}`">
               {{ mainNavItem.title }}
