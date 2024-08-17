@@ -1,5 +1,4 @@
 /** @type {import('tailwindcss').Config} */
-// import { getElementPlusThemColor } from './src/utils/getThemeColor'
 export default {
   content: ['./index.html', './src/**/*.{vue,js,ts,jsx,tsx}'],
   theme: {
@@ -27,7 +26,6 @@ export default {
     },
     extend: {
       colors: {
-        // ...getElementPlusThemColor(),
         primary: {
           base: "#58C067",
           50: "#F2FBF3",

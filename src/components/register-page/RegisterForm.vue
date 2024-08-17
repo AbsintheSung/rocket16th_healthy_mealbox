@@ -93,7 +93,7 @@ const handleRegister = async (formEl: FormInstance | undefined) => {
       </el-checkbox-group>
     </el-form-item>
     <button
-      class="w-full rounded-md bg-el-primary px-4 py-3 text-center font-bold"
+      class="w-full rounded-md bg-primary-base px-4 py-3 text-center font-bold"
       @click.prevent="handleRegister(ruleFormRef)"
     >
       註冊

@@ -14,7 +14,7 @@ const utilNav = ref([
 ])
 </script>
 <template>
-  <footer class="bg-[#286D33]">
+  <footer class="bg-primary-700">
     <div class="container py-6">
       <div class="flex items-center justify-between text-[#FFFFFF]">
         <ul class="flex">
