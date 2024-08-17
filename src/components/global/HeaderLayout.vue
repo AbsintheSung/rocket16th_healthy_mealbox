@@ -54,4 +54,9 @@ const handleCommand = (command: string) => {
     </nav>
   </header>
 </template>
-<style scoped></style>
+<style scoped>
+.el-dropdown-link,
+:deep(.el-dropdown-menu__item) {
+  font-size: 16px;
+}
+</style>
