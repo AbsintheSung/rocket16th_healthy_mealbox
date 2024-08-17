@@ -1,7 +1,7 @@
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
 import App from './App.vue'
-import './assets/tailwind.css';
+// import './assets/tailwind.css';
 import router from './router'
 import { getFontAwesome } from '@/utils/font-awesome/getAwesome'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'

@@ -19,10 +19,10 @@
 </template>
 <style lang="scss" scoped>
 .router-link-active {
-  background-color: $primary;
+  background-color: $primary-base;
   color: black;
 }
 .auth-border {
-  border: 1px solid $primary;
+  border: 1px solid $primary-base;
 }
 </style>
