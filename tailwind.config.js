@@ -1,5 +1,4 @@
 /** @type {import('tailwindcss').Config} */
-import { getElementPlusThemColor } from './src/utils/getThemeColor'
 export default {
   content: ['./index.html', './src/**/*.{vue,js,ts,jsx,tsx}'],
   theme: {
@@ -22,12 +21,54 @@ export default {
         xl: '1320px'
       }
     },
+    fontFamily: {
+      "Noto-Sans-TC": ["Noto Sans TC", "sans-serif"],
+    },
     extend: {
       colors: {
-        ...getElementPlusThemColor(),
-        primary: '#58C067',
-        primaryDark:'#286D33',
-        primary2: '#FE7F5F'
+        primary: {
+          base: "#58C067",
+          50: "#F2FBF3",
+          100: "#E2F6E5",
+          200: "#C5EDCA",
+          300: "#98DDA2",
+          400: "#58C067",
+          500: "#3EA94D",
+          600: "#2E8B3B",
+          700: "#286D33",
+          800: "#24572C",
+          900: "#1F4826",
+          950: "#0C2711"
+        },
+        secondary: {
+          base: "#FE7F5F",
+          50: "#FEF4F2",
+          100: "#FEE8E2",
+          200: "#FFD4C9",
+          300: "#FDB6A4",
+          400: "#FA8B6F",
+          500: "#F26541",
+          600: "#DF4923",
+          700: "#BB3A1A",
+          800: "#9B3319",
+          900: "#30301C",
+          950: "#461509"
+        },
+        success: {
+          base: '#67c23a'
+        },
+        warning: {
+          base: '#e6a23c'
+        },
+        danger: {
+          base: '#f56c6c'
+        },
+        error: {
+          base: '#f56c6c'
+        },
+        info: {
+          base: '#909399'
+        },
       }
     }
   },

@@ -1,0 +1,70 @@
+//自定義變數-可以讓 .vue檔案內的style lang='scss' 內取得這些變數
+//主色
+$primary-base: #58c067; //主色-主要
+$primary-50: #f2fbf3;
+$primary-100: #e2f6e5;
+$primary-200: #c5edca;
+$primary-300: #98dda2;
+$primary-400: #58c067;
+$primary-500: #3ea94d;
+$primary-600: #2e8b3b;
+$primary-700: #286d33;
+$primary-800: #24572c;
+$primary-900: #1f4826;
+$primary-950: #0c2711;
+
+//輔助色
+$secondary-base: #fa8b6f; //輔助色-主要
+$secondary-50: #fef4f2;
+$secondary-100: #fee8e2;
+$secondary-200: #ffd4c9;
+$secondary-300: #fdb6a4;
+$secondary-400: #fa8b6f;
+$secondary-500: #f26541;
+$secondary-600: #df4923;
+$secondary-700: #bb3a1a;
+$secondary-800: #9b3319;
+$secondary-900: #30301c;
+$secondary-950: #461509;
+
+//成功配色
+$success-base: #67c23a;
+
+//警告配色
+$warning-base: #e6a23c;
+
+//危險配色
+$danger-base: #f56c6c;
+
+//錯誤配色
+$error-base: #f56c6c;
+
+//info配色
+$info-base: #909399;
+
+//我們element-plus使用 自動導入，所以以下引入會設定在 vite.config內
+//修改element-plus的主題顏色
+@forward '../../../node_modules/element-plus/theme-chalk/src/common/var.scss' with (
+  $colors: (
+    'white': #ffffff,
+    'black': #000000,
+    'primary': (
+      'base': $success-base
+    ),
+    'success': (
+      'base': $success-base
+    ),
+    'warning': (
+      'base': $warning-base
+    ),
+    'danger': (
+      'base': $danger-base
+    ),
+    'error': (
+      'base': $error-base
+    ),
+    'info': (
+      'base': $error-base
+    )
+  )
+);
