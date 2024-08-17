@@ -14,8 +14,9 @@ const utilNav = ref([
 </script>
 <template>
   <header>
-    <nav class="container py-5">
-      <div class="flex items-center justify-between">
+    <nav class="container flex items-center py-5">
+      <!-- <h1>我是LOGO</h1> -->
+      <div class="flex flex-grow items-center justify-between">
         <ul class="flex gap-x-4">
           <li></li>
           <li v-for="mainNavItem in mainNav" :key="mainNavItem.id">
