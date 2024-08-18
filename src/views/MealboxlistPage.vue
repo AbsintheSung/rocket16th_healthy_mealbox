@@ -1,6 +1,10 @@
 <script setup>
 import { ref } from 'vue'
 const drawer = ref(false)
+const currentPage1 = ref(1)
+const handleCurrentChange = (val) => {
+  console.log(`current page: ${val}`)
+}
 </script>
 <template>
   <main>
@@ -31,6 +35,20 @@ const drawer = ref(false)
         </div>
         <div class="pb-12 pt-6">
           <RouterView></RouterView>
+        </div>
+        <div class="flex w-full items-center justify-center py-6">
+          <el-pagination
+            style="--el-fill-color: white"
+            layout="prev, pager, next"
+            v-model:current-page="currentPage1"
+            background
+            :page-size="20"
+            :pager-count="11"
+            :total="200"
+            :prev-text="'上一頁'"
+            :next-text="'下一頁'"
+            @current-change="handleCurrentChange"
+          />
         </div>
       </div>
     </section>
