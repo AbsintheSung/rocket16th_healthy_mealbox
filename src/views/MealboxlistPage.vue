@@ -4,15 +4,15 @@ const drawer = ref(false)
 </script>
 <template>
   <main>
-    <div class="container">
-      <section class="py-7">
+    <section class="container">
+      <div class="py-7">
         <h2 class="text-center text-[32px] font-bold">從列表中選擇您最愛的餐點</h2>
         <div class="mt-6">
           <p class="text-center">營養均衡、健康的配菜，隨手可得</p>
           <p class="text-center">從我們的精選單中選擇您最喜歡的餐點</p>
         </div>
-      </section>
-      <section>
+      </div>
+      <div>
         <div class="flex border-t border-black py-8 text-2xl">
           <RouterLink
             class="meal-link flex-grow text-center"
@@ -32,9 +32,9 @@ const drawer = ref(false)
         <div class="pb-12 pt-6">
           <RouterView></RouterView>
         </div>
-      </section>
-    </div>
-    <div class="bg-primary-50">
+      </div>
+    </section>
+    <section class="bg-primary-50">
       <div class="container">
         <div class="flex items-center justify-center gap-x-6 py-10">
           <button class="w-1/4 rounded border-2 border-black py-3" @click="drawer = true">
@@ -89,7 +89,7 @@ const drawer = ref(false)
           <template #footer> </template>
         </el-drawer>
       </div>
-    </div>
+    </section>
   </main>
 </template>
 
