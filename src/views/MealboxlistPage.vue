@@ -1,11 +1,6 @@
 <script setup>
 import { ref } from 'vue'
 const drawer = ref(false)
-
-const count = ref(0)
-const load = () => {
-  count.value += 2
-}
 </script>
 <template>
   <main>
