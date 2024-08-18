@@ -4,6 +4,7 @@ import SigninPage from '@/views/SigninPage.vue'
 import RegisterPage from '@/views/RegisterPage.vue'
 import PlanSelectionPage from '@/views/PlanSelectionPage.vue'
 import NutritionistPlanPage from '@/views/NutritionistPlanPage.vue'
+import NutritionistPlanDetailPage from '@/views/NutritionistPlanDetailPage.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -32,6 +33,12 @@ const router = createRouter({
       path:'/nutritionist-plan',
       name: 'NutritionistPlan',
       component: NutritionistPlanPage
+    },    
+    {
+      //串API時改為動態路由
+      path:'/nutritionist-plan-detail',
+      name: 'NutritionistPlanDetail',
+      component: NutritionistPlanDetailPage
     },
 
     //配置404 ( 此配置在最下面，之後新增的路由請新增在此路由設定上面 )
