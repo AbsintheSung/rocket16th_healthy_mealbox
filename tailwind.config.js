@@ -41,7 +41,7 @@ export default {
           950: "#0C2711"
         },
         secondary: {
-          base: "#FE7F5F",
+          base: "#FA8B6F",
           50: "#FEF4F2",
           100: "#FEE8E2",
           200: "#FFD4C9",
