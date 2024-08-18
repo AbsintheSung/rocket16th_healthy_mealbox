@@ -9,16 +9,16 @@
       </div>
     </section>
     <section>
-      <div class="flex border-t border-black py-8">
+      <div class="flex border-t border-black py-8 text-2xl">
         <RouterLink
-          class="test flex-grow text-center"
+          class="meal-link flex-grow text-center"
           to="/mealboxlist/mealgeneral"
           linkExactActiveClass="link-active"
         >
           一般餐盒
         </RouterLink>
         <RouterLink
-          class="test flex-grow text-center"
+          class="meal-link flex-grow text-center"
           to="/mealboxlist/mealcustomized"
           linkExactActiveClass="link-active"
         >
@@ -33,7 +33,7 @@
 .router-link-active {
   color: $primary-base;
 }
-.test:nth-child(1) {
+.meal-link:nth-child(1) {
   border-right: 1px solid black;
 }
 </style>
