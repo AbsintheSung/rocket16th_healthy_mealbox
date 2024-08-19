@@ -35,9 +35,9 @@
                 </ul>
             </div>
             <div class="flex justify-center">
-                <button class="order-btn">
-                    <p>直接訂購</p>
-                </button>
+                <RouterLink class="order-btn" to="/nutritionist-plan">
+                    直接訂購
+                </RouterLink>
             </div>
         </div>
         <!-- 自定義方案 -->
@@ -68,9 +68,9 @@
                 </ul>
             </div>
             <div class="flex justify-center">
-                <button class="order-btn">
-                    <p>直接訂購</p>
-                </button>
+                <RouterLink class="order-btn" to="/mealboxlist">
+                    直接訂購
+                </RouterLink>
             </div>
         </div>
     </div>
@@ -82,6 +82,7 @@
 <style scoped>
 .order-btn {
     width: 80%;
+    text-align: center;
     border-radius: 0.375rem;
     border-width: 2px;
     border-color: #FE7F5F;
