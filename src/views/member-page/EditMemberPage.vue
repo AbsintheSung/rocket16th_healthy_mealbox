@@ -26,24 +26,19 @@ const onSubmitPassword = () => {
     <h3>個人資訊</h3>
     <el-form :model="memberData" :label-position="'top'">
       <div class="flex gap-x-6">
-        <el-form-item label="全名" class="flex-grow">
+        <el-form-item label="全名" class="el-flex-grow">
           <el-input v-model="memberData.name" />
         </el-form-item>
-        <el-form-item label="電子郵件" class="flex-grow">
+        <el-form-item label="電子郵件" class="el-flex-grow">
           <el-input v-model="memberData.email" />
         </el-form-item>
       </div>
       <div class="flex items-center justify-between gap-x-6">
-        <el-form-item label="手機號碼" class="flex-grow">
+        <el-form-item label="手機號碼" class="el-flex-grow">
           <el-input v-model="memberData.phone" />
         </el-form-item>
-        <el-form-item label="出生日期" class="flex-grow">
-          <el-date-picker
-            v-model="memberData.both"
-            type="date"
-            placeholder="Pick a date"
-            style="width: 100%"
-          />
+        <el-form-item label="出生日期" class="el-flex-grow">
+          <el-date-picker v-model="memberData.both" type="date" placeholder="Pick a date" />
         </el-form-item>
       </div>
 
@@ -82,4 +77,14 @@ const onSubmitPassword = () => {
     </el-form>
   </div>
 </template>
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.el-flex-grow {
+  flex-grow: 1;
+}
+:deep(.el-date-editor) {
+  width: 100%;
+}
+:deep(.el-input__prefix-inner) {
+  display: none;
+}
+</style>
