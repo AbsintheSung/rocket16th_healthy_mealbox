@@ -13,10 +13,10 @@ const selectPlan = (value) => {
 }
 </script>
 <template>
-    <div class="bg-primary-base flex justify-evenly py-2">
+    <div class="bg-primary-base flex justify-evenly py-5 md:py-2">
         <button v-for="option in options" :key="option.value"
-            :class="['text-4xl text-primary-700 font-bold', 
-            selectedPlan === option.value ? 'text-4xl text-white font-bold transition-all':'text-4xl text-primary-700 font-bold']"
+            :class="['text-2xl md:text-4xl text-primary-700 font-bold', 
+            selectedPlan === option.value ? 'text-2xl md:text-4xl text-white font-bold transition-all':'text-2xl md:text-4xl text-primary-700 font-bold']"
             @click=" selectPlan(option.value)">
             {{ option.label }}
         </button>
