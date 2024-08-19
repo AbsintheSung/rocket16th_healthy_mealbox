@@ -6,6 +6,7 @@ import PlanSelectionPage from '@/views/PlanSelectionPage.vue'
 import NutritionistPlanPage from '@/views/NutritionistPlanPage.vue'
 import NutritionistPlanDetailPage from '@/views/NutritionistPlanDetailPage.vue'
 import MealboxlistPage from '@/views/MealboxlistPage.vue'
+import MemberPage from '@/views/MemberPage.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -68,6 +69,33 @@ const router = createRouter({
       path:'/singlemeal/:id',
       name: 'SingleMeal',
       component:()=>import("@/views/SingleMealPage.vue")
+    },
+    {
+      path:'/member',
+      name:'Member',
+      component: MemberPage,
+      children:[
+        {
+          path: '',
+          name: 'MemberIndex',
+          component:()=>import('@/views/member-page/IndexPage.vue')
+        },
+        {
+          path: 'editmember',
+          name: 'EditMember',
+          component:()=>import('@/views/member-page/EditMemberPage.vue')
+        },
+        {
+          path: 'orderhistory',
+          name: 'OrderHistory',
+          component:()=>import('@/views/member-page/OrderHistoryPage.vue')
+        },
+        {
+          path: 'custommeal',
+          name: 'CustomMeal',
+          component:()=>import('@/views/member-page/CustomMealPage.vue')
+        }
+      ]
     },
 
     //配置404 ( 此配置在最下面，之後新增的路由請新增在此路由設定上面 )
