@@ -3,11 +3,10 @@ import { RouterLink } from 'vue-router'
 import { ref } from 'vue'
 const mainNav = ref([
   { id: 'usage', title: '使用方式', path: '/' },
-  { id: 'about-us', title: '關於我們', path: '/' },
   { id: 'faq', title: '常見問題', path: '/' }
 ])
 const utilNav = ref([
-  //   { id: 'search', iconStyle: '', path: '/' },
+  { id: 'home', iconStyle: ['fas', 'house'], path: '/' },
   { id: 'user', iconStyle: ['fas', 'user'], path: '/' },
   { id: 'cart', iconStyle: ['fas', 'cart-shopping'], path: '/' }
 ])
@@ -21,9 +20,9 @@ const handleCommand = (command: string) => {
 <template>
   <header>
     <nav class="container flex items-center py-5">
-      <!-- <h1>我是LOGO</h1> -->
-      <div class="flex flex-grow items-center justify-between">
-        <ul class="flex gap-x-4">
+      <h1><RouterLink to="/">Logo</RouterLink></h1>
+      <div class="flex flex-grow items-center gap-x-3">
+        <ul class="ms-auto flex gap-x-4">
           <li class="flex items-center justify-center">
             <el-dropdown trigger="click" @command="handleCommand">
               <span class="el-dropdown-link">餐盒選擇</span>
@@ -43,7 +42,7 @@ const handleCommand = (command: string) => {
           </li>
         </ul>
         <ul class="flex items-center gap-x-4">
-          <li><FontAwesomeIcon :icon="['fas', 'magnifying-glass']" size="xl" /></li>
+          <!-- <li><FontAwesomeIcon :icon="['fas', 'magnifying-glass']" size="xl" /></li> -->
           <li v-for="utilNavItem in utilNav" :key="utilNavItem.id">
             <RouterLink class="block p-2" :to="`${utilNavItem.path}`">
               <FontAwesomeIcon :icon="utilNavItem.iconStyle" size="xl" />
