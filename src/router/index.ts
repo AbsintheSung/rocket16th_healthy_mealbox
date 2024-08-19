@@ -4,6 +4,7 @@ import SigninPage from '@/views/SigninPage.vue'
 import RegisterPage from '@/views/RegisterPage.vue'
 import PlanSelectionPage from '@/views/PlanSelectionPage.vue'
 import NutritionistPlanPage from '@/views/NutritionistPlanPage.vue'
+import NutritionistPlanDetailPage from '@/views/NutritionistPlanDetailPage.vue'
 import MealboxlistPage from '@/views/MealboxlistPage.vue'
 import MemberPage from '@/views/MemberPage.vue'
 
@@ -34,6 +35,12 @@ const router = createRouter({
       path:'/nutritionist-plan',
       name: 'NutritionistPlan',
       component: NutritionistPlanPage
+    },    
+    {
+      //串API時改為動態路由
+      path:'/nutritionist-plan-detail',
+      name: 'NutritionistPlanDetail',
+      component: NutritionistPlanDetailPage
     },
     {
       path:'/mealboxlist',
