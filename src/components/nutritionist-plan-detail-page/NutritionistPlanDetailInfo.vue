@@ -4,9 +4,9 @@
     <div class="pb-12">
         <h2 class="text-3xl">林飯糰 營養師的減脂 7餐方案</h2>
         <div class="flex pt-6 pb-9">
-            <img src="https://imgur.com/AVQvzL5.png" alt="營養師" class="w-fit">
+            <img src="https://imgur.com/zEy3Lgl.png" alt="營養師" class="w-fit">
             <div class="px-6 flex flex-col justify-between">
-                <h3 class="text-3xl">林飯糰 營養師</h3>
+                <h3 class="text-3xl px-2">林飯糰 營養師</h3>
                 <div class="pt-6 break-all">
                     <p>資歷：</p>
                     <p>火箭大學 保健營養系學士<br>火箭大學 保健營養系 碩士<br>國家考試合格營養師<br>食品衛生安全管理HACCP認證A+B</p>

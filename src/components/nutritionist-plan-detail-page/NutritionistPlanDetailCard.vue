@@ -73,7 +73,7 @@
             </div>
         </el-card>
         <div class="justify-self-end self-end">
-            <button class="bg-secondary-base border-2 border-black rounded-xl p-7"><p>將此方案加入購物車</p></button>
+            <button class="bg-secondary-base border-2 border-black rounded-xl p-7 cart-btn"><p>將此方案加入購物車</p></button>
         </div>
     </div>
 </template>
@@ -82,5 +82,11 @@
     width: 278px;
     height: 214px;
     object-fit: cover;
+}
+.cart-btn{
+    &:hover{
+        transition: .2s;
+        box-shadow: 5px 5px black;
+    }
 }
 </style>
