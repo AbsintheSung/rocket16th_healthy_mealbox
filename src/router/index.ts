@@ -57,6 +57,12 @@ const router = createRouter({
         }
       ]
     },
+    {
+      path:'/singlemeal/:id',
+      name: 'SingleMeal',
+      component:()=>import("@/views/SingleMealPage.vue")
+    },
+
     //配置404 ( 此配置在最下面，之後新增的路由請新增在此路由設定上面 )
     {
       //因為此頁面不太容易進入，除非使用者輸入網址錯誤，所以採用懶加載
