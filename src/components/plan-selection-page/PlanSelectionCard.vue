@@ -74,9 +74,9 @@
             </div>
         </div>
     </div>
-    <div class="relative -z-10 overflow-visible pointer-events-none mb-20">
+    <div class="relative -z-10 overflow-visible pointer-events-none mb-32">
         <img src="@/assets/image/Star 3.svg" alt="" class="w-fit absolute left-20 top-2">
-        <img src="@/assets/image/Star 2.svg" alt="" class="w-fit absolute left-4 top-12">
+        <img src="@/assets/image/Star 2.svg" alt="" class="w-fit absolute top-16">
     </div>
 </template>
 <style scoped>
