@@ -3,7 +3,7 @@ import { ref } from 'vue'
 import type { FormInstance } from 'element-plus'
 import axios from '@/utils/apis/axiosInterceptors'
 import { useRouter, type Router } from 'vue-router'
-import { registerApi } from '@/utils/apis/apiurl'
+import { registerApi } from '@/utils/apis/apiUrl'
 const ruleFormRef = ref<FormInstance>()
 const isLoading = ref<Boolean>(false)
 const router: Router = useRouter()
