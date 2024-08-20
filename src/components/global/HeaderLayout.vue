@@ -7,9 +7,9 @@ const mainNav = ref([
   { id: 'faq', title: '常見問題', path: '/' }
 ])
 const utilNav = ref([
-  { id: 'home', iconStyle: ['fas', 'house'], path: '/' },
+  { id: 'cart', iconStyle: ['fas', 'cart-shopping'], path: '/' },
   { id: 'user', iconStyle: ['fas', 'user'], path: '/' },
-  { id: 'cart', iconStyle: ['fas', 'cart-shopping'], path: '/' }
+  { id: 'signin', iconStyle: ['fas', 'right-to-bracket'], path: '/' }
 ])
 const selectedAction = ref('')
 
@@ -31,7 +31,7 @@ const handleCommand = (command: string) => {
           <ul class="ms-auto flex gap-x-4">
             <li class="flex items-center justify-center">
               <el-dropdown trigger="click" @command="handleCommand">
-                <span class="el-dropdown-link">餐盒選擇</span>
+                <span class="el-dropdown-link">方案選擇</span>
                 <template #dropdown>
                   <el-dropdown-menu>
                     <el-dropdown-item command="7">7 餐</el-dropdown-item>
@@ -51,7 +51,7 @@ const handleCommand = (command: string) => {
             <!-- <li><FontAwesomeIcon :icon="['fas', 'magnifying-glass']" size="xl" /></li> -->
             <li v-for="utilNavItem in utilNav" :key="utilNavItem.id">
               <RouterLink class="block p-2" :to="`${utilNavItem.path}`">
-                <FontAwesomeIcon :icon="utilNavItem.iconStyle" size="xl" />
+                <FontAwesomeIcon :icon="utilNavItem.iconStyle" size="lg" />
               </RouterLink>
             </li>
           </ul>
