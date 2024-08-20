@@ -1,7 +1,7 @@
 <script setup>
 </script>
 <template>
-    <div></div>
+    <div>shipping-payment</div>
 </template>
 <style scoped>
 </style>

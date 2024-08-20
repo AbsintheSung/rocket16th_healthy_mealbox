@@ -1,7 +1,7 @@
 <script setup>
 </script>
 <template>
-    <div></div>
+    <div>order-information</div>
 </template>
 <style scoped>
 </style>
