@@ -25,20 +25,22 @@ const authButtonData = [
 </script>
 <template>
   <main class="container">
-    <div class="mx-auto mt-20 w-full md:w-1/2">
-      <AuthNavigation class="mb-12" />
-      <SigninForm />
-      <el-divider><p style="color: #9cb0c9">OR</p></el-divider>
-      <ExternalAuthButton
-        v-for="buttonOption in authButtonData"
-        :key="buttonOption.buttonTitle"
-        :buttonOption="buttonOption"
-      />
-      <el-divider></el-divider>
-      <div>
-        <p class="text-center">
-          還沒帳號嗎?<RouterLink class="ps-1 text-red-700" to="/register">建立帳號</RouterLink>
-        </p>
+    <div class="-mx-3 grid grid-cols-12 gap-6">
+      <div class="col-span-12 px-3 md:col-start-4 md:col-end-10 md:px-0">
+        <AuthNavigation class="mb-12" />
+        <SigninForm />
+        <el-divider><p style="color: #9cb0c9">OR</p></el-divider>
+        <ExternalAuthButton
+          v-for="buttonOption in authButtonData"
+          :key="buttonOption.buttonTitle"
+          :buttonOption="buttonOption"
+        />
+        <el-divider></el-divider>
+        <div>
+          <p class="text-center">
+            還沒帳號嗎?<RouterLink class="ps-1 text-red-700" to="/register">建立帳號</RouterLink>
+          </p>
+        </div>
       </div>
     </div>
   </main>
