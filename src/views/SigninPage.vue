@@ -25,8 +25,8 @@ const authButtonData = [
 </script>
 <template>
   <main class="container">
-    <div class="-mx-3 grid grid-cols-12 gap-6">
-      <div class="col-span-12 px-3 md:col-start-4 md:col-end-10 md:px-0">
+    <div class="grid grid-cols-12 gap-6 md:-mx-3">
+      <div class="col-span-12 md:col-start-4 md:col-end-10">
         <AuthNavigation class="mb-12" />
         <SigninForm />
         <el-divider><p style="color: #9cb0c9">OR</p></el-divider>
