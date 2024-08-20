@@ -69,6 +69,9 @@ export default {
         info: {
           base: '#909399'
         },
+      },
+      boxShadow: {
+        'base': '5px 5px black',
       }
     }
   },
