@@ -7,6 +7,11 @@ import NutritionistPlanPage from '@/views/NutritionistPlanPage.vue'
 import NutritionistPlanDetailPage from '@/views/NutritionistPlanDetailPage.vue'
 import MealboxlistPage from '@/views/MealboxlistPage.vue'
 import MemberPage from '@/views/MemberPage.vue'
+import CheckoutPage from '@/views/checkout-page/CheckoutPage.vue'
+import OrderConfirmationPage from '@/views/checkout-page/OrderConfirmationPage.vue'
+import ShippingPaymentPage from '@/views/checkout-page/ShippingPaymentPage.vue'
+import OrderInformationPage from '@/views/checkout-page/OrderInformationPage.vue'
+import OrderCompletePage from '@/views/checkout-page/OrderCompletePage.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -97,7 +102,33 @@ const router = createRouter({
         }
       ]
     },
-
+    {
+      path: '/checkout',
+      name:'Checkout',
+      component: CheckoutPage,
+      children: [
+        {
+          path: '',
+          name: 'OrderConfirmation',
+          component: OrderConfirmationPage
+        },
+        {
+          path: 'shipping-payment',
+          name: 'ShippingPayment',
+          component: ShippingPaymentPage
+        },
+        {
+          path: 'order-information',
+          name: 'OrderInformation',
+          component: OrderInformationPage
+        },
+        {
+          path: 'order-complete',
+          name: 'OrderComplete',
+          component: OrderCompletePage
+        }
+      ]
+    },
     //配置404 ( 此配置在最下面，之後新增的路由請新增在此路由設定上面 )
     {
       //因為此頁面不太容易進入，除非使用者輸入網址錯誤，所以採用懶加載
