@@ -1,7 +1,7 @@
 <script setup>
 </script>
 <template>
-    <div class="grid grid-cols-12 gap-6">
+    <div class="grid grid-cols-12 gap-6 md:-mx-3">
         <div class="col-span-8">
             <div class="border-2 border-black">
                 <div class="flex items-center py-2 border-b border-black">
@@ -83,10 +83,34 @@
                 </div>
             </div>
         </div>
-        <div class="col-start-9 col-span-3">右邊區塊</div>
+        <div class="col-start-9 col-span-3">
+            <div class="border-2 border-black px-6 py-9">
+                <div class="flex justify-between text-xl pb-6 border-b border-black">
+                    <p>商品金額</p>
+                    <p>NT$1460</p>
+                </div>
+                <div class="flex justify-between text-xl pt-9 pb-6 border-b border-black">
+                    <p>運費</p>
+                    <p>免運</p>
+                </div>
+                <div class="flex justify-between text-xl pt-9 pb-6 border-b border-black">
+                    <p>合計</p>
+                    <p>NT$1460</p>
+                </div>
+                <div class="pt-28">
+                    <RouterLink
+                        class="flex items-center justify-center text-center py-2 px-4 bg-secondary-400 rounded-md border-2 border-black hover:shadow-base transition active:shadow-none"
+                        to="/checkout/shipping-payment">
+                        <p>前往結帳購物車</p>
+                    </RouterLink>
+                </div>
+            </div>
+        </div>
         <div class="col-start-1 col-span-2 pt-24">
-            <RouterLink class="flex items-center py-2 px-4 border-2 border-black hover:shadow-base transition active:shadow-none" to="/mealboxlist">
-                <font-awesome-icon :icon="['fas', 'caret-left']" class="pr-2"/>
+            <RouterLink
+                class="flex items-center py-2 px-4 border-2 border-black hover:shadow-base transition active:shadow-none"
+                to="/mealboxlist">
+                <font-awesome-icon :icon="['fas', 'caret-left']" class="pr-2" />
                 <p>繼續購物</p>
             </RouterLink>
         </div>
