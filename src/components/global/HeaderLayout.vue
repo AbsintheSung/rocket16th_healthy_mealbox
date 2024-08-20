@@ -7,9 +7,9 @@ const mainNav = ref([
   { id: 'faq', title: '常見問題', path: '/' }
 ])
 const utilNav = ref([
-  { id: 'cart', iconStyle: ['fas', 'cart-shopping'], path: '/' },
-  { id: 'user', iconStyle: ['fas', 'user'], path: '/' },
-  { id: 'signin', iconStyle: ['fas', 'right-to-bracket'], path: '/' }
+  { id: 'cart', iconStyle: ['fas', 'cart-shopping'], path: '/checkout' },
+  { id: 'user', iconStyle: ['fas', 'user'], path: '/member' },
+  { id: 'signin', iconStyle: ['fas', 'right-to-bracket'], path: '/signin' }
 ])
 const selectedAction = ref('')
 
