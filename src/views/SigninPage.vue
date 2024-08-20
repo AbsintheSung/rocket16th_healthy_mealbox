@@ -2,6 +2,7 @@
 import SigninForm from '@/components/signin-page/SigninForm.vue'
 import AuthNavigation from '@/components/global/AuthNavigation.vue'
 import ExternalAuthButton from '@/components/global/ExternalAuthButton.vue'
+import TheSvg from '@/components/global/TheSvg.vue'
 const authButtonData = [
   {
     buttonClass: 'border border-[#358AF9] text-[#358AF9]',
@@ -24,8 +25,8 @@ const authButtonData = [
 ]
 </script>
 <template>
-  <main class="container">
-    <div class="grid grid-cols-12 gap-6 md:-mx-3">
+  <main class="container flex flex-col">
+    <div class="grid grid-cols-12 gap-6 py-20 md:-mx-3">
       <div class="col-span-12 md:col-start-4 md:col-end-10">
         <AuthNavigation class="mb-12" />
         <SigninForm />
@@ -42,6 +43,9 @@ const authButtonData = [
           </p>
         </div>
       </div>
+    </div>
+    <div class="mb-6 mt-auto hidden md:flex">
+      <TheSvg class="ms-auto" svgIcon="decorate" />
     </div>
   </main>
 </template>
