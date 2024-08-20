@@ -32,3 +32,6 @@ coverage
 # 自動生成的文件
 auto-imports.d.ts
 components.d.ts
+
+# 忽略.env環境變數
+.env
