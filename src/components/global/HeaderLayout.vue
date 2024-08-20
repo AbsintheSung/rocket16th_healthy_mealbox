@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { RouterLink } from 'vue-router'
 import { ref } from 'vue'
+import TheSvg from '@/components/global/TheSvg.vue'
 const mainNav = ref([
   { id: 'usage', title: '使用方式', path: '/' },
   { id: 'faq', title: '常見問題', path: '/' }
@@ -21,7 +22,11 @@ const handleCommand = (command: string) => {
   <header>
     <nav class="container py-5">
       <div class="grid grid-cols-12 gap-6 md:-mx-3">
-        <h1 class="col-span-3 col-start-1 text-center"><RouterLink to="/">Logo</RouterLink></h1>
+        <h1 class="col-span-3 col-start-1 text-center">
+          <RouterLink to="/">
+            <TheSvg class="h-[40px]" svgIcon="logo" />
+          </RouterLink>
+        </h1>
         <div class="col-span-9 col-start-4 flex gap-x-6">
           <ul class="ms-auto flex gap-x-4">
             <li class="flex items-center justify-center">
