@@ -16,15 +16,15 @@ const utilNav = ref([
 <template>
   <footer class="bg-primary-700">
     <div class="container py-6">
-      <div class="flex items-center justify-between text-[#FFFFFF]">
-        <ul class="flex">
+      <div class="grid grid-cols-12 gap-6 text-[#FFFFFF] md:-mx-3">
+        <ul class="col-span-6 col-start-1 flex">
           <li v-for="mainNavItem in mainNav" :key="mainNavItem.id" class="py-1">
             <RouterLink class="block px-2" :to="`${mainNavItem.path}`" :id="mainNavItem.id">
               {{ mainNavItem.title }}
             </RouterLink>
           </li>
         </ul>
-        <ul class="flex items-center justify-between">
+        <ul class="col-span-6 col-start-7 flex items-center justify-end">
           <li v-for="utilNavItem in utilNav" :key="utilNavItem.id" class="py-1">
             <RouterLink class="block px-2" :to="`${utilNavItem.path}`">
               <FontAwesomeIcon :icon="utilNavItem.iconStyle" size="xl" />
