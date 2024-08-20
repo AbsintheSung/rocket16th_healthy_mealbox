@@ -1,14 +1,22 @@
 <script lang="ts" setup>
 import { ref } from 'vue'
 import type { FormInstance } from 'element-plus'
+import axios from '@/utils/apis/axiosInterceptors'
+import { useRouter, type Router } from 'vue-router'
+import { signinApi } from '@/utils/apis/apiUrl'
 const ruleFormRef = ref<FormInstance>()
-const loginInput = ref({
-  userEmail: '',
-  userPassWord: ''
+const isLoading = ref<Boolean>(false)
+type SigninInputType = {
+  account: string
+  password: string
+}
+const router: Router = useRouter()
+const signinInput = ref<SigninInputType>({
+  account: '',
+  password: ''
 })
-
 const registerRules = ref({
-  userEmail: [
+  account: [
     {
       type: 'email',
       required: true,
@@ -16,7 +24,7 @@ const registerRules = ref({
       trigger: ['blur', 'change']
     }
   ],
-  userPassWord: [
+  password: [
     { min: 6, max: 30, message: '長度介於6到30之間', trigger: 'blur' },
     { required: true, message: '必填', trigger: 'blur' }
   ]
@@ -25,22 +33,53 @@ const handleRegister = async (formEl: FormInstance | undefined) => {
   if (!formEl) return
   await formEl.validate((valid, fields) => {
     if (valid) {
-      console.log('發送登入API')
+      fetchSignin(signinInput.value)
+      // console.log('發送登入API')
     } else {
-      console.log('error submit!', fields)
+      // console.log('error submit!', fields)
     }
   })
 }
+const message = (mes: any, mesType: any): void => {
+  //@ts-ignore
+  ElMessage({
+    message: mes,
+    type: mesType,
+    duration: 1500
+  })
+}
+const fetchSignin = async (data: SigninInputType) => {
+  try {
+    isLoading.value = true
+    const response = await axios.post(signinApi, data)
+    if (response.status === 200) {
+      document.cookie = `tokenCode=${response.data.jwtToken}`
+      switch (response.data.code) {
+        case 0:
+          message(response.data.message, 'success')
+          router.push('/')
+        // console.log(response.data.message)
+      }
+    }
+  } catch (error: any) {
+    // console.log(error)
+    if (error.response.status === 401) {
+      message('登入失敗', 'error')
+    }
+  } finally {
+    isLoading.value = false
+  }
+}
 </script>
 <template>
-  <el-form ref="ruleFormRef" :rules="registerRules" :model="loginInput">
-    <el-form-item label="登入電子信箱帳號:" label-position="top" prop="userEmail">
-      <el-input v-model="loginInput.userEmail" />
+  <el-form ref="ruleFormRef" :rules="registerRules" :model="signinInput">
+    <el-form-item label="登入電子信箱帳號:" label-position="top" prop="account">
+      <el-input v-model="signinInput.account" />
     </el-form-item>
     <div class="relative">
       <el-link type="danger" :underline="false" class="forget-link ms-2">忘記密碼?</el-link>
-      <el-form-item label="密碼:" label-position="top" prop="userPassWord">
-        <el-input v-model="loginInput.userPassWord" />
+      <el-form-item label="密碼:" label-position="top" prop="password">
+        <el-input v-model="signinInput.password" type="password" />
       </el-form-item>
     </div>
     <button
