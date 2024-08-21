@@ -6,7 +6,7 @@ import TheSvg from '@/components/global/TheSvg.vue'
     <section class="grid grid-cols-12 gap-6 md:-mx-3">
       <div class="col-span-3 col-start-1">
         <aside>
-          <div class="bg-prmary-100 relative py-6 text-xl">
+          <div class="relative bg-primary-100 py-6 text-xl">
             <TheSvg svgIcon="decorate-re" class="absolute h-[46px] w-[46px] object-cover" />
             <TheSvg
               svgIcon="single-star"
