@@ -8,17 +8,17 @@ export default {
       sm: '576px',
       md: '768px',
       lg: '992px',
-      xl: '1320px'
+      xl: '1344px' //1320 + 12(左) + 12(右) = 1344
     },
     container: {
       center: true,
-      padding: '0.75rem',
+      padding: '0.75rem',//16*0.75=12
       screens: {
         ssm: '100%',
         sm: '100%',
         md: '100%',
         lg: '100%',
-        xl: '1320px'
+        xl: '1344px' //1320 + 12(左) + 12(右) = 1344
       }
     },
     fontFamily: {
