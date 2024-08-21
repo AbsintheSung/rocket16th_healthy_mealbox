@@ -23,7 +23,7 @@ const memberLink = ref([
       >
         <RouterLink :to="`${memberLinkItem.path}`" class="block py-24 hover:bg-primary-100">
           <div class="flex flex-col items-center justify-center gap-y-4">
-            <FontAwesomeIcon :icon="`${memberLinkItem.icon}`" size="lg" />
+            <FontAwesomeIcon :icon="memberLinkItem.icon" size="2xl" />
             <p>{{ memberLinkItem.title }}</p>
           </div>
         </RouterLink>
@@ -31,7 +31,7 @@ const memberLink = ref([
       <li v-else class="col-start-4 col-end-7 rounded border-2 border-black hover:shadow-base">
         <RouterLink :to="`${memberLinkItem.path}`" class="block py-24 hover:bg-primary-100">
           <div class="flex flex-col items-center justify-center gap-y-4">
-            <FontAwesomeIcon :icon="`${memberLinkItem.icon}`" size="lg" />
+            <FontAwesomeIcon :icon="memberLinkItem.icon" size="2xl" />
             <p>{{ memberLinkItem.title }}</p>
           </div>
         </RouterLink>
