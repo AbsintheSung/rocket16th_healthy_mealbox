@@ -121,10 +121,10 @@ const fetchRegister = async (data: RegisterInputType) => {
       <el-input v-model="registerInput.account" />
     </el-form-item>
     <el-form-item label="密碼:" label-position="top" prop="password">
-      <el-input v-model="registerInput.password" />
+      <el-input v-model="registerInput.password" type="password" />
     </el-form-item>
     <el-form-item label="請再輸入註冊密碼:" label-position="top" prop="checkPassWord">
-      <el-input v-model="registerInput.checkPassWord" />
+      <el-input v-model="registerInput.checkPassWord" type="password" />
     </el-form-item>
     <el-form-item prop="privacy">
       <el-checkbox-group v-model="registerInput.privacy">
