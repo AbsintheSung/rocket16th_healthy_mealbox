@@ -1,5 +1,9 @@
 <script setup>
-import { ref } from 'vue'
+import { computed, ref, watch } from 'vue'
+import { taiwanCity } from '@/content/city' //引入城市鄉鎮
+const twCityArea = ref({ city: [], area: [] }) //用來存放城市鄉鎮的資料，select使用
+const cityName = ref('') //v-model綁定所選取得值
+const cityArea = ref('') //v-model綁定所選取得值
 const memberData = ref({
   name: '',
   email: '',
@@ -20,30 +24,25 @@ const onSubmitPassword = () => {
   console.log(updatePassWord.value)
 }
 
-const value = ref('')
+//將引入的城鄉鎮資料，作處理後assign到 twCityArea.city
+const getTwCityArea = () => {
+  twCityArea.value.city = taiwanCity.map((item) => item.name)
+}
 
-const options = [
-  {
-    value: 'Option1',
-    label: 'Option1'
-  },
-  {
-    value: 'Option2',
-    label: 'Option2'
-  },
-  {
-    value: 'Option3',
-    label: 'Option3'
-  },
-  {
-    value: 'Option4',
-    label: 'Option4'
-  },
-  {
-    value: 'Option5',
-    label: 'Option5'
+//透過監聽選取城市的變化，將 地區值作處理後assign到twCityArea.value.area
+watch(
+  () => cityName.value,
+  (newCity) => {
+    const filterArea = taiwanCity.filter((item) => item.name === newCity)
+    twCityArea.value.area = filterArea[0].districts.map((item) => item.name)
   }
-]
+)
+getTwCityArea()
+
+const test = () => {
+  console.log(cityName.value)
+  console.log(cityArea.value)
+}
 </script>
 <template>
   <h2 class="mb-20 w-fit rounded bg-primary-300 px-4 py-3 text-4xl font-normal shadow-base">
@@ -85,31 +84,36 @@ const options = [
         <div class="flex flex-wrap items-center justify-between gap-x-6 gap-y-2">
           <p class="w-full">地址</p>
           <div class="flex-grow">
-            <el-select v-model="value" placeholder="城市">
+            <el-select v-model="cityName" placeholder="城市">
               <el-option
-                v-for="item in options"
-                :key="item.value"
-                :label="item.label"
-                :value="item.value"
+                v-for="cityItem in twCityArea.city"
+                :key="cityItem"
+                :label="cityItem"
+                :value="cityItem"
               />
             </el-select>
           </div>
           <div class="flex-grow">
-            <el-select v-model="value" placeholder="地區">
+            <el-select v-model="cityArea" placeholder="地區">
               <el-option
-                v-for="item in options"
-                :key="item.value"
-                :label="item.label"
-                :value="item.value"
+                v-for="areaItem in twCityArea.area"
+                :key="areaItem"
+                :label="areaItem"
+                :value="areaItem"
               />
             </el-select>
           </div>
           <div class="w-full">
-            <el-input v-model="input" placeholder="地址" />
+            <el-input v-model="memberData.address" placeholder="地址" />
           </div>
         </div>
         <div class="flex py-5">
-          <button class="ms-auto rounded bg-secondary-base px-14 py-2 font-bold">儲存資料</button>
+          <button
+            class="ms-auto rounded bg-secondary-base px-14 py-2 font-bold"
+            @click.prevent="test"
+          >
+            儲存資料
+          </button>
         </div>
       </el-form>
     </div>
