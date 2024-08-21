@@ -1,12 +1,17 @@
 import { fileURLToPath, URL } from 'node:url'
-
+import dotenv from 'dotenv';
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import vueDevTools from 'vite-plugin-vue-devtools'
 import AutoImport from 'unplugin-auto-import/vite'
 import Components from 'unplugin-vue-components/vite'
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
-const baseURL = import.meta.env.VITE_APP_API_URL
+// 加載環境變數
+dotenv.config();
+
+// 使用環境變數
+const baseURL = process.env.VITE_APP_API_URL;
+const apiName = process.env.VITE_APP_API_NAME;
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
@@ -35,8 +40,8 @@ export default defineConfig({
   },
   server: {
     proxy: {
-      "/api": {
-        target: "http://your.backend.server",
+      [`${apiName}`]: {
+        target: baseURL,
         changeOrigin: true,
         // 如果有字串需要替換可以加入 rewrite 這個屬性
         // rewrite: (path) => path.replace(/^\/api/, '')
