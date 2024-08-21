@@ -1,5 +1,12 @@
 <script setup>
+import { ref } from 'vue'
 import TheSvg from '@/components/global/TheSvg.vue'
+const memberLink = ref([
+  { id: 'editmember', title: '會員資料', path: '/member/editmember', icon: ['fas', 'user'] },
+  { id: 'orderhistory', title: '歷史訂單', path: '/member/orderhistory', icon: ['fas', 'file'] },
+  { id: 'custommeal', title: '我的自定義餐盒', path: '/member/custommeal', icon: ['far', 'heart'] },
+  { id: 'coupon', title: '我的優惠券', path: '/', icon: ['fas', 'gift'] }
+])
 </script>
 <template>
   <div class="relative mb-32">
@@ -9,7 +16,29 @@ import TheSvg from '@/components/global/TheSvg.vue'
     <TheSvg svgIcon="decorate" class="absolute right-0 top-0 hidden w-[140px] md:block" />
   </div>
   <ul class="grid grid-cols-8 gap-6">
-    <li class="col-start-1 col-end-4 rounded border-2 border-black hover:shadow-base">
+    <template v-for="(memberLinkItem, index) in memberLink" :key="memberLinkItem.id">
+      <li
+        v-if="index % 2 === 0"
+        class="col-start-1 col-end-4 rounded border-2 border-black hover:shadow-base"
+      >
+        <RouterLink :to="`${memberLinkItem.path}`" class="block py-24 hover:bg-primary-100">
+          <div class="flex flex-col items-center justify-center gap-y-4">
+            <FontAwesomeIcon :icon="`${memberLinkItem.icon}`" size="lg" />
+            <p>{{ memberLinkItem.title }}</p>
+          </div>
+        </RouterLink>
+      </li>
+      <li v-else class="col-start-4 col-end-7 rounded border-2 border-black hover:shadow-base">
+        <RouterLink :to="`${memberLinkItem.path}`" class="block py-24 hover:bg-primary-100">
+          <div class="flex flex-col items-center justify-center gap-y-4">
+            <FontAwesomeIcon :icon="`${memberLinkItem.icon}`" size="lg" />
+            <p>{{ memberLinkItem.title }}</p>
+          </div>
+        </RouterLink>
+      </li>
+    </template>
+
+    <!-- <li class="col-start-1 col-end-4 rounded border-2 border-black hover:shadow-base">
       <RouterLink to="/member" class="block py-24 hover:bg-primary-100">
         <div class="flex flex-col items-center justify-center gap-y-4">
           <FontAwesomeIcon :icon="['fas', 'user']" size="lg" />
@@ -40,7 +69,7 @@ import TheSvg from '@/components/global/TheSvg.vue'
           <p>我的優惠券</p>
         </div>
       </RouterLink>
-    </li>
+    </li> -->
   </ul>
   <!-- <ul class="flex flex-col gap-y-6 py-16">
     <li>
