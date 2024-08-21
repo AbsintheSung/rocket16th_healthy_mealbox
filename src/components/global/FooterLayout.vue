@@ -16,7 +16,7 @@ const utilNav = ref([
 <template>
   <footer class="bg-primary-700">
     <div class="container py-6">
-      <div class="grid grid-cols-12 gap-6 text-[#FFFFFF] md:-mx-3">
+      <div class="grid grid-cols-12 gap-6 text-[#FFFFFF]">
         <ul class="col-span-6 col-start-1 flex">
           <li v-for="mainNavItem in mainNav" :key="mainNavItem.id" class="py-1">
             <RouterLink class="block px-2" :to="`${mainNavItem.path}`" :id="mainNavItem.id">

@@ -21,7 +21,7 @@ const handleCommand = (command: string) => {
 <template>
   <header>
     <nav class="container py-5">
-      <div class="grid grid-cols-12 gap-6 md:-mx-3">
+      <div class="grid grid-cols-12 gap-6">
         <h1 class="col-span-3 col-start-1 text-center">
           <RouterLink to="/">
             <TheSvg class="h-[40px]" svgIcon="logo" />

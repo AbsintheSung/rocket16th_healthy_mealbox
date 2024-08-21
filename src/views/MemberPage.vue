@@ -12,7 +12,7 @@ const memberLink = ref([
 </script>
 <template>
   <main class="container relative py-20">
-    <section class="grid grid-cols-12 gap-6 md:-mx-3">
+    <section class="grid grid-cols-12 gap-6">
       <div class="col-span-3 col-start-1">
         <aside class="rounded border-2 border-black">
           <div class="relative bg-primary-100 py-6 text-xl">
