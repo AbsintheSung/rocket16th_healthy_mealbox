@@ -29,7 +29,7 @@ import TheSvg from '@/components/global/TheSvg.vue'
       <RouterLink to="/" class="block py-24 hover:bg-primary-100">
         <div class="flex flex-col items-center justify-center gap-y-4">
           <FontAwesomeIcon :icon="['far', 'heart']" size="lg" />
-          <p>我的字定義餐盒</p>
+          <p>我的自定義餐盒</p>
         </div>
       </RouterLink>
     </li>
