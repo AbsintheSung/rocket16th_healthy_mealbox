@@ -26,7 +26,7 @@ const authButtonData = [
 </script>
 <template>
   <main class="container flex flex-col">
-    <div class="grid grid-cols-12 gap-6 py-20 md:-mx-3">
+    <div class="grid grid-cols-12 gap-6 py-20">
       <div class="col-span-12 md:col-start-4 md:col-end-10">
         <AuthNavigation class="mb-12" />
         <RegisterForm />
