@@ -19,7 +19,7 @@ const nextStep = () => {
         </div>
         <div class="col-span-12">
             <div class="border-2 border-black">
-                <div class="bg-primary-300 py-2 border-b border-black">
+                <div class="bg-primary-300 py-2 pl-6 border-b border-black">
                     <p class="font-bold">購物車</p>
                 </div>
                 <table class="w-full table-auto border-b-2 border-black">
