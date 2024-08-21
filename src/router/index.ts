@@ -104,38 +104,31 @@ const router = createRouter({
       component: CheckoutPage,
       children: [
         {
-          path: '/checkout',
-          name: 'Checkout',
-          component: CheckoutPage,
-          children: [
-            {
-              // 沒有配置 /checkout 下的 RouterView 預設頁面，當進入 /checkout 後，重新導向到 /checkout/order-confirmation
-              path: '',
-              name: 'CheckoutIndex',
-              redirect: { name: 'OrderConfirmation' }
-            },
-            {
-              path: 'order-confirmation',
-              name: 'OrderConfirmation',
-              component: () => import('@/views/checkout-page/OrderConfirmationPage.vue')
-            },
-            {
-              path: 'shipping-payment',
-              name: 'ShippingPayment',
-              component: () => import('@/views/checkout-page/ShippingPaymentPage.vue')
-            },
-            {
-              path: 'order-information',
-              name: 'OrderInformation',
-              component: () => import('@/views/checkout-page/OrderInformationPage.vue')
-            },
-            {
-              path: 'order-complete',
-              name: 'OrderComplete',
-              component: () => import('@/views/checkout-page/OrderCompletePage.vue')
-            }
-          ]
+          // 沒有配置 /checkout 下的 RouterView 預設頁面，當進入 /checkout 後，重新導向到 /checkout/order-confirmation
+          path: '',
+          name: 'CheckoutIndex',
+          redirect: { name: 'OrderConfirmation' }
         },
+        {
+          path: 'order-confirmation',
+          name: 'OrderConfirmation',
+          component: () => import('@/views/checkout-page/OrderConfirmationPage.vue')
+        },
+        {
+          path: 'shipping-payment',
+          name: 'ShippingPayment',
+          component: () => import('@/views/checkout-page/ShippingPaymentPage.vue')
+        },
+        {
+          path: 'order-information',
+          name: 'OrderInformation',
+          component: () => import('@/views/checkout-page/OrderInformationPage.vue')
+        },
+        {
+          path: 'order-complete',
+          name: 'OrderComplete',
+          component: () => import('@/views/checkout-page/OrderCompletePage.vue')
+        }
       ]
     },
     //配置404 ( 此配置在最下面，之後新增的路由請新增在此路由設定上面 )

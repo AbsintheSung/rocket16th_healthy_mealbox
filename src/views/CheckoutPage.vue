@@ -1,8 +1,8 @@
 <script setup>
 </script>
 <template>
-    <div class="container py-20">
+    <main class="container py-20">
         <RouterView></RouterView>
-    </div>
+    </main>
 </template>
 <style scoped></style>
