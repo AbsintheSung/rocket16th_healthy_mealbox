@@ -21,7 +21,9 @@ const onSubmitPassword = () => {
 }
 </script>
 <template>
-  <h2 class="text-6xl font-normal">我的個人帳戶</h2>
+  <h2 class="mb-20 w-fit rounded bg-primary-300 px-4 py-3 text-4xl font-normal shadow-base">
+    我的個人帳戶
+  </h2>
   <div class="mt-16 rounded border">
     <h3 class="border-b p-5 text-3xl font-bold">個人資訊</h3>
     <div class="px-5 py-8">

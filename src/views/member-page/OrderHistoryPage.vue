@@ -6,7 +6,9 @@ const handleChange = (val) => {
 }
 </script>
 <template>
-  <h2 class="mb-8 text-6xl font-normal">歷史訂單</h2>
+  <h2 class="mb-20 w-fit rounded bg-primary-300 px-4 py-3 text-4xl font-normal shadow-base">
+    歷史訂單
+  </h2>
   <div>
     <el-collapse v-model="activeNames" @change="handleChange">
       <el-collapse-item :title="`訂單日期 ${'2024 / 08 / 07'} | 訂單金額：${'＄1460'}`" name="1">
