@@ -1,6 +1,13 @@
-<script setup></script>
+<script setup>
+import TheSvg from '@/components/global/TheSvg.vue'
+</script>
 <template>
-  <h2 class="text-6xl font-normal mb-20">會員中心</h2>
+  <div class="relative">
+    <h2 class="mb-20 w-fit rounded bg-primary-300 px-4 py-3 text-4xl font-normal shadow-base">
+      會員中心
+    </h2>
+    <TheSvg svgIcon="decorate" class="absolute right-0 top-0 hidden w-[140px] md:block" />
+  </div>
   <ul class="flex flex-wrap gap-6">
     <li class="w-2/5 border border-black">
       <RouterLink to="/member" class="block py-24 hover:bg-primary-100">
