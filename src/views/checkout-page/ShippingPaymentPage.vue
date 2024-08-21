@@ -1,24 +1,27 @@
 <script setup>
-import { ref,reactive } from 'vue'
+import { ref, reactive } from 'vue'
 import ShoppingCartProgressBar from '@/components/global/ShoppingCartProgressBar.vue'
 
 const steps = ref(['購物車', '填寫資料', '訂單確認'])
 const currentStep = ref(1)
 
+//購物車狀態列函式
 const nextStep = () => {
     if (currentStep.value < steps.value.length) {
         currentStep.value++
     }
 }
 
+//表單資料
 const form = reactive({
-  placeOfDelivery: '',
-  shipment: '',
-  payment:''
+    placeOfDelivery: '',
+    shipment: '',
+    payment: ''
 })
 
+//送出表單
 const onSubmit = () => {
-  console.log('submit!')
+    console.log('submit!')
 }
 </script>
 <template>
@@ -107,16 +110,42 @@ const onSubmit = () => {
             </div>
         </div>
         <div class="col-start-9 col-span-4">
-            選擇送貨方式及付款方式2
+            <div class="bg-primary-300 border-2 border-black">
+                <p class="px-6 py-2 font-bold">選擇送貨及付款方式</p>
+            </div>
+            <div class="border border-black">
+                <div class="border border-black px-6 py-9">
+                    <div class="flex justify-between text-xl pb-6 border-b border-black">
+                        <p>商品金額</p>
+                        <p>NT$1460</p>
+                    </div>
+                    <div class="flex justify-between text-xl pt-9 pb-6 border-b border-black">
+                        <p>運費</p>
+                        <p>免運</p>
+                    </div>
+                    <div class="flex justify-between text-xl pt-9 pb-6 border-b border-black">
+                        <p>合計</p>
+                        <p>NT$1460</p>
+                    </div>
+                    <div class="pt-28">
+                        <RouterLink
+                            class="flex items-center justify-center text-center py-2 px-4 bg-secondary-400 rounded-md border-2 border-black hover:shadow-base transition active:shadow-none"
+                            type="primary" @click="onSubmit" to="/checkout/order-information">
+                            <p>前往結帳購物車</p>
+                        </RouterLink>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </template>
 <style scoped>
 :deep(.el-form-item__label) {
-  color:black;
-  font-size: 16px;
+    color: black;
+    font-size: 16px;
 }
-:deep(.el-select__wrapper){
+
+:deep(.el-select__wrapper) {
     padding: 8px 12px;
 }
 </style>
