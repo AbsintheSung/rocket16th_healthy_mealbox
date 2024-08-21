@@ -2,14 +2,14 @@
 import TheSvg from '@/components/global/TheSvg.vue'
 </script>
 <template>
-  <div class="relative">
-    <h2 class="mb-20 w-fit rounded bg-primary-300 px-4 py-3 text-4xl font-normal shadow-base">
+  <div class="relative mb-32">
+    <h2 class="w-fit rounded bg-primary-300 px-4 py-3 text-4xl font-normal shadow-base">
       會員中心
     </h2>
     <TheSvg svgIcon="decorate" class="absolute right-0 top-0 hidden w-[140px] md:block" />
   </div>
-  <ul class="flex flex-wrap gap-6">
-    <li class="w-2/5 border border-black">
+  <ul class="grid grid-cols-8 gap-6">
+    <li class="col-start-1 col-end-4 rounded border-2 border-black hover:shadow-base">
       <RouterLink to="/member" class="block py-24 hover:bg-primary-100">
         <div class="flex flex-col items-center justify-center gap-y-4">
           <FontAwesomeIcon :icon="['fas', 'user']" size="lg" />
@@ -17,7 +17,7 @@ import TheSvg from '@/components/global/TheSvg.vue'
         </div>
       </RouterLink>
     </li>
-    <li class="w-2/5 border border-black">
+    <li class="col-start-4 col-end-7 rounded border-2 border-black hover:shadow-base">
       <RouterLink to="/" class="block py-24 hover:bg-primary-100">
         <div class="flex flex-col items-center justify-center gap-y-4">
           <FontAwesomeIcon :icon="['fas', 'file']" size="lg" />
@@ -25,7 +25,7 @@ import TheSvg from '@/components/global/TheSvg.vue'
         </div>
       </RouterLink>
     </li>
-    <li class="w-2/5 border border-black">
+    <li class="col-start-1 col-end-4 rounded border-2 border-black hover:shadow-base">
       <RouterLink to="/" class="block py-24 hover:bg-primary-100">
         <div class="flex flex-col items-center justify-center gap-y-4">
           <FontAwesomeIcon :icon="['far', 'heart']" size="lg" />
@@ -33,7 +33,7 @@ import TheSvg from '@/components/global/TheSvg.vue'
         </div>
       </RouterLink>
     </li>
-    <li class="w-2/5 border border-black">
+    <li class="col-start-4 col-end-7 rounded border-2 border-black hover:shadow-base">
       <RouterLink to="/" class="block py-24 hover:bg-primary-100">
         <div class="flex flex-col items-center justify-center gap-y-4">
           <FontAwesomeIcon :icon="['fas', 'gift']" size="lg" />
