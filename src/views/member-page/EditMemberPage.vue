@@ -1,5 +1,9 @@
 <script setup>
-import { ref } from 'vue'
+import { computed, ref, watch } from 'vue'
+import { taiwanCity } from '@/content/city' //引入城市鄉鎮
+const twCityArea = ref({ city: [], area: [] }) //用來存放城市鄉鎮的資料，select使用
+const cityName = ref('') //v-model綁定所選取得值
+const cityArea = ref('') //v-model綁定所選取得值
 const memberData = ref({
   name: '',
   email: '',
@@ -19,6 +23,26 @@ const onSubmit = () => {
 const onSubmitPassword = () => {
   console.log(updatePassWord.value)
 }
+
+//將引入的城鄉鎮資料，作處理後assign到 twCityArea.city
+const getTwCityArea = () => {
+  twCityArea.value.city = taiwanCity.map((item) => item.name)
+}
+
+//透過監聽選取城市的變化，將 地區值作處理後assign到twCityArea.value.area
+watch(
+  () => cityName.value,
+  (newCity) => {
+    const filterArea = taiwanCity.filter((item) => item.name === newCity)
+    twCityArea.value.area = filterArea[0].districts.map((item) => item.name)
+  }
+)
+getTwCityArea()
+
+const test = () => {
+  console.log(cityName.value)
+  console.log(cityArea.value)
+}
 </script>
 <template>
   <h2 class="mb-20 w-fit rounded bg-primary-300 px-4 py-3 text-4xl font-normal shadow-base">
@@ -29,33 +53,67 @@ const onSubmitPassword = () => {
     <div class="px-5 py-8">
       <el-form :model="memberData" :label-position="'top'">
         <div class="flex gap-x-6">
+          <!-- 電子郵件 -->
           <el-form-item label="全名" class="el-flex-grow">
-            <el-input v-model="memberData.name" />
+            <el-input v-model="memberData.name" type="text" />
           </el-form-item>
           <el-form-item label="電子郵件" class="el-flex-grow">
-            <el-input v-model="memberData.email" />
+            <el-input v-model="memberData.email" type="email" />
           </el-form-item>
         </div>
+        <!-- 手機號碼 & 出生日期-->
         <div class="flex items-center justify-between gap-x-6">
           <el-form-item label="手機號碼" class="el-flex-grow">
-            <el-input v-model="memberData.phone" />
+            <el-input v-model="memberData.phone" type="phone" />
           </el-form-item>
           <el-form-item label="出生日期" class="el-flex-grow">
             <el-date-picker v-model="memberData.both" type="date" placeholder="選擇日期" />
           </el-form-item>
         </div>
-        <el-form-item label="性別">
-          <el-radio-group v-model="memberData.gender">
-            <el-radio value="male">男性</el-radio>
-            <el-radio value="female">女性</el-radio>
-            <el-radio value="other">其他</el-radio>
-          </el-radio-group>
-        </el-form-item>
-        <el-form-item label="地址">
-          <el-input v-model="memberData.address" />
-        </el-form-item>
-        <div class="flex">
-          <button class="ms-auto rounded bg-primary-base px-14 py-2">儲存資料</button>
+        <!-- 性別 -->
+        <div>
+          <el-form-item label="性別">
+            <el-radio-group v-model="memberData.gender">
+              <el-radio value="male">男性</el-radio>
+              <el-radio value="female">女性</el-radio>
+              <el-radio value="other">其他</el-radio>
+            </el-radio-group>
+          </el-form-item>
+        </div>
+        <!-- 地址 -->
+        <div class="flex flex-wrap items-center justify-between gap-x-6 gap-y-2">
+          <p class="w-full">地址</p>
+          <div class="flex-grow">
+            <el-select v-model="cityName" placeholder="城市">
+              <el-option
+                v-for="cityItem in twCityArea.city"
+                :key="cityItem"
+                :label="cityItem"
+                :value="cityItem"
+              />
+            </el-select>
+          </div>
+          <div class="flex-grow">
+            <el-select v-model="cityArea" placeholder="地區">
+              <el-option
+                v-for="areaItem in twCityArea.area"
+                :key="areaItem"
+                :label="areaItem"
+                :value="areaItem"
+              />
+            </el-select>
+          </div>
+          <div class="w-full">
+            <el-input v-model="memberData.address" placeholder="地址" />
+          </div>
+        </div>
+        <div class="flex py-5">
+          <button
+            class="ms-auto rounded bg-secondary-base px-14 py-2 font-bold"
+            @click.prevent="test"
+          >
+            儲存資料
+          </button>
         </div>
       </el-form>
     </div>
@@ -69,16 +127,16 @@ const onSubmitPassword = () => {
     <div class="px-5 py-8">
       <el-form :model="updatePassWord" :label-position="'top'">
         <el-form-item label="當前密碼">
-          <el-input v-model="updatePassWord.oldPassWord" />
+          <el-input v-model="updatePassWord.oldPassWord" type="password" />
         </el-form-item>
         <el-form-item label="輸入新密碼">
-          <el-input v-model="updatePassWord.newPassWord" />
+          <el-input v-model="updatePassWord.newPassWord" type="password" />
         </el-form-item>
         <el-form-item label="確認新密碼">
-          <el-input v-model="updatePassWord.checkNewPassWord" />
+          <el-input v-model="updatePassWord.checkNewPassWord" type="password" />
         </el-form-item>
         <div class="flex">
-          <button class="ms-auto rounded bg-primary-base px-14 py-2">更改密碼</button>
+          <button class="ms-auto rounded bg-secondary-base px-14 py-2 font-bold">更改密碼</button>
         </div>
       </el-form>
     </div>
