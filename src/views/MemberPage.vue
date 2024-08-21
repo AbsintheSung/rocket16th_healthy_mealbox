@@ -42,7 +42,7 @@ const memberLink = ref([
         <RouterView></RouterView>
       </div>
     </section>
-    <TheSvg svgIcon="decorate-re" class="absolute bottom-0 hidden w-[160px] md:block" />
+    <TheSvg svgIcon="polygon" class="absolute bottom-0 hidden w-[160px] md:block" />
   </main>
 </template>
 <style scoped lang="scss">
