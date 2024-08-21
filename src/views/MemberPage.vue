@@ -2,6 +2,7 @@
 import { ref } from 'vue'
 import TheSvg from '@/components/global/TheSvg.vue'
 const memberLink = ref([
+  { id: 'memberhome', title: '會員中心', path: '/member' },
   { id: 'editmember', title: '個人資料', path: '/member/editmember' },
   { id: 'orderhistory', title: '歷史訂單', path: '/member/orderhistory' },
   { id: 'custommeal', title: '我的自定義餐盒', path: '/member/custommeal' },
@@ -27,11 +28,7 @@ const memberLink = ref([
               v-for="memberLinkItem in memberLink"
               :key="memberLinkItem.id"
             >
-              <RouterLink
-                :to="`${memberLinkItem.path}`"
-                class="block px-6 py-4"
-                linkExactActiveClass="link-active"
-              >
+              <RouterLink :to="`${memberLinkItem.path}`" class="block px-6 py-4">
                 {{ memberLinkItem.title }}
               </RouterLink>
             </li>
@@ -46,7 +43,7 @@ const memberLink = ref([
   </main>
 </template>
 <style scoped lang="scss">
-.router-link-active {
+.router-link-exact-active {
   background-color: $primary-300;
 }
 </style>
