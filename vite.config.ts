@@ -40,8 +40,8 @@ export default defineConfig({
   },
   server: {
     proxy: {
-      [`${apiName}`]: {
-        target: baseURL,
+      [`/${apiName}`]: {
+        target:baseURL,
         changeOrigin: true,
         // 如果有字串需要替換可以加入 rewrite 這個屬性
         // rewrite: (path) => path.replace(/^\/api/, '')
