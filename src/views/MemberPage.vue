@@ -34,7 +34,7 @@ const memberLink = ref([
           </ul>
         </aside>
       </div>
-      <div class="col-span-8 col-start-4">
+      <div class="col-span-9 col-start-4">
         <RouterView></RouterView>
       </div>
     </section>

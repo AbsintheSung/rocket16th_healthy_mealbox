@@ -10,10 +10,10 @@ const handleCurrentChange = (val) => {
   <h2 class="mb-7 w-fit rounded bg-primary-300 px-4 py-3 text-4xl font-normal shadow-base">
     自定義餐盒
   </h2>
-  <ul class="grid w-2/3 grid-cols-2 gap-x-6 gap-y-12">
+  <ul class="grid grid-cols-3 gap-6">
     <MealCard v-for="item in 6" :key="item" />
   </ul>
-  <div class="flex w-2/3 items-center justify-center py-6">
+  <div class="flex items-center justify-center py-6">
     <el-pagination
       style="--el-fill-color: white"
       layout="prev, pager, next"
