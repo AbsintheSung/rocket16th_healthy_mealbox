@@ -2,8 +2,7 @@
 import { ref } from 'vue'
 import TheSvg from '@/components/global/TheSvg.vue'
 const memberLink = ref([
-  { id: 'memberhome', title: '會員中心', path: '/member' },
-  { id: 'editmember', title: '會員資料', path: '/member/editmember' },
+  { id: 'editmember', title: '個人資訊', path: '/member' },
   { id: 'orderhistory', title: '歷史訂單', path: '/member/orderhistory' },
   { id: 'custommeal', title: '我的自定義餐盒', path: '/member/custommeal' },
   { id: 'coupon', title: '我的優惠券', path: '/' },
@@ -35,7 +34,7 @@ const memberLink = ref([
           </ul>
         </aside>
       </div>
-      <div class="col-span-8 col-start-5">
+      <div class="col-span-9 col-start-4">
         <RouterView></RouterView>
       </div>
     </section>
