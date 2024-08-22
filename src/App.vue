@@ -8,8 +8,24 @@ import HeaderAdorn from '@/components/global/HeaderAdorn.vue'
 <template>
   <HeaderLayout />
   <HeaderAdorn />
-  <RouterView />
+  <!-- <RouterView /> -->
+  <RouterView v-slot="{ Component }">
+    <transition name="fade" mode="out-in">
+      <!-- <keep-alive> -->
+      <component :is="Component" />
+      <!-- </keep-alive> -->
+    </transition>
+  </RouterView>
   <FooterLayout />
 </template>
 
-<style scoped></style>
+<style scoped land="scss">
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.2s;
+}
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
+</style>
