@@ -7,7 +7,7 @@ const handleCurrentChange = (val) => {
 }
 </script>
 <template>
-  <h2 class="mb-20 w-fit rounded bg-primary-300 px-4 py-3 text-4xl font-normal shadow-base">
+  <h2 class="mb-7 w-fit rounded bg-primary-300 px-4 py-3 text-4xl font-normal shadow-base">
     自定義餐盒
   </h2>
   <ul class="grid w-2/3 grid-cols-2 gap-x-6 gap-y-12">
