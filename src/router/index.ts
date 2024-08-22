@@ -81,11 +81,6 @@ const router = createRouter({
       children: [
         {
           path: '',
-          name: 'MemberIndex',
-          component: () => import('@/views/member-page/IndexPage.vue')
-        },
-        {
-          path: 'editmember',
           name: 'EditMember',
           component: () => import('@/views/member-page/EditMemberPage.vue')
         },
