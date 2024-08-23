@@ -33,8 +33,8 @@ const form = reactive({
     UseCustomerInfo: 'false',
     address: '',
     saveShippingAddress: '',
-    setAsDefaultAddress: ''
-
+    setAsDefaultAddress: '',
+    orderNotes:''
 })
 
 //送出表單
@@ -54,15 +54,19 @@ getTwCityArea()
 </script>
 <template>
     <div class="grid grid-cols-12 gap-6">
+        <!-- 購物車步驟 -->
         <div class="col-start-5 col-span-4 pb-4">
             <ShoppingCartProgressBar :current-step="currentStep" :steps="steps" />
         </div>
+        <!-- 上方合計文字 -->
         <div class="col-start-5 col-span-4 pb-4">
             <div class="py-6 bg-primary-200 border-2 border-black rounded shadow-base">
                 <h3 class="text-2xl text-center">合計：NT$ 1460</h3>
             </div>
         </div>
-        <div class="col-span-6">
+        <!-- 顧客資料與付款資料 -->
+        <div class="col-span-6 relative">
+            <!-- 顧客資料 -->
             <div class="bg-primary-300 border-2 border-black">
                 <p class="px-6 py-2 font-bold">顧客資料</p>
             </div>
@@ -79,7 +83,21 @@ getTwCityArea()
                     </el-form-item>
                 </el-form>
             </div>
+            <!-- 付款資料 -->
+            <div class="col-span-6 absolute w-full pt-12">
+                <div class="bg-primary-300 border-2 border-black">
+                    <p class="px-6 py-2 font-bold">付款資料</p>
+                </div>
+                <div class="border-2 border-black px-6 py-4">
+                    <p>已選擇的付款方式: 信用卡付款</p>
+                    <p class="text-sm text-primary-300">請選擇你需要使用的支付卡</p>
+                    <div class="bg-secondary-base mt-3 p-4">
+                        信用卡付款資訊(待補)
+                    </div>
+                </div>
+            </div>
         </div>
+        <!-- 送貨資料 -->
         <div class="col-start-7 col-span-6">
             <div class="bg-primary-300 border-2 border-black flex justify-between">
                 <p class="px-6 py-2 font-bold">送貨資料</p>
@@ -115,17 +133,27 @@ getTwCityArea()
                 </el-form>
             </div>
         </div>
-        <div class="col-span-6">
-            <div class="bg-primary-300 border-2 border-black">
-                <p class="px-6 py-2 font-bold">付款資料</p>
-            </div>
-            <div class="border-2 border-black px-6 py-4"></div>
-        </div>
+        <!-- 訂單備註 -->
         <div class="col-span-12">
             <div class="bg-primary-300 border-2 border-black">
                 <p class="px-6 py-2 font-bold">訂單備註</p>
             </div>
+            <div class="border-2 border-black">
+                <div>
+                    <el-input v-model="form.orderNotes" style="width: 100%" :rows="5" type="textarea"
+                        placeholder="有什麼想告訴賣家的嗎？" />
+                </div>
+            </div>
         </div>
     </div>
 </template>
-<style scoped></style>
+<style scoped>
+:deep(.el-form-item__label) {
+    color: black;
+    font-size: 16px;
+}
+
+:deep(.el-select__wrapper) {
+    padding: 8px 12px;
+}
+</style>
