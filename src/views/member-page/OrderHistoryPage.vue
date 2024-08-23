@@ -7,11 +7,11 @@ const handleChange = (val) => {
 const testData = ref(['豬肉漢堡排佐馬鈴薯', '雞胸蛋白沙拉碗', '藜麥蔬果飽飽餐'])
 </script>
 <template>
-  <h2 class="mb-7 w-fit rounded bg-primary-300 px-4 py-3 text-4xl font-normal shadow-base">
-    歷史訂單
-  </h2>
   <div class="flex h-full flex-col">
-    <el-collapse v-model="activeNames" @change="handleChange">
+    <h2 class="mb-7 w-fit rounded bg-primary-300 px-4 py-3 text-4xl font-normal shadow-base">
+      歷史訂單
+    </h2>
+    <el-collapse class="el-flex-grow" v-model="activeNames" @change="handleChange">
       <template v-for="(item, index) in 3" :key="item">
         <el-collapse-item
           :title="`訂單日期 ${'2024 / 08 / 07'} | 訂單金額：${'＄1460'}`"
@@ -108,6 +108,9 @@ const testData = ref(['豬肉漢堡排佐馬鈴薯', '雞胸蛋白沙拉碗', '�
   </div>
 </template>
 <style lang="scss" scoped>
+.el-flex-grow {
+  flex-grow: 1;
+}
 :deep(.el-collapse-item) {
   border: 1px solid black;
   margin-bottom: 32px;
