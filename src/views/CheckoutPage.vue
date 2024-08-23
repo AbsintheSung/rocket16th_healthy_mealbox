@@ -1,7 +1,7 @@
 <script setup>
 </script>
 <template>
-    <main class="container py-20">
+    <main class="container py-12">
         <RouterView></RouterView>
     </main>
 </template>
