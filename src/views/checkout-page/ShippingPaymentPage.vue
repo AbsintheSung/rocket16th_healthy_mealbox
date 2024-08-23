@@ -2,15 +2,9 @@
 import { ref, reactive } from 'vue'
 import ShoppingCartProgressBar from '@/components/global/ShoppingCartProgressBar.vue'
 
-const steps = ref(['購物車', '填寫資料', '訂單確認'])
-const currentStep = ref(1)
-
 //購物車狀態列函式
-const nextStep = () => {
-    if (currentStep.value < steps.value.length) {
-        currentStep.value++
-    }
-}
+const steps = ref(['購物車', '填寫資料', '訂單確認'])
+const activeStep = ref(1)
 
 //表單資料
 const form = reactive({
@@ -26,8 +20,8 @@ const onSubmit = () => {
 </script>
 <template>
     <div class="grid grid-cols-12 gap-6 md:-mx-3">
-        <div class="col-start-5 col-span-4">
-            <ShoppingCartProgressBar :current-step="currentStep" :steps="steps" />
+        <div class="col-start-5 col-span-4 mb-6">
+            <ShoppingCartProgressBar :active-step="activeStep" :steps="steps" />
         </div>
         <div class="col-span-12">
             <div class="border-2 border-black">
