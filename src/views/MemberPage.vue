@@ -10,9 +10,9 @@ const memberLink = ref([
 ])
 </script>
 <template>
-  <main class="container relative py-20">
+  <main class="container py-20">
     <section class="grid grid-cols-12 gap-6">
-      <div class="col-span-3 col-start-1">
+      <div class="col-span-3 col-start-1 flex flex-col">
         <aside class="rounded border-2 border-black">
           <div class="relative bg-primary-100 py-6 text-xl">
             <TheSvg svgIcon="decorate-re" class="absolute left-4 top-4 h-[46px] w-[46px]" />
@@ -33,12 +33,12 @@ const memberLink = ref([
             </li>
           </ul>
         </aside>
+        <TheSvg svgIcon="polygon" class="mt-auto hidden w-[160px] md:block" />
       </div>
       <div class="col-span-9 col-start-4">
         <RouterView></RouterView>
       </div>
     </section>
-    <TheSvg svgIcon="polygon" class="absolute bottom-0 hidden w-[160px] md:block" />
   </main>
 </template>
 <style scoped lang="scss">
