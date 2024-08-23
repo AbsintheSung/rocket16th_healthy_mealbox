@@ -32,9 +32,10 @@ const form = reactive({
     birthday: '',
     UseCustomerInfo: 'false',
     address: '',
-    saveShippingAddress: '',
-    setAsDefaultAddress: '',
-    orderNotes:''
+    saveShippingAddress: 'false',
+    setAsDefaultAddress: 'false',
+    orderNotes: '',
+    agreeTermsPrivacy: 'false'
 })
 
 //送出表單
@@ -84,7 +85,7 @@ getTwCityArea()
                 </el-form>
             </div>
             <!-- 付款資料 -->
-            <div class="col-span-6 absolute w-full pt-12">
+            <div class="col-span-6 absolute w-full pt-10">
                 <div class="bg-primary-300 border-2 border-black">
                     <p class="px-6 py-2 font-bold">付款資料</p>
                 </div>
@@ -143,6 +144,29 @@ getTwCityArea()
                     <el-input v-model="form.orderNotes" style="width: 100%" :rows="5" type="textarea"
                         placeholder="有什麼想告訴賣家的嗎？" />
                 </div>
+            </div>
+        </div>
+        <!-- 下面按鈕 -->
+        <div class="col-span-2">
+            <RouterLink
+                class="flex items-center py-2 px-4 mt-14 border-2 border-black rounded-sm hover:shadow-base transition active:shadow-none"
+                to="/checkout/shipping-payment">
+                <font-awesome-icon :icon="['fas', 'caret-left']" class="pr-2" />
+                <p>返回購物車</p>
+            </RouterLink>
+        </div>
+        <div class="col-start-7 col-span-6">
+            <div class="flex items-center mt-12">
+                <el-checkbox v-model="form.agreeTermsPrivacy" size="large" />
+                <p class="pl-2">我同意<a href="#" class="text-primary-600 hover:text-primary-400">網站服務條款</a>及<a href="#"
+                        class="text-primary-600 hover:text-primary-400">隱私權政策</a></p>
+            </div>
+            <div class="mt-6">
+                <RouterLink
+                    class="flex items-center justify-center text-center py-2 px-4 bg-secondary-400 rounded-md border-2 border-black hover:shadow-base transition active:shadow-none"
+                    type="primary" @click="onSubmit" to="/checkout/order-complete">
+                    <p>提交訂單</p>
+                </RouterLink>
             </div>
         </div>
     </div>
