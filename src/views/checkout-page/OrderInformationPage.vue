@@ -56,7 +56,7 @@ getTwCityArea()
             <ShoppingCartProgressBar :active-step="activeStep" :steps="steps" />
         </div>
         <!-- 上方合計文字 -->
-        <div class="col-start-5 col-span-4 pb-4">
+        <div class="col-start-5 col-span-4 pb-10">
             <div class="py-6 bg-primary-200 border-2 border-black rounded shadow-base">
                 <h3 class="text-2xl text-center">合計：NT$ 1460</h3>
             </div>
@@ -70,25 +70,28 @@ getTwCityArea()
             <div class="border-2 border-black px-6 py-4">
                 <el-form :model="form" label-width="auto" style="max-width: 100%">
                     <el-form-item label="顧客姓名" label-position="top">
-                        <el-input v-model="form.name" />
+                        <el-input v-model="form.name" placeholder="林飯糰" />
                     </el-form-item>
                     <el-form-item label="電子信箱" label-position="top">
-                        <el-input v-model="form.email" />
+                        <el-input v-model="form.email" placeholder="hello@xxx.com" />
                     </el-form-item>
                     <el-form-item label="電話號碼" label-position="top">
-                        <el-input v-model="form.phone" />
+                        <el-input v-model="form.phone" placeholder="222 555 666" />
                     </el-form-item>
                 </el-form>
             </div>
             <!-- 付款資料 -->
-            <div class="col-span-6 absolute w-full pt-10">
+            <div class="col-span-6 absolute w-full pt-6">
                 <div class="bg-primary-300 border-2 border-black">
                     <p class="px-6 py-2 font-bold">付款資料</p>
                 </div>
                 <div class="border-2 border-black px-6 py-4">
                     <p>已選擇的付款方式: 信用卡付款</p>
-                    <p class="text-sm text-primary-300">請選擇你需要使用的支付卡</p>
-                    <div class="bg-secondary-base mt-3 p-4">
+                    <p class="text-sm text-gray-400">請選擇你需要使用的支付卡</p>
+                    <div class="bg-secondary-base mt-4 p-4">
+                        信用卡付款資訊(待補)
+                    </div>
+                    <div class="bg-primary-400 p-4">
                         信用卡付款資訊(待補)
                     </div>
                 </div>
@@ -100,7 +103,7 @@ getTwCityArea()
                 <p class="px-6 py-2 font-bold">送貨資料</p>
                 <p class="px-6 py-2 font-bold">運費:NT$0</p>
             </div>
-            <div class="border-2 border-black px-6 py-4">
+            <div class="border-2 border-black px-6 pt-6 pb-[54px]">
                 <el-form :model="form" label-width="auto" style="max-width: 100%">
                     <div>
                         <p>已選擇的送貨方式: 新竹物流宅配</p>
@@ -108,7 +111,7 @@ getTwCityArea()
                     </div>
                     <el-form-item label="顧客姓名" label-position="top">
                         <el-input v-model="form.name" />
-                        <span class="text-primary-300">請填入收件人真實姓名，以確保順利收件</span>
+                        <span class="text-gray-400">請填入收件人真實姓名，以確保順利收件</span>
                     </el-form-item>
                     <el-form-item label="電話號碼" label-position="top">
                         <el-input v-model="form.phone" />
@@ -142,7 +145,7 @@ getTwCityArea()
                 </div>
             </div>
         </div>
-        <!-- 下面按鈕 -->
+        <!-- 返回購物車按鈕 -->
         <div class="col-span-2">
             <RouterLink
                 class="flex items-center py-2 px-4 mt-14 border-2 border-black rounded-sm hover:shadow-base transition active:shadow-none"
@@ -151,15 +154,16 @@ getTwCityArea()
                 <p>返回購物車</p>
             </RouterLink>
         </div>
+        <!-- 隱私權與提交訂單 -->
         <div class="col-start-7 col-span-6">
-            <div class="flex items-center mt-12">
+            <div class="flex items-center mt-10">
                 <el-checkbox v-model="form.agreeTermsPrivacy" size="large" />
                 <p class="pl-2">我同意<a href="#" class="text-primary-600 hover:text-primary-400">網站服務條款</a>及<a href="#"
                         class="text-primary-600 hover:text-primary-400">隱私權政策</a></p>
             </div>
             <div class="mt-6">
                 <RouterLink
-                    class="flex items-center justify-center text-center py-2 px-4 bg-secondary-400 rounded-md border-2 border-black hover:shadow-base transition active:shadow-none"
+                    class="flex items-center justify-center text-center py-2 px-4 bg-secondary-400 rounded border-2 border-black hover:shadow-base transition active:shadow-none"
                     type="primary" @click="onSubmit" to="/checkout/order-complete">
                     <p>提交訂單</p>
                 </RouterLink>
@@ -175,5 +179,9 @@ getTwCityArea()
 
 :deep(.el-select__wrapper) {
     padding: 8px 12px;
+}
+
+:deep(.el-textarea__inner){
+    padding: 12px 24px;
 }
 </style>
