@@ -3,15 +3,11 @@
 @tailwind utilities;
 
 @layer base {
-  html {
-    @apply h-screen;
+  html,body,#app {
+    @apply min-h-screen;
   }
   body {
-    @apply h-full;
     @include Noto-Sans-TC;
-  }
-  #app {
-    @apply h-full;
   }
   footer {
     margin-top: auto;
