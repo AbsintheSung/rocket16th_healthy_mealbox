@@ -16,13 +16,9 @@ const test = () => {
     console.log(cityArea.value)
 }
 
+//購物車狀態列函式
 const steps = ref(['購物車', '填寫資料', '訂單確認'])
-const currentStep = ref(2)
-const nextStep = () => {
-    if (currentStep.value < steps.value.length) {
-        currentStep.value++
-    }
-}
+const activeStep = ref(2)
 
 //表單資料
 const form = reactive({
@@ -57,7 +53,7 @@ getTwCityArea()
     <div class="grid grid-cols-12 gap-6">
         <!-- 購物車步驟 -->
         <div class="col-start-5 col-span-4 pb-4">
-            <ShoppingCartProgressBar :current-step="currentStep" :steps="steps" />
+            <ShoppingCartProgressBar :active-step="activeStep" :steps="steps" />
         </div>
         <!-- 上方合計文字 -->
         <div class="col-start-5 col-span-4 pb-4">
