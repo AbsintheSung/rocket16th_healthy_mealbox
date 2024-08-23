@@ -18,9 +18,9 @@ const activeStep = ref(3)
             <div class="flex flex-col justify-center items-center border-2 border-black">
                 <div class="flex justify-center items-center pt-7 pb-3">
                     <img src="@/assets/image/營養師.svg" alt="logo" class="w-[50px]">
-                    <h2 class="text-2xl text-bold pl-5">謝謝您！您的訂單已成立！</h2>
+                    <h2 class="text-2xl font-bold pl-5">謝謝您！您的訂單已成立！</h2>
                 </div>
-                <div class="text-left pl-11 pb-8">
+                <div class="text-left pb-8">
                     <p>訂單號碼：202407311130088332</p>
                     <p>訂單確認電郵已發送到您的電子信箱：</p>
                     <p>hello@gmail.com</p>
@@ -29,9 +29,9 @@ const activeStep = ref(3)
         </div>
         <!-- 訂單資訊框框 -->
         <div class="col-span-12 pt-6">
-            <div class="flex flex-wrap border-2 border-black p-4">
+            <div class="flex flex-wrap border-2 border-black p-6">
                 <!-- 訂單資訊 -->
-                <div class="w-full md:w-1/2 px-2 mb-6">
+                <div class="w-full md:w-1/2 px-2 mb-16">
                     <h2 class="font-bold text-2xl mb-2">訂單資訊</h2>
                     <div class="flex mb-1">
                         <span>訂單編號：</span>
