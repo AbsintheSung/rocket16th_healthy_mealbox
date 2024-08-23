@@ -52,7 +52,7 @@ getTwCityArea()
 <template>
     <div class="grid grid-cols-12 gap-6">
         <!-- 購物車步驟 -->
-        <div class="col-start-5 col-span-4 pb-4">
+        <div class="col-start-5 col-span-4 mb-10">
             <ShoppingCartProgressBar :active-step="activeStep" :steps="steps" />
         </div>
         <!-- 上方合計文字 -->

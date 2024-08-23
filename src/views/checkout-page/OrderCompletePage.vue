@@ -10,7 +10,7 @@ const activeStep = ref(3)
 <template>
     <div class="grid grid-cols-12 gap-6">
         <!-- 購物車步驟 -->
-        <div class="col-start-5 col-span-4 pb-4">
+        <div class="col-start-5 col-span-4 mb-3">
             <ShoppingCartProgressBar :active-step="activeStep" :steps="steps" />
         </div>
         <!-- 訂單已成立框框 -->

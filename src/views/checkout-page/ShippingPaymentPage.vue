@@ -20,7 +20,7 @@ const onSubmit = () => {
 </script>
 <template>
     <div class="grid grid-cols-12 gap-6 md:-mx-3">
-        <div class="col-start-5 col-span-4">
+        <div class="col-start-5 col-span-4 mb-6">
             <ShoppingCartProgressBar :active-step="activeStep" :steps="steps" />
         </div>
         <div class="col-span-12">
