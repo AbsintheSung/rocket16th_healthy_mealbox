@@ -11,8 +11,8 @@
             <div class="relative">
                 <h3 class="py-8 text-3xl font-medium text-center">營養師方案</h3>
                 <!-- 裝飾性圖片 -->
-                <img src="@/assets/image/Ellipse 1.svg" alt=""
-                    class="w-fit absolute left-1/2 transform -translate-x-1/2 -translate-y-20 -z-10">
+                <TheSvg svgIcon="hendecagon"
+                    class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 mt-auto hidden w-[200px] -z-10 md:block" />
             </div>
             <p class="text-center mb-4">由專業營養師依照成人一日所需搭配餐盒</p>
             <div class="flex flex-row flex-nowrap justify-center pb-24">
@@ -46,7 +46,12 @@
             <div class="flex justify-center">
                 <TheSvg svgIcon="customize-icon" class="mt-auto hidden w-[100px] md:block" />
             </div>
-            <h3 class="py-8 text-3xl font-medium text-center">自定義方案</h3>
+            <div class="relative">
+                <h3 class="py-8 text-3xl font-medium text-center">自定義方案</h3>
+                <!-- 裝飾性圖片 -->
+                <TheSvg svgIcon="ovalShape"
+                    class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 mt-auto hidden w-[200px] -z-10 md:block" />
+            </div>
             <p class="text-center mb-4">由您挑選喜歡的餐盒，不喜歡還能自定義餐盒！</p>
             <div class="flex flex-row flex-nowrap justify-center pb-24">
                 <ul class="space-y-2">
