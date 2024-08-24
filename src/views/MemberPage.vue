@@ -20,7 +20,7 @@ const memberTitle = computed(() => {
 })
 </script>
 <template>
-  <main class="container py-20">
+  <main class="container py-6 md:py-20">
     <section class="grid grid-cols-12 gap-6">
       <h2
         class="col-span-full rounded bg-primary-300 px-4 py-3 text-center text-4xl font-normal shadow-base md:hidden"
