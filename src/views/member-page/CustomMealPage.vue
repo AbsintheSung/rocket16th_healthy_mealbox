@@ -8,7 +8,9 @@ const handleCurrentChange = (val) => {
 </script>
 <template>
   <div class="flex h-full flex-col">
-    <h2 class="mb-7 w-fit rounded bg-primary-300 px-4 py-3 text-4xl font-normal shadow-base">
+    <h2
+      class="mb-7 hidden rounded bg-primary-300 px-4 py-3 text-4xl font-normal shadow-base md:block md:w-fit"
+    >
       自定義餐盒
     </h2>
     <ul class="grid flex-grow grid-cols-2 gap-x-6 gap-y-2 lg:grid-cols-3 lg:gap-y-6">

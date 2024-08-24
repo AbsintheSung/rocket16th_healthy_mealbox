@@ -9,7 +9,7 @@ const testData = ref(['豬肉漢堡排佐馬鈴薯', '雞胸蛋白沙拉碗'])
 <template>
   <div class="flex h-full flex-col">
     <h2
-      class="mb-7 w-full rounded bg-primary-300 px-4 py-3 text-4xl font-normal shadow-base sm:w-fit"
+      class="mb-7 hidden rounded bg-primary-300 px-4 py-3 text-4xl font-normal shadow-base md:block md:w-fit"
     >
       歷史訂單
     </h2>

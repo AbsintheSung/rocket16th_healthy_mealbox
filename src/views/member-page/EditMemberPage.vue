@@ -46,7 +46,7 @@ const test = () => {
 </script>
 <template>
   <h2
-    class="mb-7 w-full rounded bg-primary-300 px-4 py-3 text-4xl font-normal shadow-base sm:w-fit"
+    class="mb-7 hidden rounded bg-primary-300 px-4 py-3 text-4xl font-normal shadow-base md:block md:w-fit"
   >
     我的個人帳戶
   </h2>

@@ -1,6 +1,8 @@
 <script setup>
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
+import { useRoute } from 'vue-router'
 import TheSvg from '@/components/global/TheSvg.vue'
+const route = useRoute()
 const memberLink = ref([
   { id: 'editmember', title: '個人資訊', path: '/member' },
   { id: 'orderhistory', title: '歷史訂單', path: '/member/orderhistory' },
@@ -8,10 +10,23 @@ const memberLink = ref([
   { id: 'coupon', title: '我的優惠券', path: '/' },
   { id: 'news', title: '最新消息', path: '/' }
 ])
+const pageTitle = ref({
+  EditMember: '我的個人帳戶',
+  OrderHistory: '歷史訂單',
+  CustomMeal: '我的自定義餐盒'
+})
+const memberTitle = computed(() => {
+  return route.name in pageTitle.value ? pageTitle.value[route.name] : ''
+})
 </script>
 <template>
   <main class="container py-20">
     <section class="grid grid-cols-12 gap-6">
+      <h2
+        class="col-span-full rounded bg-primary-300 px-4 py-3 text-center text-4xl font-normal shadow-base md:hidden"
+      >
+        {{ memberTitle }}
+      </h2>
       <div class="col-span-full col-start-1 flex flex-col md:col-span-4 lg:col-span-3">
         <aside class="rounded border-2 border-black">
           <div class="relative bg-primary-100 py-6 text-xl">
@@ -35,6 +50,7 @@ const memberLink = ref([
         </aside>
         <TheSvg svgIcon="polygon" class="mt-auto hidden w-[160px] md:block" />
       </div>
+
       <div
         class="col-span-full col-start-1 md:col-span-8 md:col-start-5 lg:col-span-9 lg:col-start-4"
       >
