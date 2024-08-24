@@ -45,14 +45,16 @@ const test = () => {
 }
 </script>
 <template>
-  <h2 class="mb-7 w-fit rounded bg-primary-300 px-4 py-3 text-4xl font-normal shadow-base">
+  <h2
+    class="mb-7 hidden rounded bg-primary-300 px-4 py-3 text-4xl font-normal shadow-base md:block md:w-fit"
+  >
     我的個人帳戶
   </h2>
   <div class="rounded border">
     <h3 class="border-b p-5 text-3xl font-bold">個人資訊</h3>
     <div class="px-5 py-8">
       <el-form :model="memberData" :label-position="'top'">
-        <div class="flex gap-x-6">
+        <div class="flex flex-col gap-x-6 md:flex-row">
           <!-- 電子郵件 -->
           <el-form-item label="全名" class="el-flex-grow">
             <el-input v-model="memberData.name" type="text" />
@@ -62,7 +64,7 @@ const test = () => {
           </el-form-item>
         </div>
         <!-- 手機號碼 & 出生日期-->
-        <div class="flex items-center justify-between gap-x-6">
+        <div class="flex flex-col gap-x-6 md:flex-row md:items-center md:justify-between">
           <el-form-item label="手機號碼" class="el-flex-grow">
             <el-input v-model="memberData.phone" type="phone" />
           </el-form-item>
@@ -81,7 +83,9 @@ const test = () => {
           </el-form-item>
         </div>
         <!-- 地址 -->
-        <div class="flex flex-wrap items-center justify-between gap-x-6 gap-y-2">
+        <div
+          class="flex flex-col gap-x-6 gap-y-2 md:flex-row md:flex-wrap md:items-center md:justify-between"
+        >
           <p class="w-full">地址</p>
           <div class="flex-grow">
             <el-select v-model="cityName" placeholder="城市">
@@ -122,7 +126,7 @@ const test = () => {
   <div class="mt-6 rounded border">
     <div class="border-b p-5">
       <h3 class="text-3xl font-bold">更新密碼</h3>
-      <p class="pb-4 ps-3 pt-2 font-normal">您目前的電子信箱為:{{ 'example@gmai.com' }}</p>
+      <p class="pb-4 pt-2 font-normal">您目前的電子信箱為:{{ 'example@gmai.com' }}</p>
     </div>
     <div class="px-5 py-8">
       <el-form :model="updatePassWord" :label-position="'top'">
