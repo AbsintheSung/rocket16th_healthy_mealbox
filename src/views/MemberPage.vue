@@ -28,7 +28,7 @@ const memberTitle = computed(() => {
         {{ memberTitle }}
       </h2>
       <div class="col-span-full col-start-1 flex flex-col md:col-span-4 lg:col-span-3">
-        <aside class="rounded border-2 border-black">
+        <aside class="rounded border-2 border-black md:mb-40">
           <div class="relative bg-primary-100 py-6 text-xl">
             <TheSvg svgIcon="decorate-re" class="absolute left-4 top-4 h-[46px] w-[46px]" />
             <TheSvg svgIcon="single-star" class="absolute bottom-4 right-4 h-[46px] w-[46px]" />
