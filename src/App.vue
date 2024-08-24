@@ -6,7 +6,7 @@ import HeaderAdorn from '@/components/global/HeaderAdorn.vue'
 </script>
 
 <template>
-  <HeaderLayout />
+  <!-- <HeaderLayout /> -->
   <HeaderAdorn />
   <!-- <RouterView /> -->
   <RouterView v-slot="{ Component }">
@@ -16,7 +16,7 @@ import HeaderAdorn from '@/components/global/HeaderAdorn.vue'
       <!-- </keep-alive> -->
     </transition>
   </RouterView>
-  <FooterLayout />
+  <!-- <FooterLayout /> -->
 </template>
 
 <style scoped land="scss">
