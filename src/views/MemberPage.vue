@@ -10,13 +10,13 @@ const memberLink = ref([
   { id: 'coupon', title: '我的優惠券', path: '/' },
   { id: 'news', title: '最新消息', path: '/' }
 ])
-const pageTitle = ref({
+const memberTitleData = ref({
   EditMember: '我的個人帳戶',
   OrderHistory: '歷史訂單',
   CustomMeal: '我的自定義餐盒'
 })
 const memberTitle = computed(() => {
-  return route.name in pageTitle.value ? pageTitle.value[route.name] : ''
+  return route.name in memberTitleData.value ? memberTitleData.value[route.name] : ''
 })
 </script>
 <template>
