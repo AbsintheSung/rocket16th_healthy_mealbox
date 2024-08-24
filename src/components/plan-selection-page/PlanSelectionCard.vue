@@ -6,10 +6,11 @@
         <!-- 營養師方案 -->
         <div class="flex flex-col justify-evenly col-span-4 col-start-2">
             <div class="flex justify-center">
-                <img src="@/assets/image/營養師.svg" alt="營養師方案" class="w-fit pb-2">
+                <TheSvg svgIcon="nutritionist-icon" class="mt-auto hidden w-[100px] md:block" />
             </div>
             <div class="relative">
                 <h3 class="py-8 text-3xl font-medium text-center">營養師方案</h3>
+                <!-- 裝飾性圖片 -->
                 <img src="@/assets/image/Ellipse 1.svg" alt=""
                     class="w-fit absolute left-1/2 transform -translate-x-1/2 -translate-y-20 -z-10">
             </div>
@@ -43,7 +44,7 @@
         <!-- 自定義方案 -->
         <div class="flex flex-col justify-evenly col-span-4 col-start-8">
             <div class="flex justify-center">
-                <img src="@/assets/image/自定義.svg" alt="自定義方案" class="w-fit">
+                <TheSvg svgIcon="customize-icon" class="mt-auto hidden w-[100px] md:block" />
             </div>
             <h3 class="py-8 text-3xl font-medium text-center">自定義方案</h3>
             <p class="text-center mb-4">由您挑選喜歡的餐盒，不喜歡還能自定義餐盒！</p>
@@ -74,10 +75,7 @@
             </div>
         </div>
     </div>
-    <div class="relative -z-10 overflow-visible pointer-events-none mb-32">
-        <img src="@/assets/image/Star 3.svg" alt="" class="w-fit absolute left-20 top-2">
-        <img src="@/assets/image/Star 2.svg" alt="" class="w-fit absolute top-16">
-    </div>
+    <TheSvg svgIcon="polygon" class="mt-auto hidden w-[160px] md:block" />
 </template>
 <style scoped>
 .order-btn {
