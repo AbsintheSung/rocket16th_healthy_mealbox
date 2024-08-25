@@ -21,14 +21,19 @@ const handleCommand = (command: string) => {
 <template>
   <header>
     <nav class="container py-5">
-      <div class="grid grid-cols-12 gap-6">
-        <h1 class="col-span-3 col-start-1 text-center">
+      <div class="grid grid-cols-4 gap-6 sm:grid-cols-12">
+        <h1 class="col-span-3 col-start-1 hidden text-center md:block">
           <RouterLink to="/">
             <TheSvg class="h-[40px]" svgIcon="logo" />
           </RouterLink>
         </h1>
-        <div class="col-span-9 col-start-4 flex gap-x-6">
-          <ul class="ms-auto flex gap-x-4">
+        <h1 class="col-span-1 col-start-1 block text-center md:hidden">
+          <RouterLink to="/">
+            <TheSvg class="h-[40px] w-[92px]" svgIcon="mobile-logo" />
+          </RouterLink>
+        </h1>
+        <div class="col-span-9 col-start-4 hidden gap-x-6 sm:flex">
+          <ul class="ms-auto flex items-center gap-x-4 text-[12px] md:text-base">
             <li class="flex items-center justify-center">
               <el-dropdown trigger="click" @command="handleCommand">
                 <span class="el-dropdown-link">方案選擇</span>
@@ -63,6 +68,9 @@ const handleCommand = (command: string) => {
 <style scoped>
 .el-dropdown-link,
 :deep(.el-dropdown-menu__item) {
-  font-size: 16px;
+  font-size: 12px;
+  @media (min-width: 768px) {
+    font-size: 16px;
+  }
 }
 </style>
