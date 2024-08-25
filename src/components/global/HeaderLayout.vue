@@ -22,16 +22,19 @@ const handleCommand = (command: string) => {
   <header>
     <nav class="container py-5">
       <div class="grid grid-cols-4 gap-6 sm:grid-cols-12">
+        <!-- 桌機板顯示此處(LOGO) -->
         <h1 class="col-span-3 col-start-1 hidden text-center md:block">
           <RouterLink to="/">
             <TheSvg class="h-[40px]" svgIcon="logo" />
           </RouterLink>
         </h1>
+        <!-- mobile版顯示此處(LOGO) -->
         <h1 class="col-span-1 col-start-1 block text-center md:hidden">
           <RouterLink to="/">
             <TheSvg class="h-[40px] w-[92px]" svgIcon="mobile-logo" />
           </RouterLink>
         </h1>
+        <!-- 桌機板顯示此處 -->
         <div class="col-span-9 col-start-4 hidden gap-x-6 sm:flex">
           <ul class="ms-auto flex items-center gap-x-4 text-[12px] md:text-base">
             <li class="flex items-center justify-center">
@@ -61,6 +64,7 @@ const handleCommand = (command: string) => {
             </li>
           </ul>
         </div>
+        <!-- mobile版顯示此處 -->
       </div>
     </nav>
   </header>
