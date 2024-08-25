@@ -1,6 +1,9 @@
 <script setup lang="ts">
 import { RouterLink } from 'vue-router'
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
+import { useWindowSize } from '@vueuse/core'
+const { width } = useWindowSize()
+const iconSize = computed(() => (width.value < 576 ? 'md' : 'xl'))
 
 const mainNav = ref([
   { id: 'accoumt', title: '我的帳戶', path: '/' },
@@ -16,18 +19,20 @@ const utilNav = ref([
 <template>
   <footer class="bg-primary-700">
     <div class="container py-6">
-      <div class="grid grid-cols-12 gap-6 text-[#FFFFFF]">
-        <ul class="col-span-6 col-start-1 flex">
+      <div class="grid grid-cols-4 gap-6 text-[#FFFFFF] md:grid-cols-12">
+        <ul class="col-span-3 col-start-1 flex text-[12px] md:col-span-6 md:text-base">
           <li v-for="mainNavItem in mainNav" :key="mainNavItem.id" class="py-1">
             <RouterLink class="block px-2" :to="`${mainNavItem.path}`" :id="mainNavItem.id">
               {{ mainNavItem.title }}
             </RouterLink>
           </li>
         </ul>
-        <ul class="col-span-6 col-start-7 flex items-center justify-end">
+        <ul
+          class="col-span-1 col-start-4 flex items-center justify-end md:col-span-6 md:col-start-7"
+        >
           <li v-for="utilNavItem in utilNav" :key="utilNavItem.id" class="py-1">
             <RouterLink class="block px-2" :to="`${utilNavItem.path}`">
-              <FontAwesomeIcon :icon="utilNavItem.iconStyle" size="xl" />
+              <FontAwesomeIcon :icon="utilNavItem.iconStyle" :size="iconSize" />
             </RouterLink>
           </li>
         </ul>
