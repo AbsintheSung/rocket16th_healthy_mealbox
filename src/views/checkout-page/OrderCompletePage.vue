@@ -17,7 +17,7 @@ const activeStep = ref(3)
         <div class="col-span-12">
             <div class="flex flex-col justify-center items-center border-2 border-black">
                 <div class="flex justify-center items-center pt-7 pb-3">
-                    <img src="@/assets/image/營養師.svg" alt="logo" class="w-[50px]">
+                    <TheSvg svgIcon="pac-man" class="mt-auto hidden w-[50px] h-[50px] md:block" />
                     <h2 class="text-2xl font-bold pl-5">謝謝您！您的訂單已成立！</h2>
                 </div>
                 <div class="text-left pb-8">
@@ -81,6 +81,8 @@ const activeStep = ref(3)
                 </div>
             </div>
         </div>
+        <!-- 裝飾性按鈕 -->
+        <TheSvg svgIcon="polygon" class="mt-auto hidden w-[160px] md:block" />
         <!-- 底部按鈕 -->
         <div class="col-start-11 col-span-2">
             <RouterLink
