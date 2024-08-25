@@ -12,7 +12,7 @@
                 <h3 class="py-8 text-3xl font-medium text-center">營養師方案</h3>
                 <!-- 裝飾性圖片 -->
                 <TheSvg svgIcon="hendecagon"
-                    class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 mt-auto hidden w-[200px] -z-10 md:block" />
+                    class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 mt-auto hidden w-[250px] -z-10 md:block" />
             </div>
             <p class="text-center mb-4">由專業營養師依照成人一日所需搭配餐盒</p>
             <div class="flex flex-row flex-nowrap justify-center pb-24">
