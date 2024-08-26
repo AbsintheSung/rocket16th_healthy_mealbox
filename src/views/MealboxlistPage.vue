@@ -36,20 +36,20 @@ const handleCurrentChange = (val) => {
         <div class="pb-12 pt-6">
           <RouterView></RouterView>
         </div>
-        <!-- <div class="flex w-full items-center justify-center py-6">
+        <div class="flex w-full items-center justify-center py-6">
           <el-pagination
             style="--el-fill-color: white"
             layout="prev, pager, next"
             v-model:current-page="currentPage1"
             background
             :page-size="20"
-            :pager-count="11"
-            :total="200"
+            :pager-count="5"
+            :total="100"
             :prev-text="'上一頁'"
             :next-text="'下一頁'"
             @current-change="handleCurrentChange"
           />
-        </div> -->
+        </div>
       </div>
     </section>
     <section class="bg-secondary-50">
