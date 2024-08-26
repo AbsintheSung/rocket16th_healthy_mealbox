@@ -110,7 +110,7 @@ const handleCurrentChange = (val) => {
                     </div>
 
                     <div
-                      class="col-span-1 col-start-4 flex items-center justify-end gap-x-5 self-end sm:col-span-3 sm:col-start-9 lg:col-span-4 lg:col-start-8"
+                      class="col-span-1 col-start-4 flex items-center justify-end gap-x-5 self-center sm:col-span-3 sm:col-start-9 lg:col-span-4 lg:col-start-8"
                     >
                       <button class="border p-1">
                         <FontAwesomeIcon :icon="['fas', 'minus']" />
@@ -192,9 +192,10 @@ const handleCurrentChange = (val) => {
 <style lang="scss">
 .el-drawer {
   background-color: $secondary-50;
-  height: 40% !important;
+  height: 50% !important;
 }
 .el-drawer__body {
-  overflow-y: hidden;
+  // overflow-y: hidden;
+  scrollbar-width: none;
 }
 </style>
