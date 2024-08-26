@@ -121,27 +121,6 @@ const handleCurrentChange = (val) => {
                       </button>
                     </div>
                   </li>
-                  <!-- <li class="flex items-center gap-x-4 px-6 py-3" v-for="item in 10" :key="item">
-                    <img
-                      src="https://picsum.photos/200/200?random=1"
-                      class="w-[66px] object-cover"
-                    />
-                    <div class="w-full sm:flex">
-                      <div class="flex flex-col gap-y-6">
-                        <h3 class="font-bold">抗氧化彩虹蔬菜炒麵</h3>
-                        <p>270Kcal | 蛋白質15g |脂肪12g</p>
-                      </div>
-                      <div class="ms-auto flex items-center justify-center gap-x-5">
-                        <button class="border p-1">
-                          <FontAwesomeIcon :icon="['fas', 'minus']" />
-                        </button>
-                        <span>{{ 21 }}</span>
-                        <button class="border bg-primary-base p-1">
-                          <FontAwesomeIcon :icon="['fas', 'plus']" />
-                        </button>
-                      </div>
-                    </div>
-                  </li> -->
                 </ul>
               </div>
             </div>
