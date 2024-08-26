@@ -103,7 +103,7 @@ const handleCurrentChange = (val) => {
                   確認餐點，加入購物車
                 </button>
                 <ul
-                  class="scrollbar-hide col-span-4 col-start-1 h-80 overflow-y-scroll text-[12px] sm:col-span-12 sm:text-base"
+                  class="scrollbar-hide col-span-4 col-start-1 h-80 text-[12px] sm:col-span-12 sm:text-base"
                 >
                   <li
                     class="grid grid-cols-4 items-center gap-6 p-2 sm:grid-cols-12"
