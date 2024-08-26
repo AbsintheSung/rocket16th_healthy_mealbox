@@ -54,7 +54,7 @@ const handleCurrentChange = (val) => {
     </section>
     <section class="bg-secondary-50">
       <div class="container">
-        <div class="flex items-center justify-center gap-x-6 py-10">
+        <!-- <div class="flex items-center justify-center gap-x-6 py-10">
           <button
             class="w-1/4 rounded border-2 border-secondary-500 py-3 text-secondary-500"
             @click="drawer = true"
@@ -64,7 +64,19 @@ const handleCurrentChange = (val) => {
           <button class="w-1/4 rounded border-2 border-black bg-secondary-base py-3">
             確認餐點，加入購物車
           </button>
-          <!-- <span class="w-1/12 self-end">已選擇{{ 6 }}餐</span> -->
+        </div> -->
+        <div class="grid grid-cols-4 gap-6 py-10 sm:grid-cols-12">
+          <button
+            class="col-span-2 col-start-1 rounded border-2 border-secondary-500 py-3 text-secondary-500 sm:col-span-5 sm:col-start-2 md:col-span-4 md:col-start-3 lg:col-span-3 lg:col-start-4"
+            @click="drawer = true"
+          >
+            查看預覽
+          </button>
+          <button
+            class="col-span-2 col-start-3 rounded border-2 border-black bg-secondary-base py-3 sm:col-span-5 sm:col-start-7 md:col-span-4 lg:col-span-3"
+          >
+            確認餐點，加入購物車
+          </button>
         </div>
       </div>
       <!-- 預覽列 -->
