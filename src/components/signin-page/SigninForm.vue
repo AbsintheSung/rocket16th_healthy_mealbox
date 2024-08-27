@@ -87,7 +87,7 @@ const fetchSignin = async (data: SigninInputType) => {
 // }
 </script>
 <template>
-  <el-form ref="ruleFormRef" :rules="registerRules" :model="signinInput">
+  <el-form ref="ruleFormRef" :rules="registerRules" :model="signinInput" v-loading="isLoading">
     <el-form-item label="登入電子信箱帳號:" label-position="top" prop="account">
       <el-input v-model="signinInput.account" />
     </el-form-item>
