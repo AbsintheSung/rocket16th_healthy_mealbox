@@ -7,9 +7,10 @@
         </div>
         <div class="flex py-12">
             <div class="relative">
-                <img src="https://imgur.com/zEy3Lgl.png" alt="營養師" class="w-fit rounded-full border-2 border-black">
+                <img src="https://imgur.com/zEy3Lgl.png" alt="營養師" class="w-[170px] rounded-full border-2 border-black">
+                <TheSvg svgIcon="circle-halftone" class="w-[170px] h-[170px] absolute top-0 left-6 -z-10" />
             </div>
-            <div class="px-6 flex flex-col justify-between">
+            <div class="px-12 flex flex-col justify-between">
                 <h3 class="text-2xl">林飯糰 營養師</h3>
                 <div class="break-all">
                     <p>資歷：</p>
