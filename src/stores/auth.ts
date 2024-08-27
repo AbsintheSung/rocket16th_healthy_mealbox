@@ -11,9 +11,9 @@ export const useAuthStore = defineStore("auth", () => {
         return token
     });
     //Action
-    const signin = async (credentials: { account: string; password: string })=>{
+    const signin = async (inputData: { account: string; password: string })=>{
         try{
-            const response = await fetchApi.signin(credentials)
+            const response = await fetchApi.signin(inputData)
             if(response.status===200){
                 document.cookie = `TokenCode=${response.data.jwtToken}`
                 const { message, status } = response.data;
@@ -31,7 +31,24 @@ export const useAuthStore = defineStore("auth", () => {
             }
         }
     }
+    const register = async (inputData:{ account: string; password: string })=>{
+        try{
+            const response = await fetchApi.register(inputData)
+            if (response.status === 200) {
+                switch (response.data.code) {
+                  case 0:{
+                    const { message, status } = response.data;
+                    return { message, status };
+                  }
+                }
+            }
+        }catch(error: any) {
+            if (error.response.status === 400) {
+                throw error.response.data
+            }
+        }
+    }
     return {
-		signin,getUserToken
+		signin,register,getUserToken
     }
 })

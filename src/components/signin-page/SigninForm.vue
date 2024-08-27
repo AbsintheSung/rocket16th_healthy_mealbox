@@ -56,7 +56,7 @@ const fetchSignin = async (data: SigninInputType) => {
     isLoading.value = true
     const response: any = await authStore.signin(data)
     message(response.message, 'success')
-    router.push('/')
+    // router.push('/')
   } catch (error: any) {
     message(error.message, 'error')
   } finally {
