@@ -113,7 +113,7 @@ const test = () => {
         </div>
         <div class="flex py-5">
           <button
-            class="ms-auto rounded bg-secondary-base px-14 py-2 font-bold"
+            class="ms-auto rounded border border-secondary-900 px-14 py-2 font-bold text-secondary-900 md:py-3"
             @click.prevent="test"
           >
             儲存資料
@@ -140,7 +140,11 @@ const test = () => {
           <el-input v-model="updatePassWord.checkNewPassWord" type="password" />
         </el-form-item>
         <div class="flex">
-          <button class="ms-auto rounded bg-secondary-base px-14 py-2 font-bold">更改密碼</button>
+          <button
+            class="ms-auto rounded border border-secondary-900 px-14 py-2 font-bold text-secondary-900 md:py-3"
+          >
+            更改密碼
+          </button>
         </div>
       </el-form>
     </div>
