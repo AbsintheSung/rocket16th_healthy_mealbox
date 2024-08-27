@@ -105,7 +105,13 @@ const fetchRegister = async (data: RegisterInputType) => {
 }
 </script>
 <template>
-  <el-form ref="ruleFormRef" :rules="registerRules" :model="registerInput" v-loading="isLoading">
+  <el-form
+    class="el-form-font-size"
+    ref="ruleFormRef"
+    :rules="registerRules"
+    :model="registerInput"
+    v-loading="isLoading"
+  >
     <el-form-item label="登入電子信箱帳號:" label-position="top" prop="account">
       <el-input v-model="registerInput.account" />
     </el-form-item>
@@ -127,7 +133,7 @@ const fetchRegister = async (data: RegisterInputType) => {
       </el-checkbox-group>
     </el-form-item>
     <button
-      class="w-full rounded-md bg-primary-base px-4 py-3 text-center font-bold"
+      class="w-full rounded-md bg-primary-300 px-4 py-3 text-center font-bold"
       @click.prevent="handleRegister(ruleFormRef)"
     >
       註冊
@@ -135,8 +141,12 @@ const fetchRegister = async (data: RegisterInputType) => {
   </el-form>
 </template>
 <style lang="scss" scoped>
+.el-form-font-size {
+  font-size: 16px;
+}
 :deep(.el-form-item__label) {
-  margin-bottom: 16px;
+  font-size: 16px;
+  margin-bottom: 8px;
 }
 :deep(.el-form-item:nth-child(4)) {
   margin-bottom: 12px;
