@@ -1,10 +1,10 @@
 import axios from 'axios';
-const baseURL = import.meta.env.VITE_APP_API_URL
-const axiosInstance = axios.create({
-  baseURL: baseURL,
-});
+// const baseURL = import.meta.env.VITE_APP_API_URL
+// const axiosInstance = axios.create({
+//   baseURL: baseURL,
+// });
 
-axiosInstance.interceptors.request.use(
+axios.interceptors.request.use(
   (config) => {
     const tokenCode = document.cookie.replace(/(?:(?:^|.*;\s*)tokenCode\s*=\s*([^;]*).*$)|^.*$/, '$1');
     if (tokenCode) {
@@ -15,7 +15,7 @@ axiosInstance.interceptors.request.use(
   (error) => Promise.reject(error)
 );
 
-axiosInstance.interceptors.response.use(
+axios.interceptors.response.use(
   (response) => response,
   (error) => {
     if (error.response && error.response.status === 401) {
@@ -25,4 +25,4 @@ axiosInstance.interceptors.response.use(
   }
 );
 
-export default axiosInstance;
+export default axios;
