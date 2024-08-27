@@ -5,7 +5,7 @@ import ExternalAuthButton from '@/components/global/ExternalAuthButton.vue'
 import TheSvg from '@/components/global/TheSvg.vue'
 const authButtonData = [
   {
-    buttonClass: 'border border-[#358AF9] text-[#358AF9]',
+    buttonClass: 'border border-[#1161B4] text-[#1161B4]',
     buttonTitle: '使用Facebook註冊',
     icon: ['fab', 'facebook'],
     iconSize: 'xl',
@@ -14,7 +14,7 @@ const authButtonData = [
     }
   },
   {
-    buttonClass: 'border border-[#58C067] text-[#58C067]',
+    buttonClass: 'border border-[#286D33] text-[#286D33]',
     buttonTitle: '使用Line註冊',
     icon: ['fab', 'line'],
     iconSize: 'xl',
