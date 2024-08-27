@@ -3,7 +3,7 @@ import NutritionistPlanDetailCard from '@/components/nutritionist-plan-detail-pa
 import NutritionistPlanDetailInfo from '@/components/nutritionist-plan-detail-page/NutritionistPlanDetailInfo.vue'
 </script>
 <template>
-    <div class="container py-20">
+    <div class="container py-14">
         <NutritionistPlanDetailInfo />
         <NutritionistPlanDetailCard />
     </div>
