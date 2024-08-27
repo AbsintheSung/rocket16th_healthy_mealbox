@@ -1,9 +1,9 @@
 <script lang="ts" setup>
 import { ref } from 'vue'
 import type { FormInstance } from 'element-plus'
-import axios from '@/utils/apis/axiosInterceptors'
 import { useRouter, type Router } from 'vue-router'
-import { signinApi } from '@/utils/apis/apiUrl'
+import { useAuthStore } from '@/stores/auth'
+const authStore = useAuthStore()
 const ruleFormRef = ref<FormInstance>()
 const isLoading = ref<Boolean>(false)
 type SigninInputType = {
@@ -51,28 +51,18 @@ const message = (mes: any, mesType: any): void => {
 const fetchSignin = async (data: SigninInputType) => {
   try {
     isLoading.value = true
-    const response = await axios.post(signinApi, data)
-    if (response.status === 200) {
-      document.cookie = `tokenCode=${response.data.jwtToken}`
-      switch (response.data.code) {
-        case 0:
-          message(response.data.message, 'success')
-          router.push('/')
-        // console.log(response.data.message)
-      }
-    }
+    const response: any = await authStore.signin(data)
+    message(response.message, 'success')
+    router.push('/')
   } catch (error: any) {
-    // console.log(error)
-    if (error.response.status === 401) {
-      message('登入失敗', 'error')
-    }
+    message(error.message, 'error')
   } finally {
     isLoading.value = false
   }
 }
 </script>
 <template>
-  <el-form ref="ruleFormRef" :rules="registerRules" :model="signinInput">
+  <el-form ref="ruleFormRef" :rules="registerRules" :model="signinInput" v-loading="isLoading">
     <el-form-item label="登入電子信箱帳號:" label-position="top" prop="account">
       <el-input v-model="signinInput.account" />
     </el-form-item>

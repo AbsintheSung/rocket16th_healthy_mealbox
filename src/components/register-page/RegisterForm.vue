@@ -1,9 +1,9 @@
 <script lang="ts" setup>
 import { ref } from 'vue'
 import type { FormInstance } from 'element-plus'
-import axios from '@/utils/apis/axiosInterceptors'
 import { useRouter, type Router } from 'vue-router'
-import { registerApi } from '@/utils/apis/apiUrl'
+import { useAuthStore } from '@/stores/auth'
+const authStore = useAuthStore()
 const ruleFormRef = ref<FormInstance>()
 const isLoading = ref<Boolean>(false)
 const router: Router = useRouter()
@@ -75,9 +75,9 @@ const handleRegister = async (formEl: FormInstance | undefined) => {
   await formEl.validate((valid, fields) => {
     if (valid) {
       fetchRegister(registerInput.value)
-      console.log('發送註冊API')
+      // console.log('發送註冊API')
     } else {
-      console.log('error submit!', fields)
+      // console.log('error submit!', fields)
     }
   })
 }
@@ -94,22 +94,11 @@ const fetchRegister = async (data: RegisterInputType) => {
   const fetchData = { account, password }
   try {
     isLoading.value = true
-    const response = await axios.post(registerApi, fetchData)
-    if (response.status === 200) {
-      switch (response.data.code) {
-        case 0:
-          message(response.data.message, 'success')
-        // console.log(response.data.message)
-      }
-    }
+    const response: any = await authStore.register(fetchData)
+    message(response.message, 'success')
     router.push('/signin')
-    // console.log(response)
   } catch (error: any) {
-    // console.log(error)
-    if (error.response.status === 400) {
-      message(error.response.data.Message, 'error')
-      // console.log(error.response.data.Message)
-    }
+    message(error.message, 'error')
   } finally {
     isLoading.value = false
   }
