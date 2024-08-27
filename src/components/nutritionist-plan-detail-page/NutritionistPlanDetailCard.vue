@@ -72,12 +72,12 @@
                 <span>蛋白質20g</span>
             </div>
         </el-card>
-        <div class="justify-self-end self-end">
-            <button class="bg-secondary-base border-2 border-black rounded-xl p-7 hover:shadow-base transition active:shadow-none">
+    </div>
+    <div class="text-center pt-12">
+            <button class="bg-secondary-base border-2 border-black rounded px-3 py-4 hover:shadow-base transition active:shadow-none">
                 <p>將此方案加入購物車</p>
             </button>
         </div>
-    </div>
 </template>
 <style scoped>
 .card-img {
