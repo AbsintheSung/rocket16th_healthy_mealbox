@@ -27,6 +27,7 @@ const toggleMenu = () => {
 <template>
   <header>
     <nav class="container py-5">
+      <!-- 左側LOGO -->
       <div class="flex flex-wrap">
         <div class="w-3/12">
           <h1 class="hidden md:block">
@@ -41,7 +42,9 @@ const toggleMenu = () => {
           </h1>
         </div>
 
+        <!-- 右側各選項按鈕 -->
         <div class="flex w-9/12 items-center justify-end gap-x-4">
+          <!-- 手機板會隱藏此處 -->
           <ul class="hidden items-center gap-x-4 md:flex">
             <li v-for="mainNavItem in mainNav" :key="mainNavItem.id">
               <RouterLink class="block p-2" :to="`${mainNavItem.path}`">
@@ -56,10 +59,12 @@ const toggleMenu = () => {
               </RouterLink>
             </li>
           </ul>
+          <!-- 用來控制縮合的按鈕，手機板才會顯示 -->
           <button class="hover: block cursor-pointer p-2 md:hidden" @click="toggleMenu">
             <FontAwesomeIcon :icon="['fas', 'bars']" size="lg" />
           </button>
         </div>
+        <!-- 手機板才會顯示的縮合區塊 -->
         <div
           :class="[isOpen ? 'max-h-screen' : 'max-h-0']"
           class="w-full overflow-hidden transition-all duration-300 ease-in-out md:hidden"
