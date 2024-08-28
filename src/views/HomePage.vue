@@ -35,5 +35,15 @@
         </li>
       </ul>
     </section>
+    <section class="container py-12">
+      <h2 class="text-3xl font-bold text-primary-700 md:text-5xl lg:text-7xl">
+        「想要健康，就要吃得均衡。」
+      </h2>
+      <div class="flex flex-col gap-y-28 py-8">
+        <p class="ms-auto text-2xl font-medium md:text-4xl lg:text-6xl">蛋白質20g</p>
+        <p class="mx-auto text-2xl font-medium md:text-4xl lg:text-6xl">澱粉 15g</p>
+        <p class="me-auto text-2xl font-medium md:text-4xl lg:text-6xl">熱量200Kcal</p>
+      </div>
+    </section>
   </main>
 </template>
