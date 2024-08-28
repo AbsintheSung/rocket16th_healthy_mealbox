@@ -7,7 +7,7 @@ export const useAuthStore = defineStore("auth", () => {
 
     //Getter
     const getUserToken = computed(() => {
-        const token = document.cookie.replace(/(?:(?:^|.*;\s*)TokenCode\s*\s*([^;]*).*$)|^.*$/, "$1"); //獲取存在cookie的token
+        const token = document.cookie.replace(/(?:(?:^|.*;\s*)tokenCode\s*\s*([^;]*).*$)|^.*$/, "$1"); //獲取存在cookie的token
         return token
     });
     //Action
@@ -15,7 +15,7 @@ export const useAuthStore = defineStore("auth", () => {
         try{
             const response = await fetchApi.signin(inputData)
             if(response.status===200){
-                document.cookie = `TokenCode=${response.data.jwtToken}`
+                document.cookie = `tokenCode=${response.data.token}`
                 const { message, status } = response.data;
                 return { message, status };
             }
