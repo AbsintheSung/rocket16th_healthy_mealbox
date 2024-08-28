@@ -45,5 +45,28 @@
         <p class="me-auto text-2xl font-medium md:text-4xl lg:text-6xl">熱量200Kcal</p>
       </div>
     </section>
+    <section class="container py-24">
+      <div class="grid grid-cols-12">
+        <h2 class="col-span-full mb-16 text-center text-3xl font-bold">不再需要耗時的工作</h2>
+        <ul class="col-span-8 col-start-3 flex items-start gap-6">
+          <li class="w-1/4">
+            <img src="../assets//image/homemeal.jpg" />
+            <h3 class="mt-5">食材購買</h3>
+          </li>
+          <li class="w-1/4">
+            <img src="../assets//image/homemeal.jpg" />
+            <h3 class="mt-5">烹飪調理</h3>
+          </li>
+          <li class="w-1/4">
+            <img src="../assets//image/homemeal.jpg" />
+            <h3 class="mt-5">清洗碗盤</h3>
+          </li>
+          <li class="w-1/4">
+            <img src="../assets//image/homemeal.jpg" />
+            <h3 class="mt-5">思考要吃什麼</h3>
+          </li>
+        </ul>
+      </div>
+    </section>
   </main>
 </template>
