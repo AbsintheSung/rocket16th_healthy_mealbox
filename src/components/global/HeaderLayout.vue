@@ -3,7 +3,7 @@ import { RouterLink } from 'vue-router'
 import { ref } from 'vue'
 import TheSvg from '@/components/global/TheSvg.vue'
 const mainNav = ref([
-  { id: 'plan', title: '方案選擇', path: '/' },
+  { id: 'plan', title: '方案選擇', path: '/plan-selection' },
   { id: 'usage', title: '使用方式', path: '/' },
   { id: 'faq', title: '常見問題', path: '/mealboxlist' }
 ])
