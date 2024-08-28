@@ -115,5 +115,34 @@
         </ul>
       </div>
     </section>
+    <section class="container flex flex-col gap-y-16 py-24">
+      <div>
+        <h2 class="text-center font-bold text-primary-700">餐餐自由配</h2>
+        <p class="mt-2 text-center text-3xl font-bold">適合您的生活方式的3種方案</p>
+      </div>
+      <ul class="flex items-center justify-center gap-x-24">
+        <li class="rounded border border-black" v-for="item in 3" :key="item">
+          <h3 class="bg-primary-700 py-1 text-center text-4xl font-bold text-white">7餐</h3>
+          <div class="flex flex-col items-center justify-center gap-y-6 px-8 py-6">
+            <div>
+              <p class="text-2xl">平均一餐</p>
+              <p class="text-4xl">NT.70</p>
+              <p>總價700元起*</p>
+            </div>
+            <div>
+              <RouterLink
+                to="/"
+                class="block rounded border border-primary-700 px-14 py-1 text-primary-700"
+                >選擇方案</RouterLink
+              >
+            </div>
+          </div>
+        </li>
+      </ul>
+      <div>
+        <p class="text-center">您可以根據自身狀況選擇套餐方案，產品一律採用冷凍配送，</p>
+        <p class="text-center">我們也歡迎您與親朋好友一起訂購。</p>
+      </div>
+    </section>
   </main>
 </template>
