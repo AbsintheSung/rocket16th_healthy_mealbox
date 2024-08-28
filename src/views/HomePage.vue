@@ -144,5 +144,19 @@
         <p class="text-center">我們也歡迎您與親朋好友一起訂購。</p>
       </div>
     </section>
+
+    <section class="container py-24">
+      <h2 class="mb-16 text-center text-3xl font-bold text-primary-700">「又懶又健康」</h2>
+      <p class="text-center">
+        這是<span class="font-bold">盒十</span
+        >的宗旨，健康是財富之本，我們希望無論您的生活多麼忙碌都能吃得營養均衡。
+      </p>
+      <p class="py-1 text-center">
+        無論您是忙碌的上班族、辛苦的全職媽媽，或者您與我們一樣，是個又懶又想吃的健康的人，
+      </p>
+      <p class="text-center">
+        <span class="font-bold">盒十</span>提供您日常飲食更多元的選擇，健康美味輕鬆上桌。
+      </p>
+    </section>
   </main>
 </template>
