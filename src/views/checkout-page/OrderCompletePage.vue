@@ -86,7 +86,7 @@ const activeStep = ref(3)
         <!-- 底部按鈕 -->
         <div class="col-start-11 col-span-2">
             <RouterLink
-                class="flex items-center justify-between bg-secondary-400 py-2 px-4 mt-14 border-2 border-black rounded-sm hover:shadow-base transition active:shadow-none"
+                class="flex items-center justify-between py-2 px-4 mt-14 border-2 border-black rounded-sm hover:shadow-base transition active:shadow-none"
                 to="/">
                 <p>回到首頁</p>
                 <font-awesome-icon :icon="['fas', 'caret-right']" />
