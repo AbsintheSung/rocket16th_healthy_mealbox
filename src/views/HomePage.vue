@@ -68,5 +68,52 @@
         </ul>
       </div>
     </section>
+    <section class="container py-24">
+      <div>
+        <h2 class="mb-16 text-center text-3xl font-bold">簡單下訂，一鍵送到家</h2>
+        <ul class="grid grid-cols-12 gap-6">
+          <li class="col-span-6 flex flex-col gap-y-3 lg:col-span-3">
+            <div class="flex">
+              <h3 class="text-5xl font-bold">1</h3>
+              <div>
+                <p>選擇套餐方案</p>
+                <p>選擇適合你的數量</p>
+              </div>
+            </div>
+            <img class="mt-auto" src="../assets//image/homemeal.jpg" />
+          </li>
+          <li class="col-span-6 flex flex-col gap-y-3 lg:col-span-3">
+            <div class="flex">
+              <h3 class="text-5xl font-bold">2</h3>
+              <div>
+                <p>套餐內容選擇</p>
+                <p>選配好的套餐，或是親自挑選</p>
+              </div>
+            </div>
+            <img class="mt-auto" src="../assets//image/homemeal.jpg" />
+          </li>
+          <li class="col-span-6 flex flex-col gap-y-3 lg:col-span-3">
+            <div class="flex">
+              <h3 class="text-5xl font-bold">3</h3>
+              <div>
+                <p>餐盒冷凍保存</p>
+                <p>餐點放置冷凍庫急凍保存</p>
+              </div>
+            </div>
+            <img class="mt-auto" src="../assets//image/homemeal.jpg" />
+          </li>
+          <li class="col-span-6 flex flex-col gap-y-3 lg:col-span-3">
+            <div class="flex">
+              <h3 class="text-5xl font-bold">4</h3>
+              <div>
+                <p>加熱享用</p>
+                <p>使用微波或電鍋加熱輕鬆上桌</p>
+              </div>
+            </div>
+            <img class="mt-auto" src="../assets//image/homemeal.jpg" />
+          </li>
+        </ul>
+      </div>
+    </section>
   </main>
 </template>
