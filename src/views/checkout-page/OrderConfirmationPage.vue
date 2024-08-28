@@ -4,9 +4,9 @@
     <div class="grid grid-cols-12 gap-6">
         <div class="col-span-8">
             <div class="border-2 border-black">
-                <div class="flex items-center py-2 border-b border-black">
+                <div class="flex items-center py-2 border-b border-black bg-primary-300">
                     <font-awesome-icon :icon="['fas', 'cart-shopping']" class="pl-6 pr-2" />
-                    <p>購物車</p>
+                    <p class="font-bold">購物車</p>
                 </div>
                 <div class="p-6 border-b border-black">
                     <div class="flex justify-between items-center pb-6">
@@ -18,64 +18,64 @@
                     <!-- 套餐細項 -->
                     <div class="pr-28">
                         <div class="flex justify-between items-center">
-                            <p class="text-primary-600">健康套餐A</p>
+                            <p>健康套餐A</p>
                             <span>NT$100</span>
                         </div>
                         <div class="flex justify-between items-center">
-                            <p class="text-primary-600">健康套餐A</p>
+                            <p>健康套餐A</p>
                             <span>NT$100</span>
                         </div>
                         <div class="flex justify-between items-center">
-                            <p class="text-primary-600">健康套餐A</p>
+                            <p>健康套餐A</p>
                             <span>NT$100</span>
                         </div>
                         <div class="flex justify-between items-center">
-                            <p class="text-primary-600">健康套餐A</p>
+                            <p>健康套餐A</p>
                             <span>NT$100</span>
                         </div>
                         <div class="flex justify-between items-center">
-                            <p class="text-primary-600">健康套餐A</p>
+                            <p>健康套餐A</p>
                             <span>NT$100</span>
                         </div>
                         <div class="flex justify-between items-center">
-                            <p class="text-primary-600">健康套餐A</p>
+                            <p>健康套餐A</p>
                             <span>NT$100</span>
                         </div>
                         <div class="flex justify-between items-center">
-                            <p class="text-primary-600">健康套餐A</p>
+                            <p>健康套餐A</p>
                             <span>NT$100</span>
                         </div>
                         <div class="flex justify-between items-center">
-                            <p class="text-primary-600">健康套餐A</p>
+                            <p>健康套餐A</p>
                             <span>NT$100</span>
                         </div>
                         <div class="flex justify-between items-center">
-                            <p class="text-primary-600">健康套餐A</p>
+                            <p>健康套餐A</p>
                             <span>NT$100</span>
                         </div>
                         <div class="flex justify-between items-center">
-                            <p class="text-primary-600">健康套餐A</p>
+                            <p>健康套餐A</p>
                             <span>NT$100</span>
                         </div>
                         <div class="flex justify-between items-center">
-                            <p class="text-primary-600">健康套餐A</p>
+                            <p>健康套餐A</p>
                             <span>NT$100</span>
                         </div>
                         <div class="flex justify-between items-center">
-                            <p class="text-primary-600">健康套餐A</p>
+                            <p>健康套餐A</p>
                             <span>NT$100</span>
                         </div>
                         <div class="flex justify-between items-center">
-                            <p class="text-primary-600">健康套餐A</p>
+                            <p>健康套餐A</p>
                             <span>NT$100</span>
                         </div>
                         <div class="flex justify-between items-center">
-                            <p class="text-primary-600">自定義餐盒 (1) </p>
+                            <p>自定義餐盒 (1) </p>
                             <span>NT$160</span>
                         </div>
                     </div>
                 </div>
-                <div class="flex justify-between items-center border-b border-black pt-6 pb-12 pl-6 pr-12">
+                <div class="flex justify-between items-center border-b border-black py-7 pl-6 pr-12">
                     <h4 class="text-2xl text-primary-600">已享用之優惠</h4>
                     <p>全店商品滿1000免運</p>
                 </div>
@@ -108,7 +108,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-start-1 col-span-2 pt-[72px]">
+        <div class="col-start-1 col-span-2 pt-12">
             <RouterLink
                 class="flex items-center py-2 px-4 border-2 border-black rounded-sm hover:shadow-base transition active:shadow-none"
                 to="/mealboxlist">
