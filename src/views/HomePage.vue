@@ -9,7 +9,7 @@
         <h2 class="text-2xl font-bold">金牌營養師推薦套餐</h2>
         <RouterLink to="/" class="absolute bottom-0 right-0">查看所有餐點</RouterLink>
       </div>
-      <!-- 輪播套件( 改天再引入 ) -->
+
       <ul class="grid grid-cols-12 gap-6 py-12">
         <li
           class="col-span-6 flex flex-col gap-y-3 rounded lg:col-span-3"
@@ -35,16 +35,16 @@
         </li>
       </ul>
     </section>
-    <section class="container py-12">
+    <!-- <section class="container py-12">
       <h2 class="text-3xl font-bold text-primary-700 md:text-5xl lg:text-7xl">
         「想要健康，就要吃得均衡。」
       </h2>
       <div class="flex flex-col gap-y-28 py-8">
-        <p class="ms-auto text-2xl font-medium md:text-4xl lg:text-6xl">蛋白質20g</p>
-        <p class="mx-auto text-2xl font-medium md:text-4xl lg:text-6xl">澱粉 15g</p>
-        <p class="me-auto text-2xl font-medium md:text-4xl lg:text-6xl">熱量200Kcal</p>
+        <p class="text-2xl font-medium md:text-4xl lg:text-6xl">蛋白質20g</p>
+        <p class="text-2xl font-medium md:text-4xl lg:text-6xl">澱粉 15g</p>
+        <p class="text-2xl font-medium md:text-4xl lg:text-6xl">熱量200Kcal</p>
       </div>
-    </section>
+    </section> -->
     <section class="container py-24">
       <div class="grid grid-cols-12">
         <h2 class="col-span-full mb-16 text-center text-3xl font-bold">不再需要耗時的工作</h2>
@@ -68,6 +68,7 @@
         </ul>
       </div>
     </section>
+    <!-- 
     <section class="container py-24">
       <div>
         <h2 class="mb-16 text-center text-3xl font-bold">簡單下訂，一鍵送到家</h2>
@@ -143,7 +144,7 @@
         <p class="text-center">您可以根據自身狀況選擇套餐方案，產品一律採用冷凍配送，</p>
         <p class="text-center">我們也歡迎您與親朋好友一起訂購。</p>
       </div>
-    </section>
+    </section> -->
 
     <section class="container py-24">
       <h2 class="mb-16 text-center text-3xl font-bold text-primary-700">「又懶又健康」</h2>
