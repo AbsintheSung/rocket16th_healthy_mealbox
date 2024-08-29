@@ -6,6 +6,7 @@ export const useMealBoxStore = defineStore('mealbox', () => {
   const generalMeal = ref([]) //一般餐盒資料，預設空陣列
   const currentPage = ref(1) //當前分頁
   const pageSize = ref(10) //每頁該顯示的資料數量
+  const oneGeneralMeal = ref({})
 
   //Getter
 
@@ -13,6 +14,8 @@ export const useMealBoxStore = defineStore('mealbox', () => {
   const getCurrentPage = computed(() => currentPage.value)
   //取得獲取一般餐盒的資料總數
   const getDataTotal = computed(() => generalMeal.value.length)
+  //取得單一餐盒資訊
+  const getOneGeneralMeal = computed(() => oneGeneralMeal.value)
   //取得每頁該顯示的資料數量
   const getPageSize = computed(() => pageSize.value)
   //總頁碼共幾個
@@ -27,13 +30,26 @@ export const useMealBoxStore = defineStore('mealbox', () => {
   //Action
 
   //獲取所有一般餐盒子資料
-  const featchGeneralMeal = async () => {
+  const fetchGeneralMeal = async () => {
     try {
       const response = await fetchApi.generalmeal()
       if (response.status === 200) {
         generalMeal.value = response?.data?.data || []
-        console.log(response.data)
-        console.log(generalMeal.value)
+        // console.log(response.data)
+        // console.log(generalMeal.value)
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  const featchOneGeneralMeal = async (id: any) => {
+    try {
+      const response = await fetchApi.generalmealOne(id)
+      if (response.status === 200) {
+        oneGeneralMeal.value = response?.data?.data || {}
+        // console.log(response.data)
+        // console.log(generalMeal.value)
       }
     } catch (error) {
       console.log(error)
@@ -45,12 +61,14 @@ export const useMealBoxStore = defineStore('mealbox', () => {
 
 
   return {
-    getCurrentPage,
+    currentPage,
     getPageSize,
     getDataTotal,
     getTotalPages,
     getPaginatedMeals,
+    getOneGeneralMeal,
     changePage,
-    featchGeneralMeal
+    fetchGeneralMeal,
+    featchOneGeneralMeal
   }
 })
