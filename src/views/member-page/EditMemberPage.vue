@@ -1,7 +1,6 @@
 <script setup>
 import { computed, ref, watch } from 'vue'
 import { taiwanCity } from '@/content/city' //引入城市鄉鎮
-const twCityArea = ref({ city: [], area: [] }) //用來存放城市鄉鎮的資料，select使用
 const cityName = ref('') //v-model綁定所選取得值
 const cityArea = ref('') //v-model綁定所選取得值
 const memberData = ref({
@@ -24,20 +23,18 @@ const onSubmitPassword = () => {
   console.log(updatePassWord.value)
 }
 
-//將引入的城鄉鎮資料，作處理後assign到 twCityArea.city
-const getTwCityArea = () => {
-  twCityArea.value.city = taiwanCity.map((item) => item.name)
-}
+// 透過computed 計算城市列表
+const cities = computed(() => taiwanCity.map((item) => item.name))
+const areas = computed(() => {
+  if (!cityName.value) return []
+  const selectedCity = taiwanCity.find((item) => item.name === cityName.value)
+  return selectedCity ? selectedCity.districts.map((item) => item.name) : []
+})
 
-//透過監聽選取城市的變化，將 地區值作處理後assign到twCityArea.value.area
-watch(
-  () => cityName.value,
-  (newCity) => {
-    const filterArea = taiwanCity.filter((item) => item.name === newCity)
-    twCityArea.value.area = filterArea[0].districts.map((item) => item.name)
-  }
-)
-getTwCityArea()
+//透過watch 監聽 areas值，當使用者重新選取城市，清除原先選擇的地區
+watch(cityName, () => {
+  cityArea.value = ''
+})
 
 const test = () => {
   console.log(cityName.value)
@@ -90,7 +87,7 @@ const test = () => {
           <div class="flex-grow">
             <el-select v-model="cityName" placeholder="城市">
               <el-option
-                v-for="cityItem in twCityArea.city"
+                v-for="cityItem in cities"
                 :key="cityItem"
                 :label="cityItem"
                 :value="cityItem"
@@ -100,7 +97,7 @@ const test = () => {
           <div class="flex-grow">
             <el-select v-model="cityArea" placeholder="地區">
               <el-option
-                v-for="areaItem in twCityArea.area"
+                v-for="areaItem in areas"
                 :key="areaItem"
                 :label="areaItem"
                 :value="areaItem"
