@@ -85,21 +85,21 @@
                 </div>
             </div>
         </div>
-        <div class="col-span-4 md:col-start-9">
-            <div class="border-2 border-black px-6 py-9">
-                <div class="flex justify-between text-xl pb-6 border-b border-black">
+        <div class="col-span-4 md:col-start-9 text-base -mt-3">
+            <div class="border-2 border-black px-3 py-9 md:px-6">
+                <div class="flex justify-between pb-6 border-b border-black md:text-xl">
                     <p>商品金額</p>
                     <p>NT$1460</p>
                 </div>
-                <div class="flex justify-between text-xl pt-9 pb-6 border-b border-black">
+                <div class="flex justify-between pt-6 pb-6 border-b border-black md:text-xl md:pt-9">
                     <p>運費</p>
                     <p>免運</p>
                 </div>
-                <div class="flex justify-between text-xl pt-9 pb-6 border-b border-black">
+                <div class="flex justify-between pt-6 pb-6 border-b border-black md:text-xl md:pt-9">
                     <p>合計</p>
                     <p>NT$1460</p>
                 </div>
-                <div class="pt-28">
+                <div class="pt-6 md:pt-28">
                     <RouterLink
                         class="flex items-center justify-center text-center py-2 px-4 bg-secondary-400 rounded border-2 border-black hover:shadow-base transition active:shadow-none"
                         to="/checkout/shipping-payment">
@@ -108,7 +108,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-start-1 col-span-2 pt-12">
+        <div class="col-start-1 col-span-2 pt-3 md:pt-12">
             <RouterLink
                 class="flex items-center py-2 px-4 border-2 border-black rounded-sm hover:shadow-base transition active:shadow-none"
                 to="/mealboxlist">
