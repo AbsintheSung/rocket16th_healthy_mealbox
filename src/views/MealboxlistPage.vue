@@ -1,10 +1,17 @@
 <script setup>
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
+import { useMealBoxStore } from '@/stores/mealbox'
+const mealBoxStore = useMealBoxStore()
+
 const drawer = ref(false)
-const currentPage1 = ref(1)
 const handleCurrentChange = (val) => {
-  console.log(`current page: ${val}`)
+  // console.log(`current page: ${val}`)
+  mealBoxStore.changePage(val)
 }
+
+onMounted(async () => {
+  await mealBoxStore.fetchGeneralMeal()
+})
 </script>
 <template>
   <main>
@@ -40,11 +47,11 @@ const handleCurrentChange = (val) => {
           <el-pagination
             style="--el-fill-color: white"
             layout="prev, pager, next"
-            v-model:current-page="currentPage1"
+            v-model:current-page="mealBoxStore.currentPage"
             background
-            :page-size="20"
             :pager-count="5"
-            :total="100"
+            :page-size="mealBoxStore.getPageSize"
+            :total="mealBoxStore.getDataTotal"
             :prev-text="'上一頁'"
             :next-text="'下一頁'"
             @current-change="handleCurrentChange"
