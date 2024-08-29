@@ -19,22 +19,22 @@ const onSubmit = () => {
 }
 </script>
 <template>
-    <div class="grid grid-cols-12 gap-6">
+    <div class="grid grid-cols-4 gap-3 md:grid-cols-12 md:gap-6">
         <!-- 購物車步驟 -->
-        <div class="col-start-5 col-span-4 mb-9">
+        <div class="col-span-4 md:col-start-5 mb-3 md:mb-9">
             <ShoppingCartProgressBar :active-step="activeStep" :steps="steps" />
         </div>
         <!-- 購物車與優惠預覽 -->
-        <div class="col-span-12">
+        <div class="col-span-4 text-sm md:col-span-12 md:text-base">
             <div class="border-2 border-black">
-                <div class="bg-primary-300 py-2 pl-6 border-b-2 border-black">
+                <div class="bg-primary-300 border-b-2 py-2 pl-3 border-black md:py-2 md:pl-6">
                     <p class="font-bold">購物車</p>
                 </div>
                 <table class="w-full table-auto border-b-2 border-black">
                     <thead>
                         <tr class="border-b-2 border-black">
-                            <th class="pl-6 py-2 text-left font-normal w-1/4">商品資料</th>
-                            <th class="text-left font-normal w-1/6">優惠</th>
+                            <th class="pl-3 py-2 text-left font-normal w-1/4 md:pl-6">商品資料</th>
+                            <th class="text-left font-normal w-1/6 pl-6 md:pl-0">優惠</th>
                             <th class="text-left font-normal w-1/5">單件價格</th>
                             <th class="text-left font-normal w-1/6">數量</th>
                             <th class="text-left font-normal w-1/6">小計</th>
@@ -43,24 +43,24 @@ const onSubmit = () => {
                     </thead>
                     <tbody>
                         <tr>
-                            <td class="pl-6 py-2 flex items-center">
+                            <td class="pl-3 py-2 flex items-center md:pl-6">
                                 <img src="https://s3-alpha-sig.figma.com/img/3ffe/1ae1/ff73ee555e48ab420b00cc78f9722622?Expires=1725235200&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=Q4yB2ANCERzoSS80kOtg8EvynMBd~UPG4Kn70FGLns3OIx2YY-Nxnu5xOAe0gWf3foJq2mY7gF5-vBloNB~4XN7xvf4Fe-cIckhoZqLBvZ58ZaQf4iDo703fqrfIAJKWFzjDJ0DrP5t~hJmJ6whQ5mmIPvHO733JmerrELU21aQaPkWwHB6O56~1kvfV~vcH1V8ke1MlhG-I3GXqGFMBuSzZz57TwxWNGidxidTtZDdGC4NPPYQwSTxcW8DpXoA3co2Hj8inptO13oE2Z77thqiFzISTnAyYwvB1siSNN5HUfgMdsBYRUbyp6qRo72dP8KxkQPHhO5gx0P0DcW-ssQ__"
-                                    alt="" class="w-[88px]">
-                                <p class="pl-2">訂餐計畫 14餐</p>
+                                    alt="" class="hidden md:block w-[88px]">
+                                <p class="md:pl-2">訂餐計畫 14餐</p>
                             </td>
-                            <td>免運</td>
+                            <td class="pl-6 md:pl-0">免運</td>
                             <td>NT$1460</td>
                             <td>1</td>
                             <td>NT$5000</td>
                             <td>
                                 <button class="text-black hover:text-secondary-400 transition">
-                                    <font-awesome-icon :icon="['fas', 'xmark']" class="text-2xl" />
+                                    <font-awesome-icon :icon="['fas', 'xmark']" class="text-sm md:text-2xl" />
                                 </button>
                             </td>
                         </tr>
                     </tbody>
                 </table>
-                <div class="py-10 px-6">
+                <div class="p-3 md:py-10 md:px-6">
                     <div class="flex items-center">
                         <p class="bg-primary-200 px-2 py-1 mr-1 border border-black">已享用之優惠</p>
                         <p>全店商品滿1000免運</p>
@@ -69,12 +69,12 @@ const onSubmit = () => {
             </div>
         </div>
         <!-- 選擇送貨與付款方式 左邊-->
-        <div class="col-span-8">
+        <div class="col-span-4 md:col-span-8">
             <div class="bg-primary-300 border-2 border-black">
-                <p class="px-6 py-2 font-bold">選擇送貨及付款方式</p>
+                <p class="px-3 py-2 font-bold md:px-6">選擇送貨及付款方式</p>
             </div>
             <div class="border-2 border-black">
-                <el-form :model="form" label-width="auto" style="max-width: 100%" class="px-6 py-4">
+                <el-form :model="form" label-width="auto" style="max-width: 100%" class="px-3 pt-4 md:px-6 md:pb-4">
                     <el-form-item label="送貨地點" label-position="top">
                         <el-select v-model="form.placeOfDelivery" placeholder="請選擇運送區域">
                             <el-option label="臺灣本島" value="islandTaiwan" />
@@ -87,8 +87,8 @@ const onSubmit = () => {
                             <el-option label="超商冷凍宅配" value="convenienceStore" />
                         </el-select>
                     </el-form-item>
-                    <div class="pb-3">
-                        <ul class="list-disc list-inside">
+                    <div class="pb-2 md:pb-3">
+                        <ul class="list-disc list-inside text-sm md:text-base">
                             <li>如訂單量較大或是有缺貨狀況，寄出時間將有所延遲，敬請見諒</li>
                             <li>若收到商品外箱有明顯破損，可以拒收並錄影存留，當下也請聯絡我們，謝謝</li>
                             <li>一般狀況訂單將於下單後隔天寄出(不包含例假日)</li>
@@ -107,12 +107,12 @@ const onSubmit = () => {
             </div>
         </div>
         <!-- 選擇送貨與付款方式 右邊 -->
-        <div class="col-start-9 col-span-4">
+        <div class="col-span-4 md:col-start-9">
             <div class="bg-primary-300 border-2 border-black">
-                <p class="px-6 py-2 font-bold">選擇送貨及付款方式</p>
+                <p class="px-3 py-2 font-bold md:px-6">選擇送貨及付款方式</p>
             </div>
             <div class="border border-black">
-                <div class="border border-black px-6 py-9">
+                <div class="border border-black px-3 py-9 md:px-6">
                     <div class="flex justify-between text-xl pb-6 border-b border-black">
                         <p>商品金額</p>
                         <p>NT$1460</p>
@@ -125,7 +125,7 @@ const onSubmit = () => {
                         <p>合計</p>
                         <p>NT$1460</p>
                     </div>
-                    <div class="pt-20">
+                    <div class="pt-6 md:pt-20">
                         <RouterLink
                             class="flex items-center justify-center text-center py-2 px-4 bg-secondary-400 rounded border-2 border-black hover:shadow-base transition active:shadow-none"
                             type="primary" @click="onSubmit" to="/checkout/order-information">
@@ -138,7 +138,7 @@ const onSubmit = () => {
         <!-- 返回訂單確認按鈕 -->
         <div class="col-span-2">
             <RouterLink
-                class="flex items-center py-2 px-4 mt-10 border-2 border-black rounded-sm hover:shadow-base transition active:shadow-none"
+                class="flex items-center py-2 px-4 mt-3 border-2 border-black rounded-sm hover:shadow-base transition active:shadow-none md:mt-10"
                 to="/checkout/order-confirmation">
                 <font-awesome-icon :icon="['fas', 'caret-left']" class="pr-3 text-sm" />
                 <p>返回購物車</p>
