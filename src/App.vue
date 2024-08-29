@@ -1,8 +1,15 @@
 <script setup lang="ts">
+import { onMounted } from 'vue'
 import { RouterView } from 'vue-router'
+import { useAuthStore } from '@/stores/auth'
 import HeaderLayout from '@/components/global/HeaderLayout.vue'
 import FooterLayout from '@/components/global/FooterLayout.vue'
 import HeaderAdorn from '@/components/global/HeaderAdorn.vue'
+const authStore = useAuthStore()
+
+onMounted(async () => {
+  await authStore.userInfo()
+})
 </script>
 
 <template>

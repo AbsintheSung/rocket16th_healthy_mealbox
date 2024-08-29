@@ -1,8 +1,10 @@
 <script setup>
 import { computed, ref } from 'vue'
 import { useRoute } from 'vue-router'
+import { useAuthStore } from '@/stores/auth'
 import TheSvg from '@/components/global/TheSvg.vue'
 const route = useRoute()
+const authStore = useAuthStore()
 const memberLink = ref([
   { id: 'editmember', title: '個人資訊', path: '/member' },
   { id: 'orderhistory', title: '歷史訂單', path: '/member/orderhistory' },
