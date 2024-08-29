@@ -1,13 +1,27 @@
 <script setup>
-import { ref } from 'vue'
+import { ref, onMounted, computed } from 'vue'
+import { useMealBoxStore } from '@/stores/mealbox'
+const mealBoxStore = useMealBoxStore()
+
+const currentPage = ref(1) //當前頁數
+const pageSize = ref(10) //每頁顯示的資料數
+const pagerCount = ref(5) //設置當頁數數目大於多少時，會出現省略(最小5，官方說的)
 const drawer = ref(false)
-const currentPage1 = ref(1)
+
+const generalMealData = computed(() => mealBoxStore.getDataTotal) //資料組數量
+
 const handleCurrentChange = (val) => {
-  console.log(`current page: ${val}`)
+  mealBoxStore.changePage(val)
+  // console.log(`current page: ${val}`)
 }
+
+onMounted(async () => {
+  await mealBoxStore.featchGeneralMeal()
+})
 </script>
 <template>
   <main>
+    <div>{{ mealBoxStore.getPaginatedMeals }}</div>
     <section class="container">
       <div class="py-7">
         <h2 class="text-center text-[32px] font-bold">從列表中選擇您最愛的餐點</h2>
@@ -40,11 +54,11 @@ const handleCurrentChange = (val) => {
           <el-pagination
             style="--el-fill-color: white"
             layout="prev, pager, next"
-            v-model:current-page="currentPage1"
+            v-model:current-page="mealBoxStore.currentPage"
             background
-            :page-size="20"
             :pager-count="5"
-            :total="100"
+            :page-size="mealBoxStore.getPageSize"
+            :total="mealBoxStore.getDataTotal"
             :prev-text="'上一頁'"
             :next-text="'下一頁'"
             @current-change="handleCurrentChange"
