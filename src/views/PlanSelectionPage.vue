@@ -3,10 +3,11 @@ import PlanSelectionCard from '@/components/plan-selection-page/PlanSelectionCar
 import DaysSelectionButton from '@/components/global/DaysSelectionButton.vue'
 </script>
 <template>
-    <DaysSelectionButton />
-    <main class="container py-20">
-        <PlanSelectionCard />
-    </main>
+    <div>
+        <DaysSelectionButton />
+        <main class="container py-20">
+            <PlanSelectionCard />
+        </main>
+    </div>
 </template>
-<style scoped>
-</style>
+<style scoped></style>
