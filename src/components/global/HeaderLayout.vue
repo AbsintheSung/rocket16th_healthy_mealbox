@@ -19,7 +19,7 @@ const toggleMenu = () => {
 }
 </script>
 <template>
-  <header>
+  <header class="relative">
     <nav class="container py-5">
       <!-- 左側LOGO -->
       <div class="flex flex-wrap">
@@ -58,21 +58,30 @@ const toggleMenu = () => {
             <FontAwesomeIcon :icon="['fas', 'bars']" size="lg" />
           </button>
         </div>
-        <!-- 手機板才會顯示的縮合區塊 -->
-        <div
-          :class="[isOpen ? 'max-h-screen' : 'max-h-0']"
-          class="w-full overflow-hidden transition-all duration-300 ease-in-out md:hidden"
-        >
-          <ul>
-            <li v-for="mainNavItem in mainNav" :key="mainNavItem.id">
-              <RouterLink class="block p-2" :to="`${mainNavItem.path}`">
-                {{ mainNavItem.title }}
-              </RouterLink>
-            </li>
-          </ul>
-        </div>
       </div>
     </nav>
+    <transition
+      enter-active-class="transition ease-out duration-200"
+      enter-from-class="opacity-0 -translate-y-1"
+      enter-to-class="opacity-100 translate-y-0"
+      leave-active-class="transition ease-in duration-150"
+      leave-from-class="opacity-100 translate-y-0"
+      leave-to-class="opacity-0 -translate-y-1"
+    >
+      <div v-show="isOpen" class="absolute left-0 right-0 z-10 w-full bg-white shadow-lg md:hidden">
+        <ul class="py-2">
+          <li v-for="mainNavItem in mainNav" :key="mainNavItem.id">
+            <RouterLink
+              class="block p-4 hover:bg-primary-200"
+              :to="mainNavItem.path"
+              @click="isOpen = false"
+            >
+              {{ mainNavItem.title }}
+            </RouterLink>
+          </li>
+        </ul>
+      </div>
+    </transition>
   </header>
 </template>
 <style scoped></style>
