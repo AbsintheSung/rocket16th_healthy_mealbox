@@ -4,12 +4,15 @@ import { ref, computed } from 'vue'
 export const useAuthStore = defineStore('auth', () => {
   //State
   // const userToken = ref('')
+  const isSignin = ref(false) //登入狀態
+  const userInfoData = ref({}) //存放已登入使用者的資訊內容
 
   //Getter
   const getUserToken = computed(() => {
     const token = document.cookie.replace(/(?:(?:^|.*;\s*)tokenCode\s*\s*([^;]*).*$)|^.*$/, '$1') //獲取存在cookie的token
     return token
   })
+  const getUserInfoData = computed(() => userInfoData.value)
 
   //Action
   const signin = async (inputData: { account: string; password: string }) => {
@@ -51,9 +54,24 @@ export const useAuthStore = defineStore('auth', () => {
     }
   }
 
+  const userInfo = async () => {
+    try {
+      const response = await fetchApi.userinfo()
+      if (response.status === 200) {
+        isSignin.value = true
+        userInfoData.value = { ...response.data.data }
+        // console.log(userInfoData.value)
+      }
+    } catch (error: any) {
+      throw error.response.data
+    }
+  }
+
   return {
     signin,
     register,
-    getUserToken
+    userInfo,
+    getUserToken,
+    getUserInfoData
   }
 })
