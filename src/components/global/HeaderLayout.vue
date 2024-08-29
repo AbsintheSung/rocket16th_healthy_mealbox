@@ -12,12 +12,6 @@ const utilNav = ref([
   { id: 'user', iconStyle: ['fas', 'user'], path: '/member' },
   { id: 'signin', iconStyle: ['fas', 'right-to-bracket'], path: '/signin' }
 ])
-// const selectedAction = ref('')
-
-// const handleCommand = (command: string) => {
-//   selectedAction.value = command
-//   console.log(`你選擇了: ${selectedAction.value}`)
-// }
 const isOpen = ref(false)
 
 const toggleMenu = () => {
@@ -78,47 +72,7 @@ const toggleMenu = () => {
           </ul>
         </div>
       </div>
-      <!-- <div class="grid grid-cols-4 gap-6 sm:grid-cols-12">
-        桌機板顯示此處(LOGO)
-        <h1 class="col-span-3 col-start-1 hidden text-center md:block">
-          <RouterLink to="/">
-            <TheSvg class="h-[40px]" svgIcon="logo" />
-          </RouterLink>
-        </h1>
-        mobile版顯示此處(LOGO)
-        <h1 class="col-span-1 col-start-1 block text-center md:hidden">
-          <RouterLink to="/">
-            <TheSvg class="h-[40px] w-[92px]" svgIcon="mobile-logo" />
-          </RouterLink>
-        </h1>
-        桌機板顯示此處
-        <div class="col-span-9 col-start-4 hidden gap-x-6 sm:flex">
-          <ul class="ms-auto flex items-center gap-x-4 text-[12px] md:text-base">
-            <li v-for="mainNavItem in mainNav" :key="mainNavItem.id">
-              <RouterLink class="block p-2" :to="`${mainNavItem.path}`">
-                {{ mainNavItem.title }}
-              </RouterLink>
-            </li>
-          </ul>
-          <ul class="flex items-center gap-x-4">
-            <li v-for="utilNavItem in utilNav" :key="utilNavItem.id">
-              <RouterLink class="block p-2" :to="`${utilNavItem.path}`">
-                <FontAwesomeIcon :icon="utilNavItem.iconStyle" size="lg" />
-              </RouterLink>
-            </li>
-          </ul>
-        </div>
-     
-      </div> -->
     </nav>
   </header>
 </template>
-<style scoped>
-.el-dropdown-link,
-:deep(.el-dropdown-menu__item) {
-  font-size: 12px;
-  @media (min-width: 768px) {
-    font-size: 16px;
-  }
-}
-</style>
+<style scoped></style>
