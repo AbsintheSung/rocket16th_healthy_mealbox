@@ -1,6 +1,7 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 import { useMealBoxStore } from '@/stores/mealbox'
+import ThePagination from '@/components/global/ThePagination.vue'
 const mealBoxStore = useMealBoxStore()
 
 const drawer = ref(false)
@@ -43,7 +44,7 @@ onMounted(async () => {
         <div class="pb-12 pt-6">
           <RouterView></RouterView>
         </div>
-        <div class="flex w-full items-center justify-center py-6">
+        <!-- <div class="flex w-full items-center justify-center py-6">
           <el-pagination
             style="--el-fill-color: white"
             layout="prev, pager, next"
@@ -56,7 +57,7 @@ onMounted(async () => {
             :next-text="'下一頁'"
             @current-change="handleCurrentChange"
           />
-        </div>
+        </div> -->
       </div>
     </section>
     <section class="bg-secondary-50">
