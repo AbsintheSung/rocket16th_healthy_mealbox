@@ -1,15 +1,9 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 import { useMealBoxStore } from '@/stores/mealbox'
-import ThePagination from '@/components/global/ThePagination.vue'
+
 const mealBoxStore = useMealBoxStore()
-
 const drawer = ref(false)
-const handleCurrentChange = (val) => {
-  // console.log(`current page: ${val}`)
-  mealBoxStore.changePage(val)
-}
-
 onMounted(async () => {
   await mealBoxStore.fetchGeneralMeal()
 })
@@ -44,35 +38,10 @@ onMounted(async () => {
         <div class="pb-12 pt-6">
           <RouterView></RouterView>
         </div>
-        <!-- <div class="flex w-full items-center justify-center py-6">
-          <el-pagination
-            style="--el-fill-color: white"
-            layout="prev, pager, next"
-            v-model:current-page="mealBoxStore.currentPage"
-            background
-            :pager-count="5"
-            :page-size="mealBoxStore.getPageSize"
-            :total="mealBoxStore.getDataTotal"
-            :prev-text="'上一頁'"
-            :next-text="'下一頁'"
-            @current-change="handleCurrentChange"
-          />
-        </div> -->
       </div>
     </section>
     <section class="bg-secondary-50">
       <div class="container">
-        <!-- <div class="flex items-center justify-center gap-x-6 py-10">
-          <button
-            class="w-1/4 rounded border-2 border-secondary-500 py-3 text-secondary-500"
-            @click="drawer = true"
-          >
-            查看預覽
-          </button>
-          <button class="w-1/4 rounded border-2 border-black bg-secondary-base py-3">
-            確認餐點，加入購物車
-          </button>
-        </div> -->
         <div class="grid grid-cols-4 gap-6 py-10 sm:grid-cols-12">
           <button
             class="col-span-2 col-start-1 rounded border-2 border-secondary-500 py-3 text-secondary-500 sm:col-span-5 sm:col-start-2 md:col-span-4 md:col-start-3 lg:col-span-3 lg:col-start-4"
@@ -144,34 +113,6 @@ onMounted(async () => {
                 </ul>
               </div>
             </div>
-            <!-- <div class="container flex flex-col">
-              <div class="flex items-center justify-center gap-x-6 pb-6">
-                <button class="w-1/4 rounded border-2 border-black py-3">全部刪除</button>
-                <button class="w-1/4 rounded border-2 border-black bg-secondary-base py-3">
-                  確認餐點，加入購物車
-                </button>
-              </div>
-              <ul class="scrollbar-hide h-80 flex-grow gap-y-4 overflow-y-scroll">
-                <li class="flex items-center gap-x-4 px-6 py-3" v-for="item in 10" :key="item">
-                  <img src="https://picsum.photos/200/200?random=1" class="w-[66px] object-cover" />
-                  <div class="w-full sm:flex">
-                    <div class="flex flex-col gap-y-6">
-                      <h3 class="font-bold">抗氧化彩虹蔬菜炒麵</h3>
-                      <p>270Kcal | 蛋白質15g |脂肪12g</p>
-                    </div>
-                    <div class="ms-auto flex items-center justify-center gap-x-5">
-                      <button class="border p-1">
-                        <FontAwesomeIcon :icon="['fas', 'minus']" />
-                      </button>
-                      <span>{{ 21 }}</span>
-                      <button class="border bg-primary-base p-1">
-                        <FontAwesomeIcon :icon="['fas', 'plus']" />
-                      </button>
-                    </div>
-                  </div>
-                </li>
-              </ul>
-            </div> -->
           </template>
           <template #footer> </template>
         </el-drawer>
