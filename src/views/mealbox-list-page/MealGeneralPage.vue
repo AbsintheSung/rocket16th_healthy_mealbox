@@ -6,7 +6,7 @@ const mealBoxStore = useMealBoxStore()
 </script>
 <template>
   <div>
-    <ul class="grid grid-cols-2 gap-x-6 gap-y-12 md:grid-cols-3 lg:grid-cols-4">
+    <ul class="grid grid-cols-2 gap-x-6 gap-y-3 md:grid-cols-3 md:gap-y-12 lg:grid-cols-4">
       <MealCard
         v-for="mealItem in mealBoxStore.getPaginatedMeals"
         :key="mealItem.id"
