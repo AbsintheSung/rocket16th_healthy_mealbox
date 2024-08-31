@@ -13,7 +13,7 @@ const mealBoxStore = useMealBoxStore()
         :mealInfo="mealItem"
       />
     </ul>
-    <div class="flex w-full items-center justify-center py-6">
+    <div class="mt-auto flex w-full items-center justify-center">
       <ThePagination
         :pagerCount="5"
         :pageSize="mealBoxStore.getPageSize"

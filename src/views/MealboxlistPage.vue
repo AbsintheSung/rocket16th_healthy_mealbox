@@ -9,8 +9,8 @@ onMounted(async () => {
 })
 </script>
 <template>
-  <main>
-    <section class="container">
+  <main class="flex flex-grow flex-col">
+    <section class="container flex flex-grow flex-col">
       <div class="py-7">
         <h2 class="text-center text-[32px] font-bold">從列表中選擇您最愛的餐點</h2>
         <div class="mt-6">
@@ -18,7 +18,7 @@ onMounted(async () => {
           <p class="text-center">從我們的精選單中選擇您最喜歡的餐點</p>
         </div>
       </div>
-      <div>
+      <div class="flex flex-grow flex-col">
         <div class="flex border-t border-black py-8 text-2xl">
           <RouterLink
             class="meal-link flex-grow text-center"
@@ -35,12 +35,11 @@ onMounted(async () => {
             自定義餐盒
           </RouterLink>
         </div>
-        <div class="pb-12 pt-6">
-          <RouterView></RouterView>
-        </div>
+
+        <RouterView class="flex flex-grow flex-col gap-y-6 py-6 md:gap-y-12"></RouterView>
       </div>
     </section>
-    <section class="bg-secondary-50">
+    <section class="mt-auto bg-secondary-50">
       <div class="container">
         <div class="grid grid-cols-4 gap-6 py-10 sm:grid-cols-12">
           <button
