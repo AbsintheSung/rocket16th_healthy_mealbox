@@ -1,7 +1,5 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-//當前頁碼數量，組件傳遞，若傳遞此值，子組件無法去修改，所以將此值寫在該組件內部
-const currentPage = ref(1)
+const currentPageNum = defineModel('currentPageNum')
 const props = defineProps({
   //每頁該顯示的資料數量
   pageSize: {
@@ -33,7 +31,7 @@ const handleCurrentChange = (val: any) => {
   <el-pagination
     style="--el-fill-color: white"
     layout="prev, pager, next"
-    v-model:current-page="currentPage"
+    v-model:current-page="currentPageNum"
     background
     :pager-count="pagerCount"
     :page-size="pageSize"

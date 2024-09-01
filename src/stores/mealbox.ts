@@ -11,7 +11,7 @@ export const useMealBoxStore = defineStore('mealbox', () => {
   //Getter
 
   //取得當前頁數
-  const getCurrentPage = computed(() => currentPage.value)
+  // const getCurrentPage = computed(() => currentPage.value)
   //取得獲取一般餐盒的資料總數
   const getDataTotal = computed(() => generalMeal.value.length)
   //取得單一餐盒資訊
