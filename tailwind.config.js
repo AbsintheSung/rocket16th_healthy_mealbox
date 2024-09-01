@@ -26,7 +26,7 @@ export default {
     },
     extend: {
       backgroundImage: {
-        'home-main': "url('@/assets/image/homemain.jpg')",
+        'home-main': "url('@/assets/image/home-main.png')",
         'plaid-adorn': "url('@/assets/image/plaid.png')"
       },
       colors: {
