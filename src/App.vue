@@ -8,7 +8,7 @@ import ThePlaidAdorn from './components/global/ThePlaidAdorn.vue'
 const authStore = useAuthStore()
 
 onMounted(async () => {
-  await authStore.userInfo()
+  // await authStore.userInfo()
 })
 </script>
 

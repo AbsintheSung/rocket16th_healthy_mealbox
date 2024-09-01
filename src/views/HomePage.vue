@@ -1,8 +1,26 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import TheSvg from '@/components/global/TheSvg.vue'
+</script>
 
 <template>
   <main>
-    <section class="bg-home-main bg-cover bg-center bg-no-repeat py-72"></section>
+    <section class="bg-home-main bg-cover bg-center bg-no-repeat">
+      <div class="container flex items-center justify-between">
+        <div class="w-1/2 py-48">
+          <TheSvg svgIcon="main-logo" class="h-[90px]" />
+          <p class="text-2xl text-white">
+            無論您的生活多麼忙碌都能吃得營養均衡，輕鬆快速訂購，<br />
+            盒食提供您日常飲食更多元的選擇，健康美味輕鬆上桌!
+          </p>
+        </div>
+        <div class="flex w-1/2 justify-end self-end">
+          <TheSvg svgIcon="rhombus-full" class="w-[80px]" />
+          <TheSvg svgIcon="rhombus" class="w-[80px]" />
+          <TheSvg svgIcon="rhombus-full" class="w-[80px]" />
+          <TheSvg svgIcon="rhombus" class="w-[80px]" />
+        </div>
+      </div>
+    </section>
     <section class="container py-24">
       <p class="text-center font-bold text-primary-700">選擇困難嗎？</p>
       <div class="relative flex items-center justify-center py-4">
