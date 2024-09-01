@@ -1,6 +1,8 @@
 <script setup>
 import { ref } from 'vue'
 import NutritionistPlanCard from '@/components/nutritionist-plan-page/NutritionistPlanCard.vue'
+// 分頁
+const currentPage1 = ref(1)
 
 // 測試用ㄉ假資料
 const cardData = ref([
@@ -37,12 +39,14 @@ const cardData = ref([
 ])
 </script>
 <template>
-    <div class="grid grid-cols-2 gap-6">
-        <NutritionistPlanCard 
-        v-for="item in cardData" 
-        :key="item.id" 
-        :title="item.title" 
-        :src="item.imageUrl" />
+    <div class="grid grid-cols-3 gap-6">
+        <NutritionistPlanCard v-for="item in cardData" :key="item.id" :title="item.title" :src="item.imageUrl" />
+        <!-- 分頁 -->
+        <div class="flex items-start justify-center col-start-2">
+            <el-pagination style="--el-fill-color: white" layout="prev, pager, next" v-model:current-page="currentPage1"
+                background :page-size="20" :pager-count="11" :total="100" :prev-text="'上一頁'" :next-text="'下一頁'"
+                @current-change="handleCurrentChange" />
+        </div>
     </div>
 </template>
 <style scoped></style>
