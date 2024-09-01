@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import TheSvg from '@/components/global/TheSvg.vue'
 import TheNewsTicker from '@/components/global/TheNewsTicker.vue'
+import ThePlaidAdorn from '@/components/global/ThePlaidAdorn.vue'
 </script>
 
 <template>
@@ -23,10 +24,13 @@ import TheNewsTicker from '@/components/global/TheNewsTicker.vue'
         </div>
       </div>
     </section>
+
+    <!-- 首頁裝飾區塊-1 -->
     <section>
       <TheNewsTicker />
+      <ThePlaidAdorn v-for="item in 2" :key="item" />
     </section>
-    <!--  -->
+
     <section class="container py-24">
       <p class="text-center font-bold text-primary-700">選擇困難嗎？</p>
       <div class="relative flex items-center justify-center py-4">
