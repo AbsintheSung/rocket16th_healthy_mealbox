@@ -20,8 +20,8 @@ defineProps({
         </div>
         <div class="pr-4">
           <button
-            class="py-1 px-4 border-2 border-secondary-900 rounded-md hover:shadow-base transition active:shadow-none">
-            <p class="text-secondary-900">加入購物車</p>
+            class="py-1 px-4 border-2 border-secondary-900 rounded hover:border-2 hover:bg-secondary-400 hover:border-black hover:shadow-base hover:transition active:shadow-none">
+            <p class="text-secondary-900 hover:text-black">加入購物車</p>
           </button>
         </div>
       </div>
