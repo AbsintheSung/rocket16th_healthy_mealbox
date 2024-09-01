@@ -107,6 +107,51 @@ const swiperOptions = {
       </div>
     </section>
 
+    <!-- 首頁-網站介紹-1 -->
+    <section class="bg-background-style-2">
+      <div class="container py-14">
+        <h2 class="text-center text-5xl font-bold text-primary-700">
+          「想要健康，就要吃得均衡。」
+        </h2>
+        <div class="flex flex-col md:flex-row">
+          <div class="flex flex-col md:w-1/4">
+            <div>我是圖片</div>
+            <div class="flex items-center gap-x-5">
+              <p class="flex h-full flex-col justify-around text-2xl">
+                <span>澱</span><span>粉</span>
+              </p>
+              <h3 class="text-7xl font-medium">15g</h3>
+            </div>
+          </div>
+          <div class="flex flex-col md:w-2/4">
+            <div>我是圖片</div>
+            <div class="flex items-center gap-x-5">
+              <p class="flex h-full flex-col justify-around text-2xl">
+                <span>熱</span><span>量</span>
+              </p>
+              <h3 class="text-7xl font-medium">350Kcal</h3>
+            </div>
+          </div>
+          <div class="flex flex-col md:w-1/4">
+            <div>我是圖片</div>
+            <div class="flex items-center gap-x-5">
+              <p class="flex h-full flex-col justify-around text-2xl">
+                <span>蛋</span><span>白</span><span>質</span>
+              </p>
+              <h3 class="text-7xl font-medium">20g</h3>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <img
+          src="../assets/image/home-other-adorn.png"
+          class="max-h-[120px] w-full"
+          alt="裝飾圖片"
+        />
+      </div>
+    </section>
+
     <!-- <section class="container py-12">
       <h2 class="text-3xl font-bold text-primary-700 md:text-5xl lg:text-7xl">
         「想要健康，就要吃得均衡。」
