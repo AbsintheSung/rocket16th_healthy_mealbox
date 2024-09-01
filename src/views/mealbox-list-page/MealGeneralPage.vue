@@ -15,6 +15,7 @@ const mealBoxStore = useMealBoxStore()
     </ul>
     <div class="mt-auto flex w-full items-center justify-center">
       <ThePagination
+        v-model:currentPageNum="mealBoxStore.currentPage"
         :pagerCount="5"
         :pageSize="mealBoxStore.getPageSize"
         :pageTotal="mealBoxStore.getDataTotal"
