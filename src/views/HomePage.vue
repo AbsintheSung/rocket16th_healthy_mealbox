@@ -1,9 +1,11 @@
 <script setup lang="ts">
 import TheSvg from '@/components/global/TheSvg.vue'
+import TheNewsTicker from '@/components/global/TheNewsTicker.vue'
 </script>
 
 <template>
   <main>
+    <!-- 首頁大圖 -->
     <section class="bg-home-main bg-cover bg-center bg-no-repeat">
       <div class="container flex items-center justify-between">
         <div class="w-1/2 py-48">
@@ -21,6 +23,10 @@ import TheSvg from '@/components/global/TheSvg.vue'
         </div>
       </div>
     </section>
+    <section>
+      <TheNewsTicker />
+    </section>
+    <!--  -->
     <section class="container py-24">
       <p class="text-center font-bold text-primary-700">選擇困難嗎？</p>
       <div class="relative flex items-center justify-center py-4">
