@@ -2,6 +2,40 @@
 import TheSvg from '@/components/global/TheSvg.vue'
 import TheNewsTicker from '@/components/global/TheNewsTicker.vue'
 import ThePlaidAdorn from '@/components/global/ThePlaidAdorn.vue'
+
+import { Swiper, SwiperSlide } from 'swiper/vue'
+import { Mousewheel, Pagination } from 'swiper/modules'
+import 'swiper/css'
+import 'swiper/css/pagination'
+import 'swiper/css/mousewheel'
+const swiperOptions = {
+  modules: [Mousewheel, Pagination],
+  pagination: {
+    el: '.swiper-pagination',
+    clickable: true, // 使分頁指示器可點擊
+    dynamicBullets: true // 開啟動態分頁
+  },
+  slidesPerView: 1, // 滾動時候 只切換一張
+  mousewheel: true, // 設置滾輪滾動
+  loop: true,
+  spaceBetween: 15, // 滑動速度
+  breakpoints: {
+    // 當視窗寬度大於等於 1024px
+    992: {
+      slidesPerView: 4
+    },
+    // 當視窗寬度介於 768px 到 1023px 之間
+    768: {
+      slidesPerView: 2
+    },
+    576: {
+      slidesPerView: 2
+    },
+    0: {
+      slidesPerView: 1
+    }
+  }
+}
 </script>
 
 <template>
@@ -31,38 +65,48 @@ import ThePlaidAdorn from '@/components/global/ThePlaidAdorn.vue'
       <ThePlaidAdorn v-for="item in 2" :key="item" />
     </section>
 
-    <section class="container py-24">
-      <p class="text-center font-bold text-primary-700">選擇困難嗎？</p>
-      <div class="relative flex items-center justify-center py-4">
-        <h2 class="text-2xl font-bold">金牌營養師推薦套餐</h2>
-        <RouterLink to="/" class="absolute bottom-0 right-0">查看所有餐點</RouterLink>
+    <!-- 首頁-營養師懶人包組合 -->
+    <section class="bg-background-style-1">
+      <div class="container pb-4 pt-12">
+        <p class="text-center font-bold">選擇困難嗎？</p>
+        <div class="relative flex items-center justify-center py-4">
+          <h2 class="text-4xl font-bold text-primary-700">金牌營養師推薦套餐</h2>
+          <RouterLink to="/" class="absolute bottom-0 right-0 flex items-center text-secondary-700">
+            查看所有餐點<fontAwesomeIcon class="ms-2" :icon="['fas', 'chevron-right']" />
+          </RouterLink>
+        </div>
+        <swiper v-bind="swiperOptions" class="mt-16">
+          <swiper-slide v-for="cardItem in 10" :key="cardItem">
+            <div class="flex flex-col">
+              <div>
+                <img
+                  class="w-full object-fill"
+                  alt="營養師懶人包圖"
+                  src="../assets//image/mealpic.png"
+                />
+              </div>
+              <div class="flex flex-col gap-y-1">
+                <p>14餐</p>
+                <p>増肌簡單吃</p>
+              </div>
+              <div class="flex items-center justify-between">
+                <button
+                  class="self-end rounded border border-secondary-900 px-3 py-1 text-secondary-900"
+                >
+                  加入購物車
+                </button>
+                <RouterLink to="/" class="text-primary-700">
+                  <p>查看此方案</p>
+                  <p>詳細資訊</p>
+                </RouterLink>
+              </div>
+            </div>
+          </swiper-slide>
+          <div class="swiper-pagination home-swiper-page"></div>
+        </swiper>
       </div>
-
-      <ul class="grid grid-cols-12 gap-6 py-12">
-        <li
-          class="col-span-6 flex flex-col gap-y-3 rounded lg:col-span-3"
-          v-for="item in 4"
-          :key="item"
-        >
-          <img src="../assets/image/homemeal.jpg" />
-          <div>
-            <h3>7餐</h3>
-            <p>減脂豐富吃</p>
-          </div>
-          <div class="flex items-center justify-between">
-            <button
-              class="self-end rounded border border-secondary-900 px-3 py-1 text-secondary-900"
-            >
-              加入購物車
-            </button>
-            <RouterLink to="/" class="text-primary-700">
-              <p>查看此方案</p>
-              <p>詳細資訊</p>
-            </RouterLink>
-          </div>
-        </li>
-      </ul>
     </section>
+
     <!-- <section class="container py-12">
       <h2 class="text-3xl font-bold text-primary-700 md:text-5xl lg:text-7xl">
         「想要健康，就要吃得均衡。」
@@ -189,3 +233,20 @@ import ThePlaidAdorn from '@/components/global/ThePlaidAdorn.vue'
     </section>
   </main>
 </template>
+<style lang="scss" scoped>
+:deep(.swiper-wrapper) {
+  display: flex;
+  gap: 24px !important;
+}
+:deep(.swiper-slide) {
+  margin: 0px !important;
+}
+:deep(.swiper-pagination) {
+  position: relative; /* 將 position 設為 relative，讓它在文檔流中處於正常位置 */
+  text-align: center; /* 將分頁指示器居中 */
+  margin: 48px 0px;
+}
+:deep(.swiper-pagination-bullet-active) {
+  background-color: $primary-700;
+}
+</style>
