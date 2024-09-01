@@ -4,7 +4,8 @@ import { RouterView } from 'vue-router'
 import { useAuthStore } from '@/stores/auth'
 import HeaderLayout from '@/components/global/HeaderLayout.vue'
 import FooterLayout from '@/components/global/FooterLayout.vue'
-import HeaderAdorn from '@/components/global/HeaderAdorn.vue'
+import ThePlaidAdorn from './components/global/ThePlaidAdorn.vue'
+// import HeaderAdorn from '@/components/global/HeaderAdorn.vue'
 const authStore = useAuthStore()
 
 onMounted(async () => {
@@ -14,7 +15,8 @@ onMounted(async () => {
 
 <template>
   <HeaderLayout />
-  <HeaderAdorn />
+  <ThePlaidAdorn />
+  <!-- <HeaderAdorn /> -->
   <!-- <RouterView /> -->
   <RouterView v-slot="{ Component }">
     <transition name="fade" mode="out-in">
