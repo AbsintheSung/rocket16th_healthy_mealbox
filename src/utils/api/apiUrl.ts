@@ -7,6 +7,8 @@ const signinApi = `/${urlName}/auth/login`
 const userInfoApi = `/${urlName}/auth/getUserInfo`
 const generalMealApi = `/${urlName}/generalBoxes` //取得一般餐盒 API
 const generalMealOneApi = `/${urlName}/generalBoxes`
+const nutritionistPlanApi = `/${urlName}/nutritionistCases` //取得營養師方案 API
+const nutritionistPlanOneApi = `/${urlName}/nutritionistCases`
 
 //匯出要使用的 api method
 export const fetchApi = {
@@ -15,5 +17,7 @@ export const fetchApi = {
   userinfo: () => axiosInstance.get(userInfoApi),
   generalmeal: () => axiosInstance.get(generalMealApi),
   generalmealOne: (id: any) => axiosInstance.get(`${generalMealOneApi}/${id}`),
+  nutritionistPlan: () => axiosInstance.get(nutritionistPlanApi),
+  nutritionistPlanOne: (id: any) => axiosInstance.get(`${nutritionistPlanOneApi}/${id}`),
   //要添加其他 API 服務(照上面的方式往下寫)
 }
