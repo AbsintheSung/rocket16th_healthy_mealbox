@@ -311,7 +311,12 @@ const swiperOptions = {
       </div>
       <ThePlaidAdorn />
     </section>
-    <TheNewsTicker />
+
+    <!-- 跑馬燈 -->
+    <section>
+      <TheNewsTicker />
+    </section>
+
     <!-- <section class="container py-12">
       <h2 class="text-3xl font-bold text-primary-700 md:text-5xl lg:text-7xl">
         「想要健康，就要吃得均衡。」
