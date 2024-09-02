@@ -38,13 +38,15 @@ const router = createRouter({
     {
       path: '/nutritionist-plan',
       name: 'NutritionistPlan',
-      component: NutritionistPlanPage
-    },
-    {
-      //串API時改為動態路由
-      path: '/nutritionist-plan-detail',
-      name: 'NutritionistPlanDetail',
-      component: NutritionistPlanDetailPage
+      component: NutritionistPlanPage,
+      children: [
+        {
+          path: ':id',
+          name: 'NutritionistPlanDetail',
+          component: NutritionistPlanDetailPage,
+          props: true
+        }
+      ]
     },
     {
       path: '/mealboxlist',
