@@ -47,7 +47,7 @@ export const useAuthStore = defineStore('auth', () => {
 
   const userInfo = async () => {
     try {
-      const response = await fetchApi.userinfo()
+      const response = await fetchApi.getUserInfo()
       if (response.status === 200) {
         isSignin.value = true
         userInfoData.value = { ...response.data.data }

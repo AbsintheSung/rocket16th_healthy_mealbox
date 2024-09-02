@@ -12,8 +12,7 @@ const generalMealOneApi = `/${urlName}/generalBoxes` //取得單一的一般餐�
 export const fetchApi = {
   register: (data: any) => axiosInstance.post(registerApi, data),//註冊 method
   signin: (data: any) => axiosInstance.post(signinApi, data),//登入 method
-  userinfo: () => axiosInstance.get(userInfoApi),//取得會員資料 method 
-  generalmeal: () => axiosInstance.get(generalMealApi), //取得一般餐盒 method 
-  generalmealOne: (id: any) => axiosInstance.get(`${generalMealOneApi}/${id}`), //取得一般餐盒(單個) method 
-  //要添加其他 API 服務(照上面的方式往下寫)
+  getUserInfo: () => axiosInstance.get(userInfoApi),//取得會員資料 method 
+  getGeneralmeal: () => axiosInstance.get(generalMealApi), //取得一般餐盒 method 
+  getGeneralmealOne: (id: any) => axiosInstance.get(`${generalMealOneApi}/${id}`), //取得一般餐盒(單個) method 
 }
