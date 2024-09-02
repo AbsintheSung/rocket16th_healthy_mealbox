@@ -35,14 +35,10 @@ export const useAuthStore = defineStore('auth', () => {
     try {
       const response = await fetchApi.register(inputData)
       if (response.status === 200) {
-        switch (response.data.code) {
-          case 0: {
-            const { message, status } = response.data
-            return { message, status }
-          }
-        }
+        return response.data
       }
     } catch (error: any) {
+      console.log(error)
       if (error.response.status === 400) {
         throw error.response.data
       }
