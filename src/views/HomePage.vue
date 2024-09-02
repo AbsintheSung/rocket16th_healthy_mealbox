@@ -246,6 +246,54 @@ const swiperOptions = {
         </ul>
       </div>
     </section>
+
+    <section class="bg-background-style-2">
+      <div class="container py-20">
+        <p class="mb-2 text-center font-bold">餐餐自由配</p>
+        <h3 class="mb-12 text-center text-3xl font-bold">適合您的生活方式的3種方案</h3>
+        <ul class="flex flex-col items-center justify-around md:flex-row">
+          <li class="rounded border-2 border-black bg-white">
+            <h3 class="bg-secondary-950 py-2 text-center text-3xl font-bold text-white">7餐</h3>
+            <div class="flex flex-col items-center justify-center px-14 py-6">
+              <p class="text-center text-2xl font-bold">平均一餐</p>
+              <h4 class="text-4xl font-bold">NT.70</h4>
+              <span>總價700元起</span>
+            </div>
+            <div class="flex items-center justify-center pb-9">
+              <button class="rounded border border-secondary-950 px-14 py-1">選擇方案</button>
+            </div>
+          </li>
+          <li class="rounded border-2 border-black bg-white">
+            <h3 class="bg-primary-600 py-2 text-center text-3xl font-bold text-white">14餐</h3>
+            <div class="flex flex-col items-center justify-center px-14 py-6">
+              <p class="text-center text-2xl font-bold">平均一餐</p>
+              <h4 class="text-4xl font-bold">NT.70</h4>
+              <span>總價700元起</span>
+            </div>
+            <div class="flex items-center justify-center pb-9">
+              <button class="rounded border border-secondary-950 px-14 py-1">選擇方案</button>
+            </div>
+          </li>
+          <li class="rounded border-2 border-black bg-white">
+            <h3 class="bg-secondary-400 py-2 text-center text-3xl font-bold text-white">21餐</h3>
+            <div class="flex flex-col items-center justify-center px-14 py-6">
+              <p class="text-center text-2xl font-bold">平均一餐</p>
+              <h4 class="text-4xl font-bold">NT.70</h4>
+              <span>總價700元起</span>
+            </div>
+            <div class="flex items-center justify-center pb-9">
+              <button class="rounded border border-secondary-950 px-14 py-1">選擇方案</button>
+            </div>
+          </li>
+        </ul>
+        <div class="mt-12">
+          <p class="text-center text-2xl font-medium">
+            您可以根據自身狀況選擇套餐方案，產品一律採用冷凍配送，<br />
+            我們也歡迎您與親朋好友一起訂購。
+          </p>
+        </div>
+      </div>
+    </section>
     <!-- <section class="container py-12">
       <h2 class="text-3xl font-bold text-primary-700 md:text-5xl lg:text-7xl">
         「想要健康，就要吃得均衡。」
