@@ -9,7 +9,7 @@ export const useAuthStore = defineStore('auth', () => {
 
   //Getter
   const getUserToken = computed(() => {
-    const token = document.cookie.replace(/(?:(?:^|.*;\s*)tokenCode\s*\s*([^;]*).*$)|^.*$/, '$1') //獲取存在cookie的token
+    const token = document.cookie.replace(/(?:(?:^|.*;\s*)tokenCode\s*=\s*([^;]*).*$)|^.*$/, "$1") //獲取存在cookie的token
     return token
   })
   const getUserInfoData = computed(() => userInfoData.value)
