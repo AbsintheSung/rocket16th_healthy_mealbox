@@ -25,12 +25,7 @@ export const useAuthStore = defineStore('auth', () => {
       }
       console.log(response)
     } catch (error: any) {
-      if (error.response.status === 401) {
-        const data = {
-          message: '登入失敗',
-          status: 401
-        }
-        error.response.data = data
+      if (error.response.status === 400) {
         throw error.response.data
       }
     }
