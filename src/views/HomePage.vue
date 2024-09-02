@@ -247,6 +247,7 @@ const swiperOptions = {
       </div>
     </section>
 
+    <!-- 首頁-方案選擇區塊 -->
     <section class="bg-background-style-2">
       <div class="container py-20">
         <p class="mb-2 text-center font-bold">餐餐自由配</p>
