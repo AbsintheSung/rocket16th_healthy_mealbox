@@ -2,7 +2,7 @@
 import TheSvg from '@/components/global/TheSvg.vue'
 import TheNewsTicker from '@/components/global/TheNewsTicker.vue'
 import ThePlaidAdorn from '@/components/global/ThePlaidAdorn.vue'
-
+import TheContact from '@/components/global/TheContact.vue'
 import { Swiper, SwiperSlide } from 'swiper/vue'
 import { Mousewheel, Pagination } from 'swiper/modules'
 import 'swiper/css'
@@ -315,6 +315,11 @@ const swiperOptions = {
     <!-- 跑馬燈 -->
     <section>
       <TheNewsTicker />
+    </section>
+
+    <!-- 聯絡-訂閱區塊 -->
+    <section>
+      <TheContact />
     </section>
   </main>
 </template>
