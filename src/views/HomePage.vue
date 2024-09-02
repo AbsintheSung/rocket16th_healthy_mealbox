@@ -191,7 +191,7 @@ const swiperOptions = {
     </section>
 
     <!-- 首頁-介紹操作區塊 -->
-    <section>
+    <section class="bg-background-style-1">
       <div class="container py-20">
         <h2 class="text-center text-5xl font-bold text-primary-700">簡單下訂，一鍵送到家</h2>
         <ul class="grid grid-cols-12 gap-6 py-9">
