@@ -44,8 +44,7 @@ const cardData = ref([
         <!-- 分頁 -->
         <div class="flex items-start justify-center col-start-2">
             <el-pagination style="--el-fill-color: white" layout="prev, pager, next" v-model:current-page="currentPage1"
-                background :page-size="20" :pager-count="11" :total="100" :prev-text="'上一頁'" :next-text="'下一頁'"
-                @current-change="handleCurrentChange" />
+                background :page-size="20" :pager-count="11" :total="100" :prev-text="'上一頁'" :next-text="'下一頁'" />
         </div>
     </div>
 </template>
