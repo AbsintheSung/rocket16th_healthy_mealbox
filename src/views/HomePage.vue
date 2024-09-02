@@ -113,32 +113,70 @@ const swiperOptions = {
         <h2 class="text-center text-5xl font-bold text-primary-700">
           「想要健康，就要吃得均衡。」
         </h2>
-        <div class="flex flex-col md:flex-row">
-          <div class="flex flex-col md:w-1/4">
-            <div>我是圖片</div>
-            <div class="flex items-center gap-x-5">
-              <p class="flex h-full flex-col justify-around text-2xl">
-                <span>澱</span><span>粉</span>
-              </p>
-              <h3 class="text-7xl font-medium">15g</h3>
+        <div class="grid grid-cols-12 gap-x-6">
+          <div class="col-span-3">
+            <div class="grid grid-cols-3 gap-6">
+              <div class="col-span-full">
+                <img src="../assets/image/測試沙拉1.png" alt="網站介紹食物圖片" />
+              </div>
+              <div class="col-span-full flex items-center gap-x-5">
+                <p class="flex h-full flex-col justify-around text-2xl">
+                  <span>澱</span><span>粉</span>
+                </p>
+                <h3 class="text-7xl font-medium">15g</h3>
+              </div>
+              <div class="col-span-full">
+                <p class="text-base font-medium">
+                  澱粉是推動卡路里的重要能源<br />
+                  不是極端的澱粉限制,而是適當的攝取量，<br />
+                  選擇盒食，可以讓您精確的澱粉控制<br />
+                  在澱粉控制中，從食材調配的苦惱中解放出來，度過悠閒的用餐時光
+                </p>
+              </div>
             </div>
           </div>
-          <div class="flex flex-col md:w-2/4">
-            <div>我是圖片</div>
-            <div class="flex items-center gap-x-5">
-              <p class="flex h-full flex-col justify-around text-2xl">
-                <span>熱</span><span>量</span>
-              </p>
-              <h3 class="text-7xl font-medium">350Kcal</h3>
+          <div class="col-span-6">
+            <div class="grid grid-cols-6 gap-6">
+              <div class="col-span-5 col-start-2">
+                <img src="../assets/image/測試沙拉2.png" />
+              </div>
+              <div class="col-span-5 col-start-2 flex items-center gap-x-5">
+                <p class="flex h-full flex-col justify-around text-2xl">
+                  <span>熱</span><span>量</span>
+                </p>
+                <h3 class="text-7xl font-medium">350Kcal</h3>
+              </div>
+              <div class="col-span-5 col-start-2">
+                <p class="font-medium">
+                  以平均成年人一天的適當熱量爲基準,由營養管理師監督所有食譜<br />
+                  不要盲目地減少卡路里，重要的是要攝取多種食材，營養均衡的飲食<br />
+                  用正確的知識面對卡路里對於維持健康、愉快、美味的健康生活非常重要！
+                </p>
+              </div>
             </div>
           </div>
-          <div class="flex flex-col md:w-1/4">
-            <div>我是圖片</div>
-            <div class="flex items-center gap-x-5">
-              <p class="flex h-full flex-col justify-around text-2xl">
-                <span>蛋</span><span>白</span><span>質</span>
-              </p>
-              <h3 class="text-7xl font-medium">20g</h3>
+          <div class="col-span-3">
+            <div class="grid grid-cols-3 gap-6">
+              <div class="col-span-2 col-start-2">
+                <img src="../assets/image/測試沙拉3.png" />
+              </div>
+              <div class="col-span-full flex items-center gap-x-5">
+                <p class="flex h-full flex-col justify-around text-2xl">
+                  <span>蛋</span><span>白</span><span>質</span>
+                </p>
+                <h3 class="text-7xl font-medium">20g</h3>
+              </div>
+              <div class="col-span-full">
+                <p class="text-base font-medium">
+                  人體組成除了水分和脂質之外，<br />
+                  大部分都是蛋白質構成的<br />
+                  以平均成人攝取1餐推薦的蛋白質爲標準,<br />
+                  肉、海鮮、雞蛋、豆類等食材爲蛋白質來源
+                </p>
+              </div>
+              <div class="col-span-full">
+                <img src="../assets/image/測試義大利麵.png" />
+              </div>
             </div>
           </div>
         </div>
