@@ -108,7 +108,7 @@ const swiperOptions = {
     </section>
 
     <!-- 首頁-網站介紹-1 -->
-    <section class="bg-background-style-2">
+    <section class="hidden bg-background-style-2 lg:block">
       <div class="container py-14">
         <h2 class="text-center text-5xl font-bold text-primary-700">
           「想要健康，就要吃得均衡。」
