@@ -190,6 +190,62 @@ const swiperOptions = {
       </div>
     </section>
 
+    <!-- 首頁-介紹操作區塊 -->
+    <section>
+      <div class="container py-20">
+        <h2 class="text-center text-5xl font-bold text-primary-700">簡單下訂，一鍵送到家</h2>
+        <ul class="grid grid-cols-12 gap-6 py-9">
+          <li class="col-span-6 flex flex-col gap-y-2 xl:col-span-3">
+            <div class="flex items-center gap-x-6 font-bold">
+              <h3 class="text-6xl">1</h3>
+              <div class="flex flex-col gap-y-2">
+                <p class="text-3xl">選擇套餐方案</p>
+                <p>選擇適合你的數量</p>
+              </div>
+            </div>
+            <div>
+              <img class="object-fill" src="../assets/image/步驟1.png" alt="步驟1圖片" />
+            </div>
+          </li>
+          <li class="col-span-6 flex flex-col gap-y-2 xl:col-span-3">
+            <div class="flex items-center gap-x-6 font-bold">
+              <h3 class="text-6xl">2</h3>
+              <div class="flex flex-col gap-y-2">
+                <p class="text-3xl">套餐內容選擇</p>
+                <p>選配好的套餐，或是親自挑選</p>
+              </div>
+            </div>
+            <div>
+              <img class="object-fill" src="../assets/image/步驟3.png" alt="步驟3圖片" />
+            </div>
+          </li>
+          <li class="col-span-6 flex flex-col gap-y-2 xl:col-span-3">
+            <div class="flex items-center gap-x-6 font-bold">
+              <h3 class="text-6xl">3</h3>
+              <div class="flex flex-col gap-y-2">
+                <p class="text-3xl">餐盒冷凍保存</p>
+                <p>餐點放置冷凍庫急凍保存</p>
+              </div>
+            </div>
+            <div>
+              <img class="object-fill" src="../assets/image/步驟3.png" alt="步驟3圖片" />
+            </div>
+          </li>
+          <li class="col-span-6 flex flex-col gap-y-2 xl:col-span-3">
+            <div class="flex items-center gap-x-6 font-bold">
+              <h3 class="text-6xl">4</h3>
+              <div class="flex flex-col gap-y-2">
+                <p class="text-3xl">加熱享用</p>
+                <p>使用微波或電鍋加熱輕鬆上桌</p>
+              </div>
+            </div>
+            <div>
+              <img class="object-fill" src="../assets/image/步驟4.png" alt="步驟4圖片" />
+            </div>
+          </li>
+        </ul>
+      </div>
+    </section>
     <!-- <section class="container py-12">
       <h2 class="text-3xl font-bold text-primary-700 md:text-5xl lg:text-7xl">
         「想要健康，就要吃得均衡。」
