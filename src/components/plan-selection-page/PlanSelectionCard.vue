@@ -2,9 +2,9 @@
 </script>
 <template>
     <!-- 方案選擇區塊 -->
-    <div class="grid grid-cols-12 gap-6">
+    <div class="grid grid-cols-4 gap-3 md:grid-cols-12 md:gap-6">
         <!-- 營養師方案 -->
-        <section class="flex flex-col justify-evenly col-span-4 col-start-2">
+        <section class="flex flex-col justify-evenly col-span-4 md:col-start-3">
             <div class="flex justify-center">
                 <TheSvg svgIcon="nutritionist-icon" class="mt-auto hidden w-[100px] h-[108px] md:block" />
             </div>
@@ -45,7 +45,7 @@
             </div>
         </section>
         <!-- 自定義方案 -->
-        <section class="flex flex-col justify-evenly col-span-4 col-start-8">
+        <section class="flex flex-col justify-evenly col-span-4 md:col-start-7">
             <div class="flex justify-center">
                 <TheSvg svgIcon="customize-icon" class="mt-auto hidden w-[100px] h-[108px] md:block" />
             </div>
