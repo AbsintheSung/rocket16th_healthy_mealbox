@@ -198,7 +198,7 @@ const handleChangePassword = async (formEl: FormInstance | undefined) => {
   <div class="mt-6 rounded border">
     <div class="border-b p-5">
       <h3 class="text-3xl font-bold">更新密碼</h3>
-      <p class="pb-4 pt-2 font-normal">您目前的電子信箱為:{{ 'example@gmai.com' }}</p>
+      <p class="pb-4 pt-2 font-normal">您目前的電子信箱為:{{ memberStore.getMemberAccount }}</p>
     </div>
     <div class="px-5 py-8">
       <el-form

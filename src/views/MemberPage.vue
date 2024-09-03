@@ -1,10 +1,10 @@
 <script setup>
 import { computed, ref } from 'vue'
 import { useRoute } from 'vue-router'
-import { useAuthStore } from '@/stores/auth'
+import { useMemberStore } from '@/stores/member'
 import TheSvg from '@/components/global/TheSvg.vue'
 const route = useRoute()
-const authStore = useAuthStore()
+const memberStore = useMemberStore()
 const memberLink = ref([
   { id: 'editmember', title: '個人資訊', path: '/member' },
   { id: 'orderhistory', title: '歷史訂單', path: '/member/orderhistory' },
@@ -35,7 +35,7 @@ const memberTitle = computed(() => {
             <TheSvg svgIcon="decorate-re" class="absolute left-4 top-4 h-[46px] w-[46px]" />
             <TheSvg svgIcon="single-star" class="absolute bottom-4 right-4 h-[46px] w-[46px]" />
             <img class="mx-auto rounded-full" src="https://picsum.photos/160/160?random=1" />
-            <p class="py-3 text-center font-bold">林本丸</p>
+            <p class="py-3 text-center font-bold">{{ memberStore.getMemberName }}</p>
             <p class="text-center text-primary-base">一般會員</p>
           </div>
           <ul class="flex flex-col justify-center">
