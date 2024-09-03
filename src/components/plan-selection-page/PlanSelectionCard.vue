@@ -15,8 +15,9 @@
                 <h3 class="font-bold md:hidden">營養師方案</h3>
             </div>
             <!-- 營養師方案卡片 -->
-            <div class="flex flex-col items-center justify-center border-2 border-black rounded-b py-9">
-                <div class="text-center flex justify-center items-center border-2 border-black rounded-full w-20 h-20 mb-4">
+            <div class="flex flex-col items-center justify-center border-2 border-black rounded-b px-3 py-9">
+                <div
+                    class="text-center flex justify-center items-center border-2 border-black rounded-full w-20 h-20 mb-4">
                     <TheSvg svgIcon="nutritionist-icon" class="w-[50px] h-[50px]" />
                 </div>
                 <!-- <div class="relative">
@@ -25,7 +26,7 @@
                         class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 mt-auto hidden w-[290px] -z-10 md:block" />
                 </div> -->
                 <p class="text-center mb-4 font-medium">由專業營養師依照成人<br>一日所需營養素搭配餐盒</p>
-                <div class="flex flex-row flex-nowrap justify-center pb-12">
+                <div class="flex flex-row flex-wrap justify-center pb-12">
                     <ul class="space-y-2">
                         <li>
                             <p><span class="text-primary-base pr-1"><font-awesome-icon
@@ -48,7 +49,7 @@
                 </div>
                 <div class="flex justify-center items-center">
                     <RouterLink
-                        class="text-center py-5 px-28 border-2 border-secondary-900 rounded hover:border-2 hover:bg-secondary-400 hover:border-black hover:shadow-base hover:transition active:shadow-none"
+                        class="text-center py-5 px-20 border-2 border-secondary-900 text-secondary-900 bg-white rounded hover:border-2 hover:bg-secondary-400 hover:text-black hover:border-black hover:shadow-base hover:transition active:shadow-none md:px-24 lg:px-28"
                         to="/nutritionist-plan">
                         <p>直接訂購</p>
                     </RouterLink>
@@ -56,9 +57,9 @@
             </div>
         </section>
         <!-- 自定義方案 -->
-        <section class="flex flex-col justify-evenly col-span-4 md:col-start-7">
+        <section class="flex flex-col col-span-4 md:col-start-7">
             <!-- 卡片上方欄位 -->
-            <div class="border-2 border-black rounded-t bg-primary-300 px-4 py-3">
+            <div class="flex justify-between items-center border-2 border-black rounded-t bg-primary-300 px-4 py-3">
                 <ul class="flex gap-2">
                     <li class="border-2 border-black rounded-full h-4 w-4 bg-[#F15159]"></li>
                     <li class="border-2 border-black rounded-full h-4 w-4 bg-[#FDCF00]"></li>
@@ -67,18 +68,18 @@
                 <h3 class="font-bold md:hidden">自定義方案</h3>
             </div>
             <!-- 自定義方案卡片 -->
-            <div class="border-2 border-black rounded-b py-9">
-                <div class="flex justify-center">
-                    <TheSvg svgIcon="customize-icon" class="mt-auto hidden w-[100px] h-[108px] md:block" />
+            <div class="flex flex-col items-center justify-center border-2 border-black rounded-b px-3 py-9">
+                <div
+                    class="text-center flex justify-center items-center border-2 border-black rounded-full w-20 h-20 mb-4">
+                    <TheSvg svgIcon="customize-icon" class="w-[50px] h-[50px]" />
                 </div>
-                <div class="relative">
+                <!-- <div class="relative">
                     <h3 class="py-12 text-3xl font-medium text-center">自定義方案</h3>
-                    <!-- 裝飾性圖片 -->
                     <TheSvg svgIcon="ovalShape"
                         class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 mt-auto hidden w-[200px] -z-10 md:block" />
-                </div>
-                <p class="text-center mb-4">由您挑選喜歡的餐盒，不喜歡還能自定義餐盒！</p>
-                <div class="flex flex-row flex-nowrap justify-center pb-16">
+                </div> -->
+                <p class="text-center mb-4 font-medium">由您挑選喜歡的餐盒，<br>不喜歡還能自定義餐盒！</p>
+                <div class="flex flex-row flex-nowrap justify-center pb-12">
                     <ul class="space-y-2">
                         <li>
                             <p><span class="text-primary-base pr-1"><font-awesome-icon
@@ -100,7 +101,7 @@
                 </div>
                 <div class="flex justify-center items-center">
                     <RouterLink
-                        class="text-center w-4/5 py-5 border-2 border-black bg-secondary-base rounded hover:shadow-base transition active:shadow-none"
+                        class="text-center py-5 px-20 border-2 border-secondary-900 text-secondary-900 rounded hover:border-2 hover:bg-secondary-400 hover:text-black hover:border-black hover:shadow-base hover:transition active:shadow-none md:px-24 lg:px-28"
                         to="/mealboxlist">
                         <p>直接訂購</p>
                     </RouterLink>
