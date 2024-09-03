@@ -21,30 +21,39 @@ export const useNutritionistPlanStore = defineStore('nutritionistPlan', () => {
     const getTotalPages = computed(() => Math.ceil(getDataTotal.value / pageSize.value))
     // 分頁顯示的營養師方案資料
     const getPaginatedPlans = computed(() => {
+        console.log('Computing paginated plans')
         const start = (currentPage.value - 1) * pageSize.value
         const end = start + pageSize.value
-        return nutritionistPlans.value.slice(start, end)
+        const plans = nutritionistPlans.value.slice(start, end)
+        console.log('Paginated plans:', plans)
+        return plans
     })
 
     // Actions
 
     // 獲取所有營養師方案資料
     const fetchNutritionistPlans = async () => {
+        console.log('Fetching nutritionist plans...')
         try {
-            const response = await fetchApi.nutritionistPlan()
+            console.log('Before API call')
+            const response = await fetchApi.getNutritionistPlan()
+            //接不到-待處理
+            console.log('After API call')
+            console.log('API response:', response)
             if (response.status === 200) {
                 nutritionistPlans.value = response?.data?.data || []
-                console.log(response)
+                console.log('Updated nutritionistPlans:', nutritionistPlans.value)
             }
         } catch (error) {
-            console.error(error)
+            console.error('Error fetching nutritionist plans:', error)
         }
+        console.log('Fetch completed')
     }
 
     // 獲取單一營養師方案資料
     const fetchOneNutritionistPlan = async (id: any) => {
         try {
-            const response = await fetchApi.nutritionistPlanOne(id)
+            const response = await fetchApi.getNutritionistPlanOne(id)
             if (response.status === 200) {
                 oneNutritionistPlan.value = response?.data?.data || {}
             }
