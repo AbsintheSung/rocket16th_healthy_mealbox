@@ -19,8 +19,8 @@ export const fetchApi = {
   getUserInfo: () => axiosInstance.get(userInfoApi), //取得會員資料 method
   getGeneralmeal: () => axiosInstance.get(generalMealApi), //取得一般餐盒 method
   getGeneralmealOne: (id: any) => axiosInstance.get(`${generalMealOneApi}/${id}`), //取得一般餐盒(單個) method
-  nutritionistPlan: () => axiosInstance.get(nutritionistPlanApi),
-  nutritionistPlanOne: (id: any) => axiosInstance.get(`${nutritionistPlanOneApi}/${id}`),
+  getNutritionistPlan: () => axiosInstance.get(nutritionistPlanApi),
+  getNutritionistPlanOne: (id: any) => axiosInstance.get(`${nutritionistPlanOneApi}/${id}`),
   updateMemberInfo: (data: any) => axiosInstance.post(updateMemberInfoApi, data), // 修改會員資料
   updateMemberPasswor: (data: any) => axiosInstance.post(updateMemberPasswordApi, data) //修改會員密碼
   //要添加其他 API 服務(照上面的方式往下寫)

@@ -1,27 +1,28 @@
 <script setup>
-import { ref } from 'vue'
+import { onMounted, watch } from 'vue'
 import { useNutritionistPlanStore } from '@/stores/nutritionistPlan'
 import NutritionistPlanCard from '@/components/nutritionist-plan-page/NutritionistPlanCard.vue'
+import ThePagination from '@/components/global/ThePagination.vue'
 
-const NutritionistPlanStore = useNutritionistPlanStore()
+const nutritionistPlanStore = useNutritionistPlanStore()
 
-// 分頁
-const currentPage1 = ref(1)
+onMounted(async () => {
+    await nutritionistPlanStore.fetchNutritionistPlans()
+})
 
+// 監聽頁碼變化
+watch(() => nutritionistPlanStore.currentPage, (newPage) => {
+  nutritionistPlanStore.changePage(newPage)
+})
 </script>
 <template>
     <div class="grid grid-cols-3 gap-6">
-        <!-- <NutritionistPlanCard v-for="item in cardData" :key="item.id" :title="item.title" :src="item.imageUrl" /> -->
-        <NutritionistPlanCard
-        v-for="planItem in NutritionistPlanStore.getPaginatedPlans"
-        :key="planItem.id"
-        :planInfo="planItem"
-        :src="planInfo.nutritionistImg"
-      />
+        <NutritionistPlanCard v-for="planItem in nutritionistPlanStore.getPaginatedPlans" :key="planItem.id" :planInfo="planItem" />
         <!-- 分頁 -->
         <div class="flex items-start justify-center col-start-2">
-            <el-pagination style="--el-fill-color: white" layout="prev, pager, next" v-model:current-page="currentPage1"
-                background :page-size="20" :pager-count="11" :total="100" :prev-text="'上一頁'" :next-text="'下一頁'" />
+            <ThePagination v-model:currentPageNum="nutritionistPlanStore.currentPage" :pagerCount="5"
+                :pageSize="nutritionistPlanStore.getPageSize" :pageTotal="nutritionistPlanStore.getDataTotal"
+                :changePage="nutritionistPlanStore.changePage" />
         </div>
     </div>
 </template>

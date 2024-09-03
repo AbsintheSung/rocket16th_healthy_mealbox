@@ -19,7 +19,7 @@ defineProps({
 <template>
   <div class="flex flex-col">
     <div class="w-full">
-      <div class="border-2 border-black rounded-t"><img :src="planInfo.nutritionistImg" :alt="planInfo.caseName"
+      <div class="border-2 border-black rounded-t"><img :src="planInfo.caseThumbnail" :alt="planInfo.caseName"
           class="w-full h-[200px] object-cover">
       </div>
       <div class="flex flex-col items-start border-2 border-black rounded-b p-3">
