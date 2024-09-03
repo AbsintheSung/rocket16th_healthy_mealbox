@@ -93,7 +93,7 @@ const handleChangePassword = async (formEl: FormInstance | undefined) => {
         const newPassword = {
           password: updatePassWord.value.newPassWord
         }
-        const response = await memberStore.updateMemberPasswor(newPassword)
+        const response = await memberStore.updateMemberPassword(newPassword)
         message(response.message, 'success')
       } catch (error: any) {
         message(error.message, 'error')

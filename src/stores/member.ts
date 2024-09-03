@@ -46,11 +46,10 @@ export const useMemberStore = defineStore('member', () => {
   const getMemberAccount = computed(() => {
     return !memberInfo.value.account ? "example@gmail.com" : memberInfo.value.account;
   });
-
   /* Action */
 
   //取得會員資料
-  const userInfo = async () => {
+  const fetchMemberInfo = async () => {
     try {
       const response = await fetchApi.getUserInfo()
       if (response.status === 200) {
@@ -66,7 +65,7 @@ export const useMemberStore = defineStore('member', () => {
     try {
       const response = await fetchApi.updateMemberInfo(data)
       if (response.status === 200) {
-        await userInfo() //修改成功後，在發送獲取請求資料
+        await fetchMemberInfo() //修改成功後，在發送獲取請求資料
         return response.data
       }
     } catch (error: any) {
@@ -75,7 +74,7 @@ export const useMemberStore = defineStore('member', () => {
   }
 
   //修改會員密碼
-  const updateMemberPasswor = async (data: any) => {
+  const updateMemberPassword = async (data: any) => {
     try {
       const response = await fetchApi.updateMemberPasswor(data)
       if (response.status === 200) {
@@ -91,8 +90,8 @@ export const useMemberStore = defineStore('member', () => {
     getMemberInfo,
     getMemberName,
     getMemberAccount,
-    userInfo,
+    fetchMemberInfo,
     updateMemberInfo,
-    updateMemberPasswor
+    updateMemberPassword
   }
 })

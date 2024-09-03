@@ -9,7 +9,7 @@ const memberStore = useMemberStore()
 
 onMounted(async () => {
   try {
-    await memberStore.userInfo()
+    await memberStore.fetchMemberInfo()
   } catch (error) {
     //此處只是驗證是否保持登入，無需做任何錯誤顯示
     return
