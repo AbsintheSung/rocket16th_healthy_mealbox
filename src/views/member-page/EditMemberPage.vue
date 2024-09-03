@@ -55,6 +55,56 @@ const message = (mes: any, mesType: any): void => {
 onMounted(() => {
   memberInput.value = { ...memberStore.getMemberInfo }
 })
+
+//以下為更改密碼 邏輯設定
+import type { FormInstance } from 'element-plus'
+const ruleFormRef = ref<FormInstance>()
+const verifyNewPassWord = (rule: any, value: any, callback: any) => {
+  if (value === '') {
+    callback(new Error('請輸入密碼'))
+  } else if (value !== updatePassWord.value.newPassWord) {
+    callback(new Error('密碼與原先不符合'))
+  } else {
+    callback()
+  }
+}
+const changePasswordRules = ref({
+  oldPassWord: [
+    { min: 6, max: 30, message: '長度介於6到30之間', trigger: 'blur' },
+    { required: true, message: '必填', trigger: 'blur' }
+  ],
+  newPassWord: [
+    { min: 6, max: 30, message: '長度介於6到30之間', trigger: 'blur' },
+    { required: true, message: '必填', trigger: 'blur' }
+  ],
+  checkNewPassWord: [
+    { min: 6, max: 30, message: '長度介於6到30之間', trigger: 'blur' },
+    { required: true, message: '必填', trigger: 'blur' },
+    { validator: verifyNewPassWord, trigger: 'blur' }
+  ]
+})
+
+const handleChangePassword = async (formEl: FormInstance | undefined) => {
+  if (!formEl) return
+  await formEl.validate(async (valid, fields) => {
+    if (valid) {
+      isLoading.value = true
+      try {
+        const newPassword = {
+          password: updatePassWord.value.newPassWord
+        }
+        const response = await memberStore.updateMemberPasswor(newPassword)
+        message(response.message, 'success')
+      } catch (error: any) {
+        message(error.message, 'error')
+      } finally {
+        isLoading.value = false
+      }
+    } else {
+      // console.log('驗證失敗', fields)
+    }
+  })
+}
 </script>
 <template>
   <h2
@@ -151,19 +201,26 @@ onMounted(() => {
       <p class="pb-4 pt-2 font-normal">您目前的電子信箱為:{{ 'example@gmai.com' }}</p>
     </div>
     <div class="px-5 py-8">
-      <el-form :model="updatePassWord" :label-position="'top'">
-        <el-form-item label="當前密碼">
+      <el-form
+        ref="ruleFormRef"
+        :model="updatePassWord"
+        :label-position="'top'"
+        :rules="changePasswordRules"
+        v-loading="isLoading"
+      >
+        <el-form-item label="當前密碼" prop="oldPassWord">
           <el-input v-model="updatePassWord.oldPassWord" type="password" />
         </el-form-item>
-        <el-form-item label="輸入新密碼">
+        <el-form-item label="輸入新密碼" prop="newPassWord">
           <el-input v-model="updatePassWord.newPassWord" type="password" />
         </el-form-item>
-        <el-form-item label="確認新密碼">
+        <el-form-item label="確認新密碼" prop="checkNewPassWord">
           <el-input v-model="updatePassWord.checkNewPassWord" type="password" />
         </el-form-item>
         <div class="flex">
           <button
             class="ms-auto rounded border border-secondary-900 px-14 py-2 font-bold text-secondary-900 md:py-3"
+            @click.prevent="handleChangePassword(ruleFormRef)"
           >
             更改密碼
           </button>

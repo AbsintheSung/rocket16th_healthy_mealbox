@@ -63,8 +63,20 @@ export const useMemberStore = defineStore('member', () => {
         await userInfo() //修改成功後，在發送獲取請求資料
         return response.data
       }
-    } catch (error) {
-      console.log(error)
+    } catch (error: any) {
+      throw error.response.data
+    }
+  }
+
+  //修改會員密碼
+  const updateMemberPasswor = async (data: any) => {
+    try {
+      const response = await fetchApi.updateMemberPasswor(data)
+      if (response.status === 200) {
+        return response.data
+      }
+    } catch (error: any) {
+      throw error.response.data
     }
   }
 
@@ -72,6 +84,7 @@ export const useMemberStore = defineStore('member', () => {
     memberInfo,
     getMemberInfo,
     userInfo,
-    updateMemberInfo
+    updateMemberInfo,
+    updateMemberPasswor
   }
 })
