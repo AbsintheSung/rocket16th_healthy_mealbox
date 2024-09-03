@@ -8,12 +8,7 @@ import ThePlaidAdorn from './components/global/ThePlaidAdorn.vue'
 const memberStore = useMemberStore()
 
 onMounted(async () => {
-  try {
-    await memberStore.fetchMemberInfo()
-  } catch (error) {
-    //此處只是驗證是否保持登入，無需做任何錯誤顯示
-    return
-  }
+  await memberStore.fetchMemberInfo()
 })
 </script>
 
