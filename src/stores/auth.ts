@@ -9,7 +9,7 @@ export const useAuthStore = defineStore('auth', () => {
 
   //Getter
   const getUserToken = computed(() => {
-    const token = document.cookie.replace(/(?:(?:^|.*;\s*)tokenCode\s*=\s*([^;]*).*$)|^.*$/, "$1") //獲取存在cookie的token
+    const token = document.cookie.replace(/(?:(?:^|.*;\s*)tokenCode\s*=\s*([^;]*).*$)|^.*$/, '$1') //獲取存在cookie的token
     return token
   })
   const getUserInfoData = computed(() => userInfoData.value)
@@ -45,23 +45,23 @@ export const useAuthStore = defineStore('auth', () => {
     }
   }
 
-  const userInfo = async () => {
-    try {
-      const response = await fetchApi.getUserInfo()
-      if (response.status === 200) {
-        isSignin.value = true
-        userInfoData.value = { ...response.data.data }
-        // console.log(userInfoData.value)
-      }
-    } catch (error: any) {
-      throw error.response.data
-    }
-  }
+  // const userInfo = async () => {
+  //   try {
+  //     const response = await fetchApi.getUserInfo()
+  //     if (response.status === 200) {
+  //       isSignin.value = true
+  //       userInfoData.value = { ...response.data.data }
+  //       console.log(userInfoData.value)
+  //     }
+  //   } catch (error: any) {
+  //     throw error.response.data
+  //   }
+  // }
 
   return {
     signin,
     register,
-    userInfo,
+    // userInfo,
     getUserToken,
     getUserInfoData
   }

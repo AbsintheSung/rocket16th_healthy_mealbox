@@ -1,15 +1,15 @@
 <script setup lang="ts">
 import { onMounted } from 'vue'
 import { RouterView } from 'vue-router'
-import { useAuthStore } from '@/stores/auth'
+import { useMemberStore } from '@/stores/member'
 import HeaderLayout from '@/components/global/HeaderLayout.vue'
 import FooterLayout from '@/components/global/FooterLayout.vue'
 import ThePlaidAdorn from './components/global/ThePlaidAdorn.vue'
-const authStore = useAuthStore()
+const memberStore = useMemberStore()
 
 onMounted(async () => {
   try {
-    await authStore.userInfo()
+    await memberStore.userInfo()
   } catch (error) {
     //此處只是驗證是否保持登入，無需做任何錯誤顯示
     return

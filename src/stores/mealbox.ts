@@ -57,8 +57,7 @@ export const useMealBoxStore = defineStore('mealbox', () => {
   }
 
   //傳遞頁碼，觸發更動
-  const changePage = (page: any) => currentPage.value = page
-
+  const changePage = (page: any) => (currentPage.value = page)
 
   return {
     currentPage,
