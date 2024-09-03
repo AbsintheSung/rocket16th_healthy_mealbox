@@ -5,7 +5,7 @@ import DaysSelectionButton from '@/components/global/DaysSelectionButton.vue'
 <template>
     <div>
         <DaysSelectionButton />
-        <main class="container py-20">
+        <main class="container py-12 md:py-20">
             <PlanSelectionCard />
         </main>
         <!-- 裝飾性圖片 -->

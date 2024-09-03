@@ -4,7 +4,7 @@
     <!-- 方案選擇區塊 -->
     <div class="grid grid-cols-4 gap-3 md:grid-cols-12 md:gap-6">
         <!-- 營養師方案 -->
-        <section class="flex flex-col col-span-4 md:col-start-3">
+        <section class="flex flex-col col-span-4 mb-9 md:col-start-3 md:mb-0">
             <!-- 卡片上方欄位 -->
             <div class="flex justify-between items-center border-2 border-black rounded-t bg-primary-300 px-4 py-3">
                 <ul class="flex gap-2">
@@ -15,13 +15,13 @@
                 <h3 class="font-bold md:hidden">營養師方案</h3>
             </div>
             <!-- 營養師方案卡片 -->
-            <div class="flex flex-col items-center justify-center border-2 border-black rounded-b px-3 py-9 relative">
+            <div class="flex flex-col items-center justify-center border-2 border-black rounded-b px-3 py-9 relative bg-background-style-3 bg-cover md:bg-none">
                 <div
                     class="text-center flex justify-center items-center border-2 border-black rounded-full w-20 h-20 mb-4">
                     <TheSvg svgIcon="nutritionist-icon" class="w-[50px] h-[50px]" />
                 </div>
                 <!-- 營養師方案標籤 -->
-                <div class="flex justify-center items-center absolute top-0 -left-1/3 transform -translate-x-1/2"
+                <div class="hidden justify-center items-center absolute top-0 -left-1/3 transform -translate-x-1/2 md:flex"
                     style="transform: rotate(-15deg);">
                     <div class="relative flex items-center justify-center w-[230px] h-[230px]">
                         <h3 class="text-2xl font-bold text-center z-10 absolute transform"
@@ -55,7 +55,7 @@
                 </div>
                 <div class="flex justify-center items-center">
                     <RouterLink
-                        class="text-center py-5 px-20 border-2 border-secondary-900 text-secondary-900 bg-white rounded hover:border-2 hover:bg-secondary-400 hover:text-black hover:border-black hover:shadow-base hover:transition active:shadow-none md:px-24 lg:px-28"
+                        class="text-center py-5 px-24 border-2 border-secondary-900 text-secondary-900 bg-white rounded hover:border-2 hover:bg-secondary-400 hover:text-black hover:border-black hover:shadow-base hover:transition active:shadow-none lg:px-28"
                         to="/nutritionist-plan">
                         <p>直接訂購</p>
                     </RouterLink>
@@ -74,13 +74,13 @@
                 <h3 class="font-bold md:hidden">自定義方案</h3>
             </div>
             <!-- 自定義方案卡片 -->
-            <div class="flex flex-col items-center justify-center border-2 border-black rounded-b px-3 py-9 relative">
+            <div class="flex flex-col items-center justify-center border-2 border-black rounded-b px-3 py-9 relative bg-background-style-3 bg-cover md:bg-none">
                 <div
                     class="text-center flex justify-center items-center border-2 border-black rounded-full w-20 h-20 mb-4">
                     <TheSvg svgIcon="customize-icon" class="w-[50px] h-[50px]" />
                 </div>
                 <!-- 自定義方案標籤 -->
-                <div class="flex justify-center items-center absolute top-[20%] -right-1/3 transform -translate-x-1/2"
+                <div class="hidden justify-center items-center absolute top-[20%] -right-1/3 transform -translate-x-1/2 md:flex"
                     style="transform: rotate(20deg);">
                     <div class="relative flex items-center justify-center w-[230px] h-[230px]">
                         <h3 class="text-2xl font-bold text-center z-10 absolute transform"
