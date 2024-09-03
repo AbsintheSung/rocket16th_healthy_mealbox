@@ -1,7 +1,9 @@
 import { defineStore } from 'pinia'
 import { fetchApi } from '@/utils/api/apiUrl'
 import { ref, computed } from 'vue'
+import { useMemberStore } from './member'
 export const useAuthStore = defineStore('auth', () => {
+  const memberStore = useMemberStore()
   //State
   // const userToken = ref('')
   const isSignin = ref(false) //登入狀態
@@ -21,6 +23,7 @@ export const useAuthStore = defineStore('auth', () => {
       if (response.status === 200) {
         document.cookie = `tokenCode=${response.data.token}`
         const { message, status } = response.data
+        await memberStore.fetchMemberInfo(); //登入成功後，在發送獲取會員資料api
         return { message, status }
       }
       console.log(response)

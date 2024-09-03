@@ -31,9 +31,9 @@ const registerRules = ref({
 })
 const handleRegister = async (formEl: FormInstance | undefined) => {
   if (!formEl) return
-  await formEl.validate((valid, fields) => {
+  await formEl.validate(async (valid, fields) => {
     if (valid) {
-      fetchSignin(signinInput.value)
+      await fetchSignin(signinInput.value)
       // console.log('發送登入API')
     } else {
       // console.log('error submit!', fields)
