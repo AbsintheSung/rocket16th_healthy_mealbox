@@ -1,15 +1,8 @@
 <script setup lang="ts">
-import { onMounted } from 'vue'
 import { RouterView } from 'vue-router'
-import { useMemberStore } from '@/stores/member'
 import HeaderLayout from '@/components/global/HeaderLayout.vue'
 import FooterLayout from '@/components/global/FooterLayout.vue'
 import ThePlaidAdorn from './components/global/ThePlaidAdorn.vue'
-const memberStore = useMemberStore()
-
-onMounted(async () => {
-  await memberStore.fetchMemberInfo()
-})
 </script>
 
 <template>

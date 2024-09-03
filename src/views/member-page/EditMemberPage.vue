@@ -32,7 +32,6 @@ watch(
 //點擊儲存 發送修改
 const handleMemberInfo = async () => {
   isLoading.value = true
-  console.log(memberInput.value.birthDate)
   try {
     const response = await memberStore.updateMemberInfo(memberInput.value)
     message(response.message, 'success')
@@ -52,9 +51,12 @@ const message = (mes: any, mesType: any): void => {
 }
 
 //確保dom渲染後，可以獲取資料
-onMounted(() => {
-  memberInput.value = { ...memberStore.getMemberInfo }
-})
+watch(
+  () => memberStore.getMemberInfo,
+  (newValue) => {
+    memberInput.value = { ...newValue }
+  }
+)
 
 //以下為更改密碼 邏輯設定
 import type { FormInstance } from 'element-plus'
