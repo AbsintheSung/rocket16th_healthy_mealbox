@@ -1,8 +1,10 @@
 <script setup>
-import { computed, ref } from 'vue'
+import { computed, ref, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
 import { useMemberStore } from '@/stores/member'
 import TheSvg from '@/components/global/TheSvg.vue'
+import { ElLoading } from 'element-plus'
+
 const route = useRoute()
 const memberStore = useMemberStore()
 const memberLink = ref([
@@ -20,9 +22,31 @@ const memberTitleData = ref({
 const memberTitle = computed(() => {
   return route.name in memberTitleData.value ? memberTitleData.value[route.name] : ''
 })
+const message = (mes, mesType) => {
+  //@ts-ignore
+  ElMessage({
+    message: mes,
+    type: mesType,
+    duration: 1500
+  })
+}
+onMounted(async () => {
+  const loading = ElLoading.service({
+    lock: true,
+    text: 'Loading'
+  })
+  try {
+    await memberStore.fetchMemberInfo()
+  } catch (error) {
+    message(error.message, 'error')
+  } finally {
+    loading.close()
+  }
+})
 </script>
 <template>
   <main class="container py-6 md:py-20">
+    <Teleport to="body"></Teleport>
     <section class="grid grid-cols-4 gap-6 sm:grid-cols-12">
       <h2
         class="col-span-full rounded bg-primary-300 px-4 py-3 text-center text-4xl font-normal shadow-base md:hidden"

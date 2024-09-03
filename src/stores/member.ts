@@ -54,7 +54,7 @@ export const useMemberStore = defineStore('member', () => {
       const response = await fetchApi.getUserInfo()
       if (response.status === 200) {
         memberInfo.value = response.data.data
-        console.log(memberInfo.value)
+        // console.log(memberInfo.value)
       }
     } catch (error: any) {
       throw error.response.data
