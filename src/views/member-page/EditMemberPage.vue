@@ -48,6 +48,7 @@ watch(
 
 const handleMemberInfo = async () => {
   isLoading.value = true
+  console.log(memberInput.value.birthDate)
   try {
     const response = await memberStore.updateMemberInfo(memberInput.value)
     message(response.message, 'success')
@@ -100,7 +101,13 @@ onMounted(() => {
           </el-form-item>
           <el-form-item label="出生日期" class="el-flex-grow">
             <!-- <el-date-picker v-model="memberData.both" type="date" placeholder="選擇日期" /> -->
-            <el-date-picker v-model="memberInput.birthDate" type="date" placeholder="選擇日期" />
+            <el-date-picker
+              v-model="memberInput.birthDate"
+              type="date"
+              placeholder="選擇日期"
+              format="YYYY/MM/DD"
+              value-format="YYYY-MM-DD"
+            />
           </el-form-item>
         </div>
         <!-- 性別 -->

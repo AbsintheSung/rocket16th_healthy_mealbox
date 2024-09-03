@@ -1,7 +1,6 @@
 import { defineStore } from 'pinia'
 import { fetchApi } from '@/utils/api/apiUrl'
 import { ref, computed } from 'vue'
-import { useDateFormat, useNow } from '@vueuse/core'
 
 type MemberInfo = {
   id: number | null
@@ -35,11 +34,6 @@ export const useMemberStore = defineStore('member', () => {
     address: null,
     createTime: null
   })
-  // function convertToLocalString(isoString: string | null): string | null {
-  //   if (isoString === null) return null
-  //   const date = new Date(isoString)
-  //   return date.toLocaleString()
-  // }
   /* Getter */
   const getMemberInfo = computed(() => {
     return {
