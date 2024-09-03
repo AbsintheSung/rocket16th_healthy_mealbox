@@ -6,10 +6,7 @@ import axios from 'axios'
 
 axios.interceptors.request.use(
   (config) => {
-    const tokenCode = document.cookie.replace(
-      /(?:(?:^|.*;\s*)tokenCode\s*=\s*([^;]*).*$)|^.*$/,
-      '$1'
-    )
+    const tokenCode = document.cookie.replace(/(?:(?:^|.*;\s*)tokenCode\s*=\s*([^;]*).*$)|^.*$/, "$1")
     if (tokenCode) {
       config.headers.Authorization = `Bearer ${tokenCode}`
     }

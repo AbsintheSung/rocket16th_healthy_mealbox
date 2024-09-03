@@ -1,22 +1,33 @@
 <script setup>
-// 測試用ㄉ假資料
 defineProps({
-  title: String,
-  src: String,
+  planInfo: {
+    type: Object,
+    default: () => ({
+      id: null,
+      nutritionistName: '',
+      nutritionistImg: '',
+      nutritionistSeniority: '',
+      caseType: null,
+      caseName: '商品準備中',
+      caseThumbnail: '',
+      caseDescription: '',
+      boxes: []
+    })
+  }
 })
 </script>
 <template>
   <div class="flex flex-col">
     <div class="w-full">
-      <div class="border-2 border-black rounded-t"><img :src="src" :alt="title" class="w-full h-[200px] object-cover">
+      <div class="border-2 border-black rounded-t"><img :src="planInfo.nutritionistImg" :alt="planInfo.caseName"
+          class="w-full h-[200px] object-cover">
       </div>
       <div class="flex flex-col items-start border-2 border-black rounded-b p-3">
         <RouterLink to="/nutritionist-plan-detail">
-          <h3 class="text-xl hover:text-primary-600 transition">{{ title }}</h3>
+          <h3 class="text-xl">{{ planInfo.nutritionistName }}營養師推薦 <span class="text-xl text-primary-600">{{ planInfo.caseName }}</span></h3>
         </RouterLink>
         <div class="py-2">
-          <p class="text-sm text-gray-400">Display richer content by adding some configs.</p>
-          <p class="text-sm text-gray-400">Display richer content by adding some configs.</p>
+          <p class="text-sm text-gray-400">{{ planInfo.caseDescription }}</p>
         </div>
         <div class="pr-4">
           <button

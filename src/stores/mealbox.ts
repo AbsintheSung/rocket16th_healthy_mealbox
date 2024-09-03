@@ -32,7 +32,7 @@ export const useMealBoxStore = defineStore('mealbox', () => {
   //獲取所有一般餐盒子資料
   const fetchGeneralMeal = async () => {
     try {
-      const response = await fetchApi.generalmeal()
+      const response = await fetchApi.getGeneralmeal()
       if (response.status === 200) {
         generalMeal.value = response?.data?.data || []
         // console.log(response.data)
@@ -45,7 +45,7 @@ export const useMealBoxStore = defineStore('mealbox', () => {
 
   const featchOneGeneralMeal = async (id: any) => {
     try {
-      const response = await fetchApi.generalmealOne(id)
+      const response = await fetchApi.getGeneralmealOne(id)
       if (response.status === 200) {
         oneGeneralMeal.value = response?.data?.data || {}
         // console.log(response.data)

@@ -9,7 +9,7 @@ export const useAuthStore = defineStore('auth', () => {
 
   //Getter
   const getUserToken = computed(() => {
-    const token = document.cookie.replace(/(?:(?:^|.*;\s*)tokenCode\s*\s*([^;]*).*$)|^.*$/, '$1') //獲取存在cookie的token
+    const token = document.cookie.replace(/(?:(?:^|.*;\s*)tokenCode\s*=\s*([^;]*).*$)|^.*$/, "$1") //獲取存在cookie的token
     return token
   })
   const getUserInfoData = computed(() => userInfoData.value)
@@ -25,12 +25,7 @@ export const useAuthStore = defineStore('auth', () => {
       }
       console.log(response)
     } catch (error: any) {
-      if (error.response.status === 401) {
-        const data = {
-          message: '登入失敗',
-          status: 401
-        }
-        error.response.data = data
+      if (error.response.status === 400) {
         throw error.response.data
       }
     }
@@ -40,14 +35,10 @@ export const useAuthStore = defineStore('auth', () => {
     try {
       const response = await fetchApi.register(inputData)
       if (response.status === 200) {
-        switch (response.data.code) {
-          case 0: {
-            const { message, status } = response.data
-            return { message, status }
-          }
-        }
+        return response.data
       }
     } catch (error: any) {
+      console.log(error)
       if (error.response.status === 400) {
         throw error.response.data
       }
@@ -56,7 +47,7 @@ export const useAuthStore = defineStore('auth', () => {
 
   const userInfo = async () => {
     try {
-      const response = await fetchApi.userinfo()
+      const response = await fetchApi.getUserInfo()
       if (response.status === 200) {
         isSignin.value = true
         userInfoData.value = { ...response.data.data }
