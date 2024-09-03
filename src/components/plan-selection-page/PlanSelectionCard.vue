@@ -15,16 +15,21 @@
                 <h3 class="font-bold md:hidden">營養師方案</h3>
             </div>
             <!-- 營養師方案卡片 -->
-            <div class="flex flex-col items-center justify-center border-2 border-black rounded-b px-3 py-9">
+            <div class="flex flex-col items-center justify-center border-2 border-black rounded-b px-3 py-9 relative">
                 <div
                     class="text-center flex justify-center items-center border-2 border-black rounded-full w-20 h-20 mb-4">
                     <TheSvg svgIcon="nutritionist-icon" class="w-[50px] h-[50px]" />
                 </div>
-                <!-- <div class="relative">
-                    <h3 class="py-12 text-2xl font-bold text-center">營養師方案</h3>
-                    <TheSvg svgIcon="hendecagon"
-                        class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 mt-auto hidden w-[290px] -z-10 md:block" />
-                </div> -->
+                <!-- 營養師方案標籤 -->
+                <div class="flex justify-center items-center absolute top-0 -left-1/3 transform -translate-x-1/2"
+                    style="transform: rotate(-15deg);">
+                    <div class="relative flex items-center justify-center w-[230px] h-[230px]">
+                        <h3 class="text-2xl font-bold text-center z-10 absolute transform" style="transform: rotate(-10deg);">
+                            營養師方案
+                        </h3>
+                        <TheSvg svgIcon="hendecagon" class="absolute w-full h-full -z-10" />
+                    </div>
+                </div>
                 <p class="text-center mb-4 font-medium">由專業營養師依照成人<br>一日所需營養素搭配餐盒</p>
                 <div class="flex flex-row flex-wrap justify-center pb-12">
                     <ul class="space-y-2">
