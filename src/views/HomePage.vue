@@ -2,7 +2,7 @@
 import TheSvg from '@/components/global/TheSvg.vue'
 import TheNewsTicker from '@/components/global/TheNewsTicker.vue'
 import ThePlaidAdorn from '@/components/global/ThePlaidAdorn.vue'
-
+import TheContact from '@/components/global/TheContact.vue'
 import { Swiper, SwiperSlide } from 'swiper/vue'
 import { Mousewheel, Pagination } from 'swiper/modules'
 import 'swiper/css'
@@ -108,7 +108,7 @@ const swiperOptions = {
     </section>
 
     <!-- 首頁-網站介紹-1 -->
-    <section class="bg-background-style-2">
+    <section class="hidden bg-background-style-2 lg:block">
       <div class="container py-14">
         <h2 class="text-center text-5xl font-bold text-primary-700">
           「想要健康，就要吃得均衡。」
@@ -315,6 +315,11 @@ const swiperOptions = {
     <!-- 跑馬燈 -->
     <section>
       <TheNewsTicker />
+    </section>
+
+    <!-- 聯絡-訂閱區塊 -->
+    <section>
+      <TheContact />
     </section>
   </main>
 </template>

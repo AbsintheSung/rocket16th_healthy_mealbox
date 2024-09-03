@@ -8,7 +8,12 @@ import ThePlaidAdorn from './components/global/ThePlaidAdorn.vue'
 const authStore = useAuthStore()
 
 onMounted(async () => {
-  // await authStore.userInfo()
+  try {
+    await authStore.userInfo()
+  } catch (error) {
+    //此處只是驗證是否保持登入，無需做任何錯誤顯示
+    return
+  }
 })
 </script>
 
