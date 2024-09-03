@@ -34,7 +34,7 @@ export const useNutritionistPlanStore = defineStore('nutritionistPlan', () => {
             const response = await fetchApi.nutritionistPlan()
             if (response.status === 200) {
                 nutritionistPlans.value = response?.data?.data || []
-                console.log(response.data)
+                console.log(response)
             }
         } catch (error) {
             console.error(error)

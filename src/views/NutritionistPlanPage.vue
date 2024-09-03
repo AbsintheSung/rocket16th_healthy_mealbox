@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onMounted } from 'vue'
+import { onMounted } from 'vue'
 import { useNutritionistPlanStore } from '@/stores/nutritionistPlan'
 import NutritionistPlanCards from '@/components/nutritionist-plan-page/NutritionistPlanCards.vue'
 
