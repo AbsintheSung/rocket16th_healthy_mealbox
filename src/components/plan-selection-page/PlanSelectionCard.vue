@@ -122,7 +122,5 @@
 
         </section>
     </div>
-    <!-- 裝飾性圖片 -->
-    <TheSvg svgIcon="polygon" class="mt-auto hidden w-[160px] md:block" />
 </template>
 <style scoped></style>
