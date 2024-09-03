@@ -86,11 +86,22 @@ const changePasswordRules = ref({
 
 const handleChangePassword = async (formEl: FormInstance | undefined) => {
   if (!formEl) return
-  await formEl.validate((valid, fields) => {
+  await formEl.validate(async (valid, fields) => {
     if (valid) {
-      console.log('驗證成功', valid)
+      isLoading.value = true
+      try {
+        const newPassword = {
+          password: updatePassWord.value.newPassWord
+        }
+        const response = await memberStore.updateMemberPasswor(newPassword)
+        message(response.message, 'success')
+      } catch (error: any) {
+        message(error.message, 'error')
+      } finally {
+        isLoading.value = false
+      }
     } else {
-      console.log('驗證失敗', fields)
+      // console.log('驗證失敗', fields)
     }
   })
 }
@@ -195,6 +206,7 @@ const handleChangePassword = async (formEl: FormInstance | undefined) => {
         :model="updatePassWord"
         :label-position="'top'"
         :rules="changePasswordRules"
+        v-loading="isLoading"
       >
         <el-form-item label="當前密碼" prop="oldPassWord">
           <el-input v-model="updatePassWord.oldPassWord" type="password" />
