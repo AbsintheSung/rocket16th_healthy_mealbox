@@ -4,17 +4,6 @@ import { taiwanCity } from '@/content/city' //引入城市鄉鎮
 import { useMemberStore } from '@/stores/member'
 const memberStore = useMemberStore()
 const isLoading = ref<Boolean>(false)
-// const cityName = ref('') //v-model綁定所選取得值
-// const cityArea = ref('') //v-model綁定所選取得值
-// const memberData = ref({
-//   name: '',
-//   email: '',
-//   phone: '',
-//   both: '',
-//   gender: '',
-//   address: ''
-// })
-console.log(memberStore.getMemberInfo)
 const memberInput = ref({
   ...memberStore.getMemberInfo
 })
@@ -23,12 +12,6 @@ const updatePassWord = ref({
   newPassWord: '',
   checkNewPassWord: ''
 })
-const onSubmit = () => {
-  // console.log(memberData.value)
-}
-const onSubmitPassword = () => {
-  // console.log(updatePassWord.value)
-}
 
 // 透過computed 計算城市列表
 const cities = computed(() => taiwanCity.map((item) => item.name))
@@ -46,15 +29,15 @@ watch(
   }
 )
 
+//點擊儲存 發送修改
 const handleMemberInfo = async () => {
   isLoading.value = true
   console.log(memberInput.value.birthDate)
   try {
     const response = await memberStore.updateMemberInfo(memberInput.value)
     message(response.message, 'success')
-    // console.log(message)
-  } catch (error) {
-    console.log(error)
+  } catch (error: any) {
+    message(error.message, 'error')
   } finally {
     isLoading.value = false
   }
@@ -68,6 +51,7 @@ const message = (mes: any, mesType: any): void => {
   })
 }
 
+//確保dom渲染後，可以獲取資料
 onMounted(() => {
   memberInput.value = { ...memberStore.getMemberInfo }
 })
