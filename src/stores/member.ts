@@ -40,6 +40,12 @@ export const useMemberStore = defineStore('member', () => {
       ...memberInfo.value
     }
   })
+  const getMemberName = computed(() => {
+    return !memberInfo.value.name ? "user" : memberInfo.value.name;
+  });
+  const getMemberAccount = computed(() => {
+    return !memberInfo.value.account ? "example@gmail.com" : memberInfo.value.account;
+  });
 
   /* Action */
 
@@ -83,6 +89,8 @@ export const useMemberStore = defineStore('member', () => {
   return {
     memberInfo,
     getMemberInfo,
+    getMemberName,
+    getMemberAccount,
     userInfo,
     updateMemberInfo,
     updateMemberPasswor
