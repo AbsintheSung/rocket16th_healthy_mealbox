@@ -7,7 +7,10 @@ const customMealBoxStore = useCustomMealBoxStore()
 </script>
 <template>
   <div>
-    <ul class="grid grid-cols-2 gap-x-6 gap-y-3 md:grid-cols-3 md:gap-y-12 lg:grid-cols-4">
+    <ul
+      v-if="customMealBoxStore.getDataTotal > 0"
+      class="grid grid-cols-2 gap-x-6 gap-y-3 md:grid-cols-3 md:gap-y-12 lg:grid-cols-4"
+    >
       <MealCard v-for="item in customMealBoxStore.getPaginatedMeals" :key="item" />
       <li class="flex flex-col gap-y-4 rounded border border-dashed p-4">
         <button class="flex flex-grow flex-col items-center justify-center gap-y-6">
@@ -16,7 +19,7 @@ const customMealBoxStore = useCustomMealBoxStore()
         </button>
       </li>
     </ul>
-    <!-- <div class="flex flex-grow flex-col py-20">
+    <div class="flex flex-grow flex-col py-20" v-else>
       <div
         class="flex flex-grow flex-col items-center justify-center gap-y-8 border-2 border-dashed border-black"
       >
@@ -29,7 +32,7 @@ const customMealBoxStore = useCustomMealBoxStore()
           新增自定義餐盒
         </button>
       </div>
-    </div> -->
+    </div>
     <div class="mt-auto flex w-full items-center justify-center">
       <ThePagination
         v-model:currentPageNum="customMealBoxStore.currentPage"
