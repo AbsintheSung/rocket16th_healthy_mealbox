@@ -3,7 +3,6 @@ defineProps({
   planInfo: {
     type: Object,
     default: () => ({
-      id: null,
       nutritionistName: '',
       nutritionistImg: '',
       nutritionistSeniority: '',
@@ -23,7 +22,7 @@ defineProps({
           class="w-full h-[200px] object-cover">
       </div>
       <div class="flex flex-col items-start border-2 border-black rounded-b p-3">
-        <RouterLink to="/nutritionist-plan-detail">
+        <RouterLink :to="`/nutritionist-plan/${planInfo.id}`">
           <h3 class="text-xl">{{ planInfo.nutritionistName }}營養師推薦 <span class="text-xl text-primary-600">{{ planInfo.caseName }}</span></h3>
         </RouterLink>
         <div class="py-2">
