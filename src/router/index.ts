@@ -4,7 +4,6 @@ import SigninPage from '@/views/SigninPage.vue'
 import RegisterPage from '@/views/RegisterPage.vue'
 import PlanSelectionPage from '@/views/PlanSelectionPage.vue'
 import NutritionistPlanPage from '@/views/NutritionistPlanPage.vue'
-import NutritionistPlanDetailPage from '@/views/NutritionistPlanDetailPage.vue'
 import MealboxlistPage from '@/views/MealboxlistPage.vue'
 import MemberPage from '@/views/MemberPage.vue'
 import CheckoutPage from '@/views/CheckoutPage.vue'
@@ -39,14 +38,11 @@ const router = createRouter({
       path: '/nutritionist-plan',
       name: 'NutritionistPlan',
       component: NutritionistPlanPage,
-      children: [
-        {
-          path: ':id',
-          name: 'NutritionistPlanDetail',
-          component: NutritionistPlanDetailPage,
-          props: true
-        }
-      ]
+    },
+    {
+      path: '/nutritionist-plan/:id',
+      name: 'NutritionistPlanDetail',
+      component: () => import("@/views/NutritionistPlanDetailPage.vue")
     },
     {
       path: '/mealboxlist',
