@@ -1,9 +1,10 @@
 <script setup>
 import { ref, onMounted, computed } from 'vue'
-import { useRoute } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 import { useMealBoxStore } from '@/stores/mealbox'
 const mealBoxStore = useMealBoxStore()
 const route = useRoute()
+const router = useRouter()
 const drawer = ref(false)
 const oneMealData = computed(() => mealBoxStore.getOneGeneralMeal)
 //英文對應中文
@@ -32,6 +33,9 @@ const nutritionItems = computed(() => {
 //   { name: '糖', value: '15g' },
 //   { name: '纖維', value: '3.1g' }
 // ]
+const handlePrevious = () => {
+  router.back()
+}
 onMounted(async () => {
   await mealBoxStore.featchOneGeneralMeal(route.params.id)
 })
@@ -45,7 +49,7 @@ onMounted(async () => {
           <div class="hidden pt-8 sm:block">走馬燈</div>
         </div>
         <div class="col-span-1 col-start-4 flex items-start sm:hidden">
-          <button class="ms-auto">
+          <button class="ms-auto hover:cursor-pointer" @click="handlePrevious">
             <FontAwesomeIcon :icon="['far', 'circle-xmark']" size="xl" />
           </button>
         </div>
@@ -58,7 +62,7 @@ onMounted(async () => {
             >
               {{ oneMealData.name }}
             </h2>
-            <button class="ms-auto hidden sm:block">
+            <button class="ms-auto hidden hover:cursor-pointer sm:block" @click="handlePrevious">
               <FontAwesomeIcon :icon="['far', 'circle-xmark']" size="xl" />
             </button>
           </div>
