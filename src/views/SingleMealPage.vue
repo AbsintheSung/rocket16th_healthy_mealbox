@@ -37,8 +37,8 @@ onMounted(async () => {
 })
 </script>
 <template>
-  <main>
-    <section class="container py-4">
+  <main class="flex flex-grow flex-col">
+    <section class="container flex flex-grow flex-col py-4">
       <div class="grid grid-cols-4 gap-6 sm:grid-cols-12">
         <div class="col-span-3 col-start-1 -me-3 sm:col-span-3 sm:me-0">
           <img src="https://picsum.photos/536/536?random=1" />
