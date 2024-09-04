@@ -1,12 +1,39 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html lang="zh-Hant">
   <head>
-    <meta charset="UTF-8">
-    <link rel="icon" href="/favicon.ico">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vite App</title>
+    <meta charset="UTF-8" />
+    <link rel="icon" href="/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>盒食Heshi</title>
+    <style>
+      .view-load {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100dvw;
+        background-color: black;
+        height: 100dvh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .view-load > img {
+        width: 50%;
+      }
+
+      .view-load > p {
+        color: #58c067;
+      }
+    </style>
   </head>
+
   <body>
+    <div class="view-load">
+      <img src="/initialLoad.gif" />
+      <p>加載中...</p>
+    </div>
     <div id="app"></div>
     <script type="module" src="/src/main.ts"></script>
   </body>
