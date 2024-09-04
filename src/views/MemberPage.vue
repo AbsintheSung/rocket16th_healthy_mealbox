@@ -1,11 +1,11 @@
-<script setup>
+<script setup lang="ts">
 import { computed, ref, onMounted } from 'vue'
-import { useRoute } from 'vue-router'
+import { useRoute, type RouteLocationNormalizedLoadedGeneric } from 'vue-router'
 import { useMemberStore } from '@/stores/member'
 import TheSvg from '@/components/global/TheSvg.vue'
 import { ElLoading } from 'element-plus'
 
-const route = useRoute()
+const route: RouteLocationNormalizedLoadedGeneric = useRoute()
 const memberStore = useMemberStore()
 const memberLink = ref([
   { id: 'editmember', title: '個人資訊', path: '/member' },
@@ -19,10 +19,16 @@ const memberTitleData = ref({
   OrderHistory: '歷史訂單',
   CustomMeal: '我的自定義餐盒'
 })
+//原js
+// const memberTitle = computed(() => {
+//   return route.name in memberTitleData.value ? memberTitleData.value[route.name] : ''
+// })
 const memberTitle = computed(() => {
-  return route.name in memberTitleData.value ? memberTitleData.value[route.name] : ''
+  const routeName = route.name as keyof typeof memberTitleData.value
+  return routeName in memberTitleData.value ? memberTitleData.value[routeName] : ''
 })
-const message = (mes, mesType) => {
+
+const message = (mes: any, mesType: any) => {
   //@ts-ignore
   ElMessage({
     message: mes,
@@ -37,7 +43,7 @@ onMounted(async () => {
   })
   try {
     await memberStore.fetchMemberInfo()
-  } catch (error) {
+  } catch (error: any) {
     message(error.message, 'error')
   } finally {
     loading.close()
