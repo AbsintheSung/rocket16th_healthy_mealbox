@@ -5,12 +5,14 @@ defineProps({
         default: () => ({
             nutritionistName: '飯糰',
             nutritionistImg: 'https://imgur.com/v3U1trT.png',
-            nutritionistSeniority: '火箭大學',
+            nutritionistSeniority: splitSeniority,
             caseName: '商品準備中',
             caseDescription: '飯糰營養師的餐盒準備中',
         })
     }
 })
+
+
 </script>
 <template>
     <div class="pb-12">
@@ -27,7 +29,7 @@ defineProps({
                 <h3 class="text-2xl">{{ onePlanInfo.nutritionistName }} 營養師</h3>
                 <div class="break-all">
                     <p>資歷：</p>
-                    <p>{{ onePlanInfo.nutritionistSeniority }}</p>
+                    <p class="whitespace-pre-line">{{ onePlanInfo.nutritionistSeniority }}</p>
                 </div>
             </div>
         </div>
