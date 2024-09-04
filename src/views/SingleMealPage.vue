@@ -12,7 +12,8 @@ const nutrientNameMap = {
   protein: '蛋白質',
   adipose: '脂肪',
   carbohydrate: '碳水化合物',
-  fiber: '纖維'
+  fiber: '纖維',
+  sodium: '鈉含量'
 }
 //將物件轉換為數組並添加單位
 const nutritionItems = computed(() => {
