@@ -4,6 +4,7 @@ import { taiwanCity } from '@/content/city' //引入城市鄉鎮
 import { useMemberStore } from '@/stores/member'
 const memberStore = useMemberStore()
 const isLoading = ref<Boolean>(false)
+const isWatchAreas = ref<Boolean>(false)
 const memberInput = ref({
   ...memberStore.getMemberInfo
 })
@@ -25,10 +26,20 @@ const areas = computed(() => {
 watch(
   () => memberInput.value.city,
   () => {
-    memberInput.value.area = ''
+    //因為加載時候，資料進來，可能導致 memberInput 被監聽使得地區資料被清空
+    //設定一個狀態值，當使用者選取城市的select後，才可以去重製 memberInput.value.area值
+    if (isWatchAreas.value) {
+      memberInput.value.area = ''
+    }
   }
 )
 
+const handleCitySelect = () => {
+  isWatchAreas.value = true
+}
+const handleAreaSelect = () => {
+  isWatchAreas.value = false
+}
 //點擊儲存 發送修改
 const handleMemberInfo = async () => {
   isLoading.value = true
@@ -162,7 +173,7 @@ const handleChangePassword = async (formEl: FormInstance | undefined) => {
         >
           <p class="w-full">地址</p>
           <div class="flex-grow">
-            <el-select v-model="memberInput.city" placeholder="城市">
+            <el-select v-model="memberInput.city" placeholder="城市" @change="handleCitySelect">
               <el-option
                 v-for="cityItem in cities"
                 :key="cityItem"
@@ -172,7 +183,7 @@ const handleChangePassword = async (formEl: FormInstance | undefined) => {
             </el-select>
           </div>
           <div class="flex-grow">
-            <el-select v-model="memberInput.area" placeholder="地區">
+            <el-select v-model="memberInput.area" placeholder="地區" @change="handleAreaSelect">
               <el-option
                 v-for="areaItem in areas"
                 :key="areaItem"
