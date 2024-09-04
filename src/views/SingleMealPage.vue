@@ -39,8 +39,8 @@ onMounted(async () => {
 <template>
   <main class="flex flex-grow flex-col">
     <section class="container flex flex-grow flex-col py-4">
-      <div class="grid grid-cols-4 gap-6 sm:grid-cols-12">
-        <div class="col-span-3 col-start-1 -me-3 sm:col-span-3 sm:me-0">
+      <div class="grid flex-grow grid-cols-4 gap-6 py-4 sm:grid-cols-12 md:pt-12">
+        <div class="col-span-3 col-start-1 -me-3 sm:col-span-4 sm:me-0 lg:col-span-3">
           <img src="https://picsum.photos/536/536?random=1" />
           <div class="hidden pt-8 sm:block">走馬燈</div>
         </div>
@@ -49,7 +49,9 @@ onMounted(async () => {
             <FontAwesomeIcon :icon="['far', 'circle-xmark']" size="xl" />
           </button>
         </div>
-        <div class="col-span-full col-start-1 sm:col-span-9 sm:col-start-4">
+        <div
+          class="col-span-full col-start-1 sm:col-span-8 sm:col-start-5 lg:col-span-9 lg:col-start-4"
+        >
           <div class="flex items-center">
             <h2
               class="mb-6 w-fit rounded bg-primary-300 p-4 text-2xl shadow-base md:mb-4 md:px-7 md:py-6"
@@ -83,7 +85,7 @@ onMounted(async () => {
             </li>
           </ul>
         </div>
-        <div class="col-span-full col-start-1">
+        <!-- <div class="col-span-full col-start-1">
           <ul class="flex w-full flex-wrap items-center py-6 md:flex-nowrap">
             <li
               v-for="(item, index) in nutritionItems"
@@ -102,7 +104,27 @@ onMounted(async () => {
               <p>{{ item.value }}</p>
             </li>
           </ul>
-        </div>
+        </div> -->
+      </div>
+      <div class="col-span-full col-start-1">
+        <ul class="flex w-full flex-wrap items-center py-6 md:flex-nowrap">
+          <li
+            v-for="(item, index) in nutritionItems"
+            :key="item.name"
+            class="flex w-1/3 flex-col items-center justify-center gap-y-4 border-black py-2 md:py-0"
+            :class="[
+              index < 3 ? 'border-b md:border-b-0' : 'border-t md:border-t-0',
+              index % 3 === 0 ? 'md:border-l' : 'border-l',
+              (index + 1) % 3 === 0 ? 'border-r-0' : 'border-r',
+              'md:border-x',
+              { 'md:first:border-l-0': index === 0 },
+              { 'md:last:border-r-0': index === nutritionItems.length - 1 }
+            ]"
+          >
+            <h3>{{ item.name }}</h3>
+            <p>{{ item.value }}</p>
+          </li>
+        </ul>
       </div>
     </section>
   </main>
