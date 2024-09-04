@@ -2,11 +2,13 @@
 import MealCard from '@/components/global/MealCard.vue'
 import ThePagination from '@/components/global/ThePagination.vue'
 import TheSvg from '@/components/global/TheSvg.vue'
+import { useCustomMealBoxStore } from '@/stores/custommealbox'
+const customMealBoxStore = useCustomMealBoxStore()
 </script>
 <template>
   <div>
     <ul class="grid grid-cols-2 gap-x-6 gap-y-3 md:grid-cols-3 md:gap-y-12 lg:grid-cols-4">
-      <MealCard v-for="item in 6" :key="item" />
+      <MealCard v-for="item in customMealBoxStore.getPaginatedMeals" :key="item" />
       <li class="flex flex-col gap-y-4 rounded border border-dashed p-4">
         <button class="flex flex-grow flex-col items-center justify-center gap-y-6">
           <fontAwesomeIcon :icon="['fas', 'plus']" class="p-2" />
@@ -29,7 +31,13 @@ import TheSvg from '@/components/global/TheSvg.vue'
       </div>
     </div> -->
     <div class="mt-auto flex w-full items-center justify-center">
-      <ThePagination />
+      <ThePagination
+        v-model:currentPageNum="customMealBoxStore.currentPage"
+        :pagerCount="5"
+        :pageSize="customMealBoxStore.getPageSize"
+        :pageTotal="customMealBoxStore.getDataTotal"
+        :changePage="customMealBoxStore.changePage"
+      />
     </div>
   </div>
 </template>
