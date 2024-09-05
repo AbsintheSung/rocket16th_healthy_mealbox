@@ -15,23 +15,25 @@
                 <h3 class="font-bold md:hidden">營養師方案</h3>
             </div>
             <!-- 營養師方案卡片 -->
-            <div class="flex flex-col items-center justify-center border-2 border-black rounded-b px-3 py-9 relative bg-background-style-3 bg-cover md:bg-none">
+            <div
+                class="flex flex-col items-center justify-center border-2 border-black rounded-b px-3 py-9 relative bg-background-style-3 bg-cover md:bg-none">
                 <div
-                    class="text-center flex justify-center items-center border-2 border-black rounded-full w-20 h-20 mb-4">
+                    class="text-center flex justify-center items-center border-2 border-black bg-white rounded-full w-20 h-20 mb-4">
                     <TheSvg svgIcon="nutritionist-icon" class="w-[50px] h-[50px]" />
                 </div>
                 <!-- 營養師方案標籤 -->
                 <div class="hidden justify-center items-center absolute top-0 -left-1/3 transform -translate-x-1/2 md:flex"
                     style="transform: rotate(-15deg);">
-                    <div class="relative flex items-center justify-center w-[230px] h-[230px]">
-                        <h3 class="text-2xl font-bold text-center z-10 absolute transform"
+                    <div
+                        class="relative flex items-center justify-center w-[150px] h-[150px] transition-all duration-300 ease-in-out lg:w-[230px] lg:h-[230px]">
+                        <h3 class="text-base font-bold text-center z-10 absolute transform transition-all duration-300 ease-in-out lg:text-2xl"
                             style="transform: rotate(-10deg);">
                             營養師方案
                         </h3>
                         <TheSvg svgIcon="hendecagon" class="absolute w-full h-full -z-10" />
                     </div>
                 </div>
-                <p class="text-center mb-4 font-medium">由專業營養師依照成人<br>一日所需營養素搭配餐盒</p>
+                <p class="text-center mb-4 font-medium">由專業營養師依照成人<br>一日所需搭配餐盒</p>
                 <div class="flex flex-row flex-wrap justify-center pb-12">
                     <ul class="space-y-2">
                         <li>
@@ -74,16 +76,18 @@
                 <h3 class="font-bold md:hidden">自定義方案</h3>
             </div>
             <!-- 自定義方案卡片 -->
-            <div class="flex flex-col items-center justify-center border-2 border-black rounded-b px-3 py-9 relative bg-background-style-3 bg-cover md:bg-none">
+            <div
+                class="flex flex-col items-center justify-center border-2 border-black rounded-b px-3 py-9 relative bg-background-style-3 bg-cover md:bg-none">
                 <div
-                    class="text-center flex justify-center items-center border-2 border-black rounded-full w-20 h-20 mb-4">
+                    class="text-center flex justify-center items-center border-2 border-black bg-white rounded-full w-20 h-20 mb-4">
                     <TheSvg svgIcon="customize-icon" class="w-[50px] h-[50px]" />
                 </div>
                 <!-- 自定義方案標籤 -->
                 <div class="hidden justify-center items-center absolute top-[20%] -right-1/3 transform -translate-x-1/2 md:flex"
                     style="transform: rotate(20deg);">
-                    <div class="relative flex items-center justify-center w-[230px] h-[230px]">
-                        <h3 class="text-2xl font-bold text-center z-10 absolute transform"
+                    <div
+                        class="relative flex items-center justify-center w-[150px] h-[150px] transition-all duration-300 ease-in-out lg:w-[230px] lg:h-[230px]">
+                        <h3 class="text-base font-bold text-center z-10 absolute transform transition-all duration-300 ease-in-out lg:text-2xl"
                             style="transform: rotate(-5deg);">
                             自定義方案
                         </h3>
@@ -113,7 +117,7 @@
                 </div>
                 <div class="flex justify-center items-center">
                     <RouterLink
-                        class="text-center py-5 px-20 border-2 border-secondary-900 text-secondary-900 rounded hover:border-2 hover:bg-secondary-400 hover:text-black hover:border-black hover:shadow-base hover:transition active:shadow-none md:px-24 lg:px-28"
+                        class="text-center py-5 px-24 border-2 border-secondary-900 text-secondary-900 bg-white rounded hover:border-2 hover:bg-secondary-400 hover:text-black hover:border-black hover:shadow-base hover:transition active:shadow-none lg:px-28"
                         to="/mealboxlist">
                         <p>直接訂購</p>
                     </RouterLink>
