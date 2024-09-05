@@ -37,7 +37,7 @@ const handlePrevious = () => {
   router.back()
 }
 onMounted(async () => {
-  await mealBoxStore.featchOneGeneralMeal(route.params.id)
+  await mealBoxStore.fetchOneGeneralMeal(route.params.id)
 })
 </script>
 <template>
