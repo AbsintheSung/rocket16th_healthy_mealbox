@@ -3,7 +3,7 @@ import { computed } from 'vue'
 import MealCard from '@/components/global/MealCard.vue'
 import ThePagination from '@/components/global/ThePagination.vue'
 import TheSvg from '@/components/global/TheSvg.vue'
-import { useCustomMealBoxStore } from '@/stores/customMealBox'
+import { useCustomMealBoxStore } from '@/stores/custommealbox'
 import { useRouter } from 'vue-router'
 const router = useRouter()
 const customMealBoxStore = useCustomMealBoxStore()

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import MealCard from '@/components/global/MealCard.vue'
 import ThePagination from '@/components/global/ThePagination.vue'
-import { useGeneralMealBoxStore } from '@/stores/generalMealBox'
+import { useGeneralMealBoxStore } from '@/stores/generalmealbox'
 const generalMealBoxStore = useGeneralMealBoxStore()
 </script>
 <template>
