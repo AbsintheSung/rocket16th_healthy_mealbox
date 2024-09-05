@@ -4,10 +4,15 @@ import MealCard from '@/components/global/MealCard.vue'
 import ThePagination from '@/components/global/ThePagination.vue'
 import TheSvg from '@/components/global/TheSvg.vue'
 import { useCustomMealBoxStore } from '@/stores/custommealbox'
+import { useRouter } from 'vue-router'
+const router = useRouter()
 const customMealBoxStore = useCustomMealBoxStore()
 const isLastPage = computed(() => {
   return customMealBoxStore.currentPage === customMealBoxStore.getTotalPages
 })
+const handleAddCustom = () => {
+  router.push('/customized')
+}
 </script>
 <template>
   <div>
@@ -17,7 +22,10 @@ const isLastPage = computed(() => {
     >
       <MealCard v-for="item in customMealBoxStore.getPaginatedMeals" :key="item" />
       <li v-if="isLastPage" class="flex h-full flex-col gap-y-4 rounded border border-dashed p-4">
-        <button class="flex flex-grow flex-col items-center justify-center gap-y-6">
+        <button
+          class="flex flex-grow flex-col items-center justify-center gap-y-6"
+          @click="handleAddCustom"
+        >
           <fontAwesomeIcon :icon="['fas', 'plus']" class="p-2" />
           <p>新增餐盒</p>
         </button>
@@ -25,14 +33,17 @@ const isLastPage = computed(() => {
     </ul>
     <div class="flex flex-grow flex-col py-20" v-else>
       <div
-        class="flex flex-grow flex-col items-center justify-center gap-y-8 border-2 border-dashed border-black"
+        class="flex flex-grow flex-col items-center justify-center gap-y-8 border-2 border-dashed border-black py-4 md:py-14"
       >
         <TheSvg svgIcon="custom-sprite" class="h-[98px] w-[98px]" />
         <div class="flex flex-col items-center justify-center">
           <p>還沒有加入任何餐盒</p>
           <p>點擊新增開始來製作專屬餐盒吧！</p>
         </div>
-        <button class="rounded bg-secondary-400 px-3 py-5 hover:cursor-pointer hover:shadow-base">
+        <button
+          class="rounded bg-secondary-400 px-3 py-5 hover:cursor-pointer hover:shadow-base"
+          @click="handleAddCustom"
+        >
           新增自定義餐盒
         </button>
       </div>
