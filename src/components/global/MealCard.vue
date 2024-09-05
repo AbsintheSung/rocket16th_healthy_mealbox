@@ -24,7 +24,7 @@ const props = defineProps({
         <li class="flex-grow text-center">蛋白質{{ mealInfo.composition.protein }}g</li>
       </ul>
     </div>
-    <div class="flex gap-x-3">
+    <div class="mt-auto flex gap-x-3">
       <button
         class="flex flex-grow items-center justify-center gap-x-2 rounded border border-black py-2"
       >
