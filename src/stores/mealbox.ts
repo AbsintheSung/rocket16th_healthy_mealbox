@@ -43,7 +43,7 @@ export const useMealBoxStore = defineStore('mealbox', () => {
     }
   }
 
-  const featchOneGeneralMeal = async (id: any) => {
+  const fetchOneGeneralMeal = async (id: any) => {
     try {
       const response = await fetchApi.getGeneralmealOne(id)
       if (response.status === 200) {
@@ -68,6 +68,6 @@ export const useMealBoxStore = defineStore('mealbox', () => {
     getOneGeneralMeal,
     changePage,
     fetchGeneralMeal,
-    featchOneGeneralMeal
+    fetchOneGeneralMeal
   }
 })
