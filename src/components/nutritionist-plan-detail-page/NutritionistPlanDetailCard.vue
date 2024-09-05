@@ -1,83 +1,43 @@
 <script setup>
+import { computed, watch, onMounted } from 'vue'
+
+const props = defineProps({
+    onePlanInfo: {
+        type: Object,
+        default: () => ({})
+    },
+    mealBoxesData: {
+        type: Array,
+        default: () => []
+    }
+})
+
+const safeMealBoxesData = computed(() => props.mealBoxesData || [])
+watch(() => props.mealBoxesData, (newValue) => {
+    console.log('mealBoxesData updated in NutritionistPlanDetailCard:', newValue)
+}, { immediate: true, deep: true })
+
+onMounted(() => {
+    console.log('Initial mealBoxesData in NutritionistPlanDetailCard:', props.mealBoxesData)
+})
+
 </script>
 <template>
-    <div class="grid grid-cols-4 gap-7">
-        <el-card style="max-width: 310px" shadow="never">
-            <img src="https://s3-alpha-sig.figma.com/img/1308/332b/fdff7280d27e9ddfb2f51a08620c9aca?Expires=1725235200&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=XcjQ0aDOsoi94s~xON6-fm4oyuL8ccjFAUPcrgOonIIhVBaxzwkVbTRSSbrPh1~qujz6tuLFt0SBsuXsM8TfJuPZ~aGxq5l3bMjLSnU1n9Ix7RcLjaAKYJyhXFME4RYAvlh4rT2Vbjmt2kjirQ1-5fQZFPc6kPwP7c-YVpBXV6uAmc4yT7vBS1q4aKcbWUH3QWJh4cnN17JpPp9PkU3SS9xVnQTswFXhLZyXf4Za-VTTzLAA5O6V58gBzeyocriT3KMYjkXVapUKvCBWJBAzzpHdRmkJ-chgmFGejNC7aD6vjULBC-i4wB6X981yR~mzMwu4mcpgbgoinN1sqkAEaw__"
-                style="width: 100%" class="card-img" />
-            <p class="text-base font-bold py-4">吃了很健康的麥當勞</p>
-            <div class="pb-16">
-                <span>300Kcal | </span>
-                <span>糖15g | </span>
-                <span>蛋白質20g</span>
-            </div>
-        </el-card>
-        <el-card style="max-width: 310px" shadow="never">
-            <img src="https://s3-alpha-sig.figma.com/img/1308/332b/fdff7280d27e9ddfb2f51a08620c9aca?Expires=1725235200&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=XcjQ0aDOsoi94s~xON6-fm4oyuL8ccjFAUPcrgOonIIhVBaxzwkVbTRSSbrPh1~qujz6tuLFt0SBsuXsM8TfJuPZ~aGxq5l3bMjLSnU1n9Ix7RcLjaAKYJyhXFME4RYAvlh4rT2Vbjmt2kjirQ1-5fQZFPc6kPwP7c-YVpBXV6uAmc4yT7vBS1q4aKcbWUH3QWJh4cnN17JpPp9PkU3SS9xVnQTswFXhLZyXf4Za-VTTzLAA5O6V58gBzeyocriT3KMYjkXVapUKvCBWJBAzzpHdRmkJ-chgmFGejNC7aD6vjULBC-i4wB6X981yR~mzMwu4mcpgbgoinN1sqkAEaw__"
-                style="width: 100%" class="card-img" />
-            <p class="text-base font-bold py-4">吃了很健康的麥當勞</p>
-            <div class="pb-16">
-                <span>300Kcal | </span>
-                <span>糖15g | </span>
-                <span>蛋白質20g</span>
-            </div>
-        </el-card>
-        <el-card style="max-width: 310px" shadow="never">
-            <img src="https://s3-alpha-sig.figma.com/img/1308/332b/fdff7280d27e9ddfb2f51a08620c9aca?Expires=1725235200&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=XcjQ0aDOsoi94s~xON6-fm4oyuL8ccjFAUPcrgOonIIhVBaxzwkVbTRSSbrPh1~qujz6tuLFt0SBsuXsM8TfJuPZ~aGxq5l3bMjLSnU1n9Ix7RcLjaAKYJyhXFME4RYAvlh4rT2Vbjmt2kjirQ1-5fQZFPc6kPwP7c-YVpBXV6uAmc4yT7vBS1q4aKcbWUH3QWJh4cnN17JpPp9PkU3SS9xVnQTswFXhLZyXf4Za-VTTzLAA5O6V58gBzeyocriT3KMYjkXVapUKvCBWJBAzzpHdRmkJ-chgmFGejNC7aD6vjULBC-i4wB6X981yR~mzMwu4mcpgbgoinN1sqkAEaw__"
-                style="width: 100%" class="card-img" />
-            <p class="text-base font-bold py-4">吃了很健康的麥當勞</p>
-            <div class="pb-16">
-                <span>300Kcal | </span>
-                <span>糖15g | </span>
-                <span>蛋白質20g</span>
-            </div>
-        </el-card>
-        <el-card style="max-width: 310px" shadow="never">
-            <img src="https://s3-alpha-sig.figma.com/img/1308/332b/fdff7280d27e9ddfb2f51a08620c9aca?Expires=1725235200&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=XcjQ0aDOsoi94s~xON6-fm4oyuL8ccjFAUPcrgOonIIhVBaxzwkVbTRSSbrPh1~qujz6tuLFt0SBsuXsM8TfJuPZ~aGxq5l3bMjLSnU1n9Ix7RcLjaAKYJyhXFME4RYAvlh4rT2Vbjmt2kjirQ1-5fQZFPc6kPwP7c-YVpBXV6uAmc4yT7vBS1q4aKcbWUH3QWJh4cnN17JpPp9PkU3SS9xVnQTswFXhLZyXf4Za-VTTzLAA5O6V58gBzeyocriT3KMYjkXVapUKvCBWJBAzzpHdRmkJ-chgmFGejNC7aD6vjULBC-i4wB6X981yR~mzMwu4mcpgbgoinN1sqkAEaw__"
-                style="width: 100%" class="card-img" />
-            <p class="text-base font-bold py-4">吃了很健康的麥當勞</p>
-            <div class="pb-16">
-                <span>300Kcal | </span>
-                <span>糖15g | </span>
-                <span>蛋白質20g</span>
-            </div>
-        </el-card>
-        <el-card style="max-width: 310px" shadow="never">
-            <img src="https://s3-alpha-sig.figma.com/img/1308/332b/fdff7280d27e9ddfb2f51a08620c9aca?Expires=1725235200&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=XcjQ0aDOsoi94s~xON6-fm4oyuL8ccjFAUPcrgOonIIhVBaxzwkVbTRSSbrPh1~qujz6tuLFt0SBsuXsM8TfJuPZ~aGxq5l3bMjLSnU1n9Ix7RcLjaAKYJyhXFME4RYAvlh4rT2Vbjmt2kjirQ1-5fQZFPc6kPwP7c-YVpBXV6uAmc4yT7vBS1q4aKcbWUH3QWJh4cnN17JpPp9PkU3SS9xVnQTswFXhLZyXf4Za-VTTzLAA5O6V58gBzeyocriT3KMYjkXVapUKvCBWJBAzzpHdRmkJ-chgmFGejNC7aD6vjULBC-i4wB6X981yR~mzMwu4mcpgbgoinN1sqkAEaw__"
-                style="width: 100%" class="card-img" />
-            <p class="text-base font-bold py-4">吃了很健康的麥當勞</p>
-            <div class="pb-16">
-                <span>300Kcal | </span>
-                <span>糖15g | </span>
-                <span>蛋白質20g</span>
-            </div>
-        </el-card>
-        <el-card style="max-width: 310px" shadow="never">
-            <img src="https://s3-alpha-sig.figma.com/img/1308/332b/fdff7280d27e9ddfb2f51a08620c9aca?Expires=1725235200&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=XcjQ0aDOsoi94s~xON6-fm4oyuL8ccjFAUPcrgOonIIhVBaxzwkVbTRSSbrPh1~qujz6tuLFt0SBsuXsM8TfJuPZ~aGxq5l3bMjLSnU1n9Ix7RcLjaAKYJyhXFME4RYAvlh4rT2Vbjmt2kjirQ1-5fQZFPc6kPwP7c-YVpBXV6uAmc4yT7vBS1q4aKcbWUH3QWJh4cnN17JpPp9PkU3SS9xVnQTswFXhLZyXf4Za-VTTzLAA5O6V58gBzeyocriT3KMYjkXVapUKvCBWJBAzzpHdRmkJ-chgmFGejNC7aD6vjULBC-i4wB6X981yR~mzMwu4mcpgbgoinN1sqkAEaw__"
-                style="width: 100%" class="card-img" />
-            <p class="text-base font-bold py-4">吃了很健康的麥當勞</p>
-            <div class="pb-16">
-                <span>300Kcal | </span>
-                <span>糖15g | </span>
-                <span>蛋白質20g</span>
-            </div>
-        </el-card>
-        <el-card style="max-width: 310px" shadow="never">
-            <img src="https://s3-alpha-sig.figma.com/img/1308/332b/fdff7280d27e9ddfb2f51a08620c9aca?Expires=1725235200&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=XcjQ0aDOsoi94s~xON6-fm4oyuL8ccjFAUPcrgOonIIhVBaxzwkVbTRSSbrPh1~qujz6tuLFt0SBsuXsM8TfJuPZ~aGxq5l3bMjLSnU1n9Ix7RcLjaAKYJyhXFME4RYAvlh4rT2Vbjmt2kjirQ1-5fQZFPc6kPwP7c-YVpBXV6uAmc4yT7vBS1q4aKcbWUH3QWJh4cnN17JpPp9PkU3SS9xVnQTswFXhLZyXf4Za-VTTzLAA5O6V58gBzeyocriT3KMYjkXVapUKvCBWJBAzzpHdRmkJ-chgmFGejNC7aD6vjULBC-i4wB6X981yR~mzMwu4mcpgbgoinN1sqkAEaw__"
-                style="width: 100%" class="card-img" />
-            <p class="text-base font-bold py-4">吃了很健康的麥當勞</p>
-            <div class="pb-16">
-                <span>300Kcal | </span>
-                <span>糖15g | </span>
-                <span>蛋白質20g</span>
+    <div v-if="safeMealBoxesData.length" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-7">
+        <el-card v-for="meal in safeMealBoxesData" :key="meal?.id" style="max-width: 310px" shadow="never">
+            <pre>{{ JSON.stringify(meal, null, 2) }}</pre>
+            <img v-if="meal?.imgArr && meal.imgArr.length" :src="meal.imgArr[0]" style="width: 100%" class="card-img" />
+            <p class="text-base font-bold py-4">{{ meal?.name || '未命名餐盒' }}</p>
+            <div class="pb-16" v-if="meal?.composition">
+                <span>{{ meal.composition.calories || 0 }}Kcal | </span>
+                <span>碳水化合物{{ meal.composition.carbohydrate || 0 }}g | </span>
+                <span>蛋白質{{ meal.composition.protein || 0 }}g</span>
             </div>
         </el-card>
     </div>
-    <div class="text-center pt-12">
-            <button class="bg-secondary-base border-2 border-black rounded px-3 py-4 hover:shadow-base transition active:shadow-none">
-                <p>將此方案加入購物車</p>
-            </button>
-        </div>
+    <div v-else>
+        <p>暫無餐盒數據</p>
+    </div>
 </template>
 <style scoped>
 .card-img {
