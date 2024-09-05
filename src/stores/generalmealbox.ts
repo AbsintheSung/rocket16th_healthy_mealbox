@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia'
 import { fetchApi } from '@/utils/api/apiUrl'
 import { ref, computed } from 'vue'
-export const useMealBoxStore = defineStore('mealbox', () => {
+export const useMealBoxStore = defineStore('generalmealbox', () => {
   //State
   const generalMeal = ref([]) //一般餐盒資料，預設空陣列
   const currentPage = ref(1) //當前分頁
