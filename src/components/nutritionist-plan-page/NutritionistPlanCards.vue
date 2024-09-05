@@ -16,10 +16,10 @@ watch(() => nutritionistPlanStore.currentPage, (newPage) => {
 })
 </script>
 <template>
-    <div class="grid grid-cols-3 gap-6">
+    <div class="grid grid-cols-1 gap-6 md:grid-cols-3">
         <NutritionistPlanCard v-for="planItem in nutritionistPlanStore.getPaginatedPlans" :key="planItem.id" :planInfo="planItem" />
         <!-- 分頁 -->
-        <div class="flex items-start justify-center col-start-2">
+        <div class="flex items-start justify-center md:col-start-2 pt-6">
             <ThePagination v-model:currentPageNum="nutritionistPlanStore.currentPage" :pagerCount="5"
                 :pageSize="nutritionistPlanStore.getPageSize" :pageTotal="nutritionistPlanStore.getDataTotal"
                 :changePage="nutritionistPlanStore.changePage" />
