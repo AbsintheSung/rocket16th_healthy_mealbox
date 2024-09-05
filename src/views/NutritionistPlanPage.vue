@@ -11,7 +11,7 @@ onMounted(async () => {
 </script>
 
 <template>
-  <div class="container py-20">
+  <div class="container py-12 md:py-20">
     <NutritionistPlanCards />
   </div>
 </template>
