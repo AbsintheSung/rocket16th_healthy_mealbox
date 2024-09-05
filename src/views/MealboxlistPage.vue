@@ -1,11 +1,11 @@
 <script setup>
 import { ref, onMounted } from 'vue'
-import { useMealBoxStore } from '@/stores/generalMealBox'
+import { useGeneralMealBoxStore } from '@/stores/generalMealBox'
 import ThePreview from '@/components/mealboxlist-page/ThePreview.vue'
-const mealBoxStore = useMealBoxStore()
+const generalMealBoxStore = useGeneralMealBoxStore()
 const drawer = ref(false)
 onMounted(async () => {
-  await mealBoxStore.fetchGeneralMeal()
+  await generalMealBoxStore.fetchGeneralMeal()
 })
 </script>
 <template>

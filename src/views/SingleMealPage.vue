@@ -1,12 +1,12 @@
 <script setup>
 import { ref, onMounted, computed } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
-import { useMealBoxStore } from '@/stores/mealbox'
-const mealBoxStore = useMealBoxStore()
+import { useGeneralMealBoxStore } from '@/stores/generalMealBox'
+const generalMealBoxStore = useGeneralMealBoxStore()
 const route = useRoute()
 const router = useRouter()
 const drawer = ref(false)
-const oneMealData = computed(() => mealBoxStore.getOneGeneralMeal)
+const oneMealData = computed(() => generalMealBoxStore.getOneGeneralMeal)
 //英文對應中文
 const nutrientNameMap = {
   calories: '卡路里',
@@ -37,7 +37,7 @@ const handlePrevious = () => {
   router.back()
 }
 onMounted(async () => {
-  await mealBoxStore.fetchOneGeneralMeal(route.params.id)
+  await generalMealBoxStore.fetchOneGeneralMeal(route.params.id)
 })
 </script>
 <template>
