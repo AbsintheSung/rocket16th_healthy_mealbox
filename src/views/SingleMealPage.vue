@@ -1,7 +1,7 @@
 <script setup>
 import { ref, onMounted, computed } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
-import { useGeneralMealBoxStore } from '@/stores/generalmealbox'
+import { useGeneralMealBoxStore } from '@/stores/generalMealBox'
 const generalMealBoxStore = useGeneralMealBoxStore()
 const route = useRoute()
 const router = useRouter()
