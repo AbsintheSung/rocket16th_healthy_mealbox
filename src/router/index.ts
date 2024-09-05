@@ -7,6 +7,7 @@ import NutritionistPlanPage from '@/views/NutritionistPlanPage.vue'
 import MealboxlistPage from '@/views/MealboxlistPage.vue'
 import MemberPage from '@/views/MemberPage.vue'
 import CheckoutPage from '@/views/CheckoutPage.vue'
+import Customized from '@/views/CustomizedMealPage.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -37,12 +38,12 @@ const router = createRouter({
     {
       path: '/nutritionist-plan',
       name: 'NutritionistPlan',
-      component: NutritionistPlanPage,
+      component: NutritionistPlanPage
     },
     {
       path: '/nutritionist-plan/:id',
       name: 'NutritionistPlanDetail',
-      component: () => import("@/views/NutritionistPlanDetailPage.vue")
+      component: () => import('@/views/NutritionistPlanDetailPage.vue')
     },
     {
       path: '/mealboxlist',
@@ -58,19 +59,19 @@ const router = createRouter({
         {
           path: 'mealgeneral',
           name: 'MealGeneral',
-          component: () => import("@/views/mealbox-list-page/MealGeneralPage.vue")
+          component: () => import('@/views/mealbox-list-page/MealGeneralPage.vue')
         },
         {
           path: 'mealcustomized',
           name: 'MealCustomized',
-          component: () => import("@/views/mealbox-list-page/MealCustomizedPage.vue")
+          component: () => import('@/views/mealbox-list-page/MealCustomizedPage.vue')
         }
       ]
     },
     {
       path: '/singlemeal/:id',
       name: 'SingleMeal',
-      component: () => import("@/views/SingleMealPage.vue")
+      component: () => import('@/views/SingleMealPage.vue')
     },
     {
       path: '/member',
@@ -126,6 +127,11 @@ const router = createRouter({
           component: () => import('@/views/checkout-page/OrderCompletePage.vue')
         }
       ]
+    },
+    {
+      path: '/customized',
+      name: 'Customized',
+      component: Customized
     },
     //配置404 ( 此配置在最下面，之後新增的路由請新增在此路由設定上面 )
     {
