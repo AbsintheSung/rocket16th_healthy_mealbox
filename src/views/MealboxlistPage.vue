@@ -1,7 +1,7 @@
 <script setup>
 import { ref, onMounted } from 'vue'
-import { useGeneralMealBoxStore } from '@/stores/generalmealbox'
 import ThePreview from '@/components/mealboxlist-page/ThePreview.vue'
+import { useGeneralMealBoxStore } from '@/stores/generalmealbox'
 const generalMealBoxStore = useGeneralMealBoxStore()
 const drawer = ref(false)
 onMounted(async () => {
