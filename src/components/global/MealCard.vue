@@ -6,6 +6,10 @@ const props = defineProps({
       name: '商品準備中',
       composition: { calories: '', protein: '', adipose: '', carbohydrate: '', fiber: '' }
     })
+  },
+  fetchData: {
+    type: Function,
+    default: () => {}
   }
 })
 </script>
@@ -31,6 +35,7 @@ const props = defineProps({
         <FontAwesomeIcon :icon="['fas', 'minus']" />刪除
       </button>
       <button
+        @click="fetchData(mealInfo.id)"
         class="flex flex-grow items-center justify-center gap-x-2 rounded border border-black bg-primary-base py-2"
       >
         <FontAwesomeIcon :icon="['fas', 'plus']" />加入

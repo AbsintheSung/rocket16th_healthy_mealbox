@@ -14,7 +14,16 @@ export const useCartStore = defineStore('cart', () => {
   const getCaseType = computed(() => caseType.value)
 
   //取得目前會員已加入購物車商品總數
-  const getMealBoxTotal = computed(() => generalBoxes.value.length + customizeBoxes.value.length)
+  const getMealBoxTotal = computed(() => {
+    //@ts-ignore
+    const generalBoxTotal = generalBoxes.value.reduce((total, item) => total + item.boxQuantity, 0)
+    //@ts-ignore
+    const customBoxTotal = customizeBoxes.value.reduce((total, item) => total + item.boxQuantity, 0)
+    return generalBoxTotal + customBoxTotal
+  })
+
+  //是否滿足結帳條件( 選滿 )
+  const getIsEndOrder = computed(() => getMealBoxTotal.value === getCaseType.value)
 
   /* Action */
 
@@ -36,10 +45,32 @@ export const useCartStore = defineStore('cart', () => {
     }
   }
 
+  //編輯會員購物車(一般)
+  const fetchUpdateGeneralCart = async (id: any, boxQuantity = 1) => {
+    if (getMealBoxTotal.value === getCaseType.value) {
+      console.log('點餐結束')
+      return
+    }
+    try {
+      const mealData = {
+        boxType: 'general',
+        boxId: id, // 一般餐盒 id 或是 自定義餐盒 id
+        boxQuantity: boxQuantity // 目前此商品要這個數量，0 的話代表購物車移除此商品
+      }
+      const response = await fetchApi.updateCart(mealData)
+      if (response.status) {
+        await fetchMemberCartInfo()
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   return {
     getCaseType,
     getMealBoxTotal,
     changeSelectPlan,
-    fetchMemberCartInfo
+    fetchMemberCartInfo,
+    fetchUpdateGeneralCart
   }
 })
