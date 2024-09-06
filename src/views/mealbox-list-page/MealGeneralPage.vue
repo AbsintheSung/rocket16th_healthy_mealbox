@@ -2,7 +2,9 @@
 import MealCard from '@/components/global/MealCard.vue'
 import ThePagination from '@/components/global/ThePagination.vue'
 import { useGeneralMealBoxStore } from '@/stores/generalmealbox'
+import { useCartStore } from '@/stores/cart'
 const generalMealBoxStore = useGeneralMealBoxStore()
+const cartStore = useCartStore()
 </script>
 <template>
   <div>
@@ -11,6 +13,8 @@ const generalMealBoxStore = useGeneralMealBoxStore()
         v-for="mealItem in generalMealBoxStore.getPaginatedMeals"
         :key="mealItem.id"
         :mealInfo="mealItem"
+        :addData="cartStore.fetchaddGeneralCart"
+        :minusData="cartStore.fetchMinusGeneralCart"
       />
     </ul>
     <div class="mt-auto flex w-full items-center justify-center">
