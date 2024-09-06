@@ -11,6 +11,8 @@ const generalMealOneApi = `/${urlName}/generalBoxes` //取得單一的一般餐�
 const nutritionistPlanApi = `/${urlName}/nutritionistCases` //取得營養師方案 API
 const nutritionistPlanOneApi = `/${urlName}/nutritionistCases`
 const updateMemberPasswordApi = `/${urlName}/auth/changePassword` //修改會員密碼 路徑
+const getCartApi = `/${urlName}/cart` //取得個人購物車資訊
+const updateCartApi = `/${urlName}/cart` //編輯個人購物車資訊
 
 //匯出要使用的 api method
 export const fetchApi = {
@@ -22,6 +24,8 @@ export const fetchApi = {
   getNutritionistPlan: () => axiosInstance.get(nutritionistPlanApi),
   getNutritionistPlanOne: (id: any) => axiosInstance.get(`${nutritionistPlanOneApi}/${id}`),
   updateMemberInfo: (data: any) => axiosInstance.post(updateMemberInfoApi, data), // 修改會員資料
-  updateMemberPasswor: (data: any) => axiosInstance.post(updateMemberPasswordApi, data) //修改會員密碼
+  updateMemberPasswor: (data: any) => axiosInstance.post(updateMemberPasswordApi, data), //修改會員密碼
+  getCartApi: () => axiosInstance.get(getCartApi), //取得會員購物車資訊
+  updateCart: (data: any) => axiosInstance.patch(updateCartApi, data)
   //要添加其他 API 服務(照上面的方式往下寫)
 }

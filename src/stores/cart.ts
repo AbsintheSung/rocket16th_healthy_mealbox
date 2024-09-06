@@ -23,9 +23,23 @@ export const useCartStore = defineStore('cart', () => {
     caseType.value = planDay
   }
 
+  //取得會員購物車
+  const fetchMemberCartInfo = async () => {
+    try {
+      const response = await fetchApi.getCartApi()
+      if (response.status === 200) {
+        generalBoxes.value = response.data.data.generalBoxes
+        customizeBoxes.value = response.data.data.customizeBoxes
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   return {
     getCaseType,
     getMealBoxTotal,
-    changeSelectPlan
+    changeSelectPlan,
+    fetchMemberCartInfo
   }
 })

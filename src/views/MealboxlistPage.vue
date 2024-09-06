@@ -9,6 +9,7 @@ const cartStore = useCartStore()
 const drawer = ref(false)
 onMounted(async () => {
   await generalMealBoxStore.fetchGeneralMeal()
+  await cartStore.fetchMemberCartInfo()
 })
 </script>
 <template>
