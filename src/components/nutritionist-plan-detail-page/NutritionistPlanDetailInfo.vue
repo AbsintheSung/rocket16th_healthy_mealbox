@@ -15,19 +15,19 @@ const props = defineProps({
 
 </script>
 <template>
-    <div class="pb-12">
-        <div class="bg-primary-300 border-2 border-black rounded py-6 px-12 w-1/3 shadow-base">
+    <div class="pb-6 md:pb-12">
+        <div class="bg-primary-300 border-2 border-black rounded shadow-base w-full text-center py-6 md:px-12 md:w-1/3 md:text-left">
             <h2 class="text-2xl">{{ onePlanInfo.nutritionistName }} 營養師的 {{ onePlanInfo.caseName }}</h2>
         </div>
-        <div class="flex py-12">
+        <div class="flex py-6 md:py-12">
             <div class="relative">
                 <img :src="onePlanInfo.nutritionistImg" :alt="onePlanInfo.nutritionistName"
-                    class="w-[170px] rounded-full border-2 border-black">
-                <TheSvg svgIcon="circle-halftone" class="w-[170px] h-[170px] absolute top-0 left-6 -z-10" />
+                    class="w-[100px] h-[100px] rounded-full border-2 border-black md:w-[170px] md:h-[170px]">
+                <TheSvg svgIcon="circle-halftone" class="w-[100px] h-[100px] md:w-[170px] md:h-[170px] absolute top-0 left-6 -z-10" />
             </div>
             <div class="px-12 flex flex-col justify-between">
-                <h3 class="text-2xl">{{ onePlanInfo.nutritionistName }} 營養師</h3>
-                <div class="break-all">
+                <h3 class="text-base md:text-2xl">{{ onePlanInfo.nutritionistName }} 營養師</h3>
+                <div class="text-xs break-all md:text-base">
                     <p>資歷：</p>
                     <p class="whitespace-pre-line">{{ onePlanInfo.nutritionistSeniority }}</p>
                 </div>
