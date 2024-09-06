@@ -10,6 +10,10 @@ const props = defineProps({
   fetchData: {
     type: Function,
     default: () => {}
+  },
+  minusData: {
+    type: Function,
+    default: () => {}
   }
 })
 </script>
@@ -30,6 +34,7 @@ const props = defineProps({
     </div>
     <div class="mt-auto flex gap-x-3">
       <button
+        @click="minusData(mealInfo.id)"
         class="flex flex-grow items-center justify-center gap-x-2 rounded border border-black py-2"
       >
         <FontAwesomeIcon :icon="['fas', 'minus']" />刪除

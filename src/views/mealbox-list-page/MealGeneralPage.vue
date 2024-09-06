@@ -14,6 +14,7 @@ const cartStore = useCartStore()
         :key="mealItem.id"
         :mealInfo="mealItem"
         :fetchData="cartStore.fetchUpdateGeneralCart"
+        :minusData="cartStore.fetchMinusGeneralCart"
       />
     </ul>
     <div class="mt-auto flex w-full items-center justify-center">
