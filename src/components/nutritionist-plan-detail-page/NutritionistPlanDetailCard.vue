@@ -23,8 +23,8 @@ onMounted(() => {
 
 </script>
 <template>
-    <div v-if="safeMealBoxesData.length" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-7">
-        <el-card v-for="meal in safeMealBoxesData" :key="meal?.id" style="max-width: 310px" shadow="never">
+    <div v-if="safeMealBoxesData.length" class="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <el-card v-for="meal in safeMealBoxesData" :key="meal?.id" shadow="never" class="transition-all duration-300 ease-in-out max-w-[190px] md:max-w-[310px]">
             <pre>{{ JSON.stringify(meal, null, 2) }}</pre>
             <img v-if="meal?.imgArr && meal.imgArr.length" :src="meal.imgArr[0]" style="width: 100%" class="card-img" />
             <p class="text-base font-bold py-4">{{ meal?.name || '未命名餐盒' }}</p>

@@ -69,6 +69,12 @@ watch(() => nutritionistPlanStore.getOneNutritionistPlan, (newValue) => {
     <!-- <TestComponent /> -->
     <NutritionistPlanDetailInfo :onePlanInfo="formattedOnePlanData" />
     <NutritionistPlanDetailCard :onePlanInfo="formattedOnePlanData" :mealBoxesData="mealBoxesData" />
+    <div class="text-center pt-12">
+      <button
+        class="bg-secondary-base border-2 border-black rounded px-3 py-4 hover:shadow-base transition active:shadow-none">
+        <p>將此方案加入購物車</p>
+      </button>
+    </div>
   </div>
 </template>
 <style scoped></style>
