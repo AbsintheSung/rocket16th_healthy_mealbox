@@ -71,7 +71,7 @@ export const useCartStore = defineStore('cart', () => {
   }
 
   //編輯會員購物車-新增(一般)
-  const fetchUpdateGeneralCart = async (id: any,) => {
+  const fetchaddGeneralCart = async (id: any,) => {
     if (getMealBoxTotal.value === getCaseType.value) {
       console.log('點餐結束')
       return
@@ -118,7 +118,7 @@ export const useCartStore = defineStore('cart', () => {
     getMealBoxTotal,
     changeSelectPlan,
     fetchMemberCartInfo,
-    fetchUpdateGeneralCart,
+    fetchaddGeneralCart,
     fetchMinusGeneralCart
   }
 })

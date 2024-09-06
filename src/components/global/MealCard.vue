@@ -7,7 +7,7 @@ const props = defineProps({
       composition: { calories: '', protein: '', adipose: '', carbohydrate: '', fiber: '' }
     })
   },
-  fetchData: {
+  addData: {
     type: Function,
     default: () => {}
   },
@@ -40,7 +40,7 @@ const props = defineProps({
         <FontAwesomeIcon :icon="['fas', 'minus']" />刪除
       </button>
       <button
-        @click="fetchData(mealInfo.id)"
+        @click="addData(mealInfo.id)"
         class="flex flex-grow items-center justify-center gap-x-2 rounded border border-black bg-primary-base py-2"
       >
         <FontAwesomeIcon :icon="['fas', 'plus']" />加入

@@ -13,7 +13,7 @@ const cartStore = useCartStore()
         v-for="mealItem in generalMealBoxStore.getPaginatedMeals"
         :key="mealItem.id"
         :mealInfo="mealItem"
-        :fetchData="cartStore.fetchUpdateGeneralCart"
+        :addData="cartStore.fetchaddGeneralCart"
         :minusData="cartStore.fetchMinusGeneralCart"
       />
     </ul>
