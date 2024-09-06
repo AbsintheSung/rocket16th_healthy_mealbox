@@ -1,8 +1,11 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 import ThePreview from '@/components/mealboxlist-page/ThePreview.vue'
+import DaysSelectionButton from '@/components/global/DaysSelectionButton.vue'
 import { useGeneralMealBoxStore } from '@/stores/generalmealbox'
+import { useCartStore } from '@/stores/cart'
 const generalMealBoxStore = useGeneralMealBoxStore()
+const cartStore = useCartStore()
 const drawer = ref(false)
 onMounted(async () => {
   await generalMealBoxStore.fetchGeneralMeal()
@@ -10,6 +13,7 @@ onMounted(async () => {
 </script>
 <template>
   <main class="flex flex-grow flex-col">
+    <DaysSelectionButton />
     <section class="container flex flex-grow flex-col">
       <div class="py-7">
         <h2 class="text-center text-[32px] font-bold">從列表中選擇您最愛的餐點</h2>
@@ -48,7 +52,14 @@ onMounted(async () => {
           >
             查看預覽
           </button>
+          <p
+            v-if="cartStore.getMealBoxTotal != cartStore.getCaseType"
+            class="col-span-2 col-start-3 rounded border-2 border-black bg-secondary-base py-3 text-center sm:col-span-5 sm:col-start-7 md:col-span-4 lg:col-span-3"
+          >
+            已選擇{{ cartStore.getMealBoxTotal }} / {{ cartStore.getCaseType }}餐
+          </p>
           <button
+            v-else
             class="col-span-2 col-start-3 rounded border-2 border-black bg-secondary-base py-3 sm:col-span-5 sm:col-start-7 md:col-span-4 lg:col-span-3"
           >
             確認餐點，加入購物車
@@ -56,7 +67,11 @@ onMounted(async () => {
         </div>
       </div>
       <!-- 預覽列 -->
-      <ThePreview v-model:drawer="drawer" />
+      <ThePreview
+        v-model:drawer="drawer"
+        :mealBoxTotal="cartStore.getMealBoxTotal"
+        :caseType="cartStore.getCaseType"
+      />
     </section>
   </main>
 </template>
