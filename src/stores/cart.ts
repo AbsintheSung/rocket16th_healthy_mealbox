@@ -32,6 +32,20 @@ export const useCartStore = defineStore('cart', () => {
     caseType.value = planDay
   }
 
+  //內部調用，取得購物車內數量，若商品不存在購物車 數量為1
+  const addMealBoxQuantity = (id: Number) => {
+    //@ts-ignore
+    const isExit = generalBoxes.value.some((item) => item.id === id)
+    if (isExit) {
+      //@ts-ignore
+      const mealData = generalBoxes.value.filter(item => item.id === id)
+      //@ts-ignore
+      return mealData[0].boxQuantity + 1
+    } else {
+      return 1
+    }
+  }
+
   //取得會員購物車
   const fetchMemberCartInfo = async () => {
     try {
@@ -46,7 +60,7 @@ export const useCartStore = defineStore('cart', () => {
   }
 
   //編輯會員購物車(一般)
-  const fetchUpdateGeneralCart = async (id: any, boxQuantity = 1) => {
+  const fetchUpdateGeneralCart = async (id: any,) => {
     if (getMealBoxTotal.value === getCaseType.value) {
       console.log('點餐結束')
       return
@@ -55,7 +69,7 @@ export const useCartStore = defineStore('cart', () => {
       const mealData = {
         boxType: 'general',
         boxId: id, // 一般餐盒 id 或是 自定義餐盒 id
-        boxQuantity: boxQuantity // 目前此商品要這個數量，0 的話代表購物車移除此商品
+        boxQuantity: addMealBoxQuantity(id) // 目前此商品要這個數量，0 的話代表購物車移除此商品
       }
       const response = await fetchApi.updateCart(mealData)
       if (response.status) {
