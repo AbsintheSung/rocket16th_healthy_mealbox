@@ -1,5 +1,15 @@
 <script setup lang="ts">
 const drawer = defineModel('drawer')
+const props = defineProps({
+  mealBoxTotal: {
+    type: Number,
+    default: 0
+  },
+  caseType: {
+    type: Number,
+    default: 7
+  }
+})
 </script>
 <template>
   <div>
@@ -17,7 +27,14 @@ const drawer = defineModel('drawer')
           >
             全部刪除
           </button>
+          <p
+            v-if="mealBoxTotal != caseType"
+            class="col-span-2 col-start-3 rounded border-2 border-black bg-secondary-base py-3 text-center sm:col-span-5 sm:col-start-7 md:col-span-4 lg:col-span-3"
+          >
+            已選擇{{ mealBoxTotal }} / {{ caseType }}餐
+          </p>
           <button
+            v-else
             class="col-span-2 col-start-3 rounded border-2 border-black bg-secondary-base py-3 sm:col-span-5 sm:col-start-7 md:col-span-4 lg:col-span-3"
           >
             確認餐點，加入購物車
