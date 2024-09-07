@@ -5,6 +5,38 @@ import { useGeneralMealBoxStore } from '@/stores/generalmealbox'
 import { useCartStore } from '@/stores/cart'
 const generalMealBoxStore = useGeneralMealBoxStore()
 const cartStore = useCartStore()
+const message = (mes, mesType) => {
+  //@ts-ignore
+  ElMessage({
+    message: mes,
+    type: mesType,
+    duration: 1500
+  })
+}
+const addGeneralCart = async (id) => {
+  try {
+    const response = await cartStore.fetchaddGeneralCart(id)
+    if (response === 'endOrder') {
+      return
+    } else {
+      message('餐盒已加入', 'success')
+    }
+  } catch (error) {
+    message(error.message, 'error')
+  }
+}
+const minusGeneralCart = async (id) => {
+  try {
+    const response = await cartStore.fetchMinusGeneralCart(id)
+    if (response === 'notExist') {
+      return
+    } else {
+      message('餐盒已移除', 'warning')
+    }
+  } catch (error) {
+    message(error.message, 'error')
+  }
+}
 </script>
 <template>
   <div>
@@ -13,8 +45,8 @@ const cartStore = useCartStore()
         v-for="mealItem in generalMealBoxStore.getPaginatedMeals"
         :key="mealItem.id"
         :mealInfo="mealItem"
-        :addData="cartStore.fetchaddGeneralCart"
-        :minusData="cartStore.fetchMinusGeneralCart"
+        :addData="addGeneralCart"
+        :minusData="minusGeneralCart"
       />
     </ul>
     <div class="mt-auto flex w-full items-center justify-center">
