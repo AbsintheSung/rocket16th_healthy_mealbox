@@ -4,14 +4,14 @@ import { ref, computed } from 'vue'
 import type { GeneralBoxes } from '@/types/cartType'
 export const useCartStore = defineStore('cart', () => {
   /* States */
-  const caseType = ref<Number>(7) //caseType的原始資料
+  const caseType = ref<number>(7) //caseType的原始資料
   const generalBoxes = ref([]) //存放獲取後的一般餐盒
   const customizeBoxes = ref([]) //存放獲取後的自定義餐盒
 
   /* Getter */
 
   //取得caseType的資訊
-  const getCaseType = computed(() => caseType.value)
+  const getCaseType = computed((): number => caseType.value)
 
   //取得目前會員已加入購物車商品總數
   const getMealBoxTotal = computed(() => {
@@ -25,10 +25,16 @@ export const useCartStore = defineStore('cart', () => {
   //是否滿足結帳條件( 選滿 )
   const getIsEndOrder = computed(() => getMealBoxTotal.value === getCaseType.value)
 
+  //取得一般餐盒資料資訊，透過淺拷貝方式( 要修改不要調用他，淺拷貝，深層仍會影響原始，這個只是調用來顯示用的 )
+  const getGeneralBoxes = computed(() => {
+    //@ts-ignore
+    return generalBoxes.value.map(item => ({ ...item }))
+  })
+
   /* Action */
 
   //修改caseType調用此function
-  const changeSelectPlan = (planDay: Number) => {
+  const changeSelectPlan = (planDay: number) => {
     caseType.value = planDay
   }
 
@@ -74,7 +80,7 @@ export const useCartStore = defineStore('cart', () => {
   const fetchaddGeneralCart = async (id: any,) => {
     if (getMealBoxTotal.value === getCaseType.value) {
       console.log('點餐結束')
-      return
+      return "endOrder"
     }
     try {
       const mealData = {
@@ -85,9 +91,10 @@ export const useCartStore = defineStore('cart', () => {
       const response = await fetchApi.updateCart(mealData)
       if (response.status) {
         await fetchMemberCartInfo()
+        return response.data
       }
-    } catch (error) {
-      console.log(error)
+    } catch (error: any) {
+      throw error.response.data
     }
   }
 
@@ -96,7 +103,7 @@ export const useCartStore = defineStore('cart', () => {
     //@ts-ignore
     const isExit = generalBoxes.value.some((item) => item.id === id)
     if (!isExit) {
-      return
+      return 'notExist'
     }
     try {
       const mealData = {
@@ -107,15 +114,17 @@ export const useCartStore = defineStore('cart', () => {
       const response = await fetchApi.updateCart(mealData)
       if (response.status) {
         await fetchMemberCartInfo()
+        return response.data
       }
-    } catch (error) {
-      console.log(error)
+    } catch (error: any) {
+      throw error.response.data
     }
   }
 
   return {
     getCaseType,
     getMealBoxTotal,
+    getGeneralBoxes,
     changeSelectPlan,
     fetchMemberCartInfo,
     fetchaddGeneralCart,

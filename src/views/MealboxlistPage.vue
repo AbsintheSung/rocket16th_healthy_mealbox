@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import { ref, onMounted } from 'vue'
 import ThePreview from '@/components/mealboxlist-page/ThePreview.vue'
 import DaysSelectionButton from '@/components/global/DaysSelectionButton.vue'
@@ -7,6 +7,39 @@ import { useCartStore } from '@/stores/cart'
 const generalMealBoxStore = useGeneralMealBoxStore()
 const cartStore = useCartStore()
 const drawer = ref(false)
+const message = (mes: any, mesType: any): void => {
+  //@ts-ignore
+  ElMessage({
+    message: mes,
+    type: mesType,
+    duration: 1500
+  })
+}
+const addGeneralCart = async (id: number) => {
+  try {
+    const response = await cartStore.fetchaddGeneralCart(id)
+    if (response === 'endOrder') {
+      return
+    } else {
+      message('餐盒已加入', 'success')
+    }
+  } catch (error: any) {
+    message(error.message, 'error')
+  }
+}
+const minusGeneralCart = async (id: number) => {
+  try {
+    const response = await cartStore.fetchMinusGeneralCart(id)
+    if (response === 'notExist') {
+      return
+    } else {
+      message('餐盒已移除', 'warning')
+    }
+  } catch (error: any) {
+    message(error.message, 'error')
+  }
+}
+
 onMounted(async () => {
   await generalMealBoxStore.fetchGeneralMeal()
   await cartStore.fetchMemberCartInfo()
@@ -72,6 +105,9 @@ onMounted(async () => {
         v-model:drawer="drawer"
         :mealBoxTotal="cartStore.getMealBoxTotal"
         :caseType="cartStore.getCaseType"
+        :generalBoxes="cartStore.getGeneralBoxes"
+        :addGeneralCart="addGeneralCart"
+        :minusGeneralCart="minusGeneralCart"
       />
     </section>
   </main>
