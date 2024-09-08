@@ -22,15 +22,14 @@ const fetchData = async () => {
         const url = getApiUrl(id)
         lastFetchedUrl.value = url
         console.log('呼叫的 URL:', url)
-
         // 使用 store 方法獲取資料
         // 固定id獲取資料 - 測試
-        const result = await generalMealBoxStore.fetchOneGeneralMeal(4)
+        await generalMealBoxStore.fetchOneGeneralMeal(4)
         // 動態id獲取資料
         // const result = await generalMealBoxStore.fetchOneGeneralMeal(route.params.id)
-        console.log('通過 store 獲取的資料:', result)
+        console.log('通過 store 獲取的資料:', generalMealBoxStore.getOneGeneralMeal)
 
-        if (!result) {
+        if (!generalMealBoxStore.getOneGeneralMeal) {
             throw new Error('獲取的資料為空')
         }
         error.value = null

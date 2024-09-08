@@ -29,39 +29,39 @@ const formattedOnePlanData = computed(() => {
   }
 })
 
-// 測試區域：取得營養師資料id
-// 全部都是undefined 就跟我的未來一樣 再搞沒意思了 修別的東西去了...-09/06 01:53
+// 取得營養師資料內boxs的id
 const fetchMealBoxesDetails = async () => {
   if (onePlanData.value && onePlanData.value.boxes) {
-    const boxIds = onePlanData.value.boxes;
-    console.log('Box IDs to fetch:', boxIds);
+    const boxIds = onePlanData.value.boxes
     mealBoxesData.value = await Promise.all(
       boxIds.map(async (id) => {
-        const mealData = await generalMealBoxStore.fetchOneGeneralMeal(id);
-        console.log(`Fetched data for meal ${id}:`, mealData);
-        return mealData;
+        try {
+          await generalMealBoxStore.fetchOneGeneralMeal(id)
+          const mealData = generalMealBoxStore.getOneGeneralMeal
+          return mealData
+        } catch (error) {
+          return null
+        }
       })
-    );
-    console.log('All fetched meal boxes data:', mealBoxesData.value);
+    )
+    //若獲取餐盒ID失敗，過濾此失敗ID
+    mealBoxesData.value = mealBoxesData.value.filter(meal => meal !== null)
   } else {
-    console.log('No box IDs available in onePlanData');
+    console.log('無法獲取餐盒 ID！')
   }
 }
 
 onMounted(async () => {
-  console.log('Component mounted, fetching nutritionist plan')
   await nutritionistPlanStore.fetchOneNutritionistPlan(route.params.id)
-  console.log('Nutritionist plan fetched, now fetching meal boxes')
   await fetchMealBoxesDetails()
-});
+})
 
-watch(() => nutritionistPlanStore.getOneNutritionistPlan, (newValue) => {
-  console.log('onePlanData updated:', newValue)
+// 初始化餐盒數據
+watch(onePlanData, async (newValue) => {
   if (newValue && newValue.boxes) {
-    console.log('Boxes in onePlanData:', newValue.boxes)
-    fetchMealBoxesDetails()
+    await fetchMealBoxesDetails()
   }
-}, { immediate: true, deep: true })
+}, { deep: true })
 
 </script>
 <template>
