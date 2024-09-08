@@ -109,12 +109,13 @@ const swiperOptions = {
 
     <!-- 首頁-網站介紹-1 -->
     <section class="bg-background-style-2">
+      <!-- 桌機板 -->
       <div class="container hidden py-14 md:block">
-        <h2 class="text-center text-5xl font-bold text-primary-700">
+        <h2 class="py-8 text-center text-5xl font-bold text-primary-700">
           「想要健康，就要吃得均衡。」
         </h2>
         <div class="grid grid-cols-12 gap-x-6">
-          <div class="col-span-3">
+          <div class="col-span-3 flex flex-col">
             <div class="grid grid-cols-3 gap-6">
               <div class="col-span-full">
                 <img src="../assets/image/測試沙拉1.png" alt="網站介紹食物圖片" />
@@ -134,9 +135,19 @@ const swiperOptions = {
                 </p>
               </div>
             </div>
+            <div class="mt-auto flex">
+              <TheSvg svgIcon="rhombus-full" class="h-[80px] w-[60px]" />
+              <TheSvg svgIcon="rhombus" class="h-[80px] w-[60px]" />
+              <TheSvg svgIcon="rhombus-full" class="h-[80px] w-[60px]" />
+            </div>
           </div>
           <div class="col-span-6">
-            <div class="grid grid-cols-6 gap-6">
+            <div class="relative grid grid-cols-6 gap-6">
+              <div class="absolute hidden lg:flex">
+                <TheSvg svgIcon="rhombus-full" class="h-[80px] w-[60px]" />
+                <TheSvg svgIcon="rhombus" class="h-[80px] w-[60px]" />
+                <TheSvg svgIcon="rhombus-full" class="h-[80px] w-[60px]" />
+              </div>
               <div class="col-span-5 col-start-2">
                 <img src="../assets/image/測試沙拉2.png" />
               </div>
@@ -184,7 +195,7 @@ const swiperOptions = {
 
       <!-- rwd版 -->
       <div class="container py-12 md:hidden">
-        <h2 class="text-center text-2xl font-bold text-primary-700">
+        <h2 class="py-3 text-center text-2xl font-bold text-primary-700">
           「想要健康，就要吃得均衡。」
         </h2>
         <div class="grid grid-cols-4 gap-x-6">
