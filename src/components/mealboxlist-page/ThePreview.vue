@@ -1,27 +1,9 @@
 <script setup lang="ts">
-type MealBox = {
-  id: number
-  name: string
-  price: number
-  composition: {
-    calories: number
-    protein: number
-    adipose: number
-    carbohydrate: number
-    fiber: number
-    sodium: number
-  }
-  ingredient: string
-  allergens: string
-  imgArr: string[]
-  star: number
-  quantity: number
-  boxQuantity: number
-}
+import type { CartGeneralMealBoxes } from '@/types/type'
 type Props = {
   mealBoxTotal: number
   caseType: number
-  generalBoxes: MealBox[]
+  cartGeneralBoxes: CartGeneralMealBoxes[]
   addGeneralCart: (id: number) => Promise<void>
   minusGeneralCart: (id: number) => Promise<void>
 }
@@ -75,7 +57,7 @@ const drawer = defineModel('drawer')
             class="scrollbar-hide col-span-4 col-start-1 flex h-80 flex-col gap-y-4 text-[12px] sm:col-span-12 md:text-base"
           >
             <li
-              v-for="generalItem in generalBoxes"
+              v-for="generalItem in cartGeneralBoxes"
               :key="generalItem.id"
               class="grid grid-cols-4 items-center gap-6 sm:grid-cols-12"
             >

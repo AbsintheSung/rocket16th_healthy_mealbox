@@ -1,11 +1,11 @@
-<script setup>
+<script setup lang="ts">
 import MealCard from '@/components/global/MealCard.vue'
 import ThePagination from '@/components/global/ThePagination.vue'
 import { useGeneralMealBoxStore } from '@/stores/generalmealbox'
 import { useCartStore } from '@/stores/cart'
 const generalMealBoxStore = useGeneralMealBoxStore()
 const cartStore = useCartStore()
-const message = (mes, mesType) => {
+const message = (mes: any, mesType: string) => {
   //@ts-ignore
   ElMessage({
     message: mes,
@@ -13,7 +13,7 @@ const message = (mes, mesType) => {
     duration: 1500
   })
 }
-const addGeneralCart = async (id) => {
+const addGeneralCart = async (id: number) => {
   try {
     const response = await cartStore.fetchaddGeneralCart(id)
     if (response === 'endOrder') {
@@ -21,11 +21,11 @@ const addGeneralCart = async (id) => {
     } else {
       message('餐盒已加入', 'success')
     }
-  } catch (error) {
+  } catch (error: any) {
     message(error.message, 'error')
   }
 }
-const minusGeneralCart = async (id) => {
+const minusGeneralCart = async (id: number) => {
   try {
     const response = await cartStore.fetchMinusGeneralCart(id)
     if (response === 'notExist') {
@@ -33,7 +33,7 @@ const minusGeneralCart = async (id) => {
     } else {
       message('餐盒已移除', 'warning')
     }
-  } catch (error) {
+  } catch (error: any) {
     message(error.message, 'error')
   }
 }

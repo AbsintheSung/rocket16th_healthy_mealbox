@@ -1,11 +1,11 @@
 import { defineStore } from 'pinia'
 import { fetchApi } from '@/utils/api/apiUrl'
 import { ref, computed } from 'vue'
-import type { GeneralBoxes } from '@/types/cartType'
+import type { CartGeneralMealBoxes } from '@/types/type'
 export const useCartStore = defineStore('cart', () => {
   /* States */
   const caseType = ref<number>(7) //caseType的原始資料
-  const generalBoxes = ref([]) //存放獲取後的一般餐盒
+  const generalBoxes = ref<CartGeneralMealBoxes[]>([]) //存放獲取後的一般餐盒
   const customizeBoxes = ref([]) //存放獲取後的自定義餐盒
 
   /* Getter */
@@ -15,9 +15,8 @@ export const useCartStore = defineStore('cart', () => {
 
   //取得目前會員已加入購物車商品總數
   const getMealBoxTotal = computed(() => {
-    //@ts-ignore
     const generalBoxTotal = generalBoxes.value.reduce((total, item) => total + item.boxQuantity, 0)
-    //@ts-ignore
+    //@ts-ignore //自定義尚未定義所以透過ts忽略
     const customBoxTotal = customizeBoxes.value.reduce((total, item) => total + item.boxQuantity, 0)
     return generalBoxTotal + customBoxTotal
   })
@@ -27,7 +26,6 @@ export const useCartStore = defineStore('cart', () => {
 
   //取得一般餐盒資料資訊，透過淺拷貝方式( 要修改不要調用他，淺拷貝，深層仍會影響原始，這個只是調用來顯示用的 )
   const getGeneralBoxes = computed(() => {
-    //@ts-ignore
     return generalBoxes.value.map(item => ({ ...item }))
   })
 
@@ -40,12 +38,9 @@ export const useCartStore = defineStore('cart', () => {
 
   //內部調用，取得購物車內數量，若商品不存在購物車 數量為1
   const addMealBoxQuantity = (id: Number) => {
-    //@ts-ignore
     const isExit = generalBoxes.value.some((item) => item.id === id)
     if (isExit) {
-      //@ts-ignore
       const mealData = generalBoxes.value.filter(item => item.id === id)
-      //@ts-ignore
       return mealData[0].boxQuantity + 1
     } else {
       return 1
@@ -56,9 +51,7 @@ export const useCartStore = defineStore('cart', () => {
     //@ts-ignore
     const isExit = generalBoxes.value.some((item) => item.id === id)
     if (isExit) {
-      //@ts-ignore
       const mealData = generalBoxes.value.filter(item => item.id === id)
-      //@ts-ignore
       return mealData[0].boxQuantity - 1
     }
   }
@@ -100,7 +93,6 @@ export const useCartStore = defineStore('cart', () => {
 
   //編輯會員購物車-減少(一般)
   const fetchMinusGeneralCart = async (id: any,) => {
-    //@ts-ignore
     const isExit = generalBoxes.value.some((item) => item.id === id)
     if (!isExit) {
       return 'notExist'
