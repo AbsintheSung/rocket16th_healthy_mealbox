@@ -200,7 +200,7 @@ const swiperOptions = {
           <li
             class="col-span-2 flex flex-col gap-y-2 sm:col-span-6 sm:items-center xl:col-span-3 xl:items-start"
           >
-            <div class="flex flex-col gap-x-6 font-bold">
+            <div class="flex flex-col gap-x-6 gap-y-2 font-bold">
               <div class="flex items-center gap-x-2">
                 <h3 class="text-4xl sm:text-6xl">1</h3>
                 <div class="flex flex-col gap-y-1">
@@ -216,7 +216,7 @@ const swiperOptions = {
           <li
             class="col-span-2 flex flex-col gap-y-2 sm:col-span-6 sm:items-center xl:col-span-3 xl:items-start"
           >
-            <div class="flex flex-col gap-x-6 font-bold">
+            <div class="flex flex-col gap-x-6 gap-y-2 font-bold">
               <div class="flex items-center gap-x-2">
                 <h3 class="text-4xl sm:text-6xl">2</h3>
                 <div class="flex flex-col gap-y-1">
@@ -232,7 +232,7 @@ const swiperOptions = {
           <li
             class="col-span-2 flex flex-col gap-y-2 sm:col-span-6 sm:items-center xl:col-span-3 xl:items-start"
           >
-            <div class="flex flex-col gap-x-6 font-bold">
+            <div class="flex flex-col gap-x-6 gap-y-2 font-bold">
               <div class="flex items-center gap-x-2">
                 <h3 class="text-4xl sm:text-6xl">3</h3>
                 <div class="flex flex-col gap-y-1">
@@ -248,7 +248,7 @@ const swiperOptions = {
           <li
             class="col-span-2 flex flex-col gap-y-2 sm:col-span-6 sm:items-center xl:col-span-3 xl:items-start"
           >
-            <div class="flex flex-col gap-x-6 font-bold">
+            <div class="flex flex-col gap-x-6 gap-y-2 font-bold">
               <div class="flex items-center gap-x-2">
                 <h3 class="text-4xl sm:text-6xl">4</h3>
                 <div class="flex flex-col gap-y-1">
@@ -323,7 +323,7 @@ const swiperOptions = {
     <section>
       <ThePlaidAdorn />
 
-      <div class="container py-20">
+      <div class="container py-14 md:py-20">
         <div class="flex flex-col items-center justify-center">
           <TheSvg svgIcon="main-logo" class="h-[50px] w-[340px]" />
           <h2 class="my-5 text-3xl font-bold text-primary-700">「又懶又健康」</h2>
