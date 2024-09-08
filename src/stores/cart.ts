@@ -24,9 +24,13 @@ export const useCartStore = defineStore('cart', () => {
   //是否滿足結帳條件( 選滿 )
   const getIsEndOrder = computed(() => getMealBoxTotal.value === getCaseType.value)
 
-  //取得一般餐盒資料資訊，透過淺拷貝方式( 要修改不要調用他，淺拷貝，深層仍會影響原始，這個只是調用來顯示用的 )
+  //取得一般餐盒資料資訊，透過computed + 深拷貝
   const getGeneralBoxes = computed(() => {
-    return generalBoxes.value.map(item => ({ ...item }))
+    return generalBoxes.value.map(item => ({
+      ...item,
+      composition: { ...item.composition }, // 深拷貝 composition
+      imgArr: [...item.imgArr], // 深拷貝 imgArr
+    }));
   })
 
   /* Action */

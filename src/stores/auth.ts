@@ -7,14 +7,14 @@ export const useAuthStore = defineStore('auth', () => {
   //State
   // const userToken = ref('')
   const isSignin = ref(false) //登入狀態
-  const userInfoData = ref({}) //存放已登入使用者的資訊內容
+  // const userInfoData = ref({}) //存放已登入使用者的資訊內容
 
   //Getter
   const getUserToken = computed(() => {
     const token = document.cookie.replace(/(?:(?:^|.*;\s*)tokenCode\s*=\s*([^;]*).*$)|^.*$/, '$1') //獲取存在cookie的token
     return token
   })
-  const getUserInfoData = computed(() => userInfoData.value)
+  // const getUserInfoData = computed(() => userInfoData.value)
 
   //Action
   const signin = async (inputData: { account: string; password: string }) => {
@@ -66,6 +66,6 @@ export const useAuthStore = defineStore('auth', () => {
     register,
     // userInfo,
     getUserToken,
-    getUserInfoData
+    // getUserInfoData
   }
 })

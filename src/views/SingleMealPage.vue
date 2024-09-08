@@ -38,6 +38,7 @@ const handlePrevious = () => {
 }
 onMounted(async () => {
   await generalMealBoxStore.fetchOneGeneralMeal(route.params.id)
+  console.log(generalMealBoxStore.getOneGeneralMeal)
 })
 </script>
 <template>
