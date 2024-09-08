@@ -5,8 +5,6 @@ import { useNutritionistPlanStore } from '@/stores/nutritionistPlan'
 import { useGeneralMealBoxStore } from '@/stores/generalmealbox'
 import NutritionistPlanDetailInfo from '@/components/nutritionist-plan-detail-page/NutritionistPlanDetailInfo.vue'
 import NutritionistPlanDetailCard from '@/components/nutritionist-plan-detail-page/NutritionistPlanDetailCard.vue'
-//測試組件
-import TestComponent from '@/components/nutritionist-plan-detail-page/TestComponent.vue'
 
 const route = useRoute()
 const nutritionistPlanStore = useNutritionistPlanStore()
@@ -66,7 +64,6 @@ watch(onePlanData, async (newValue) => {
 </script>
 <template>
   <div class="container py-14">
-    <!-- <TestComponent /> -->
     <NutritionistPlanDetailInfo :onePlanInfo="formattedOnePlanData" />
     <NutritionistPlanDetailCard :onePlanInfo="formattedOnePlanData" :mealBoxesData="mealBoxesData" />
     <div class="text-center pt-12">

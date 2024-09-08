@@ -14,14 +14,6 @@ const props = defineProps({
 
 const safeMealBoxesData = computed(() => props.mealBoxesData || [])
 
-// 除錯用
-// watch(() => props.mealBoxesData, (newValue) => {
-//     console.log('mealBoxesData updated in NutritionistPlanDetailCard:', newValue)
-// }, { immediate: true, deep: true })
-
-// onMounted(() => {
-//     console.log('Initial mealBoxesData in NutritionistPlanDetailCard:', props.mealBoxesData)
-// })
 </script>
 <template>
     <div v-if="safeMealBoxesData.length" class="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-6">
