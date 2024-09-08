@@ -266,14 +266,19 @@ const swiperOptions = {
     </section>
 
     <!-- 首頁-方案選擇區塊 -->
-    <section class="bg-background-style-2">
+    <section class="bg-background-style-2 bg-no-repeat">
       <div class="container py-20">
-        <p class="mb-2 text-center font-bold">餐餐自由配</p>
-        <h3 class="mb-12 text-center text-3xl font-bold">適合您的生活方式的3種方案</h3>
-        <ul class="flex flex-col items-center justify-around md:flex-row">
+        <p class="mb-2 text-center text-base font-bold md:text-2xl">餐餐自由配</p>
+        <h3 class="mb-8 text-center text-2xl font-bold text-primary-700 md:text-3xl">
+          適合您的生活方式的3種方案
+        </h3>
+        <p class="mb-8 text-center font-medium md:hidden">
+          您可以根據自身狀況選擇套餐方案，產品一律採用冷凍配送， 我們也歡迎您與親朋好友一起訂購。
+        </p>
+        <ul class="flex flex-col items-center justify-around gap-y-7 md:flex-row">
           <li class="rounded border-2 border-black bg-white">
             <h3 class="bg-secondary-950 py-2 text-center text-3xl font-bold text-white">7餐</h3>
-            <div class="flex flex-col items-center justify-center px-14 py-6">
+            <div class="flex flex-col items-center justify-center px-20 py-6 md:px-14">
               <p class="text-center text-2xl font-bold">平均一餐</p>
               <h4 class="text-4xl font-bold">NT.70</h4>
               <span>總價700元起</span>
@@ -284,7 +289,7 @@ const swiperOptions = {
           </li>
           <li class="rounded border-2 border-black bg-white">
             <h3 class="bg-primary-600 py-2 text-center text-3xl font-bold text-white">14餐</h3>
-            <div class="flex flex-col items-center justify-center px-14 py-6">
+            <div class="flex flex-col items-center justify-center px-20 py-6 md:px-14">
               <p class="text-center text-2xl font-bold">平均一餐</p>
               <h4 class="text-4xl font-bold">NT.70</h4>
               <span>總價700元起</span>
@@ -295,7 +300,7 @@ const swiperOptions = {
           </li>
           <li class="rounded border-2 border-black bg-white">
             <h3 class="bg-secondary-400 py-2 text-center text-3xl font-bold text-white">21餐</h3>
-            <div class="flex flex-col items-center justify-center px-14 py-6">
+            <div class="flex flex-col items-center justify-center px-20 py-6 md:px-14">
               <p class="text-center text-2xl font-bold">平均一餐</p>
               <h4 class="text-4xl font-bold">NT.70</h4>
               <span>總價700元起</span>
@@ -305,7 +310,7 @@ const swiperOptions = {
             </div>
           </li>
         </ul>
-        <div class="mt-12">
+        <div class="mt-12 hidden md:block">
           <p class="text-center text-2xl font-medium">
             您可以根據自身狀況選擇套餐方案，產品一律採用冷凍配送，<br />
             我們也歡迎您與親朋好友一起訂購。
