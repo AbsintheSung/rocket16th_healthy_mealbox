@@ -105,7 +105,7 @@ onMounted(async () => {
         v-model:drawer="drawer"
         :mealBoxTotal="cartStore.getMealBoxTotal"
         :caseType="cartStore.getCaseType"
-        :generalBoxes="cartStore.getGeneralBoxes"
+        :cartGeneralBoxes="cartStore.getGeneralBoxes"
         :addGeneralCart="addGeneralCart"
         :minusGeneralCart="minusGeneralCart"
       />

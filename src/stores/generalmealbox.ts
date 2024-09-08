@@ -1,9 +1,10 @@
 import { defineStore } from 'pinia'
 import { fetchApi } from '@/utils/api/apiUrl'
 import { ref, computed } from 'vue'
+import type { GeneralBoxes } from '@/types/type'
 export const useGeneralMealBoxStore = defineStore('generalmealbox', () => {
   //State
-  const generalMeal = ref([]) //一般餐盒資料，預設空陣列
+  const generalMeal = ref<GeneralBoxes[]>([]) //一般餐盒資料，預設空陣列
   const currentPage = ref(1) //當前分頁
   const pageSize = ref(10) //每頁該顯示的資料數量
   const oneGeneralMeal = ref({})
