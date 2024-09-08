@@ -1,13 +1,13 @@
 import { defineStore } from 'pinia'
 import { fetchApi } from '@/utils/api/apiUrl'
 import { ref, computed } from 'vue'
-import type { GeneralBoxes } from '@/types/type'
+import type { GeneralBoxes, OneGeneralBox } from '@/types/type'
 export const useGeneralMealBoxStore = defineStore('generalmealbox', () => {
   //State
   const generalMeal = ref<GeneralBoxes[]>([]) //一般餐盒資料，預設空陣列
   const currentPage = ref(1) //當前分頁
   const pageSize = ref(10) //每頁該顯示的資料數量
-  const oneGeneralMeal = ref({})
+  const oneGeneralMeal = ref<Partial<OneGeneralBox>>({});
 
   //Getter
 
@@ -15,8 +15,23 @@ export const useGeneralMealBoxStore = defineStore('generalmealbox', () => {
   // const getCurrentPage = computed(() => currentPage.value)
   //取得獲取一般餐盒的資料總數
   const getDataTotal = computed(() => generalMeal.value.length)
+  //取得所有餐盒
+  const getGeneralBoxes = computed(() => {
+    return generalMeal.value.map(item => ({
+      ...item,
+      composition: { ...item.composition },
+      imgArr: [...item.imgArr],
+    }));
+  })
   //取得單一餐盒資訊
-  const getOneGeneralMeal = computed(() => oneGeneralMeal.value)
+  const getOneGeneralMeal = computed(() => {
+    const item = oneGeneralMeal.value;
+    return {
+      ...item,
+      composition: { ...item.composition },
+      imgArr: [...item.imgArr || []]
+    };
+  })
   //取得每頁該顯示的資料數量
   const getPageSize = computed(() => pageSize.value)
   //總頁碼共幾個
@@ -25,7 +40,7 @@ export const useGeneralMealBoxStore = defineStore('generalmealbox', () => {
   const getPaginatedMeals = computed(() => {
     const start = (currentPage.value - 1) * pageSize.value
     const end = start + pageSize.value
-    return generalMeal.value.slice(start, end)
+    return getGeneralBoxes.value.slice(start, end)
   })
 
   //Action
@@ -67,6 +82,7 @@ export const useGeneralMealBoxStore = defineStore('generalmealbox', () => {
     getTotalPages,
     getPaginatedMeals,
     getOneGeneralMeal,
+    getGeneralBoxes,
     changePage,
     fetchGeneralMeal,
     fetchOneGeneralMeal
