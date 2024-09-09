@@ -16,7 +16,7 @@ const props = defineProps({
 </script>
 <template>
     <div class="pb-6 md:pb-12">
-        <div class="bg-primary-300 border-2 border-black rounded shadow-base w-full text-center py-6 md:px-12 md:w-1/3 md:text-left">
+        <div class="bg-primary-300 border-2 border-black rounded shadow-base w-full text-center py-5 md:px-12 md:w-1/3">
             <h2 class="text-2xl">{{ onePlanInfo.nutritionistName }} 營養師的 {{ onePlanInfo.caseName }}</h2>
         </div>
         <div class="flex py-6 md:py-12">
