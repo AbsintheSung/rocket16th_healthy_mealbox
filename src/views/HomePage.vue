@@ -3,39 +3,39 @@ import TheSvg from '@/components/global/TheSvg.vue'
 import TheNewsTicker from '@/components/global/TheNewsTicker.vue'
 import ThePlaidAdorn from '@/components/global/ThePlaidAdorn.vue'
 import TheContact from '@/components/global/TheContact.vue'
-import { watch, computed } from 'vue'
-import { Swiper, SwiperSlide } from 'swiper/vue'
-import { Mousewheel, Pagination } from 'swiper/modules'
-import { useWindowSize } from '@vueuse/core'
-const { width } = useWindowSize()
-import 'swiper/css'
-import 'swiper/css/pagination'
-import 'swiper/css/mousewheel'
-const swiperOptions = computed(() => ({
-  modules: [Mousewheel, Pagination],
-  pagination: {
-    el: '.swiper-pagination',
-    clickable: true, // 使分頁指示器可點擊
-    dynamicBullets: true // 開啟動態分頁
-  },
-  slidesPerView: 1, // 滾動時候 只切換一張
-  mousewheel: true, // 設置滾輪滾動
-  loop: width.value >= 576, //大於 裝置576px 開啟loop ，否則會有警告(雖然警告不影響運作)
-  spaceBetween: 15, // 滑動速度
-  breakpoints: {
-    // 當視窗寬度大於等於 1024px
-    992: {
-      slidesPerView: 4
-    },
-    // 當視窗寬度介於 768px 到 1023px 之間
-    768: {
-      slidesPerView: 3
-    },
-    576: {
-      slidesPerView: 2
-    }
-  }
-}))
+// import { watch, computed } from 'vue'
+// import { Swiper, SwiperSlide } from 'swiper/vue'
+// import { Mousewheel, Pagination } from 'swiper/modules'
+// import { useWindowSize } from '@vueuse/core'
+// const { width } = useWindowSize()
+// import 'swiper/css'
+// import 'swiper/css/pagination'
+// import 'swiper/css/mousewheel'
+// const swiperOptions = computed(() => ({
+//   modules: [Mousewheel, Pagination],
+//   pagination: {
+//     el: '.swiper-pagination',
+//     clickable: true, // 使分頁指示器可點擊
+//     dynamicBullets: true // 開啟動態分頁
+//   },
+//   slidesPerView: 1, // 滾動時候 只切換一張
+//   mousewheel: true, // 設置滾輪滾動
+//   loop: width.value >= 576, //大於 裝置576px 開啟loop ，否則會有警告(雖然警告不影響運作)
+//   spaceBetween: 15, // 滑動速度
+//   breakpoints: {
+//     // 當視窗寬度大於等於 1024px
+//     992: {
+//       slidesPerView: 4
+//     },
+//     // 當視窗寬度介於 768px 到 1023px 之間
+//     768: {
+//       slidesPerView: 3
+//     },
+//     576: {
+//       slidesPerView: 2
+//     }
+//   }
+// }))
 </script>
 
 <template>
@@ -67,18 +67,18 @@ const swiperOptions = computed(() => ({
 
     <!-- 首頁-營養師懶人包組合 -->
     <section class="bg-background-style-1">
-      <div class="container pb-4 pt-12">
+      <div class="container py-12">
         <p class="text-center font-bold">選擇困難嗎？</p>
         <div class="relative flex items-center justify-center py-4">
           <h2 class="text-4xl font-bold text-primary-700">金牌營養師推薦套餐</h2>
           <RouterLink
             to="/"
-            class="absolute bottom-0 right-0 hidden items-center text-secondary-700 sm:flex"
+            class="absolute bottom-0 right-0 hidden items-center text-secondary-700 md:flex"
           >
             查看所有餐點<fontAwesomeIcon class="ms-2" :icon="['fas', 'chevron-right']" />
           </RouterLink>
         </div>
-        <div class="hidden sm:block">
+        <!-- <div class="hidden sm:block">
           <swiper v-bind="swiperOptions" class="mt-16">
             <swiper-slide v-for="cardItem in 10" :key="cardItem">
               <div class="flex flex-col">
@@ -108,9 +108,13 @@ const swiperOptions = computed(() => ({
             </swiper-slide>
             <div class="swiper-pagination home-swiper-page"></div>
           </swiper>
-        </div>
-        <ul class="grid grid-cols-4 gap-6 sm:hidden">
-          <li class="col-span-2 rounded border-2 border-black" v-for="item in 4" :key="item">
+        </div> -->
+        <ul class="grid grid-cols-4 gap-6 py-6 md:grid-cols-12 md:py-16">
+          <li
+            class="col-span-2 rounded border-2 border-black md:col-span-3"
+            v-for="item in 4"
+            :key="item"
+          >
             <div class="flex flex-col gap-y-2">
               <div>
                 <img
@@ -137,7 +141,7 @@ const swiperOptions = computed(() => ({
             </div>
           </li>
         </ul>
-        <div class="flex items-center justify-end py-14 sm:hidden">
+        <div class="flex items-center justify-end py-14 md:hidden">
           <RouterLink
             to="/"
             class="rounded border-2 border-secondary-900 px-12 py-2 text-secondary-900"
@@ -145,7 +149,6 @@ const swiperOptions = computed(() => ({
             查看更多方案
           </RouterLink>
         </div>
-        <div></div>
       </div>
     </section>
 
@@ -501,7 +504,7 @@ const swiperOptions = computed(() => ({
 :deep(.swiper-pagination) {
   position: relative; /* 將 position 設為 relative，讓它在文檔流中處於正常位置 */
   text-align: center; /* 將分頁指示器居中 */
-  margin: 48px 0px;
+  margin: 48px 0px 0px 0px;
 }
 :deep(.swiper-pagination-bullet-active) {
   background-color: $primary-700;
