@@ -16,10 +16,10 @@ const safeMealBoxesData = computed(() => props.mealBoxesData || [])
 
 </script>
 <template>
-    <div v-if="safeMealBoxesData.length" class="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-6">
+    <div v-if="safeMealBoxesData.length" class="grid grid-cols-2 gap-x-6 gap-y-3 md:grid-cols-3 md:gap-y-12 lg:grid-cols-4">
         <el-card v-for="meal in safeMealBoxesData" :key="meal?.id" shadow="never"
-            class="transition-all duration-300 ease-in-out max-w-[190px] md:max-w-[310px]">
-            <img v-if="meal.imgArr && meal.imgArr.length" :src="meal.imgArr[0]" style="width: 100%" class="card-img" />
+            class="transition-all duration-300 ease-in-out max-w-full">
+            <img v-if="meal.imgArr && meal.imgArr.length" :src="meal.imgArr[0]" class="max-w-full"/>
             <router-link :to="`/singlemeal/${meal?.id}`"
                 class="text-base font-bold py-4 block hover:text-primary-base transition-colors duration-300">
                 {{ meal.name || '未命名餐盒' }}
@@ -36,9 +36,4 @@ const safeMealBoxesData = computed(() => props.mealBoxesData || [])
     </div>
 </template>
 <style scoped>
-.card-img {
-    width: 278px;
-    height: 214px;
-    object-fit: cover;
-}
 </style>
