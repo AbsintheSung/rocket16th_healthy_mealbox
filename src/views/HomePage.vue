@@ -460,9 +460,20 @@ const swiperOptions = computed(() => ({
         <div class="flex flex-col items-center justify-center">
           <TheSvg svgIcon="main-logo" class="h-[50px] w-[340px]" />
           <h2 class="my-5 text-3xl font-bold text-primary-700">「又懶又健康」</h2>
-          <p>這是 盒食 的宗旨，健康是財富之本，我們希望無論您的生活多麼忙碌都能吃得營養均衡。</p>
-          <p>無論您是忙碌的上班族、辛苦的全職媽媽，或者您與我們一樣，是個又懶又想吃的健康的人，</p>
-          <p class="text-center">盒食提供您日常飲食更多元的選擇，健康美味輕鬆上桌。</p>
+          <div class="hidden md:block">
+            <p>這是 盒食 的宗旨，健康是財富之本，我們希望無論您的生活多麼忙碌都能吃得營養均衡。</p>
+            <p>
+              無論您是忙碌的上班族、辛苦的全職媽媽，或者您與我們一樣，是個又懶又想吃的健康的人，
+            </p>
+            <p class="text-center">盒食提供您日常飲食更多元的選擇，健康美味輕鬆上桌。</p>
+          </div>
+          <div class="flex flex-col items-center justify-center gap-y-1 md:hidden">
+            <p>這是 盒食 的宗旨，健康是財富之本，</p>
+            <p>我們希望無論您的生活多麼忙碌都能吃得營養均衡。</p>
+            <p>無論您是忙碌的上班族、辛苦的全職媽媽，</p>
+            <p>或者您與我們一樣，是個又懶又想吃的健康的人，</p>
+            <p>盒食提供您日常飲食更多元的選擇，健康美味輕鬆上桌。</p>
+          </div>
         </div>
       </div>
       <ThePlaidAdorn />
