@@ -87,7 +87,9 @@ export const useCartStore = defineStore('cart', () => {
       }
       const response = await fetchApi.updateCart(mealData)
       if (response.status) {
-        await fetchMemberCartInfo()
+        generalBoxes.value = response.data.data.generalBoxes
+        customizeBoxes.value = response.data.data.customizeBoxes
+        // await fetchMemberCartInfo()
         return response.data
       }
     } catch (error: any) {
@@ -109,7 +111,9 @@ export const useCartStore = defineStore('cart', () => {
       }
       const response = await fetchApi.updateCart(mealData)
       if (response.status) {
-        await fetchMemberCartInfo()
+        generalBoxes.value = response.data.data.generalBoxes
+        customizeBoxes.value = response.data.data.customizeBoxes
+        // await fetchMemberCartInfo()
         return response.data
       }
     } catch (error: any) {
