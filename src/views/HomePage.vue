@@ -110,7 +110,7 @@ const swiperOptions = {
           </swiper>
         </div>
         <ul class="grid grid-cols-4 gap-6 sm:hidden">
-          <li class="col-span-2" v-for="item in 4" :key="item">
+          <li class="col-span-2 rounded border-2 border-black" v-for="item in 4" :key="item">
             <div class="flex flex-col gap-y-2">
               <div>
                 <img
@@ -119,11 +119,11 @@ const swiperOptions = {
                   src="../assets//image/mealpic.png"
                 />
               </div>
-              <div class="font-bold">
+              <div class="px-3 font-bold">
                 <h3>簡單吃！</h3>
                 <p>忙碌生活的救世主</p>
               </div>
-              <div class="flex items-center justify-between">
+              <div class="flex items-center justify-between p-3">
                 <button
                   class="rounded border border-primary-700 px-2 py-1 text-[10px] text-primary-700"
                 >
@@ -140,7 +140,7 @@ const swiperOptions = {
         <div class="flex items-center justify-end py-14 sm:hidden">
           <RouterLink
             to="/"
-            class="rounded border border-secondary-900 px-12 py-2 text-secondary-900"
+            class="rounded border-2 border-secondary-900 px-12 py-2 text-secondary-900"
           >
             查看更多方案
           </RouterLink>
