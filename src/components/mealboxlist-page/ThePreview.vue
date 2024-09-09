@@ -4,6 +4,7 @@ type Props = {
   mealBoxTotal: number
   caseType: number
   cartGeneralBoxes: CartGeneralMealBoxes[]
+  isEndOrder: boolean
   addGeneralCart: (id: number) => Promise<void>
   minusGeneralCart: (id: number) => Promise<void>
 }
@@ -41,18 +42,25 @@ const drawer = defineModel('drawer')
           >
             全部刪除
           </button>
+          <RouterLink
+            to="/checkout"
+            v-if="isEndOrder"
+            class="col-span-2 col-start-3 rounded border-2 border-black bg-secondary-base py-3 text-center sm:col-span-5 sm:col-start-7 md:col-span-4 lg:col-span-3"
+          >
+            確認餐點，加入購物車
+          </RouterLink>
           <p
-            v-if="mealBoxTotal != caseType"
+            v-else
             class="col-span-2 col-start-3 rounded border-2 border-black bg-secondary-base py-3 text-center sm:col-span-5 sm:col-start-7 md:col-span-4 lg:col-span-3"
           >
             已選擇{{ mealBoxTotal }} / {{ caseType }}餐
           </p>
-          <button
+          <!-- <button
             v-else
             class="col-span-2 col-start-3 rounded border-2 border-black bg-secondary-base py-3 sm:col-span-5 sm:col-start-7 md:col-span-4 lg:col-span-3"
           >
             確認餐點，加入購物車
-          </button>
+          </button> -->
           <ul
             class="scrollbar-hide col-span-4 col-start-1 flex h-80 flex-col gap-y-4 text-[12px] sm:col-span-12 md:text-base"
           >
