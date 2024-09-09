@@ -3,12 +3,15 @@ import TheSvg from '@/components/global/TheSvg.vue'
 import TheNewsTicker from '@/components/global/TheNewsTicker.vue'
 import ThePlaidAdorn from '@/components/global/ThePlaidAdorn.vue'
 import TheContact from '@/components/global/TheContact.vue'
+import { watch, computed } from 'vue'
 import { Swiper, SwiperSlide } from 'swiper/vue'
 import { Mousewheel, Pagination } from 'swiper/modules'
+import { useWindowSize } from '@vueuse/core'
+const { width } = useWindowSize()
 import 'swiper/css'
 import 'swiper/css/pagination'
 import 'swiper/css/mousewheel'
-const swiperOptions = {
+const swiperOptions = computed(() => ({
   modules: [Mousewheel, Pagination],
   pagination: {
     el: '.swiper-pagination',
@@ -17,7 +20,7 @@ const swiperOptions = {
   },
   slidesPerView: 1, // 滾動時候 只切換一張
   mousewheel: true, // 設置滾輪滾動
-  loop: true,
+  loop: width.value >= 576, //大於 裝置576px 開啟loop ，否則會有警告(雖然警告不影響運作)
   spaceBetween: 15, // 滑動速度
   breakpoints: {
     // 當視窗寬度大於等於 1024px
@@ -30,12 +33,9 @@ const swiperOptions = {
     },
     576: {
       slidesPerView: 2
-    },
-    0: {
-      slidesPerView: 1
     }
   }
-}
+}))
 </script>
 
 <template>
