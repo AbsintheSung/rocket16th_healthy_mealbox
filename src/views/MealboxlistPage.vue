@@ -86,18 +86,19 @@ onMounted(async () => {
           >
             查看預覽
           </button>
+          <RouterLink
+            to="/checkout"
+            v-if="cartStore.getIsEndOrder"
+            class="col-span-2 col-start-3 rounded border-2 border-black bg-secondary-base py-3 text-center sm:col-span-5 sm:col-start-7 md:col-span-4 lg:col-span-3"
+          >
+            確認餐點，加入購物車
+          </RouterLink>
           <p
-            v-if="cartStore.getMealBoxTotal != cartStore.getCaseType"
+            v-else
             class="col-span-2 col-start-3 rounded border-2 border-black bg-secondary-base py-3 text-center sm:col-span-5 sm:col-start-7 md:col-span-4 lg:col-span-3"
           >
             已選擇{{ cartStore.getMealBoxTotal }} / {{ cartStore.getCaseType }}餐
           </p>
-          <button
-            v-else
-            class="col-span-2 col-start-3 rounded border-2 border-black bg-secondary-base py-3 sm:col-span-5 sm:col-start-7 md:col-span-4 lg:col-span-3"
-          >
-            確認餐點，加入購物車
-          </button>
         </div>
       </div>
       <!-- 預覽列 -->
@@ -108,6 +109,7 @@ onMounted(async () => {
         :cartGeneralBoxes="cartStore.getGeneralBoxes"
         :addGeneralCart="addGeneralCart"
         :minusGeneralCart="minusGeneralCart"
+        :isEndOrder="cartStore.getIsEndOrder"
       />
     </section>
   </main>

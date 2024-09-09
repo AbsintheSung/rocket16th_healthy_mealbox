@@ -147,6 +147,7 @@ export const useCartStore = defineStore('cart', () => {
     getMealBoxTotal,
     getGeneralBoxes,
     getCartInfo,
+    getIsEndOrder,
     changeSelectPlan,
     fetchMemberCartInfo,
     fetchaddGeneralCart,
