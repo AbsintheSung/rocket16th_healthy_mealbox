@@ -64,3 +64,10 @@ export type CartGeneralMealBoxes = {
   quantity: number
   boxQuantity: number
 }
+
+//購物車價錢資訊 型別
+export type CartInfo = {
+  prize: number;
+  freightFree: boolean;
+  expirationDate: string;
+};

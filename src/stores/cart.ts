@@ -1,12 +1,8 @@
 import { defineStore } from 'pinia'
 import { fetchApi } from '@/utils/api/apiUrl'
 import { ref, computed } from 'vue'
-import type { CartGeneralMealBoxes } from '@/types/type'
-type CartInfo = {
-  prize: number;
-  freightFree: boolean;
-  expirationDate: string;
-};
+import type { CartGeneralMealBoxes, CartInfo } from '@/types/type'
+
 export const useCartStore = defineStore('cart', () => {
   /* States */
   const caseType = ref<number>(7) //caseType的原始資料
