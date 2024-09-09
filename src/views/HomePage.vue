@@ -44,17 +44,17 @@ const swiperOptions = {
     <section class="bg-home-main bg-cover bg-center bg-no-repeat">
       <div class="container flex flex-col items-center justify-between sm:flex-row">
         <div class="w-full py-48 sm:w-1/2">
-          <TheSvg svgIcon="main-logo" class="h-[90px]" />
+          <TheSvg svgIcon="main-logo" class="h-[90px]" svgClassStyle="w-full md:w-fit" />
           <p class="text-2xl text-white">
             無論您的生活多麼忙碌都能吃得營養均衡，輕鬆快速訂購，<br />
             盒食提供您日常飲食更多元的選擇，健康美味輕鬆上桌!
           </p>
         </div>
         <div class="flex w-full justify-end self-end sm:w-1/2">
-          <TheSvg svgIcon="rhombus-full" class="w-[80px]" />
-          <TheSvg svgIcon="rhombus" class="w-[80px]" />
-          <TheSvg svgIcon="rhombus-full" class="w-[80px]" />
-          <TheSvg svgIcon="rhombus" class="w-[80px]" />
+          <TheSvg svgIcon="rhombus-full" class="h-[50px] w-[45px] md:h-[100px] md:w-[80px]" />
+          <TheSvg svgIcon="rhombus" class="h-[50px] w-[45px] md:h-[100px] md:w-[80px]" />
+          <TheSvg svgIcon="rhombus-full" class="h-[50px] w-[45px] md:h-[100px] md:w-[80px]" />
+          <TheSvg svgIcon="rhombus" class="h-[50px] w-[45px] md:h-[100px] md:w-[80px]" />
         </div>
       </div>
     </section>
