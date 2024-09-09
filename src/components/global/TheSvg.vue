@@ -2,16 +2,19 @@
 import sprite from '@/assets/image/sprite.svg'
 const props = defineProps({
   svgIcon: {
-    title: String,
-    default: '', //預設值
-    required: true //若為true，代表傳進來的 props 一定要有此資料
+    type: String,
+    default: '', // 預設值
+    required: true // 必要屬性
+  },
+  svgClassStyle: {
+    type: String,
+    default: ''
   }
 })
-const svgStyle = props.svgIcon
 </script>
 <template>
-  <svg>
-    <use :href="`${sprite}#${svgStyle}`"></use>
+  <svg :class="`${props.svgClassStyle}`">
+    <use :href="`${sprite}#${props.svgIcon}`"></use>
   </svg>
 </template>
 <style scoped></style>
