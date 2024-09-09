@@ -26,7 +26,7 @@ const swiperOptions = {
     },
     // 當視窗寬度介於 768px 到 1023px 之間
     768: {
-      slidesPerView: 2
+      slidesPerView: 3
     },
     576: {
       slidesPerView: 2
@@ -71,13 +71,47 @@ const swiperOptions = {
         <p class="text-center font-bold">選擇困難嗎？</p>
         <div class="relative flex items-center justify-center py-4">
           <h2 class="text-4xl font-bold text-primary-700">金牌營養師推薦套餐</h2>
-          <RouterLink to="/" class="absolute bottom-0 right-0 flex items-center text-secondary-700">
+          <RouterLink
+            to="/"
+            class="absolute bottom-0 right-0 hidden items-center text-secondary-700 sm:flex"
+          >
             查看所有餐點<fontAwesomeIcon class="ms-2" :icon="['fas', 'chevron-right']" />
           </RouterLink>
         </div>
-        <swiper v-bind="swiperOptions" class="mt-16">
-          <swiper-slide v-for="cardItem in 10" :key="cardItem">
-            <div class="flex flex-col">
+        <div class="hidden sm:block">
+          <swiper v-bind="swiperOptions" class="mt-16">
+            <swiper-slide v-for="cardItem in 10" :key="cardItem">
+              <div class="flex flex-col">
+                <div>
+                  <img
+                    class="w-full object-fill"
+                    alt="營養師懶人包圖"
+                    src="../assets//image/mealpic.png"
+                  />
+                </div>
+                <div class="flex flex-col gap-y-1">
+                  <p>14餐</p>
+                  <p>増肌簡單吃</p>
+                </div>
+                <div class="flex items-center justify-between">
+                  <button
+                    class="self-end rounded border border-secondary-900 px-3 py-1 text-secondary-900"
+                  >
+                    加入購物車
+                  </button>
+                  <RouterLink to="/" class="text-primary-700">
+                    <p>查看此方案</p>
+                    <p>詳細資訊</p>
+                  </RouterLink>
+                </div>
+              </div>
+            </swiper-slide>
+            <div class="swiper-pagination home-swiper-page"></div>
+          </swiper>
+        </div>
+        <ul class="grid grid-cols-4 gap-6 sm:hidden">
+          <li class="col-span-2" v-for="item in 4" :key="item">
+            <div class="flex flex-col gap-y-2">
               <div>
                 <img
                   class="w-full object-fill"
@@ -85,25 +119,33 @@ const swiperOptions = {
                   src="../assets//image/mealpic.png"
                 />
               </div>
-              <div class="flex flex-col gap-y-1">
-                <p>14餐</p>
-                <p>増肌簡單吃</p>
+              <div class="font-bold">
+                <h3>簡單吃！</h3>
+                <p>忙碌生活的救世主</p>
               </div>
               <div class="flex items-center justify-between">
                 <button
-                  class="self-end rounded border border-secondary-900 px-3 py-1 text-secondary-900"
+                  class="rounded border border-primary-700 px-2 py-1 text-[10px] text-primary-700"
                 >
                   加入購物車
                 </button>
-                <RouterLink to="/" class="text-primary-700">
-                  <p>查看此方案</p>
-                  <p>詳細資訊</p>
+                <RouterLink to="/" class="flex items-center gap-x-1 text-[10px] text-secondary-700">
+                  <p>查看更多</p>
+                  <FontAwesomeIcon :icon="['fas', 'arrow-right']" size="sm" />
                 </RouterLink>
               </div>
             </div>
-          </swiper-slide>
-          <div class="swiper-pagination home-swiper-page"></div>
-        </swiper>
+          </li>
+        </ul>
+        <div class="flex items-center justify-end py-14 sm:hidden">
+          <RouterLink
+            to="/"
+            class="rounded border border-secondary-900 px-12 py-2 text-secondary-900"
+          >
+            查看更多方案
+          </RouterLink>
+        </div>
+        <div></div>
       </div>
     </section>
 
