@@ -5,7 +5,7 @@ import type { CartGeneralMealBoxes, CartInfo, NutritionistPlan } from '@/types/t
 
 export const useCartStore = defineStore('cart', () => {
   /* States */
-  const caseType = ref<number>(7) //caseType的原始資料
+  const caseType = ref<number>(0) //caseType的原始資料
   const nutritionistPlan = ref<NutritionistPlan[]>([]) //存放獲取後的營養師餐盒
   const generalBoxes = ref<CartGeneralMealBoxes[]>([]) //存放獲取後的一般餐盒
   const customizeBoxes = ref([]) //存放獲取後的自定義餐盒
@@ -65,8 +65,23 @@ export const useCartStore = defineStore('cart', () => {
   /* Action */
 
   //修改caseType調用此function
-  const changeSelectPlan = (planDay: number) => {
-    caseType.value = planDay
+  const fetchChangeSelectPlan = async (planDay: number) => {
+    try {
+      const caseTypeData = { caseType: planDay }
+      const response = await fetchApi.updateCaseType(caseTypeData)
+      caseType.value = response.data.data.caseType
+      generalBoxes.value = response.data.data.generalBoxes
+      customizeBoxes.value = response.data.data.customizeBoxes
+      cartInfo.value = {
+        prize: response.data.data.prize,
+        freightFree: response.data.data.freightFree,
+        expirationDate: response.data.data.expirationDate,
+      }
+      // console.log(response)
+    } catch (error: any) {
+      throw error.response.data
+      // console.log(error.response.data)
+    }
   }
 
   //內部調用，取得購物車內數量，若商品不存在購物車 數量為1
@@ -79,7 +94,7 @@ export const useCartStore = defineStore('cart', () => {
       return 1
     }
   }
-  //內部調用，取得購物車內數量，若商品不存在購物車 數量為1
+  //內部調用，取得購物車內數量，若商品不存在購物車，不做任何事，存在的話，商品數量-1
   const minusMealBoxQuantity = (id: Number) => {
     //@ts-ignore
     const isExit = generalBoxes.value.some((item) => item.id === id)
@@ -126,6 +141,8 @@ export const useCartStore = defineStore('cart', () => {
     try {
       const response = await fetchApi.getCartApi()
       if (response.status === 200) {
+        // console.log(response.data.data.caseType)
+        caseType.value = response.data.data.caseType
         generalBoxes.value = response.data.data.generalBoxes
         customizeBoxes.value = response.data.data.customizeBoxes
         cartInfo.value = {
@@ -203,7 +220,7 @@ export const useCartStore = defineStore('cart', () => {
     getGeneralBoxes,
     getCartInfo,
     getIsEndOrder,
-    changeSelectPlan,
+    fetchChangeSelectPlan,
     fetchMemberCartInfo,
     fetchaddGeneralCart,
     fetchMinusGeneralCart,
