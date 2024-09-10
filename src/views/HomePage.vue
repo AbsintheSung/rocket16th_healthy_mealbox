@@ -146,11 +146,11 @@ const handleSelectPlan = async (planNumber: number) => {
               </div>
               <div class="flex items-center justify-between p-3">
                 <button
-                  class="rounded border border-primary-700 px-2 py-1 text-[10px] text-primary-700"
+                  class="rounded border border-primary-700 px-2 py-1 text-[12px] text-primary-700 md:py-2 lg:px-5"
                 >
                   加入購物車
                 </button>
-                <RouterLink to="/" class="flex items-center gap-x-1 text-[10px] text-secondary-700">
+                <RouterLink to="/" class="flex items-center gap-x-1 text-[12px] text-secondary-700">
                   <p>查看更多</p>
                   <FontAwesomeIcon :icon="['fas', 'arrow-right']" size="sm" />
                 </RouterLink>
@@ -198,17 +198,19 @@ const handleSelectPlan = async (planNumber: number) => {
               </div>
             </div>
             <div class="mt-auto flex">
-              <TheSvg svgIcon="rhombus-full" class="h-[80px] w-[60px]" />
-              <TheSvg svgIcon="rhombus" class="h-[80px] w-[60px]" />
-              <TheSvg svgIcon="rhombus-full" class="h-[80px] w-[60px]" />
+              <TheSvg svgIcon="rhombus-dark" class="h-[80px] w-[60px]" />
+              <TheSvg svgIcon="rhombus-full-dark" class="h-[80px] w-[60px]" />
+              <TheSvg svgIcon="rhombus-dark" class="h-[80px] w-[60px]" />
+              <!-- <TheSvg svgIcon="rhombus-full" class="h-[80px] w-[60px]" /> -->
             </div>
           </div>
           <div class="col-span-6">
             <div class="relative grid grid-cols-6 gap-6">
               <div class="absolute hidden lg:flex">
-                <TheSvg svgIcon="rhombus-full" class="h-[80px] w-[60px]" />
-                <TheSvg svgIcon="rhombus" class="h-[80px] w-[60px]" />
-                <TheSvg svgIcon="rhombus-full" class="h-[80px] w-[60px]" />
+                <TheSvg svgIcon="rhombus-dark" class="h-[80px] w-[60px]" />
+                <TheSvg svgIcon="rhombus-full-dark" class="h-[80px] w-[60px]" />
+                <TheSvg svgIcon="rhombus-dark" class="h-[80px] w-[60px]" />
+                <!-- <TheSvg svgIcon="rhombus-full" class="h-[80px] w-[60px]" /> -->
               </div>
               <div class="col-span-5 col-start-2">
                 <img src="../assets/image/測試沙拉2.png" />
@@ -269,9 +271,10 @@ const handleSelectPlan = async (planNumber: number) => {
               <div class="flex flex-col">
                 <img src="../assets//image/測試沙拉3.png" alt="沙拉圖片" class="ms-auto w-1/2" />
                 <div class="mt-auto flex">
-                  <TheSvg svgIcon="rhombus-full" class="h-[40px] w-[30px]" />
-                  <TheSvg svgIcon="rhombus" class="h-[40px] w-[30px]" />
-                  <TheSvg svgIcon="rhombus-full" class="h-[40px] w-[30px]" />
+                  <!-- <TheSvg svgIcon="rhombus-full" class="h-[40px] w-[30px]" /> -->
+                  <TheSvg svgIcon="rhombus-dark" class="h-[40px] w-[30px]" />
+                  <TheSvg svgIcon="rhombus-full-dark" class="h-[40px] w-[30px]" />
+                  <TheSvg svgIcon="rhombus-dark" class="h-[40px] w-[30px]" />
                 </div>
               </div>
             </div>
@@ -293,9 +296,10 @@ const handleSelectPlan = async (planNumber: number) => {
               <div class="flex flex-col gap-y-2">
                 <img src="../assets//image/測試沙拉2.png" alt="沙拉圖片" />
                 <div class="flex">
-                  <TheSvg svgIcon="rhombus-full" class="h-[40px] w-[30px]" />
-                  <TheSvg svgIcon="rhombus" class="h-[40px] w-[30px]" />
-                  <TheSvg svgIcon="rhombus-full" class="h-[40px] w-[30px]" />
+                  <TheSvg svgIcon="rhombus-dark" class="h-[40px] w-[30px]" />
+                  <TheSvg svgIcon="rhombus-full-dark" class="h-[40px] w-[30px]" />
+                  <TheSvg svgIcon="rhombus-dark" class="h-[40px] w-[30px]" />
+                  <!-- <TheSvg svgIcon="rhombus-full" class="h-[40px] w-[30px]" /> -->
                 </div>
                 <div class="col-span-5 col-start-2 flex items-center gap-x-5">
                   <p class="flex h-full flex-col justify-around text-xl">
@@ -378,7 +382,7 @@ const handleSelectPlan = async (planNumber: number) => {
                 </div>
               </div>
               <div>
-                <img class="object-fill" src="../assets/image/步驟3.png" alt="步驟3圖片" />
+                <img class="object-fill" src="../assets/image/步驟2.png" alt="步驟2圖片" />
               </div>
             </div>
           </li>
