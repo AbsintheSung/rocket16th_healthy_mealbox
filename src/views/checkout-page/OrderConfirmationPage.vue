@@ -1,14 +1,19 @@
 <script setup lang="ts">
-import { onMounted, computed } from 'vue'
+import { ref, onMounted, computed } from 'vue'
 import { useRoute, type RouteLocationNormalizedLoadedGeneric } from 'vue-router'
 import { useCartStore } from '@/stores/cart'
 import { useMemberStore } from '@/stores/member'
+import { useAuthStore } from '@/stores/auth'
 import { ElLoading, ElMessage } from 'element-plus'
 
 const route: RouteLocationNormalizedLoadedGeneric = useRoute()
 const memberStore = useMemberStore()
 const cartStore = useCartStore()
+const authStore = useAuthStore()
 console.log('測試獲取資料：', cartStore.getGeneralBoxes)
+
+const isLoading = ref(true)
+const isLoggedIn = computed(() => !!authStore.getUserToken)
 
 // 提示訊息
 const message = (mes: any, mesType: any) => {
@@ -24,13 +29,15 @@ const message = (mes: any, mesType: any) => {
 const generalBoxes = computed(() => cartStore.getGeneralBoxes)
 // 購物車資訊
 const cartInfo = computed(() => cartStore.getCartInfo)
-//餐盒總數
-const totalQuantity = computed(() => cartStore.getMealBoxTotal) 
+// 餐盒總數
+const totalQuantity = computed(() => cartStore.getMealBoxTotal)
 // 加入運費後的值(若免運則+0)
 const totalPrice = computed(() => {
-  const prize = cartInfo.value.prize || 0
-  return cartInfo.value.freightFree ? prize : prize + 100
+    const prize = cartInfo.value.prize || 0
+    return cartInfo.value.freightFree ? prize : prize + 100
 })
+// 確認購物車內是否有商品
+const hasCartItems = computed(() => generalBoxes.value.length > 0)
 
 onMounted(async () => {
     const loading = ElLoading.service({
@@ -38,28 +45,33 @@ onMounted(async () => {
         text: 'Loading'
     })
     try {
-        await Promise.all([
-            memberStore.fetchMemberInfo(),
-            cartStore.fetchMemberCartInfo()
-        ])
+        if (isLoggedIn.value) {
+            await Promise.all([
+                memberStore.fetchMemberInfo(),
+                cartStore.fetchMemberCartInfo()
+            ])
+        }
     } catch (error: any) {
         message(error.message, 'error')
     } finally {
         loading.close()
+        isLoading.value = false
     }
 })
 
 onMounted(async () => {
     await cartStore.fetchMemberCartInfo() //發請求獲取資料後，將一般餐盒所有資料存起來
     console.log('餐盒資料陣列：', cartStore.getGeneralBoxes) //取得存放餐盒的陣列
-    console.log('訂單價格資料：', cartStore.getCartInfo) //取的訂單的價錢
+    console.log('訂單價格資料：', cartStore.getCartInfo) //取得訂單的價錢
 })
 
 </script>
 <template>
     <div class="grid grid-cols-4 md:grid-cols-12 gap-6">
+        <!-- 購物車資訊 -->
         <div class="col-span-4 md:col-span-8">
-            <div class="border-2 border-black">
+            <!-- 有訂單顯示 -->
+            <div v-if="isLoggedIn && hasCartItems" class="border-2 border-black">
                 <div class="flex items-center py-2 border-b border-black bg-primary-300">
                     <font-awesome-icon :icon="['fas', 'cart-shopping']" class="px-3 md:pl-6 pr-2" />
                     <p class="font-bold text-sm md:text-base">購物車</p>
@@ -73,9 +85,9 @@ onMounted(async () => {
                     </div>
                     <!-- 套餐細項 -->
                     <div class="text-sm md:text-base md:pr-6">
-                        <div v-for="item in generalBoxes" :key="item.id"  class="flex justify-between items-center">
-                            <p>{{ item.name }} </p>
-                            <span>NT${{ item.quantity }}</span>
+                        <div v-for="item in generalBoxes" :key="item.id" class="flex justify-between items-center">
+                            <p>{{ item.name }} x{{ item.boxQuantity }}</p>
+                            <span>NT${{ item.price*item.boxQuantity }}</span>
                         </div>
                     </div>
                 </div>
@@ -89,9 +101,24 @@ onMounted(async () => {
                     <p class="text-secondary-500">NT$ {{ cartInfo.prize }} </p>
                 </div>
             </div>
+            <!-- 未登入、無訂單顯示 -->
+            <div v-else class="border-2 border-black">
+                <div class="flex items-center py-2 border-b border-black bg-primary-300">
+                    <font-awesome-icon :icon="['fas', 'cart-shopping']" class="px-3 md:pl-6 pr-2" />
+                    <p class="font-bold text-sm md:text-base">購物車</p>
+                </div>
+                <div class="p-3 border-b border-black md:p-6">
+                    <div class="flex justify-center items-center flex-col">
+                        <TheSvg svgIcon="pac-man-eat" class="mt-auto hidden h-[60px] w-[450px] md:block" />
+                        <h4 class="py-6 text-lg font-bold text-primary-500 md:pt-6">購物車內還沒有商品，快來新增！</h4>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="col-span-4 md:col-start-9 text-base -mt-3">
-            <div class="border-2 border-black px-3 py-9 md:px-6">
+        <!-- 價格總計 -->
+        <div class="col-span-4 md:col-start-9 text-base">
+            <!-- 有訂單顯示 -->
+            <div v-if="isLoggedIn && hasCartItems" class="border-2 border-black px-3 py-9 md:px-6">
                 <div class="flex justify-between pb-6 border-b border-black md:text-xl">
                     <p>商品金額</p>
                     <p>NT$ {{ cartInfo.prize }} </p>
@@ -112,7 +139,12 @@ onMounted(async () => {
                     </RouterLink>
                 </div>
             </div>
+            <!-- 未登入、無訂單顯示 -->
+            <div v-else class="border-2 border-black px-3 py-9 md:px-6">
+                <h4 class="py-6 text-lg font-bold text-primary-500 text-center md:pt-6">購物車內還沒有商品，快來新增！</h4>
+            </div>
         </div>
+        <!-- 繼續購物 -->
         <div class="col-start-1 col-span-2 pt-3 md:pt-12">
             <RouterLink
                 class="flex items-center py-2 px-4 border-2 border-black rounded-sm hover:shadow-base transition active:shadow-none"
