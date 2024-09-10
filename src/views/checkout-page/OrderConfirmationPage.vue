@@ -58,6 +58,7 @@ onMounted(async () => {
 </script>
 <template>
     <div class="grid grid-cols-4 md:grid-cols-12 gap-6">
+        <!-- 購物車資訊 -->
         <div class="col-span-4 md:col-span-8">
             <div class="border-2 border-black">
                 <div class="flex items-center py-2 border-b border-black bg-primary-300">
@@ -90,7 +91,8 @@ onMounted(async () => {
                 </div>
             </div>
         </div>
-        <div class="col-span-4 md:col-start-9 text-base -mt-3">
+        <!-- 價格總計 -->
+        <div class="col-span-4 md:col-start-9 text-base">
             <div class="border-2 border-black px-3 py-9 md:px-6">
                 <div class="flex justify-between pb-6 border-b border-black md:text-xl">
                     <p>商品金額</p>
@@ -113,6 +115,7 @@ onMounted(async () => {
                 </div>
             </div>
         </div>
+        <!-- 繼續購物 -->
         <div class="col-start-1 col-span-2 pt-3 md:pt-12">
             <RouterLink
                 class="flex items-center py-2 px-4 border-2 border-black rounded-sm hover:shadow-base transition active:shadow-none"
