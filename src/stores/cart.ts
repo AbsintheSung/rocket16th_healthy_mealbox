@@ -135,7 +135,6 @@ export const useCartStore = defineStore('cart', () => {
     }
   }
 
-
   //取得會員購物車
   const fetchMemberCartInfo = async () => {
     try {
@@ -214,6 +213,22 @@ export const useCartStore = defineStore('cart', () => {
     }
   }
 
+  //送出購物車
+  const submitOrder = async (orderData: any) => {
+    try {
+      const response = await fetchApi.submitOrder(orderData)
+      if (response.status === 200) {
+        // Clear cart after successful order
+        await fetchMemberCartInfo()
+        return response.data
+      }
+    } catch (error) {
+      console.error('提交訂單時出錯：', error)
+      throw error
+    }
+  }
+
+
   return {
     getCaseType,
     getMealBoxTotal,
@@ -226,6 +241,7 @@ export const useCartStore = defineStore('cart', () => {
     fetchMinusGeneralCart,
     getNutritionistPlans,
     fetchNutritionistPlanById,
-    addNutritionistPlanToCart
+    addNutritionistPlanToCart,
+    submitOrder
   }
 })

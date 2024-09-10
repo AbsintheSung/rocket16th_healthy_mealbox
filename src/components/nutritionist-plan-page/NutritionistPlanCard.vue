@@ -1,5 +1,10 @@
 <script setup>
-defineProps({
+import { useCartStore } from '@/stores/cart'
+import { ElMessage } from 'element-plus'
+
+const cartStore = useCartStore()
+
+const props = defineProps({
   planInfo: {
     type: Object,
     default: () => ({
@@ -14,6 +19,21 @@ defineProps({
     })
   }
 })
+
+const addToCart = async () => {
+  try {
+    const result = await cartStore.addNutritionistPlanToCart(props.planInfo.id)
+    if (result === "success") {
+      ElMessage.success('成功加入購物車')
+    } else if (result === "cartFull") {
+      ElMessage.warning('購物車已滿')
+    }
+  } catch (error) {
+    ElMessage.error('加入購物車失敗')
+  }
+}
+
+
 </script>
 <template>
   <div class="flex flex-col">
@@ -23,13 +43,14 @@ defineProps({
       </div>
       <div class="flex flex-col items-start border-2 border-black rounded-b p-3">
         <RouterLink :to="`/nutritionist-plan/${planInfo.id}`">
-          <h3 class="text-xl">{{ planInfo.nutritionistName }}營養師推薦 <span class="text-xl text-primary-600">{{ planInfo.caseName }}</span></h3>
+          <h3 class="text-xl">{{ planInfo.nutritionistName }}營養師推薦 <span class="text-xl text-primary-600">{{
+            planInfo.caseName }}</span></h3>
         </RouterLink>
         <div class="py-2">
           <p class="text-sm text-gray-400">{{ planInfo.caseDescription }}</p>
         </div>
         <div class="pr-4">
-          <button
+          <button @click="addToCart"
             class="py-1 px-4 border-2 border-secondary-900 rounded hover:border-2 hover:bg-secondary-400 hover:border-black hover:shadow-base hover:transition active:shadow-none">
             <p class="text-secondary-900 hover:text-black">加入購物車</p>
           </button>
