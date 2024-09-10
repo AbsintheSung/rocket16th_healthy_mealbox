@@ -71,7 +71,7 @@ export const useCartStore = defineStore('cart', () => {
       return 1
     }
   }
-  //內部調用，取得購物車內數量，若商品不存在購物車 數量為1
+  //內部調用，取得購物車內數量，若商品不存在購物車，不做任何事，存在的話，商品數量-1
   const minusMealBoxQuantity = (id: Number) => {
     //@ts-ignore
     const isExit = generalBoxes.value.some((item) => item.id === id)
