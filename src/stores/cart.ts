@@ -56,10 +56,13 @@ export const useCartStore = defineStore('cart', () => {
     }
   }
 
-  //取的購物車 價格資訊
+  //取得購物車 價格資訊
   const getCartInfo = computed(() => {
     return { ...cartInfo.value }
   })
+
+  // 檢查購物車是否已滿(待討論)
+  const isCartFull = computed(() => getMealBoxTotal.value >= getCaseType.value)
 
 
   /* Action */
@@ -106,7 +109,7 @@ export const useCartStore = defineStore('cart', () => {
 
   // 將營養師方案加入購物車
   const addNutritionistPlanToCart = async (planId: any) => {
-    if (getMealBoxTotal.value === getCaseType.value) {
+    if (isCartFull.value) {
       console.log('購物車已滿')
       return "cartFull"
     }
@@ -117,24 +120,25 @@ export const useCartStore = defineStore('cart', () => {
       const boxesData = await Promise.all(boxPromises)
 
       for (const boxData of boxesData) {
-        if (boxData.status === 200) {
+        if (boxData.status === 200 && !isCartFull.value) {
           const mealData = {
             boxType: 'general',
             boxId: boxData.data.data.id,
             boxQuantity: 1
           }
           await fetchApi.updateCart(mealData)
+          await fetchMemberCartInfo() // 更新購物車狀態
+        } else if (isCartFull.value) {
+          break // 如果購物車已滿，停止添加
         }
       }
 
-      await fetchMemberCartInfo()
-      return "success"
+      return isCartFull.value ? "partiallyAdded" : "success"
     } catch (error) {
       console.error('將營養師方案加入購物車時出錯：', error)
       throw error
     }
   }
-
 
   //取得會員購物車
   const fetchMemberCartInfo = async () => {
@@ -214,6 +218,39 @@ export const useCartStore = defineStore('cart', () => {
     }
   }
 
+  //送出購物車
+  const submitOrder = async (orderData: any) => {
+    try {
+      const response = await fetchApi.submitOrder(orderData)
+      if (response.status === 200) {
+        // Clear cart after successful order
+        await fetchMemberCartInfo()
+        return response.data
+      }
+    } catch (error) {
+      console.error('提交訂單時出錯：', error)
+      throw error
+    }
+  }
+
+  //清空購物車
+  const cleanCart = async () => {
+    try {
+      const response = await fetchApi.cleanCart()
+      if (response.status === 200) {
+        generalBoxes.value = []
+        customizeBoxes.value = []
+        cartInfo.value = {}
+        await fetchMemberCartInfo()
+        return "success"
+      }
+    } catch (error) {
+      console.error('清空購物車時出錯：', error)
+      throw error
+    }
+  }
+
+
   return {
     getCaseType,
     getMealBoxTotal,
@@ -226,6 +263,8 @@ export const useCartStore = defineStore('cart', () => {
     fetchMinusGeneralCart,
     getNutritionistPlans,
     fetchNutritionistPlanById,
-    addNutritionistPlanToCart
+    addNutritionistPlanToCart,
+    submitOrder,
+    cleanCart
   }
 })

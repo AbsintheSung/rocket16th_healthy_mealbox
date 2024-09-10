@@ -4,7 +4,7 @@ import { useRoute, type RouteLocationNormalizedLoadedGeneric } from 'vue-router'
 import { useCartStore } from '@/stores/cart'
 import { useMemberStore } from '@/stores/member'
 import { useAuthStore } from '@/stores/auth'
-import { ElLoading, ElMessage } from 'element-plus'
+import { ElLoading, ElMessage, ElMessageBox } from 'element-plus'
 
 const route: RouteLocationNormalizedLoadedGeneric = useRoute()
 const memberStore = useMemberStore()
@@ -38,6 +38,30 @@ const totalPrice = computed(() => {
 })
 // 確認購物車內是否有商品
 const hasCartItems = computed(() => generalBoxes.value.length > 0)
+// 清空購物車-***訊息樣式跑不出來
+const handleClearCart = async () => {
+    try {
+        await ElMessageBox.confirm(
+            '確定要清空購物車嗎？',
+            '警告',
+            {
+                confirmButtonText: '確定',
+                cancelButtonText: '取消',
+                type: 'warning',
+            }
+        )
+        const result = await cartStore.cleanCart()
+        if (result === "success") {
+            ElMessage.success('購物車已清空')
+            await cartStore.fetchMemberCartInfo()
+        }
+    } catch (error) {
+        console.error('Error in handleClearCart:', error);
+        if (error !== 'cancel') {
+            ElMessage.error('清空購物車失敗')
+        }
+    }
+}
 
 onMounted(async () => {
     const loading = ElLoading.service({
@@ -79,7 +103,7 @@ onMounted(async () => {
                 <div class="p-3 border-b border-black md:p-6">
                     <div class="flex justify-between items-center pb-3 sm:pb-6">
                         <h3 class="text-sm text-primary-600 md:text-2xl">訂餐計畫 {{ totalQuantity }} 餐</h3>
-                        <button class="text-black hover:text-secondary-400 transition">
+                        <button plain @click="handleClearCart" class="text-black hover:text-secondary-400 transition">
                             <font-awesome-icon :icon="['fas', 'trash']" />
                         </button>
                     </div>
@@ -87,7 +111,7 @@ onMounted(async () => {
                     <div class="text-sm md:text-base md:pr-6">
                         <div v-for="item in generalBoxes" :key="item.id" class="flex justify-between items-center">
                             <p>{{ item.name }} x{{ item.boxQuantity }}</p>
-                            <span>NT${{ item.price*item.boxQuantity }}</span>
+                            <span>NT${{ item.price * item.boxQuantity }}</span>
                         </div>
                     </div>
                 </div>
