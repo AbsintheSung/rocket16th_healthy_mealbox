@@ -29,7 +29,7 @@ const options = ref<Option>([
           ? 'text-2xl font-bold text-white transition-all md:text-4xl'
           : 'text-2xl font-bold text-primary-700 md:text-4xl'
       ]"
-      @click="cartStore.changeSelectPlan(option.value)"
+      @click="cartStore.fetchChangeSelectPlan(option.value)"
     >
       {{ option.label }}
     </button>
