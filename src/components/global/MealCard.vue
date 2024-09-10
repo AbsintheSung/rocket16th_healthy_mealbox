@@ -35,15 +35,15 @@ const props = defineProps({
     <div class="mt-auto flex gap-x-3">
       <button
         @click="minusData(mealInfo.id)"
-        class="flex flex-grow items-center justify-center gap-x-2 rounded border border-black py-2"
+        class="hidden flex-grow items-center justify-center gap-x-2 rounded border border-black py-2 md:flex"
       >
         <FontAwesomeIcon :icon="['fas', 'minus']" />刪除
       </button>
       <button
         @click="addData(mealInfo.id)"
-        class="flex flex-grow items-center justify-center gap-x-2 rounded border border-black bg-primary-base py-2"
+        class="flex flex-grow items-center justify-center gap-x-2 rounded border border-primary-700 py-2 text-primary-700"
       >
-        <FontAwesomeIcon :icon="['fas', 'plus']" />加入
+        <FontAwesomeIcon :icon="['fas', 'plus']" class="text-primary-700" />加入
       </button>
     </div>
   </li>
