@@ -146,11 +146,11 @@ const handleSelectPlan = async (planNumber: number) => {
               </div>
               <div class="flex items-center justify-between p-3">
                 <button
-                  class="rounded border border-primary-700 px-2 py-1 text-[10px] text-primary-700"
+                  class="rounded border border-primary-700 px-2 py-1 text-[12px] text-primary-700 md:py-2 lg:px-5"
                 >
                   加入購物車
                 </button>
-                <RouterLink to="/" class="flex items-center gap-x-1 text-[10px] text-secondary-700">
+                <RouterLink to="/" class="flex items-center gap-x-1 text-[12px] text-secondary-700">
                   <p>查看更多</p>
                   <FontAwesomeIcon :icon="['fas', 'arrow-right']" size="sm" />
                 </RouterLink>
