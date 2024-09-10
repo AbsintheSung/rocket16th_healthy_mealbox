@@ -86,8 +86,8 @@ onMounted(async () => {
                     <!-- 套餐細項 -->
                     <div class="text-sm md:text-base md:pr-6">
                         <div v-for="item in generalBoxes" :key="item.id" class="flex justify-between items-center">
-                            <p>{{ item.name }} </p>
-                            <span>NT${{ item.quantity }}</span>
+                            <p>{{ item.name }} x{{ item.boxQuantity }}</p>
+                            <span>NT${{ item.price*item.boxQuantity }}</span>
                         </div>
                     </div>
                 </div>
