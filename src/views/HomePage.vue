@@ -3,6 +3,23 @@ import TheSvg from '@/components/global/TheSvg.vue'
 import TheNewsTicker from '@/components/global/TheNewsTicker.vue'
 import ThePlaidAdorn from '@/components/global/ThePlaidAdorn.vue'
 import TheContact from '@/components/global/TheContact.vue'
+import { useCartStore } from '@/stores/cart'
+const cartStore = useCartStore()
+const message = (mes: any, mesType: any): void => {
+  //@ts-ignore
+  ElMessage({
+    message: mes,
+    type: mesType,
+    duration: 1500
+  })
+}
+const handleSelectPlan = async (planNumber: number) => {
+  try {
+    await cartStore.fetchChangeSelectPlan(planNumber)
+  } catch (error: any) {
+    message(error.message, 'error')
+  }
+}
 // import { watch, computed } from 'vue'
 // import { Swiper, SwiperSlide } from 'swiper/vue'
 // import { Mousewheel, Pagination } from 'swiper/modules'
@@ -420,7 +437,12 @@ import TheContact from '@/components/global/TheContact.vue'
               <span>總價700元起</span>
             </div>
             <div class="flex items-center justify-center pb-9">
-              <button class="rounded border border-secondary-950 px-14 py-1">選擇方案</button>
+              <button
+                class="rounded border border-secondary-950 px-14 py-1"
+                @click="handleSelectPlan(7)"
+              >
+                選擇方案
+              </button>
             </div>
           </li>
           <li class="rounded border-2 border-black bg-white">
@@ -431,7 +453,12 @@ import TheContact from '@/components/global/TheContact.vue'
               <span>總價700元起</span>
             </div>
             <div class="flex items-center justify-center pb-9">
-              <button class="rounded border border-secondary-950 px-14 py-1">選擇方案</button>
+              <button
+                class="rounded border border-secondary-950 px-14 py-1"
+                @click="handleSelectPlan(14)"
+              >
+                選擇方案
+              </button>
             </div>
           </li>
           <li class="rounded border-2 border-black bg-white">
@@ -442,7 +469,12 @@ import TheContact from '@/components/global/TheContact.vue'
               <span>總價700元起</span>
             </div>
             <div class="flex items-center justify-center pb-9">
-              <button class="rounded border border-secondary-950 px-14 py-1">選擇方案</button>
+              <button
+                class="rounded border border-secondary-950 px-14 py-1"
+                @click="handleSelectPlan(21)"
+              >
+                選擇方案
+              </button>
             </div>
           </li>
         </ul>

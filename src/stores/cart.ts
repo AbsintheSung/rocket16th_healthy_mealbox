@@ -42,7 +42,7 @@ export const useCartStore = defineStore('cart', () => {
   /* Action */
 
   //修改caseType調用此function
-  const changeSelectPlan = async (planDay: number) => {
+  const fetchChangeSelectPlan = async (planDay: number) => {
     try {
       const caseTypeData = { caseType: planDay }
       const response = await fetchApi.updateCaseType(caseTypeData)
@@ -55,10 +55,10 @@ export const useCartStore = defineStore('cart', () => {
         expirationDate: response.data.data.expirationDate,
       }
       // console.log(response)
-    } catch (error) {
-      console.log(error)
+    } catch (error: any) {
+      throw error.response.data
+      // console.log(error.response.data)
     }
-    // caseType.value = planDay
   }
 
   //內部調用，取得購物車內數量，若商品不存在購物車 數量為1
@@ -165,7 +165,7 @@ export const useCartStore = defineStore('cart', () => {
     getGeneralBoxes,
     getCartInfo,
     getIsEndOrder,
-    changeSelectPlan,
+    fetchChangeSelectPlan,
     fetchMemberCartInfo,
     fetchaddGeneralCart,
     fetchMinusGeneralCart
