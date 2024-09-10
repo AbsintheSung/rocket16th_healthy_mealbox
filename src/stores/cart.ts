@@ -1,11 +1,12 @@
 import { defineStore } from 'pinia'
 import { fetchApi } from '@/utils/api/apiUrl'
 import { ref, computed } from 'vue'
-import type { CartGeneralMealBoxes, CartInfo } from '@/types/type'
+import type { CartGeneralMealBoxes, CartInfo, NutritionistPlan } from '@/types/type'
 
 export const useCartStore = defineStore('cart', () => {
   /* States */
   const caseType = ref<number>(0) //caseType的原始資料
+  const nutritionistPlan = ref<NutritionistPlan[]>([]) //存放獲取後的營養師餐盒
   const generalBoxes = ref<CartGeneralMealBoxes[]>([]) //存放獲取後的一般餐盒
   const customizeBoxes = ref([]) //存放獲取後的自定義餐盒
   const cartInfo = ref<Partial<CartInfo>>({}); //存放購物車 價錢 優惠資訊
@@ -34,10 +35,32 @@ export const useCartStore = defineStore('cart', () => {
     }));
   })
 
+  //取得全部營養師方案資訊，透過computed + 深拷貝
+  const getNutritionistPlans = computed(() => {
+    return nutritionistPlan.value.map(plan => ({
+      ...plan,
+      boxes: [...plan.boxes] // 深拷貝 boxes陣列
+    }));
+  })
+
+  //取得單獨營養師方案資訊
+  const fetchNutritionistPlanById = async (id: number) => {
+    try {
+      const response = await fetchApi.getNutritionistPlanOne(id)
+      if (response.status === 200) {
+        return response.data.data
+      }
+    } catch (error) {
+      console.error('獲取營養師方案詳情時出錯：', error)
+      throw error
+    }
+  }
+
   //取的購物車 價格資訊
   const getCartInfo = computed(() => {
     return { ...cartInfo.value }
   })
+
 
   /* Action */
 
@@ -80,6 +103,38 @@ export const useCartStore = defineStore('cart', () => {
       return mealData[0].boxQuantity - 1
     }
   }
+
+  // 將營養師方案加入購物車
+  const addNutritionistPlanToCart = async (planId: any) => {
+    if (getMealBoxTotal.value === getCaseType.value) {
+      console.log('購物車已滿')
+      return "cartFull"
+    }
+
+    try {
+      const plan = await fetchNutritionistPlanById(planId)
+      const boxPromises = plan.boxes.map((boxId: any) => fetchApi.getGeneralmealOne(boxId))
+      const boxesData = await Promise.all(boxPromises)
+
+      for (const boxData of boxesData) {
+        if (boxData.status === 200) {
+          const mealData = {
+            boxType: 'general',
+            boxId: boxData.data.data.id,
+            boxQuantity: 1
+          }
+          await fetchApi.updateCart(mealData)
+        }
+      }
+
+      await fetchMemberCartInfo()
+      return "success"
+    } catch (error) {
+      console.error('將營養師方案加入購物車時出錯：', error)
+      throw error
+    }
+  }
+
 
   //取得會員購物車
   const fetchMemberCartInfo = async () => {
@@ -168,6 +223,9 @@ export const useCartStore = defineStore('cart', () => {
     fetchChangeSelectPlan,
     fetchMemberCartInfo,
     fetchaddGeneralCart,
-    fetchMinusGeneralCart
+    fetchMinusGeneralCart,
+    getNutritionistPlans,
+    fetchNutritionistPlanById,
+    addNutritionistPlanToCart
   }
 })

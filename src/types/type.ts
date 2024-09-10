@@ -21,6 +21,19 @@ export type GeneralBoxes = {
   createTime: string; // 建立時間 (ISO 日期格式)
 }
 
+//營養師方案 資料型別
+export type NutritionistPlan = {
+  id: number
+  nutritionistName: string
+  nutritionistImg: string
+  nutritionistSeniority: string
+  caseType: number
+  caseName: string
+  caseThumbnail: string
+  caseDescription: string
+  boxes: number[]
+}
+
 //單一餐盒 資料型別
 export type OneGeneralBox = {
   id: number;
