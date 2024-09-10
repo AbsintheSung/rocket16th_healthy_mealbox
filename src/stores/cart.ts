@@ -233,6 +233,23 @@ export const useCartStore = defineStore('cart', () => {
     }
   }
 
+  //清空購物車
+  const cleanCart = async () => {
+    try {
+      const response = await fetchApi.cleanCart()
+      if (response.status === 200) {
+        generalBoxes.value = []
+        customizeBoxes.value = []
+        cartInfo.value = {}
+        await fetchMemberCartInfo()
+        return "success"
+      }
+    } catch (error) {
+      console.error('清空購物車時出錯：', error)
+      throw error
+    }
+  }
+
 
   return {
     getCaseType,
@@ -247,6 +264,7 @@ export const useCartStore = defineStore('cart', () => {
     getNutritionistPlans,
     fetchNutritionistPlanById,
     addNutritionistPlanToCart,
-    submitOrder
+    submitOrder,
+    cleanCart
   }
 })
