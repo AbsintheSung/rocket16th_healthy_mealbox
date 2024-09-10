@@ -3,17 +3,20 @@ import { ref, computed, onMounted, watch } from 'vue'
 import { useRoute } from 'vue-router'
 import { useNutritionistPlanStore } from '@/stores/nutritionistPlan'
 import { useGeneralMealBoxStore } from '@/stores/generalmealbox'
+import { useCartStore } from '@/stores/cart'
 import NutritionistPlanDetailInfo from '@/components/nutritionist-plan-detail-page/NutritionistPlanDetailInfo.vue'
 import NutritionistPlanDetailCard from '@/components/nutritionist-plan-detail-page/NutritionistPlanDetailCard.vue'
 
+import { ElMessage, ElLoading } from 'element-plus'
+
+
 const route = useRoute()
+const cartStore = useCartStore()
 const nutritionistPlanStore = useNutritionistPlanStore()
 const onePlanData = computed(() => nutritionistPlanStore.getOneNutritionistPlan)
-console.log(onePlanData)
 
 const generalMealBoxStore = useGeneralMealBoxStore()
 const mealBoxesData = ref([])
-
 
 // 分割學歷回傳資料
 const formattedOnePlanData = computed(() => {
@@ -49,6 +52,29 @@ const fetchMealBoxesDetails = async () => {
   }
 }
 
+//新增至購物車
+const addToCart = async () => {
+  const loading = ElLoading.service({
+    lock: true,
+    text: '加入購物車中...',
+  })
+  try {
+    const planId = Number(route.params.id)
+    const result = await cartStore.addNutritionistPlanToCart(planId)
+    if (result === "success") {
+      ElMessage.success('成功加入購物車')
+    } else if (result === "cartFull") {
+      ElMessage.warning('購物車已滿')
+    }
+  } catch (error) {
+    console.error('加入購物車失敗:', error)
+    ElMessage.error('加入購物車失敗，請稍後再試')
+  } finally {
+    loading.close()
+  }
+}
+
+
 onMounted(async () => {
   await nutritionistPlanStore.fetchOneNutritionistPlan(route.params.id)
   await fetchMealBoxesDetails()
@@ -67,7 +93,7 @@ watch(onePlanData, async (newValue) => {
     <NutritionistPlanDetailInfo :onePlanInfo="formattedOnePlanData" />
     <NutritionistPlanDetailCard :onePlanInfo="formattedOnePlanData" :mealBoxesData="mealBoxesData" />
     <div class="text-center pt-12">
-      <button
+      <button @click="addToCart"
         class="bg-secondary-base border-2 border-black rounded px-3 py-4 hover:shadow-base transition active:shadow-none">
         <p>將此方案加入購物車</p>
       </button>
