@@ -378,7 +378,7 @@ const handleSelectPlan = async (planNumber: number) => {
                 </div>
               </div>
               <div>
-                <img class="object-fill" src="../assets/image/步驟3.png" alt="步驟3圖片" />
+                <img class="object-fill" src="../assets/image/步驟2.png" alt="步驟2圖片" />
               </div>
             </div>
           </li>
