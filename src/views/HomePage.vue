@@ -4,7 +4,9 @@ import TheNewsTicker from '@/components/global/TheNewsTicker.vue'
 import ThePlaidAdorn from '@/components/global/ThePlaidAdorn.vue'
 import TheContact from '@/components/global/TheContact.vue'
 import { useCartStore } from '@/stores/cart'
+import { useRouter, type Router } from 'vue-router'
 const cartStore = useCartStore()
+const router: Router = useRouter()
 const message = (mes: any, mesType: any): void => {
   //@ts-ignore
   ElMessage({
@@ -16,6 +18,7 @@ const message = (mes: any, mesType: any): void => {
 const handleSelectPlan = async (planNumber: number) => {
   try {
     await cartStore.fetchChangeSelectPlan(planNumber)
+    router.push('/mealboxlist')
   } catch (error: any) {
     message(error.message, 'error')
   }
