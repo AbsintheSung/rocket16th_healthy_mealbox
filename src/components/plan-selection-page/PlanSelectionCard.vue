@@ -1,4 +1,13 @@
 <script setup>
+const emit = defineEmits(['select-nutritionist-plan', 'select-custom-plan'])
+
+const selectNutritionistPlan = () => {
+    emit('select-nutritionist-plan', '/nutritionist-plan')
+}
+
+const selectCustomPlan = () => {
+    emit('select-custom-plan', '/mealboxlist')
+}
 </script>
 <template>
     <!-- 方案選擇區塊 -->
@@ -56,11 +65,10 @@
                     </ul>
                 </div>
                 <div class="flex justify-center items-center">
-                    <RouterLink
-                        class="text-center py-5 px-24 border-2 border-secondary-900 text-secondary-900 bg-white rounded hover:border-2 hover:bg-secondary-400 hover:text-black hover:border-black hover:shadow-base hover:transition active:shadow-none lg:px-28"
-                        to="/nutritionist-plan">
+                    <button @click="selectNutritionistPlan"
+                        class="text-center py-5 px-24 border-2 border-secondary-900 text-secondary-900 bg-white rounded hover:border-2 hover:bg-secondary-400 hover:text-black hover:border-black hover:shadow-base hover:transition active:shadow-none lg:px-28">
                         <p>直接訂購</p>
-                    </RouterLink>
+                    </button>
                 </div>
             </div>
         </section>
@@ -116,11 +124,10 @@
                     </ul>
                 </div>
                 <div class="flex justify-center items-center">
-                    <RouterLink
-                        class="text-center py-5 px-24 border-2 border-secondary-900 text-secondary-900 bg-white rounded hover:border-2 hover:bg-secondary-400 hover:text-black hover:border-black hover:shadow-base hover:transition active:shadow-none lg:px-28"
-                        to="/mealboxlist">
+                    <button @click="selectCustomPlan"
+                        class="text-center py-5 px-24 border-2 border-secondary-900 text-secondary-900 bg-white rounded hover:border-2 hover:bg-secondary-400 hover:text-black hover:border-black hover:shadow-base hover:transition active:shadow-none lg:px-28">
                         <p>直接訂購</p>
-                    </RouterLink>
+                    </button>
                 </div>
             </div>
 
