@@ -5,6 +5,8 @@ import { useCartStore } from '@/stores/cart'
 import { useMemberStore } from '@/stores/member'
 import { useAuthStore } from '@/stores/auth'
 import { ElLoading, ElMessage, ElMessageBox } from 'element-plus'
+import 'element-plus/theme-chalk/src/message-box.scss'
+import 'element-plus/theme-chalk/src/button.scss'
 
 const route: RouteLocationNormalizedLoadedGeneric = useRoute()
 const memberStore = useMemberStore()
