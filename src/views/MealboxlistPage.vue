@@ -95,7 +95,7 @@ onMounted(async () => {
           </RouterLink>
           <p
             v-else
-            class="col-span-2 col-start-3 rounded border-2 border-black bg-secondary-base py-3 text-center sm:col-span-5 sm:col-start-7 md:col-span-4 lg:col-span-3"
+            class="col-span-2 col-start-3 rounded bg-secondary-200 py-3 text-center sm:col-span-5 sm:col-start-7 md:col-span-4 lg:col-span-3"
           >
             已選擇{{ cartStore.getMealBoxTotal }} / {{ cartStore.getCaseType }}餐
           </p>
