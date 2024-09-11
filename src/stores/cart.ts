@@ -157,6 +157,7 @@ export const useCartStore = defineStore('cart', () => {
       }
     } catch (error) {
       console.log(error)
+      throw error
     }
   }
 
