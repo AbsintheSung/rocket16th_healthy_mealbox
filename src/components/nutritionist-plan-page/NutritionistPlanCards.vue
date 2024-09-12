@@ -1,19 +1,16 @@
 <script setup>
-import { onMounted, watch } from 'vue'
+import { watch } from 'vue'
 import { useNutritionistPlanStore } from '@/stores/nutritionistPlan'
 import NutritionistPlanCard from '@/components/nutritionist-plan-page/NutritionistPlanCard.vue'
 import ThePagination from '@/components/global/ThePagination.vue'
 
 const nutritionistPlanStore = useNutritionistPlanStore()
 
-onMounted(async () => {
-    await nutritionistPlanStore.fetchNutritionistPlans()
-})
-
 // 監聽頁碼變化
 watch(() => nutritionistPlanStore.currentPage, (newPage) => {
   nutritionistPlanStore.changePage(newPage)
 })
+
 </script>
 <template>
     <div class="grid grid-cols-1 gap-6 md:grid-cols-3">

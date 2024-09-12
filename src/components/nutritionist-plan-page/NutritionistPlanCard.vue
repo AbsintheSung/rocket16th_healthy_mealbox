@@ -25,18 +25,13 @@ const isCartFull = computed(() => cartStore.isCartFull)
 
 const addToCart = async () => {
   try {
-    if (isCartFull.value) {
-      ElMessage.warning('購物車已滿')
-      return
-    }
-
     const result = await cartStore.addNutritionistPlanToCart(props.planInfo.id)
     if (result === "success") {
-      ElMessage.success('成功加入購物車')
+      ElMessage.success('成功將所有餐盒加入購物車')
     } else if (result === "partiallyAdded") {
-      ElMessage.warning('部分商品已加入購物車，購物車已滿')
+      ElMessage.warning('部分餐盒已加入購物車，購物車已滿')
     } else if (result === "cartFull") {
-      ElMessage.warning('購物車已滿')
+      ElMessage.warning('購物車已滿，無法加入更多餐盒')
     }
   } catch (error) {
     ElMessage.error('加入購物車失敗')
