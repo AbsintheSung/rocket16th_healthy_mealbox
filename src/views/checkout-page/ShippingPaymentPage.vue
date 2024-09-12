@@ -46,7 +46,7 @@ const onSubmit = () => {
                             <td class="pl-3 py-2 flex items-center md:pl-6">
                                 <img src="https://s3-alpha-sig.figma.com/img/3ffe/1ae1/ff73ee555e48ab420b00cc78f9722622?Expires=1725235200&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=Q4yB2ANCERzoSS80kOtg8EvynMBd~UPG4Kn70FGLns3OIx2YY-Nxnu5xOAe0gWf3foJq2mY7gF5-vBloNB~4XN7xvf4Fe-cIckhoZqLBvZ58ZaQf4iDo703fqrfIAJKWFzjDJ0DrP5t~hJmJ6whQ5mmIPvHO733JmerrELU21aQaPkWwHB6O56~1kvfV~vcH1V8ke1MlhG-I3GXqGFMBuSzZz57TwxWNGidxidTtZDdGC4NPPYQwSTxcW8DpXoA3co2Hj8inptO13oE2Z77thqiFzISTnAyYwvB1siSNN5HUfgMdsBYRUbyp6qRo72dP8KxkQPHhO5gx0P0DcW-ssQ__"
                                     alt="" class="hidden md:block w-[88px]">
-                                <p class="md:pl-2">訂餐計畫 14餐</p>
+                                <p class="md:pl-2">訂餐計畫 {{ totalQuantity }} 餐</p>
                             </td>
                             <td class="pl-6 md:pl-0">免運</td>
                             <td>NT$1460</td>
