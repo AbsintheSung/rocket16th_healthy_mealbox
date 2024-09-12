@@ -2,7 +2,7 @@
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { useCartStore } from '@/stores/cart'
-import { ElMessage } from 'element-plus'
+import { ElMessage, ElLoading } from 'element-plus'
 import PlanSelectionCard from '@/components/plan-selection-page/PlanSelectionCard.vue'
 
 const router = useRouter()
@@ -10,33 +10,32 @@ const cartStore = useCartStore()
 const isLoggedIn = ref(false)
 
 const handlePlanSelection = async (route) => {
-    isLoggedIn.value = false // 初始化為 false
+    isLoggedIn.value = false
     try {
+        //成功獲取購物車資料 = 已登入，直接轉跳
         await cartStore.fetchMemberCartInfo()
         isLoggedIn.value = true
-
-        ElMessage({
-            message: '驗證成功，正在跳轉...',
-            type: 'success',
-            duration: 1500
-        })
-
-        setTimeout(() => {
-            router.push(route)
-        }, 1500)
+        router.push(route)
     } catch (error) {
         console.error('獲取購物車資料時發生錯誤:', error)
         isLoggedIn.value = false
-
         if (error.response && error.response.status === 401) {
             ElMessage({
                 message: '請先登入會員',
                 type: 'warning',
-                duration: 2000
+                duration: 3000
             })
             setTimeout(() => {
+                const loading = ElLoading.service({
+                    lock: true,
+                    text: '正在跳轉至登入頁面...',
+                })
+                loading.close()
+            }, 3000)
+
+            setTimeout(() => {
                 router.push('/signin')
-            }, 2000)
+            }, 3500)
         } else {
             console.log('發生其他錯誤:', error.message)
             ElMessage({
