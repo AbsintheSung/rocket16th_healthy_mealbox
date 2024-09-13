@@ -67,7 +67,7 @@ getTwCityArea()
             <div class="bg-primary-300 border-2 border-black">
                 <p class="px-6 py-2 font-bold">顧客資料</p>
             </div>
-            <div class="border-2 border-black px-6 py-4">
+            <div class="border-2 border-black px-6 py-9 ">
                 <el-form :model="form" label-width="auto" style="max-width: 100%">
                     <el-form-item label="顧客姓名" label-position="top">
                         <el-input v-model="form.name" placeholder="林飯糰" />
@@ -81,19 +81,14 @@ getTwCityArea()
                 </el-form>
             </div>
             <!-- 付款資料 -->
-            <div class="col-span-6 absolute w-full pt-6">
+            <div class="col-span-6 absolute w-full pt-8">
                 <div class="bg-primary-300 border-2 border-black">
                     <p class="px-6 py-2 font-bold">付款資料</p>
                 </div>
-                <div class="border-2 border-black px-6 py-4">
-                    <p>已選擇的付款方式: 信用卡付款</p>
-                    <p class="text-sm text-gray-400">請選擇你需要使用的支付卡</p>
-                    <div class="bg-secondary-base mt-4 p-4">
-                        信用卡付款資訊(待補)
-                    </div>
-                    <div class="bg-primary-400 p-4">
-                        信用卡付款資訊(待補)
-                    </div>
+                <div class="border-2 border-black px-6 py-12">
+                    <p>已選擇的付款方式: </p>
+                    <p class="text-2xl">LINE PAY</p>
+                    <!-- <p class="text-2xl">超商取付</p> -->
                 </div>
             </div>
         </div>
@@ -175,6 +170,10 @@ getTwCityArea()
 :deep(.el-form-item__label) {
     color: black;
     font-size: 16px;
+}
+
+:deep(.el-form-item){
+    margin-bottom: 24px;
 }
 
 :deep(.el-select__wrapper) {
