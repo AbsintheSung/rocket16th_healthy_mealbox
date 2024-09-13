@@ -21,7 +21,7 @@ const isLoggedIn = ref(false)
 //     })
 // }
 
-// 身分驗證
+// 身分驗證 - 因為取得購物車資料需要登入，無法取得則判斷為未登入
 const authenticate = async () => {
     isLoading.value = true
     try {

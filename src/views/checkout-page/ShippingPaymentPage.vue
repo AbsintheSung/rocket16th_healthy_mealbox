@@ -5,6 +5,9 @@ import ShoppingCartProgressBar from '@/components/global/ShoppingCartProgressBar
 
 const cartStore = useCartStore()
 
+//餐盒數量
+const generalBoxes = computed(() => cartStore.getGeneralBoxes)
+
 //購物車狀態列函式
 const steps = ref(['購物車', '填寫資料', '訂單確認'])
 const activeStep = ref(1)
@@ -18,6 +21,34 @@ const totalPrice = computed(() => {
     const prize = cartInfo.value.prize || 0
     return cartInfo.value.freightFree ? prize : prize + 100
 })
+
+// 確認購物車內是否有商品
+const hasCartItems = computed(() => generalBoxes.value.length > 0)
+
+// 清空購物車
+const handleClearCart = async () => {
+    try {
+        await ElMessageBox.confirm(
+            '確定要清空購物車嗎？',
+            '警告',
+            {
+                confirmButtonText: '確定',
+                cancelButtonText: '取消',
+                type: 'warning',
+            }
+        )
+        const result = await cartStore.cleanCart()
+        if (result === "success") {
+            ElMessage.success('購物車已清空')
+            await cartStore.fetchMemberCartInfo()
+        }
+    } catch (error) {
+        console.error('清空購物車時發生錯誤:', error);
+        if (error !== 'cancel') {
+            ElMessage.error('清空購物車失敗')
+        }
+    }
+}
 
 //表單資料
 const form = reactive({
@@ -39,7 +70,7 @@ const onSubmit = () => {
         </div>
         <!-- 購物車與優惠預覽 -->
         <div class="col-span-4 text-sm md:col-span-12 md:text-base">
-            <div class="border-2 border-black">
+            <div v-if="hasCartItems" class="border-2 border-black">
                 <div class="bg-primary-300 border-b-2 py-2 pl-3 border-black md:py-2 md:pl-6">
                     <p class="font-bold">購物車</p>
                 </div>
@@ -64,7 +95,8 @@ const onSubmit = () => {
                             <td>1</td>
                             <td>NT${{ cartInfo.prize }}</td>
                             <td>
-                                <button class="text-black hover:text-secondary-400 transition">
+                                <button plain @click="handleClearCart"
+                                    class="text-black hover:text-secondary-400 transition">
                                     <font-awesome-icon :icon="['fas', 'xmark']" class="text-sm md:text-2xl" />
                                 </button>
                             </td>
@@ -75,6 +107,17 @@ const onSubmit = () => {
                     <div class="flex items-center">
                         <p class="bg-primary-200 px-2 py-1 mr-1 border border-black">已享用之優惠</p>
                         <p>{{ cartInfo.freightFree ? '全店商品滿1000免運' : '無' }}</p>
+                    </div>
+                </div>
+            </div>
+            <div v-else class="border-2 border-black">
+                <div class="bg-primary-300 border-b-2 py-2 pl-3 border-black md:py-2 md:pl-6">
+                    <p class="font-bold">購物車</p>
+                </div>
+                <div class="p-3 border-b border-black md:p-6">
+                    <div class="flex justify-center items-center flex-col">
+                        <TheSvg svgIcon="pac-man-eat" class="mt-auto hidden h-[60px] w-[450px] md:block" />
+                        <h4 class="py-6 text-lg font-bold text-primary-500 md:pt-6">購物車內還沒有商品，快來新增！</h4>
                     </div>
                 </div>
             </div>
