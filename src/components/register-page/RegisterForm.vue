@@ -52,7 +52,7 @@ const registerRules = ref({
     }
   ],
   password: [
-    { min: 6, max: 30, message: '長度介於6到30之間', trigger: 'blur' },
+    { min: 2, max: 30, message: '長度介於6到30之間', trigger: 'blur' },
     { required: true, message: '必填', trigger: 'blur' },
     { validator: validatePass, trigger: 'blur' }
   ],
