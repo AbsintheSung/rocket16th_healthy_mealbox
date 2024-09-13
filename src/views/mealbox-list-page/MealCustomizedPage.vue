@@ -20,7 +20,7 @@ const handleAddCustom = () => {
       v-if="customMealBoxStore.getDataTotal > 0"
       class="custom-mealcard-row grid grid-cols-2 gap-x-6 gap-y-3 md:grid-cols-3 md:gap-y-12 lg:grid-cols-4"
     >
-      <MealCard v-for="item in customMealBoxStore.getPaginatedMeals" :key="item" />
+      <!-- <MealCard v-for="item in customMealBoxStore.getPaginatedMeals" :key="item" /> -->
       <li v-if="isLastPage" class="flex h-full flex-col gap-y-4 rounded border border-dashed p-4">
         <button
           class="flex flex-grow flex-col items-center justify-center gap-y-6"

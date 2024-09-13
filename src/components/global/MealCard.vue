@@ -19,7 +19,8 @@ const props = defineProps({
 </script>
 <template>
   <li class="flex flex-col gap-y-4 rounded border p-4">
-    <img src="https://picsum.photos/278/214?random=1" />
+    <!-- <img src="https://picsum.photos/278/214?random=1" /> -->
+    <img :src="mealInfo.imgArr[0]" />
     <div class="flex flex-col gap-y-4">
       <RouterLink :to="`/singlemeal/${mealInfo.id}`">
         <p class="font-bold">{{ mealInfo.name }}</p>
