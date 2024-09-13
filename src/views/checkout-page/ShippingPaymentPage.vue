@@ -1,5 +1,5 @@
 <script setup>
-import { ref, reactive, computed, watch } from 'vue'
+import { ref, reactive, computed, watch, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { useCartStore } from '@/stores/cart'
 import ShoppingCartProgressBar from '@/components/global/ShoppingCartProgressBar.vue'
@@ -99,18 +99,26 @@ watch(() => form.shippingMethod, (newShippingMethod) => {
     }
 })
 
+// 讀取過去儲存的表單
+// 防止客戶重整頁面或關閉瀏覽器時資料消失
+onMounted(() => {
+    const savedForm = localStorage.getItem('shippingPaymentForm')
+    if (savedForm) {
+        Object.assign(form, JSON.parse(savedForm))
+    }
+})
+
 //送出表單
 const onSubmit = () => {
-    console.log('submit!')
     if (form.shippingRegion && form.shippingMethod && form.paymentMethod) {
         // 將表單數據儲存到 localStorage
         localStorage.setItem('shippingPaymentForm', JSON.stringify(form))
-        // 導航到下一個頁面
         router.push('/checkout/order-information')
     } else {
         ElMessage.error('請填寫所有必要資訊')
     }
 }
+
 </script>
 <template>
     <div class="grid grid-cols-4 gap-3 md:grid-cols-12 md:gap-6">
@@ -230,11 +238,11 @@ const onSubmit = () => {
                         <p>NT${{ totalPrice }}</p>
                     </div>
                     <div class="pt-6 md:pt-20">
-                        <RouterLink
-                            class="flex items-center justify-center text-center py-2 px-4 bg-secondary-400 rounded border-2 border-black hover:shadow-base transition active:shadow-none"
-                            type="primary" @click="onSubmit" to="/checkout/order-information">
+                        <button
+                            class="flex items-center justify-center text-center py-2 px-4 w-full bg-secondary-400 rounded border-2 border-black hover:shadow-base transition active:shadow-none"
+                            type="primary" @click="onSubmit">
                             <p>前往結帳購物車</p>
-                        </RouterLink>
+                        </button>
                     </div>
                 </div>
             </div>
