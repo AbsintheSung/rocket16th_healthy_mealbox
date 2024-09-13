@@ -1,9 +1,11 @@
 <script setup>
 import { ref, reactive, computed } from 'vue'
+import { useRouter } from 'vue-router'
 import { useCartStore } from '@/stores/cart'
 import ShoppingCartProgressBar from '@/components/global/ShoppingCartProgressBar.vue'
 
 const cartStore = useCartStore()
+const router = useRouter()
 
 //餐盒數量
 const generalBoxes = computed(() => cartStore.getGeneralBoxes)
@@ -41,6 +43,21 @@ const handleClearCart = async () => {
         if (result === "success") {
             ElMessage.success('購物車已清空')
             await cartStore.fetchMemberCartInfo()
+        }
+
+        // 檢查購物車是否為空
+        if (generalBoxes.value.length === 0) {
+            ElMessage.warning('購物車內沒有商品')
+            setTimeout(() => {
+                const loading = ElLoading.service({
+                    lock: true,
+                    text: '回到產品頁面...'
+                })
+                setTimeout(() => {
+                    loading.close()
+                    router.push('/plan-selection')
+                }, 3000)
+            }, 2000)
         }
     } catch (error) {
         console.error('清空購物車時發生錯誤:', error);
