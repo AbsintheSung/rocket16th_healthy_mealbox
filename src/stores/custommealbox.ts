@@ -3,9 +3,7 @@ import { fetchApi } from '@/utils/api/apiUrl'
 import { ref, computed } from 'vue'
 export const useCustomMealBoxStore = defineStore('custommealbox', () => {
   //State
-  const customMeal = ref([
-    1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21
-  ]) //自定義餐盒資料，預設空陣列
+  const customMeal = ref([]) //自定義餐盒資料，預設空陣列
   const currentPage = ref(1) //當前分頁
   const pageSize = ref(10) //每頁該顯示的資料數量
   const oneCustomMeal = ref({})

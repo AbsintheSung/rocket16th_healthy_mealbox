@@ -46,8 +46,9 @@ onMounted(async () => {
     <section class="container flex flex-grow flex-col py-4">
       <div class="grid flex-grow grid-cols-4 gap-6 py-4 sm:grid-cols-12 md:pt-12">
         <div class="col-span-3 col-start-1 -me-3 sm:col-span-4 sm:me-0 lg:col-span-3">
-          <img src="https://picsum.photos/536/536?random=1" />
-          <div class="hidden pt-8 sm:block">走馬燈</div>
+          <!-- <img src="https://picsum.photos/536/536?random=1" />
+          <div class="hidden pt-8 sm:block">走馬燈</div> -->
+          <img :src="oneMealData.imgArr[1]" />
         </div>
         <div class="col-span-1 col-start-4 flex items-start sm:hidden">
           <button class="ms-auto hover:cursor-pointer" @click="handlePrevious">

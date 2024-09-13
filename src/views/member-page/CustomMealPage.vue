@@ -14,7 +14,7 @@ const handleCurrentChange = (val) => {
       自定義餐盒
     </h2>
     <ul class="grid flex-grow grid-cols-2 gap-x-6 gap-y-2 lg:grid-cols-3 lg:gap-y-6">
-      <MealCard v-for="item in 9" :key="item" class="text-[12px] md:text-base" />
+      <!-- <MealCard v-for="item in 9" :key="item" class="text-[12px] md:text-base" /> -->
     </ul>
     <div class="flex items-center justify-center py-6">
       <el-pagination
