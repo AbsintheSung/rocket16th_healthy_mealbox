@@ -65,9 +65,7 @@ const caseOption = reactive({
   },
   case5: {
     title: '0澱粉、1主食、4配菜',
-    starchDishesList: {
-      0: []
-    },
+    starchDishesList: {},
     mainMealList: {
       0: []
     },
@@ -80,7 +78,7 @@ const caseOption = reactive({
   }
 })
 const selectedCase = ref('case1')
-// const getSelectCase = computed(() => selectedCase.value)
+const getSelectCase = computed(() => selectedCase.value)
 const currentCase = computed(() => caseOption[selectedCase.value])
 
 const getDishesApi = `/${urlName}/dishes`
@@ -268,10 +266,22 @@ const sideDishesListImg = computed(() => {
   return allSideDishes.filter((dish) => dish && dish.img).map((dish) => dish.img)
 })
 
+const hasImages3 = computed(() => {
+  // 合併選取的 case 中的所有 sideDishesList 陣列
+  const allStarchDishes = Object.values(currentCase.value.starchDishesList).flat()
+  return allStarchDishes.some((dish) => dish && dish.img)
+})
+
+const starchDishesListImg = computed(() => {
+  // 合併選取的 case 中的所有 sideDishesList 陣列，並取出 img 屬性
+  const allStarchDishes = Object.values(currentCase.value.starchDishesList).flat()
+  return allStarchDishes.filter((dish) => dish && dish.img).map((dish) => dish.img)
+})
+
 const getDishes = async () => {
   try {
     const response = await axiosInstance.get(getDishesApi)
-    mainMealDishes.value = response.data.data.filter((dish) => dish.dishesType === 'mainMeal')
+    // mainMealDishes.value = response.data.data.filter((dish) => dish.dishesType === 'mainMeal')
     // sideDishes.value = response.data.data.filter((dish) => dish.dishesType === 'sideDishes')
     // starchDishes.value = response.data.data.filter((dish) => dish.dishesType === 'starch')
     console.log(response.data.data)
@@ -332,12 +342,12 @@ const nutrientNameMap = {
 const test = (val) => {
   console.log(val)
 }
-// onMounted(async () => {
-//   await getDishes()
-//   console.log(mainMealDishes.value)
-//   console.log(sideDishes.value)
-//   console.log(starchDishes.value)
-// })
+onMounted(async () => {
+  await getDishes()
+  console.log(mainMealDishes.value)
+  console.log(sideDishes.value)
+  console.log(starchDishes.value)
+})
 const plateComposition = ref(null)
 const generatedImage = ref('')
 const generateImage = async () => {
@@ -544,7 +554,11 @@ const handleData = () => {
       </div>
       <div class="flex flex-col gap-x-6 md:flex-row">
         <div class="w-full md:w-2/3">
-          <div class="test w-full" ref="plateComposition">
+          <div
+            v-if="['case1', 'case2', 'case4'].includes(getSelectCase)"
+            class="test w-full"
+            ref="plateComposition"
+          >
             <div class="flex">
               <div class="relative">
                 <img src="../assets/image/餐盤測試/左.png" />
@@ -575,7 +589,7 @@ const handleData = () => {
               <div class="relative">
                 <img src="../assets/image/餐盤測試/底餐盤-2.png" />
                 <div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
-                  <div v-if="hasImages" class="flex items-center justify-center">
+                  <div class="flex items-center justify-center">
                     <img
                       :src="item"
                       alt="Main meal"
@@ -583,6 +597,76 @@ const handleData = () => {
                       v-for="item in mainMealListImg"
                       :key="item"
                     />
+                    <img
+                      :src="item"
+                      alt="starchDishes-img"
+                      class="w-1/2"
+                      v-for="item in starchDishesListImg"
+                      :key="item"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- 另一個餐盤模組 -->
+          <div v-else class="test w-full" ref="plateComposition">
+            <div class="flex">
+              <div class="relative">
+                <img src="../assets/image/餐盤測試2/左上.png" />
+                <div class="absolute left-1/2 top-1/2 w-1/2 -translate-x-1/2 -translate-y-1/2">
+                  <div v-if="sideDishesListImg.length >= 1" class="flex">
+                    <img :src="sideDishesListImg[0]" alt="Main meal" />
+                  </div>
+                </div>
+              </div>
+              <div class="relative">
+                <img src="../assets/image/餐盤測試2/中上.png" />
+                <div class="absolute left-1/2 top-1/2 w-1/2 -translate-x-1/2 -translate-y-1/2">
+                  <div v-if="sideDishesListImg.length >= 2" class="flex">
+                    <img :src="sideDishesListImg[1]" alt="Main meal" />
+                  </div>
+                </div>
+              </div>
+              <div class="relative">
+                <img src="../assets/image/餐盤測試2/右上.png" />
+                <div class="absolute left-1/2 top-1/2 w-1/2 -translate-x-1/2 -translate-y-1/2">
+                  <div v-if="sideDishesListImg.length >= 3" class="flex">
+                    <img :src="sideDishesListImg[2]" alt="Main meal" />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="flex">
+              <div class="relative">
+                <img src="../assets/image/餐盤測試2/左下.png" />
+                <div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
+                  <div class="flex items-center justify-center">
+                    <img
+                      :src="item"
+                      alt="Main meal"
+                      class="w-2/3"
+                      v-for="item in mainMealListImg"
+                      :key="item"
+                    />
+                    <img
+                      :src="item"
+                      alt="starchDishes-img"
+                      class="w-2/3"
+                      v-for="item in starchDishesListImg"
+                      :key="item"
+                    />
+                  </div>
+                </div>
+              </div>
+              <div class="relative">
+                <img src="../assets/image/餐盤測試2/右下.png" />
+                <div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
+                  <div
+                    v-if="sideDishesListImg.length >= 4"
+                    class="flex items-center justify-center"
+                  >
+                    <img :src="sideDishesListImg[3]" alt="Main meal" class="w-2/3" />
                   </div>
                 </div>
               </div>
