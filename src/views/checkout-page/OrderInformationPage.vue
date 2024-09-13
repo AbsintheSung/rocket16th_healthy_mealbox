@@ -81,11 +81,11 @@ getTwCityArea()
                 </el-form>
             </div>
             <!-- 付款資料 -->
-            <div class="col-span-6 absolute w-full pt-8">
+            <div class="col-span-6 absolute w-full pt-7">
                 <div class="bg-primary-300 border-2 border-black">
                     <p class="px-6 py-2 font-bold">付款資料</p>
                 </div>
-                <div class="border-2 border-black px-6 py-12">
+                <div class="border-2 border-black px-6 py-9 -mt-[2px]">
                     <p>已選擇的付款方式: </p>
                     <p class="text-2xl">LINE PAY</p>
                     <!-- <p class="text-2xl">超商取付</p> -->
@@ -98,7 +98,7 @@ getTwCityArea()
                 <p class="px-6 py-2 font-bold">送貨資料</p>
                 <p class="px-6 py-2 font-bold">運費:NT$0</p>
             </div>
-            <div class="border-2 border-black px-6 pt-6 pb-[54px]">
+            <div class="border-2 border-black px-6 py-4">
                 <el-form :model="form" label-width="auto" style="max-width: 100%">
                     <div>
                         <p>已選擇的送貨方式: 新竹物流宅配</p>
@@ -113,18 +113,22 @@ getTwCityArea()
                     </el-form-item>
                     <el-divider />
                     <el-form-item label="地址 運送地點: 台灣" label-position="top">
-                        <el-select v-model="cityName" placeholder="城市">
-                            <el-option v-for="cityItem in twCityArea.city" :key="cityItem" :label="cityItem"
-                                :value="cityItem" />
-                        </el-select>
-                        <el-select v-model="cityArea" placeholder="地區" :inline="true">
-                            <el-option v-for="areaItem in twCityArea.area" :key="areaItem" :label="areaItem"
-                                :value="areaItem" />
-                        </el-select>
+                        <div class="w-full flex justify-between pb-2">
+                            <el-select v-model="cityName" placeholder="城市" class="w-[49%]">
+                                <el-option v-for="cityItem in twCityArea.city" :key="cityItem" :label="cityItem"
+                                    :value="cityItem" />
+                            </el-select>
+                            <el-select v-model="cityArea" placeholder="地區" :inline="true" class="w-[49%]">
+                                <el-option v-for="areaItem in twCityArea.area" :key="areaItem" :label="areaItem"
+                                    :value="areaItem" />
+                            </el-select>
+                        </div>
                         <el-input v-model="form.address" placeholder="地址" />
                     </el-form-item>
-                    <el-checkbox v-model="form.saveShippingAddress" label="儲存這個送貨地址" size="large" />
-                    <el-checkbox v-model="form.setAsDefaultAddress" label="設定為預設地址" size="large" />
+                    <div class="flex flex-col text-base">
+                        <el-checkbox v-model="form.saveShippingAddress" label="儲存這個送貨地址" size="large" />
+                        <el-checkbox v-model="form.setAsDefaultAddress" label="設定為預設地址" size="large" />
+                    </div>
                 </el-form>
             </div>
         </div>
@@ -172,7 +176,7 @@ getTwCityArea()
     font-size: 16px;
 }
 
-:deep(.el-form-item){
+:deep(.el-form-item) {
     margin-bottom: 24px;
 }
 
@@ -180,7 +184,7 @@ getTwCityArea()
     padding: 8px 12px;
 }
 
-:deep(.el-textarea__inner){
+:deep(.el-textarea__inner) {
     padding: 12px 24px;
 }
 </style>
