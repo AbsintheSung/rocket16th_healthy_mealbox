@@ -29,7 +29,7 @@ const sideDishes = ref([
     dishesType: 'sideDishes', // 配菜 // 菜色類型: mainMeal 主餐、 sideDishes 配菜、starch 澱粉
     name: '青花椰',
     grams: 100, // 公克
-    img: '/src/assets/image/餐盤測試/青花耶.png', // 菜色去背後的圖片
+    img: new URL('@/assets/image/餐盤測試/青花耶.png', import.meta.url).href, // 菜色去背後的圖片
     price: 30,
     // 營養素組成
     composition: {
@@ -48,7 +48,7 @@ const sideDishes = ref([
     dishesType: 'sideDishes', // 配菜 // 菜色類型: mainMeal 主餐、 sideDishes 配菜、starch 澱粉
     name: '小黃瓜',
     grams: 100, // 公克
-    img: '/src/assets/image/餐盤測試/小黃瓜.png', // 菜色去背後的圖片
+    img: new URL('@/assets/image/餐盤測試/小黃瓜.png', import.meta.url).href, // 菜色去背後的圖片
     price: 30,
     // 營養素組成
     composition: {

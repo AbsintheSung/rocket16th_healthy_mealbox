@@ -30,7 +30,7 @@ const mainMealDishes = ref([
     name: '嫩煎雞腿',
     price: 20,
     grams: 100, // 公克
-    img: '/src/assets/image/餐盤測試/雞肉.png', // 菜色去背後的圖片
+    img: new URL('@/assets/image/餐盤測試/雞肉.png', import.meta.url).href, // 菜色去背後的圖片
     // 營養素組成
     composition: {
       calories: 470, // 卡路里
@@ -49,7 +49,7 @@ const mainMealDishes = ref([
     name: '嫩煎雞腿2',
     price: 20,
     grams: 100, // 公克
-    img: '/src/assets/image/餐盤測試/雞肉.png', // 菜色去背後的圖片
+    img: new URL('@/assets/image/餐盤測試/雞肉.png', import.meta.url).href, // 菜色去背後的圖片
     // 營養素組成
     composition: {
       calories: 470, // 卡路里
