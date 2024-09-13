@@ -62,7 +62,7 @@ export const useCartStore = defineStore('cart', () => {
   })
 
   // 檢查購物車是否已滿(待討論)
-  const isCartFull = computed(() => getMealBoxTotal.value >= getCaseType.value)
+  // const isCartFull = computed(() => getMealBoxTotal.value >= getCaseType.value)
 
 
   /* Action */
@@ -108,32 +108,31 @@ export const useCartStore = defineStore('cart', () => {
   }
 
   // 將營養師方案加入購物車
-  const addNutritionistPlanToCart = async (planId: any) => {
-    if (isCartFull.value) {
-      console.log('購物車已滿')
-      return "cartFull"
-    }
-
+  const addNutritionistPlanToCart = async (planId: number) => {
     try {
       const plan = await fetchNutritionistPlanById(planId)
-      const boxPromises = plan.boxes.map((boxId: any) => fetchApi.getGeneralmealOne(boxId))
-      const boxesData = await Promise.all(boxPromises)
+      // 統計重複餐盒數量
+      const boxCounts = new Map<number, number>()
+      plan.boxes.forEach((boxId: any) => {
+        boxCounts.set(boxId, (boxCounts.get(boxId) || 0) + 1)
+      })
 
-      for (const boxData of boxesData) {
-        if (boxData.status === 200 && !isCartFull.value) {
-          const mealData = {
-            boxType: 'general',
-            boxId: boxData.data.data.id,
-            boxQuantity: 1
-          }
-          await fetchApi.updateCart(mealData)
-          await fetchMemberCartInfo() // 更新購物車狀態
-        } else if (isCartFull.value) {
-          break // 如果購物車已滿，停止添加
+      // 更新餐盒數量(caseType)
+      await fetchChangeSelectPlan(plan.boxes.length)
+
+      for (const [boxId, count] of boxCounts) {
+        const mealData = {
+          boxType: 'general',
+          boxId: boxId,
+          boxQuantity: count
         }
+
+        await fetchApi.updateCart(mealData)
       }
 
-      return isCartFull.value ? "partiallyAdded" : "success"
+      await fetchMemberCartInfo()
+      return "success"
+
     } catch (error) {
       console.error('將營養師方案加入購物車時出錯：', error)
       throw error

@@ -1,7 +1,6 @@
 <script setup>
 import { useCartStore } from '@/stores/cart'
-import { ElMessage } from 'element-plus'
-import { computed } from 'vue'
+import { ElMessage, ElLoading } from 'element-plus'
 
 const cartStore = useCartStore()
 
@@ -21,23 +20,25 @@ const props = defineProps({
   }
 })
 
-const isCartFull = computed(() => cartStore.isCartFull)
-
 const addToCart = async () => {
   try {
-    if (isCartFull.value) {
-      ElMessage.warning('購物車已滿')
-      return
-    }
-
     const result = await cartStore.addNutritionistPlanToCart(props.planInfo.id)
-    if (result === "success") {
-      ElMessage.success('成功加入購物車')
-    } else if (result === "partiallyAdded") {
-      ElMessage.warning('部分商品已加入購物車，購物車已滿')
-    } else if (result === "cartFull") {
-      ElMessage.warning('購物車已滿')
-    }
+    const loading = ElLoading.service({
+      lock: true,
+      text: '正在加入至購物車...',
+    })
+    setTimeout(() => {
+      loading.close()
+    }, 1500)
+    setTimeout(() => {
+      if (result === "success") {
+        ElMessage.success('成功將所有餐盒加入購物車')
+      } else if (result === "partiallyAdded") {
+        ElMessage.warning('部分餐盒已加入購物車，購物車已滿')
+      } else if (result === "cartFull") {
+        ElMessage.warning('購物車已滿，無法加入更多餐盒')
+      }
+    }, 2000)
   } catch (error) {
     ElMessage.error('加入購物車失敗')
   }
