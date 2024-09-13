@@ -1,31 +1,63 @@
 <script setup lang="ts">
 import { ref, onMounted, computed } from 'vue'
-import { useRoute, type RouteLocationNormalizedLoadedGeneric } from 'vue-router'
 import { useCartStore } from '@/stores/cart'
-import { useMemberStore } from '@/stores/member'
-import { useAuthStore } from '@/stores/auth'
+import { useRouter } from 'vue-router'
 import { ElLoading, ElMessage, ElMessageBox } from 'element-plus'
 import 'element-plus/theme-chalk/src/message-box.scss'
 import 'element-plus/theme-chalk/src/button.scss'
 
-const route: RouteLocationNormalizedLoadedGeneric = useRoute()
-const memberStore = useMemberStore()
 const cartStore = useCartStore()
-const authStore = useAuthStore()
-console.log('測試獲取資料：', cartStore.getGeneralBoxes)
+const router = useRouter()
 
 const isLoading = ref(true)
-const isLoggedIn = computed(() => !!authStore.getUserToken)
+const isLoggedIn = ref(false)
 
 // 提示訊息
-const message = (mes: any, mesType: any) => {
-    ElMessage({
-        message: mes,
-        type: mesType,
-        duration: 1500
-    })
-}
+// const message = (mes: any, mesType: any) => {
+//     ElMessage({
+//         message: mes,
+//         type: mesType,
+//         duration: 1500
+//     })
+// }
 
+// 身分驗證 - 因為取得購物車資料需要登入，無法取得則判斷為未登入
+const authenticate = async () => {
+    isLoading.value = true
+    try {
+        await cartStore.fetchMemberCartInfo()
+        isLoggedIn.value = true
+    } catch (error: any) {
+        console.error('獲取購物車資料時發生錯誤:', error)
+        isLoggedIn.value = false
+        if (error.response && error.response.status === 401) {
+            ElMessage({
+                message: '請先登入會員',
+                type: 'warning',
+                duration: 3000
+            })
+            setTimeout(() => {
+                const loading = ElLoading.service({
+                    lock: true,
+                    text: '正在跳轉至登入頁面...',
+                })
+                setTimeout(() => {
+                    loading.close()
+                    router.push('/signin')
+                }, 1000)
+            }, 2000)
+        } else {
+            console.log('發生其他錯誤:', error.message)
+            ElMessage({
+                message: '發生錯誤，請稍後再試',
+                type: 'error',
+                duration: 2000
+            })
+        }
+    } finally {
+        isLoading.value = false
+    }
+}
 
 //餐盒數量
 const generalBoxes = computed(() => cartStore.getGeneralBoxes)
@@ -40,7 +72,8 @@ const totalPrice = computed(() => {
 })
 // 確認購物車內是否有商品
 const hasCartItems = computed(() => generalBoxes.value.length > 0)
-// 清空購物車-***訊息樣式跑不出來
+
+// 清空購物車
 const handleClearCart = async () => {
     try {
         await ElMessageBox.confirm(
@@ -58,7 +91,7 @@ const handleClearCart = async () => {
             await cartStore.fetchMemberCartInfo()
         }
     } catch (error) {
-        console.error('Error in handleClearCart:', error);
+        console.error('清空購物車時發生錯誤:', error);
         if (error !== 'cancel') {
             ElMessage.error('清空購物車失敗')
         }
@@ -66,29 +99,7 @@ const handleClearCart = async () => {
 }
 
 onMounted(async () => {
-    const loading = ElLoading.service({
-        lock: true,
-        text: 'Loading'
-    })
-    try {
-        if (isLoggedIn.value) {
-            await Promise.all([
-                memberStore.fetchMemberInfo(),
-                cartStore.fetchMemberCartInfo()
-            ])
-        }
-    } catch (error: any) {
-        message(error.message, 'error')
-    } finally {
-        loading.close()
-        isLoading.value = false
-    }
-})
-
-onMounted(async () => {
-    await cartStore.fetchMemberCartInfo() //發請求獲取資料後，將一般餐盒所有資料存起來
-    console.log('餐盒資料陣列：', cartStore.getGeneralBoxes) //取得存放餐盒的陣列
-    console.log('訂單價格資料：', cartStore.getCartInfo) //取得訂單的價錢
+    await authenticate()
 })
 
 </script>
