@@ -1,5 +1,5 @@
 <script setup>
-import { ref, reactive, computed } from 'vue'
+import { ref, reactive, computed, watch } from 'vue'
 import { useRouter } from 'vue-router'
 import { useCartStore } from '@/stores/cart'
 import ShoppingCartProgressBar from '@/components/global/ShoppingCartProgressBar.vue'
@@ -69,14 +69,47 @@ const handleClearCart = async () => {
 
 //表單資料
 const form = reactive({
-    placeOfDelivery: '',
-    shipment: '',
-    payment: ''
+    shippingRegion: '',
+    shippingMethod: '',
+    paymentMethod: ''
+})
+
+//付款方式
+const paymentOptions = ref([
+    { label: 'LINE Pay付款', value: 'linePay', disabled: false },
+    { label: '超商取付', value: 'storePickup', disabled: true }
+])
+
+// 送貨方式的邏輯判斷
+watch(() => form.shippingMethod, (newShippingMethod) => {
+    if (newShippingMethod === '新竹貨運') {
+        paymentOptions.value = [
+            { label: 'LINE Pay付款', value: 'linePay', disabled: false },
+            { label: '超商取付', value: 'storePickup', disabled: true }
+        ]
+        // 若為超取，則兩種付款方式都能使用
+        if (form.paymentMethod === 'storePickup') {
+            form.paymentMethod = ''
+        }
+    } else if (newShippingMethod === '超商冷凍宅配') {
+        paymentOptions.value = [
+            { label: 'LINE Pay付款', value: 'linePay', disabled: false },
+            { label: '超商取付', value: 'storePickup', disabled: false }
+        ]
+    }
 })
 
 //送出表單
 const onSubmit = () => {
     console.log('submit!')
+    if (form.shippingRegion && form.shippingMethod && form.paymentMethod) {
+        // 將表單數據儲存到 localStorage
+        localStorage.setItem('shippingPaymentForm', JSON.stringify(form))
+        // 導航到下一個頁面
+        router.push('/checkout/order-information')
+    } else {
+        ElMessage.error('請填寫所有必要資訊')
+    }
 }
 </script>
 <template>
@@ -147,31 +180,31 @@ const onSubmit = () => {
             <div class="border-2 border-black">
                 <el-form :model="form" label-width="auto" style="max-width: 100%" class="px-3 pt-4 md:px-6 md:pb-4">
                     <el-form-item label="送貨地點" label-position="top">
-                        <el-select v-model="form.placeOfDelivery" placeholder="請選擇運送區域">
+                        <el-select v-model="form.shippingRegion" placeholder="請選擇運送區域">
                             <el-option label="臺灣本島" value="islandTaiwan" />
                             <el-option label="臺灣離島地區" value="outlyingTaiwan" />
                         </el-select>
                     </el-form-item>
                     <el-form-item label="送貨方式" label-position="top">
-                        <el-select v-model="form.shipment" placeholder="請選擇送貨方式">
-                            <el-option label="新竹貨運" value="HCT" />
-                            <el-option label="超商冷凍宅配" value="convenienceStore" />
+                        <el-select v-model="form.shippingMethod" placeholder="請選擇送貨方式">
+                            <el-option label="新竹貨運" value="新竹貨運" />
+                            <el-option label="超商冷凍宅配" value="超商冷凍宅配" />
                         </el-select>
                     </el-form-item>
                     <div class="pb-2 md:pb-3">
                         <ul class="list-disc list-inside text-sm md:text-base">
+                            <li>若您選擇<b> 超商宅配 + 線上支付</b>，取貨時務必出示身分證件</li>
                             <li>如訂單量較大或是有缺貨狀況，寄出時間將有所延遲，敬請見諒</li>
-                            <li>若收到商品外箱有明顯破損，可以拒收並錄影存留，當下也請聯絡我們，謝謝</li>
-                            <li>一般狀況訂單將於下單後隔天寄出(不包含例假日)</li>
-                            <li>寄出後２－３天會送達指定地點，【週末不配送】</li>
-                            <li>若下單一週仍未收到商品，可能是送達時無人在家，貨物招領中。請聯繫我們為您查詢送貨狀態</li>
+                            <li>若收到商品外箱有明顯破損，可以拒收且錄影存留，並盡速聯繫客服，謝謝</li>
+                            <li>訂單將於下單後隔天寄出，２－３天會送達指定地點(不包含例假日)</li>
+                            <li>若下單後一週仍未收到商品，可能是送達時無人簽收，貨物招領中。請聯繫客服為您查詢送貨狀態</li>
                             <li>若遇突發狀況無法收貨，請先聯繫客服</li>
                         </ul>
                     </div>
                     <el-form-item label="付款方式" label-position="top">
-                        <el-select v-model="form.payment" placeholder="請選擇付款方式">
-                            <el-option label="信用卡付款" value="creditCard" />
-                            <el-option label="超商取付" value="InStorePickup" />
+                        <el-select v-model="form.paymentMethod" placeholder="請選擇付款方式">
+                            <el-option v-for="option in paymentOptions" :key="option.value" :label="option.label"
+                                :value="option.value" :disabled="option.disabled" />
                         </el-select>
                     </el-form-item>
                 </el-form>
