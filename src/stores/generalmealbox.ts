@@ -54,7 +54,7 @@ export const useGeneralMealBoxStore = defineStore('generalmealbox', () => {
       const response = await fetchApi.getGeneralmeal()
       if (response.status === 200) {
         generalMeal.value = response?.data?.data || []
-        console.log(response.data)
+        // console.log(response.data)
         // console.log(generalMeal.value)
       }
     } catch (error) {
@@ -68,7 +68,7 @@ export const useGeneralMealBoxStore = defineStore('generalmealbox', () => {
       if (response.status === 200) {
         oneGeneralMeal.value = response?.data?.data || {}
         // console.log(response.data)
-        console.log(generalMeal.value)
+        // console.log(generalMeal.value)
       }
     } catch (error) {
       console.log(error)
