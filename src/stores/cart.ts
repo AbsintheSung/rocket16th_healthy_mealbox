@@ -33,8 +33,8 @@ export const useCartStore = defineStore('cart', () => {
     return generalBoxes.value.map(item => ({
       ...item,
       composition: { ...item.composition }, // 深拷貝 composition
-      // imgArr: [...item.imgArr], // 深拷貝 imgArr
-      imgArr: item.imgArr.map(imgPath => `${imgUrl}${imgPath}`),
+      imgArr: [...item.imgArr], // 深拷貝 imgArr
+      // imgArr: item.imgArr.map(imgPath => `${imgUrl}${imgPath}`),
     }));
   })
 

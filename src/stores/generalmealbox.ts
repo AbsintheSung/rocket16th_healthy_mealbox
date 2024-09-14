@@ -32,8 +32,8 @@ export const useGeneralMealBoxStore = defineStore('generalmealbox', () => {
     return {
       ...item,
       composition: { ...item.composition },
-      imgArr: (item.imgArr || []).map(imgPath => `${imgUrl}${imgPath}`)
-      // imgArr: [...item.imgArr || []]
+      // imgArr: (item.imgArr || []).map(imgPath => `${imgUrl}${imgPath}`)
+      imgArr: [...item.imgArr || []]
     };
   })
   //取得每頁該顯示的資料數量
