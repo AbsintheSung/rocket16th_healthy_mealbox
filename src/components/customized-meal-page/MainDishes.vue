@@ -14,9 +14,9 @@ const emits = defineEmits({
 })
 const test = (checked, item) => {
   if (checked) {
-    emits('updateMainSelected', checked, [item])
+    emits('updateMainSelected', [item])
   } else {
-    emits('updateMainSelected', checked, [])
+    emits('updateMainSelected', [])
   }
 }
 

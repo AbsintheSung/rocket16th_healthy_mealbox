@@ -6,8 +6,9 @@ import html2canvas from 'html2canvas'
 import StarchDishes from '@/components/customized-meal-page/StarchDishes.vue'
 import MainDishes from '@/components/customized-meal-page/MainDishes.vue'
 import SideDishes from '@/components/customized-meal-page/SideDishes.vue'
+import CustomDialog from '@/components/customized-meal-page/CustomDialog.vue'
 const urlName = import.meta.env.VITE_APP_API_NAME
-
+const dialogShow = ref(false)
 const caseOption = reactive({
   case1: {
     title: '1澱粉、1主食、3配菜',
@@ -462,8 +463,21 @@ const totalCompositionChinese = computed(() => {
   }))
 })
 
+//計算總和
+const totalPrice = computed(() => {
+  const allDishes = [
+    ...Object.values(currentCase.value.starchDishesList).flat(),
+    ...Object.values(currentCase.value.mainMealList).flat(),
+    ...Object.values(currentCase.value.sideDishesList).flat()
+  ]
+
+  return allDishes.reduce((sum, dish) => {
+    return sum + dish.price
+  }, 0)
+})
+
 //以下組件測試
-const handleUpdateStarchDisheSelected = (index, ischecked, checkItem) => {
+const handleUpdateStarchDisheSelected = (index, checkItem) => {
   currentCase.value.starchDishesList[index] = checkItem
   // console.log(index, ischecked, checkItem)
   // if (ischecked) {
@@ -474,7 +488,7 @@ const handleUpdateStarchDisheSelected = (index, ischecked, checkItem) => {
   //   // starchDishesList.value.pop()
   // }
 }
-const handleupdateMealSelected = (index, ischecked, checkItem) => {
+const handleupdateMealSelected = (index, checkItem) => {
   // console.log(index, ischecked, checkItem)
   currentCase.value.mainMealList[index] = checkItem
   // caseOption[getSelectCase.value].mainMealList[index] = checkItem
@@ -487,7 +501,7 @@ const handleupdateMealSelected = (index, ischecked, checkItem) => {
   //   mainMealList.value[index] = null
   // }
 }
-const handleupdateSideDishesSelected = (index, ischecked, checkItem) => {
+const handleupdateSideDishesSelected = (index, checkItem) => {
   // console.log(index, ischecked, checkItem)
   currentCase.value.sideDishesList[index] = checkItem
   // caseOption[getSelectCase.value].sideDishesList[index] = checkItem
@@ -512,11 +526,31 @@ const resetCaseOption = () => {
   })
 }
 const handleData = () => {
+  dialogShow.value = true
   console.log(currentCase.value)
 }
+const handleEdit = () => {
+  console.log(currentCase.value)
+}
+const handleCloseDialog = () => {
+  dialogShow.value = false
+}
+watch(
+  () => totalPrice.value,
+  (val) => {
+    // console.log('watch監聽', val)
+  }
+)
 </script>
 <template>
   <main>
+    <CustomDialog
+      :dialogShow="dialogShow"
+      :totalCompositionChinese="totalCompositionChinese"
+      :currentCase="currentCase"
+      :totalPrice="totalPrice"
+      @closeDialog="handleCloseDialog"
+    />
     <div class="bg-primary-400">
       <div class="container relative flex items-center justify-center">
         <button class="absolute left-0 top-1/2 block -translate-y-1/2 p-2 md:hidden">
@@ -683,17 +717,14 @@ const handleData = () => {
               :starchDishesList="item"
               :key="item"
               @updateStarchDisheSelected="
-                (ischecked, checkItem) =>
-                  handleUpdateStarchDisheSelected(index, ischecked, checkItem)
+                (checkItem) => handleUpdateStarchDisheSelected(index, checkItem)
               "
             />
             <MainDishes
               v-for="(item, index) in currentCase.mainMealList"
               :mainMealList="item"
               :key="item"
-              @updateMainSelected="
-                (ischecked, checkItem) => handleupdateMealSelected(index, ischecked, checkItem)
-              "
+              @updateMainSelected="(checkItem) => handleupdateMealSelected(index, checkItem)"
             />
 
             <SideDishes
@@ -701,8 +732,7 @@ const handleData = () => {
               :sideDishesList="item"
               :key="item"
               @updateSideDishesSelected="
-                (ischecked, checkItem) =>
-                  handleupdateSideDishesSelected(index, ischecked, checkItem)
+                (checkItem) => handleupdateSideDishesSelected(index, checkItem)
               "
             />
 
@@ -786,13 +816,13 @@ const handleData = () => {
             <div class="grid h-full grid-cols-4 items-center gap-x-6">
               <button
                 class="col-span-2 col-start-1 rounded bg-[#DCDCDC] py-4 hover:cursor-pointer"
-                @click="handleData"
+                @click="handleEdit"
               >
                 重新編輯
               </button>
               <button
                 class="col-span-2 rounded bg-secondary-400 py-4 hover:cursor-pointer hover:shadow-base"
-                @click="generateImage"
+                @click="handleData"
               >
                 儲存
               </button>
