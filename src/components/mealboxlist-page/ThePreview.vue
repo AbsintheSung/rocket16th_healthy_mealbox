@@ -71,8 +71,12 @@ const drawer = defineModel('drawer')
             >
               <div class="col-span-4 bg-white p-2 sm:col-span-10 sm:col-start-2">
                 <div class="grid grid-cols-4 items-center gap-6 sm:grid-cols-10">
-                  <img
+                  <!-- <img
                     src="https://picsum.photos/200/200?random=1"
+                    class="col-span-1 h-[66px] sm:col-span-2 lg:col-span-1"
+                  /> -->
+                  <img
+                    :src="generalItem.imgArr[0]"
                     class="col-span-1 h-[66px] sm:col-span-2 lg:col-span-1"
                   />
                   <div class="col-span-2 flex flex-col gap-y-4 sm:col-span-5 lg:col-span-5">

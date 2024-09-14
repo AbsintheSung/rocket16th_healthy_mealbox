@@ -2,6 +2,8 @@ import { defineStore } from 'pinia'
 import { fetchApi } from '@/utils/api/apiUrl'
 import { ref, computed } from 'vue'
 import type { GeneralBoxes, OneGeneralBox } from '@/types/type'
+const imgUrl = import.meta.env.VITE_APP_API_URL
+// const imgUrl = import.meta.env.VITE_APP_API_IMG_URL
 export const useGeneralMealBoxStore = defineStore('generalmealbox', () => {
   //State
   const generalMeal = ref<GeneralBoxes[]>([]) //一般餐盒資料，預設空陣列
@@ -21,6 +23,7 @@ export const useGeneralMealBoxStore = defineStore('generalmealbox', () => {
       ...item,
       composition: { ...item.composition },
       imgArr: [...item.imgArr],
+      // imgArr: item.imgArr.map(imgPath => `${imgUrl}${imgPath}`),
     }));
   })
   //取得單一餐盒資訊
@@ -29,6 +32,7 @@ export const useGeneralMealBoxStore = defineStore('generalmealbox', () => {
     return {
       ...item,
       composition: { ...item.composition },
+      // imgArr: (item.imgArr || []).map(imgPath => `${imgUrl}${imgPath}`)
       imgArr: [...item.imgArr || []]
     };
   })

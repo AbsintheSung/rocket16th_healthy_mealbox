@@ -17,7 +17,7 @@ const starchDishes = ref([
     name: '半碗米飯',
     price: 20,
     grams: 100, // 公克
-    img: '/src/assets/image/餐盤測試/白飯.png', // 菜色去背後的圖片
+    img: new URL('@/assets/image/餐盤測試/白飯.png', import.meta.url).href, // 菜色去背後的圖片
     // 營養素組成
     composition: {
       calories: 470, // 卡路里
@@ -36,7 +36,7 @@ const starchDishes = ref([
     name: '一碗米飯',
     price: 20,
     grams: 100, // 公克
-    img: '/src/assets/image/餐盤測試/白飯.png', // 菜色去背後的圖片
+    img: new URL('@/assets/image/餐盤測試/白飯.png', import.meta.url).href, // 菜色去背後的圖片
     // 營養素組成
     composition: {
       calories: 470, // 卡路里
@@ -63,9 +63,9 @@ const emits = defineEmits({
 })
 const test = (checked, item) => {
   if (checked) {
-    emits('updateStarchDisheSelected', checked, [item])
+    emits('updateStarchDisheSelected', [item])
   } else {
-    emits('updateStarchDisheSelected', checked, [])
+    emits('updateStarchDisheSelected', [])
   }
 }
 </script>

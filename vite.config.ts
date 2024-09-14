@@ -18,10 +18,10 @@ export default defineConfig({
     vue(),
     vueDevTools(),
     AutoImport({
-      resolvers: [ElementPlusResolver({importStyle: "sass"})],
+      resolvers: [ElementPlusResolver({ importStyle: "sass" })],
     }),
     Components({
-      resolvers: [ElementPlusResolver({importStyle: "sass", directives: true,})],
+      resolvers: [ElementPlusResolver({ importStyle: "sass", directives: true, })],
     }),
 
   ],
@@ -41,11 +41,15 @@ export default defineConfig({
   server: {
     proxy: {
       [`/${apiName}`]: {
-        target:baseURL,
+        target: baseURL,
         changeOrigin: true,
         // 如果有字串需要替換可以加入 rewrite 這個屬性
         // rewrite: (path) => path.replace(/^\/api/, '')
       },
+      '/Images': {
+        target: baseURL,
+        changeOrigin: true,
+      }
     },
   },
 })

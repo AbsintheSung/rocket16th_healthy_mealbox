@@ -2,6 +2,8 @@ import { defineStore } from 'pinia'
 import { fetchApi } from '@/utils/api/apiUrl'
 import { ref, computed } from 'vue'
 import type { CartGeneralMealBoxes, CartInfo, NutritionistPlan } from '@/types/type'
+const imgUrl = import.meta.env.VITE_APP_API_URL
+// const imgUrl = import.meta.env.VITE_APP_API_IMG_URL
 
 export const useCartStore = defineStore('cart', () => {
   /* States */
@@ -32,6 +34,7 @@ export const useCartStore = defineStore('cart', () => {
       ...item,
       composition: { ...item.composition }, // 深拷貝 composition
       imgArr: [...item.imgArr], // 深拷貝 imgArr
+      // imgArr: item.imgArr.map(imgPath => `${imgUrl}${imgPath}`),
     }));
   })
 
