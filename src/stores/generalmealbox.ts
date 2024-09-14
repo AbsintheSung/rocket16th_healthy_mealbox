@@ -22,8 +22,8 @@ export const useGeneralMealBoxStore = defineStore('generalmealbox', () => {
     return generalMeal.value.map(item => ({
       ...item,
       composition: { ...item.composition },
-      // imgArr: [...item.imgArr],
-      imgArr: item.imgArr.map(imgPath => `${imgUrl}${imgPath}`),
+      imgArr: [...item.imgArr],
+      // imgArr: item.imgArr.map(imgPath => `${imgUrl}${imgPath}`),
     }));
   })
   //取得單一餐盒資訊
