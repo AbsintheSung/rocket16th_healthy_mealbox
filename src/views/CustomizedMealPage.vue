@@ -7,8 +7,23 @@ import StarchDishes from '@/components/customized-meal-page/StarchDishes.vue'
 import MainDishes from '@/components/customized-meal-page/MainDishes.vue'
 import SideDishes from '@/components/customized-meal-page/SideDishes.vue'
 import CustomDialog from '@/components/customized-meal-page/CustomDialog.vue'
+import { fetchApi } from '@/utils/api/apiUrl'
 const urlName = import.meta.env.VITE_APP_API_NAME
 const dialogShow = ref(false)
+const customName = ref('')
+const customContent = ref('')
+
+//傳遞給 後端的 資料格式
+const setCustomData = ref({
+  name: '', // 使用者自定義餐盒名稱
+  title: '', // 選擇的title
+  starch: [], // 澱粉的 ID 列表
+  mainMeal: [], // 主餐的 ID 列表
+  sideDishes: [], // 配菜的 ID 列表
+  remark: '', // 備註
+  imgSrc: '' // 自定義圖片的路徑
+})
+
 const caseOption = reactive({
   case1: {
     title: '1澱粉、1主食、3配菜',
@@ -340,9 +355,7 @@ const nutrientNameMap = {
   fiber: '纖維',
   sodium: '鈉含量'
 }
-const test = (val) => {
-  console.log(val)
-}
+
 onMounted(async () => {
   await getDishes()
   console.log(mainMealDishes.value)
@@ -356,9 +369,9 @@ const generateImage = async () => {
     try {
       const canvas = await html2canvas(plateComposition.value)
       generatedImage.value = canvas.toDataURL('image/png')
-      const a = base64ToBlob(generatedImage.value)
-      const b = await blobToBase64(a)
-      console.log(b)
+      // const a = base64ToBlob(generatedImage.value)
+      // const b = await blobToBase64(a)
+      // console.log(b)
       console.log('圖片生成成功')
     } catch (error) {
       console.error('生成圖片時出錯：', error)
@@ -367,18 +380,26 @@ const generateImage = async () => {
 }
 
 // Base64 轉 Blob
-const base64ToBlob = (base64) => {
-  const parts = base64.split(';base64,')
-  const contentType = parts[0].split(':')[1]
-  const raw = window.atob(parts[1])
-  const rawLength = raw.length
-  const uInt8Array = new Uint8Array(rawLength)
+const base64ToBlob = (base64, contentType = 'image/png') => {
+  // const parts = base64.split(';base64,')
+  // const contentType = parts[0].split(':')[1]
+  // const raw = window.atob(parts[1])
+  // const rawLength = raw.length
+  // const uInt8Array = new Uint8Array(rawLength)
 
-  for (let i = 0; i < rawLength; ++i) {
-    uInt8Array[i] = raw.charCodeAt(i)
+  // for (let i = 0; i < rawLength; ++i) {
+  //   uInt8Array[i] = raw.charCodeAt(i)
+  // }
+
+  // return new Blob([uInt8Array], { type: contentType })
+  const byteString = atob(base64.split(',')[1]) // 移除 'data:image/png;base64,' 部分
+  const byteArray = new Uint8Array(byteString.length)
+
+  for (let i = 0; i < byteString.length; i++) {
+    byteArray[i] = byteString.charCodeAt(i)
   }
 
-  return new Blob([uInt8Array], { type: contentType })
+  return new Blob([byteArray], { type: contentType })
 }
 
 // Blob 轉 Base64
@@ -525,7 +546,8 @@ const resetCaseOption = () => {
     })
   })
 }
-const handleData = () => {
+const handleData = async () => {
+  await generateImage()
   dialogShow.value = true
   console.log(currentCase.value)
 }
@@ -541,6 +563,37 @@ watch(
     // console.log('watch監聽', val)
   }
 )
+const test = async () => {
+  // const blob = base64ToBlob(generatedImage.value, 'image/png')
+  // const formData = new FormData()
+  // formData.append('image', blob, 'canvas_image.png')
+  // console.log(formData)
+  // try {
+  //   const resposne = await fetchApi.customUpdateImg(formData)
+  //   console.log(resposne)
+  // } catch (error) {
+  //   console.log(error)
+  // }
+  collectMealBoxData()
+  console.log(setCustomData.value)
+}
+
+//整合資料後 傳遞給後端
+const collectMealBoxData = (imgdata) => {
+  setCustomData.value.name = customName.value
+  setCustomData.value.remark = customContent.value
+  setCustomData.value.title = currentCase.value.title
+  setCustomData.value.imgSrc = imgdata
+  setCustomData.value.starch = Object.values(currentCase.value.starchDishesList)
+    .flat()
+    .map((dish) => dish.id)
+  setCustomData.value.mainMeal = Object.values(currentCase.value.mainMealList)
+    .flat()
+    .map((dish) => dish.id)
+  setCustomData.value.sideDishes = Object.values(currentCase.value.sideDishesList)
+    .flat()
+    .map((dish) => dish.id)
+}
 </script>
 <template>
   <main>
@@ -549,6 +602,10 @@ watch(
       :totalCompositionChinese="totalCompositionChinese"
       :currentCase="currentCase"
       :totalPrice="totalPrice"
+      :generatedImage="generatedImage"
+      v-model:customName="customName"
+      v-model:customContent="customContent"
+      :fetchData="test"
       @closeDialog="handleCloseDialog"
     />
     <div class="bg-primary-400">
@@ -588,127 +645,127 @@ watch(
       </div>
       <div class="flex flex-col gap-x-6 md:flex-row">
         <div class="w-full md:w-2/3">
-          <div
-            v-if="['case1', 'case2', 'case4'].includes(getSelectCase)"
-            class="test w-full"
-            ref="plateComposition"
-          >
-            <div class="flex">
-              <div class="relative">
-                <img src="../assets/image/餐盤測試/左.png" />
-                <div class="absolute left-1/2 top-1/2 w-1/2 -translate-x-1/2 -translate-y-1/2">
-                  <div v-if="sideDishesListImg.length >= 1" class="flex">
-                    <img :src="sideDishesListImg[0]" alt="Main meal" />
+          <div v-if="['case1', 'case2', 'case4'].includes(getSelectCase)" class="meal-bg w-full">
+            <div class="flex w-fit flex-col" ref="plateComposition">
+              <div class="flex">
+                <div class="relative">
+                  <img src="../assets/image/餐盤測試/左.png" />
+                  <div class="absolute left-1/2 top-1/2 w-1/2 -translate-x-1/2 -translate-y-1/2">
+                    <div v-if="sideDishesListImg.length >= 1" class="flex">
+                      <img :src="sideDishesListImg[0]" alt="Main meal" />
+                    </div>
+                  </div>
+                </div>
+                <div class="relative">
+                  <img src="../assets/image/餐盤測試/中.png" />
+                  <div class="absolute left-1/2 top-1/2 w-1/2 -translate-x-1/2 -translate-y-1/2">
+                    <div v-if="sideDishesListImg.length >= 2" class="flex">
+                      <img :src="sideDishesListImg[1]" alt="Main meal" />
+                    </div>
+                  </div>
+                </div>
+                <div class="relative">
+                  <img src="../assets/image/餐盤測試/右.png" />
+                  <div class="absolute left-1/2 top-1/2 w-1/2 -translate-x-1/2 -translate-y-1/2">
+                    <div v-if="sideDishesListImg.length >= 3" class="flex">
+                      <img :src="sideDishesListImg[2]" alt="Main meal" />
+                    </div>
                   </div>
                 </div>
               </div>
-              <div class="relative">
-                <img src="../assets/image/餐盤測試/中.png" />
-                <div class="absolute left-1/2 top-1/2 w-1/2 -translate-x-1/2 -translate-y-1/2">
-                  <div v-if="sideDishesListImg.length >= 2" class="flex">
-                    <img :src="sideDishesListImg[1]" alt="Main meal" />
-                  </div>
-                </div>
-              </div>
-              <div class="relative">
-                <img src="../assets/image/餐盤測試/右.png" />
-                <div class="absolute left-1/2 top-1/2 w-1/2 -translate-x-1/2 -translate-y-1/2">
-                  <div v-if="sideDishesListImg.length >= 3" class="flex">
-                    <img :src="sideDishesListImg[2]" alt="Main meal" />
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="flex">
-              <div class="relative">
-                <img src="../assets/image/餐盤測試/底餐盤-2.png" />
-                <div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
-                  <div class="flex items-center justify-center">
-                    <img
-                      :src="item"
-                      alt="Main meal"
-                      class="w-1/2"
-                      v-for="item in mainMealListImg"
-                      :key="item"
-                    />
-                    <img
-                      :src="item"
-                      alt="starchDishes-img"
-                      class="w-1/2"
-                      v-for="item in starchDishesListImg"
-                      :key="item"
-                    />
+              <div class="flex">
+                <div class="relative">
+                  <img src="../assets/image/餐盤測試/底餐盤-2.png" />
+                  <div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
+                    <div class="flex items-center justify-center">
+                      <img
+                        :src="item"
+                        alt="Main meal"
+                        class="w-1/2"
+                        v-for="item in mainMealListImg"
+                        :key="item"
+                      />
+                      <img
+                        :src="item"
+                        alt="starchDishes-img"
+                        class="w-1/2"
+                        v-for="item in starchDishesListImg"
+                        :key="item"
+                      />
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
           <!-- 另一個餐盤模組 -->
-          <div v-else class="test w-full" ref="plateComposition">
-            <div class="flex">
-              <div class="relative">
-                <img src="../assets/image/餐盤測試2/左上.png" />
-                <div class="absolute left-1/2 top-1/2 w-1/2 -translate-x-1/2 -translate-y-1/2">
-                  <div v-if="sideDishesListImg.length >= 1" class="flex">
-                    <img :src="sideDishesListImg[0]" alt="Main meal" />
+          <div v-else class="meal-bg w-full">
+            <div class="flex w-fit flex-col" ref="plateComposition">
+              <div class="flex">
+                <div class="relative">
+                  <img src="../assets/image/餐盤測試2/左上.png" />
+                  <div class="absolute left-1/2 top-1/2 w-1/2 -translate-x-1/2 -translate-y-1/2">
+                    <div v-if="sideDishesListImg.length >= 1" class="flex">
+                      <img :src="sideDishesListImg[0]" alt="Main meal" />
+                    </div>
+                  </div>
+                </div>
+                <div class="relative">
+                  <img src="../assets/image/餐盤測試2/中上.png" />
+                  <div class="absolute left-1/2 top-1/2 w-1/2 -translate-x-1/2 -translate-y-1/2">
+                    <div v-if="sideDishesListImg.length >= 2" class="flex">
+                      <img :src="sideDishesListImg[1]" alt="Main meal" />
+                    </div>
+                  </div>
+                </div>
+                <div class="relative">
+                  <img src="../assets/image/餐盤測試2/右上.png" />
+                  <div class="absolute left-1/2 top-1/2 w-1/2 -translate-x-1/2 -translate-y-1/2">
+                    <div v-if="sideDishesListImg.length >= 3" class="flex">
+                      <img :src="sideDishesListImg[2]" alt="Main meal" />
+                    </div>
                   </div>
                 </div>
               </div>
-              <div class="relative">
-                <img src="../assets/image/餐盤測試2/中上.png" />
-                <div class="absolute left-1/2 top-1/2 w-1/2 -translate-x-1/2 -translate-y-1/2">
-                  <div v-if="sideDishesListImg.length >= 2" class="flex">
-                    <img :src="sideDishesListImg[1]" alt="Main meal" />
+              <div class="flex">
+                <div class="relative">
+                  <img src="../assets/image/餐盤測試2/左下.png" />
+                  <div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
+                    <div class="flex items-center justify-center">
+                      <img
+                        :src="item"
+                        alt="Main meal"
+                        class="w-2/3"
+                        v-for="item in mainMealListImg"
+                        :key="item"
+                      />
+                      <img
+                        :src="item"
+                        alt="starchDishes-img"
+                        class="w-2/3"
+                        v-for="item in starchDishesListImg"
+                        :key="item"
+                      />
+                    </div>
                   </div>
                 </div>
-              </div>
-              <div class="relative">
-                <img src="../assets/image/餐盤測試2/右上.png" />
-                <div class="absolute left-1/2 top-1/2 w-1/2 -translate-x-1/2 -translate-y-1/2">
-                  <div v-if="sideDishesListImg.length >= 3" class="flex">
-                    <img :src="sideDishesListImg[2]" alt="Main meal" />
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="flex">
-              <div class="relative">
-                <img src="../assets/image/餐盤測試2/左下.png" />
-                <div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
-                  <div class="flex items-center justify-center">
-                    <img
-                      :src="item"
-                      alt="Main meal"
-                      class="w-2/3"
-                      v-for="item in mainMealListImg"
-                      :key="item"
-                    />
-                    <img
-                      :src="item"
-                      alt="starchDishes-img"
-                      class="w-2/3"
-                      v-for="item in starchDishesListImg"
-                      :key="item"
-                    />
-                  </div>
-                </div>
-              </div>
-              <div class="relative">
-                <img src="../assets/image/餐盤測試2/右下.png" />
-                <div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
-                  <div
-                    v-if="sideDishesListImg.length >= 4"
-                    class="flex items-center justify-center"
-                  >
-                    <img :src="sideDishesListImg[3]" alt="Main meal" class="w-2/3" />
+                <div class="relative">
+                  <img src="../assets/image/餐盤測試2/右下.png" />
+                  <div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
+                    <div
+                      v-if="sideDishesListImg.length >= 4"
+                      class="flex items-center justify-center"
+                    >
+                      <img :src="sideDishesListImg[3]" alt="Main meal" class="w-2/3" />
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-          <div>
+          <!-- <div>
             <img :src="generatedImage" />
-          </div>
+          </div> -->
         </div>
         <div class="w-full md:w-1/3">
           <el-collapse v-model="activeNames" @change="handleChange">
@@ -840,7 +897,7 @@ watch(
     width: 40%;
   }
 }
-.test {
+.meal-bg {
   background-image: url('../assets/image/餐盤測試/底圖.jpg');
 }
 </style>
