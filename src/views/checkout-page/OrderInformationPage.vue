@@ -1,7 +1,11 @@
 <script setup>
-import { ref, reactive, watch } from 'vue'
+import { ref, reactive, watch, onMounted, computed } from 'vue'
+import { useCartStore } from '@/stores/cart';
 import ShoppingCartProgressBar from '@/components/global/ShoppingCartProgressBar.vue'
 import { taiwanCity } from '@/content/city' //引入城市鄉鎮
+
+const cartStore = useCartStore();
+
 const twCityArea = ref({ city: [], area: [] }) //用來存放城市鄉鎮的資料，select使用
 const cityName = ref('') //v-model綁定所選取得值
 const cityArea = ref('') //v-model綁定所選取得值
@@ -11,14 +15,32 @@ const getTwCityArea = () => {
     twCityArea.value.city = taiwanCity.map((item) => item.name)
 }
 
-const test = () => {
-    console.log(cityName.value)
-    console.log(cityArea.value)
-}
+// const test = () => {
+//     console.log(cityName.value)
+//     console.log(cityArea.value)
+// }
+
+const shippingMethod = ref('')
+const paymentMethod = ref('')
+
+//獲取購物車資訊
+const cartInfo = computed(() => cartStore.getCartInfo)
+const totalPrice = computed(() => cartInfo.value.prize || 0)
 
 //購物車狀態列函式
 const steps = ref(['購物車', '填寫資料', '訂單確認'])
 const activeStep = ref(2)
+
+onMounted(async () => {
+    // 從 localStorage 獲取前一頁資料
+    const savedForm = localStorage.getItem('shippingPaymentForm')
+    if (savedForm) {
+        const parsedForm = JSON.parse(savedForm)
+        shippingMethod.value = parsedForm.shippingMethod
+        paymentMethod.value = parsedForm.paymentMethod
+    }
+    await cartStore.fetchMemberCartInfo()
+})
 
 //表單資料
 const form = reactive({
@@ -58,7 +80,7 @@ getTwCityArea()
         <!-- 上方合計文字 -->
         <div class="col-start-5 col-span-4 pb-10">
             <div class="py-6 bg-primary-200 border-2 border-black rounded shadow-base">
-                <h3 class="text-2xl text-center">合計：NT$ 1460</h3>
+                <h3 class="text-2xl text-center">合計：NT$ {{ totalPrice }}</h3>
             </div>
         </div>
         <!-- 顧客資料與付款資料 -->
@@ -87,8 +109,7 @@ getTwCityArea()
                 </div>
                 <div class="border-2 border-black px-6 py-9 -mt-[2px]">
                     <p>已選擇的付款方式: </p>
-                    <p class="text-2xl">LINE PAY</p>
-                    <!-- <p class="text-2xl">超商取付</p> -->
+                    <p class="text-2xl">{{ paymentMethod === 'linePay' ? 'LINE PAY' : '超商取付' }}</p>
                 </div>
             </div>
         </div>
@@ -96,12 +117,12 @@ getTwCityArea()
         <div class="col-start-7 col-span-6">
             <div class="bg-primary-300 border-2 border-black flex justify-between">
                 <p class="px-6 py-2 font-bold">送貨資料</p>
-                <p class="px-6 py-2 font-bold">運費:NT$0</p>
+                <p class="px-6 py-2 font-bold">運費: {{ cartInfo.freightFree ? '免運' : 'NT$100' }}</p>
             </div>
             <div class="border-2 border-black px-6 py-4">
                 <el-form :model="form" label-width="auto" style="max-width: 100%">
                     <div>
-                        <p>已選擇的送貨方式: 新竹物流宅配</p>
+                        <p>已選擇的送貨方式: {{ shippingMethod }}</p>
                         <el-checkbox v-model="form.UseCustomerInfo" label="收件人資料與顧客資料相同" size="large" />
                     </div>
                     <el-form-item label="顧客姓名" label-position="top">
