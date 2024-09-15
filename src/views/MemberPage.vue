@@ -43,6 +43,7 @@ onMounted(async () => {
   })
   try {
     await memberStore.fetchMemberInfo()
+    await memberStore.fetchMemberOrder()
   } catch (error: any) {
     message(error.message, 'error')
   } finally {

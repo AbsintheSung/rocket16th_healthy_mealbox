@@ -17,6 +17,7 @@ const updateCaseTypeApi = `/${urlName}/cart/caseType`
 const submitOrder = `/${urlName}/order` //新增購物車訂單並送出
 const cleanCart = `/${urlName}/cart/clean` //清空購物車
 const customUpdateImgApi = `/${urlName}/image/customizeBoxes/upload` //自定義圖片上傳
+const getMemberOrderApi = `/${urlName}/orders` //取得會員的歷史訂單
 
 //匯出要使用的 api method
 export const fetchApi = {
@@ -34,6 +35,7 @@ export const fetchApi = {
   updateCaseType: (data: any) => axiosInstance.patch(updateCaseTypeApi, data),
   submitOrder: (data: any) => axiosInstance.post(submitOrder, data), //送出購物車訂單
   cleanCart: () => axiosInstance.delete(cleanCart), //清空購物車
-  customUpdateImg: (data: any) => axiosInstance.post(customUpdateImgApi, data) //清空購物車
+  customUpdateImg: (data: any) => axiosInstance.post(customUpdateImgApi, data), //自定義圖片上傳
+  getMemberOrder: () => axiosInstance.get(getMemberOrderApi)  //取得會員的歷史訂單
   //要添加其他 API 服務(照上面的方式往下寫)
 }
