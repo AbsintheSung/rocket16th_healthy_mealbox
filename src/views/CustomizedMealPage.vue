@@ -6,8 +6,63 @@ import html2canvas from 'html2canvas'
 import StarchDishes from '@/components/customized-meal-page/StarchDishes.vue'
 import MainDishes from '@/components/customized-meal-page/MainDishes.vue'
 import SideDishes from '@/components/customized-meal-page/SideDishes.vue'
+import CustomDialog from '@/components/customized-meal-page/CustomDialog.vue'
+import TheIngredient from '@/components/global/TheIngredient.vue'
+import TheDinnerPlate from '@/components/customized-meal-page/TheDinnerPlate.vue'
+import TheDinnerPlate2 from '@/components/customized-meal-page/TheDinnerPlate2.vue'
+import { fetchApi } from '@/utils/api/apiUrl'
 const urlName = import.meta.env.VITE_APP_API_NAME
-
+const getDishesApi = `/${urlName}/dishes`
+const dialogShow = ref(false) //控制彈窗開關
+const activeNames = ref([]) // 手風琴選取到的，會放入陣列
+const selectedCase = ref('case1') //目前選擇的類型 case1 => 1澱粉、1主食、3配菜 ( 重複了，可能移除 )
+const selectValue = ref('case1') //目前選擇的類型 case1 => 1澱粉、1主食、3配菜
+const mainMealDishesMenu = ref([]) // 主食菜單-會從後端獲取，一開始空陣列
+const sideDishesMenu = ref([]) // 配菜菜單-會從後端獲取，一開始空陣列
+const starchDishesMenu = ref([]) // 澱粉菜單-會從後端獲取，一開始空陣列
+const customName = ref('') // 使用者輸入 的 餐盒名稱
+const customContent = ref('') // 使用者輸入 的 餐宏內容
+// 定義所有營養成分的預設值
+const defaultComposition = {
+  calories: 0,
+  protein: 0,
+  adipose: 0,
+  carbohydrate: 0,
+  fiber: 0,
+  sodium: 0
+}
+const options = [
+  {
+    value: 'case1',
+    label: '1澱粉、1主食、3配菜'
+  },
+  {
+    value: 'case2',
+    label: '1澱粉、2主食、2配菜'
+  },
+  {
+    value: 'case3',
+    label: '1澱粉、0主食、4配菜'
+  },
+  {
+    value: 'case4',
+    label: '0澱粉、2主食、3配菜'
+  },
+  {
+    value: 'case5',
+    label: '0澱粉、1主食、4配菜'
+  }
+]
+//傳遞給 後端的 資料格式
+const setCustomData = ref({
+  name: '', // 使用者自定義餐盒名稱
+  title: '', // 選擇的title
+  starch: [], // 澱粉的 ID 列表
+  mainMeal: [], // 主餐的 ID 列表
+  sideDishes: [], // 配菜的 ID 列表
+  remark: '', // 備註
+  imgSrc: '' // 自定義圖片的路徑
+})
 const caseOption = reactive({
   case1: {
     title: '1澱粉、1主食、3配菜',
@@ -77,258 +132,63 @@ const caseOption = reactive({
     }
   }
 })
-const selectedCase = ref('case1')
-const getSelectCase = computed(() => selectedCase.value)
-const currentCase = computed(() => caseOption[selectedCase.value])
 
-const getDishesApi = `/${urlName}/dishes`
-// const minMainMealDishes = ref(1)
-// const maxMainMealDishes = ref(2) //主食選取最大值
-// const minSideDishes = ref(1)
-// const maxSideDishes = ref(3) //配菜選取最大值
-// const minStarchDishes = ref(1)
-// const maxStarchDishes = ref(1) //澱粉選取最大值
-// const mainMealList = ref([]) //選取主食存放陣列
-// const sideDishesList = ref([]) //選取配菜存放陣列
-// const starchDishesList = ref([]) //選取澱粉存放陣列
+const getSelectCase = computed(() => selectValue.value)
+const getCaseOption = computed(() => caseOption[selectValue.value])
 
-const mainMealDishes = ref([
-  {
-    id: 6,
-    dishesType: 'mainMeal', // 澱粉 // 菜色類型: mainMeal 主餐、 sideDishes 配菜、starch 澱粉
-    name: '嫩煎雞腿',
-    price: 20,
-    grams: 100, // 公克
-    img: '/src/assets/image/餐盤測試/雞肉.png', // 菜色去背後的圖片
-    // 營養素組成
-    composition: {
-      calories: 470, // 卡路里
-      protein: 25, // 蛋白質
-      adipose: 5, // 脂肪
-      carbohydrate: 55, // 碳水化合物
-      fiber: 5, // 纖維
-      sodium: 0 // 鈉含量
-    },
-    allergens: '蛋、麩質', // 過敏原
-    quantity: 100 // 庫存
-  },
-  {
-    id: 7,
-    dishesType: 'mainMeal', // 澱粉 // 菜色類型: mainMeal 主餐、 sideDishes 配菜、starch 澱粉
-    name: '嫩煎雞腿2',
-    price: 20,
-    grams: 100, // 公克
-    img: '/src/assets/image/餐盤測試/雞肉.png', // 菜色去背後的圖片
-    // 營養素組成
-    composition: {
-      calories: 470, // 卡路里
-      protein: 25, // 蛋白質
-      adipose: 5, // 脂肪
-      carbohydrate: 55, // 碳水化合物
-      fiber: 6, // 纖維
-      sodium: 0 // 鈉含量
-    },
-    allergens: '蛋、麩質', // 過敏原
-    quantity: 100 // 庫存
-  }
-])
-const sideDishes = ref([
-  {
-    id: 4,
-    dishesType: 'sideDishes', // 配菜 // 菜色類型: mainMeal 主餐、 sideDishes 配菜、starch 澱粉
-    name: '青花椰',
-    grams: 100, // 公克
-    img: '/src/assets/image/餐盤測試/青花耶.png', // 菜色去背後的圖片
-    price: 30,
-    // 營養素組成
-    composition: {
-      calories: 200, // 卡路里
-      protein: 25, // 蛋白質
-      adipose: 5, // 脂肪
-      carbohydrate: 15, // 碳水化合物
-      fiber: 5, // 纖維
-      sodium: 0 // 鈉含量
-    },
-    allergens: '蛋、麩質', // 過敏原
-    quantity: 200 // 庫存
-  },
-  {
-    id: 5,
-    dishesType: 'sideDishes', // 配菜 // 菜色類型: mainMeal 主餐、 sideDishes 配菜、starch 澱粉
-    name: '小黃瓜',
-    grams: 100, // 公克
-    img: '/src/assets/image/餐盤測試/小黃瓜.png', // 菜色去背後的圖片
-    price: 30,
-    // 營養素組成
-    composition: {
-      calories: 200, // 卡路里
-      protein: 25, // 蛋白質
-      adipose: 5, // 脂肪
-      carbohydrate: 15, // 碳水化合物
-      fiber: 5, // 纖維
-      sodium: 0 // 鈉含量
-    },
-    allergens: '蛋、麩質', // 過敏原
-    quantity: 200 // 庫存
-  }
-])
-const starchDishes = ref([
-  {
-    id: 2,
-    dishesType: 'starch', // 澱粉 // 菜色類型: mainMeal 主餐、 sideDishes 配菜、starch 澱粉
-    name: '半碗米飯',
-    price: 20,
-    grams: 100, // 公克
-    img: '/src/assets/image/餐盤測試/白飯.png', // 菜色去背後的圖片
-    // 營養素組成
-    composition: {
-      calories: 470, // 卡路里
-      protein: 25, // 蛋白質
-      adipose: 5, // 脂肪
-      carbohydrate: 55, // 碳水化合物
-      fiber: 5, // 纖維
-      sodium: 0 // 鈉含量
-    },
-    allergens: '蛋、麩質', // 過敏原
-    quantity: 100 // 庫存
-  },
-  {
-    id: 3,
-    dishesType: 'starch', // 澱粉 // 菜色類型: mainMeal 主餐、 sideDishes 配菜、starch 澱粉
-    name: '一碗米飯',
-    price: 20,
-    grams: 100, // 公克
-    img: '/src/assets/image/餐盤測試/白飯.png', // 菜色去背後的圖片
-    // 營養素組成
-    composition: {
-      calories: 470, // 卡路里
-      protein: 25, // 蛋白質
-      adipose: 5, // 脂肪
-      carbohydrate: 55, // 碳水化合物
-      fiber: 6, // 纖維
-      sodium: 0 // 鈉含量
-    },
-    allergens: '蛋、麩質', // 過敏原
-    quantity: 100 // 庫存
-  }
-])
 //渲染列表用
 const getMainMealDishes = computed(() => {
-  return mainMealDishes.value.map((item) => ({
+  return mainMealDishesMenu.value.map((item) => ({
     ...item,
     composition: { ...item.composition }
   }))
 })
 const getSideDishes = computed(() => {
-  return sideDishes.value.map((item) => ({
+  return sideDishesMenu.value.map((item) => ({
     ...item,
     composition: { ...item.composition }
   }))
 })
 const getstarchDishes = computed(() => {
-  return starchDishes.value.map((item) => ({
+  return starchDishesMenu.value.map((item) => ({
     ...item,
     composition: { ...item.composition }
   }))
 })
 
-// //顯示圖片操作
-// const hasImages = computed(() => mainMealListImg.value.length > 0) //判斷是否有圖片
-// const mainMealListImg = computed(() =>
-//   mainMealList.value.filter((dish) => dish && dish.img).map((dish) => dish.img)
-// ) //取出選取的主食圖片
-
-// const hasImages2 = computed(() => sideDishesListImg.value.length > 0) //判斷是否有圖片
-// const sideDishesListImg = computed(() =>
-//   sideDishesList.value.filter((dish) => dish && dish.img).map((dish) => dish.img)
-// ) //取出選取的主食圖片
-const hasImages = computed(() => {
-  // 合併選取的 case 中的所有 mainMealList 陣列
-  const allMainMeals = Object.values(currentCase.value.mainMealList).flat()
-  return allMainMeals.some((dish) => dish && dish.img)
-})
-
+//選取的資料 取出圖片路徑
 const mainMealListImg = computed(() => {
   // 合併選取的 case 中的所有 mainMealList 陣列，並取出 img 屬性
-  const allMainMeals = Object.values(currentCase.value.mainMealList).flat()
+  const allMainMeals = Object.values(getCaseOption.value.mainMealList).flat()
   return allMainMeals.filter((dish) => dish && dish.img).map((dish) => dish.img)
 })
-
-const hasImages2 = computed(() => {
-  // 合併選取的 case 中的所有 sideDishesList 陣列
-  const allSideDishes = Object.values(currentCase.value.sideDishesList).flat()
-  return allSideDishes.some((dish) => dish && dish.img)
-})
-
+//選取的資料 取出圖片路徑
 const sideDishesListImg = computed(() => {
   // 合併選取的 case 中的所有 sideDishesList 陣列，並取出 img 屬性
-  const allSideDishes = Object.values(currentCase.value.sideDishesList).flat()
+  const allSideDishes = Object.values(getCaseOption.value.sideDishesList).flat()
   return allSideDishes.filter((dish) => dish && dish.img).map((dish) => dish.img)
 })
-
-const hasImages3 = computed(() => {
-  // 合併選取的 case 中的所有 sideDishesList 陣列
-  const allStarchDishes = Object.values(currentCase.value.starchDishesList).flat()
-  return allStarchDishes.some((dish) => dish && dish.img)
-})
-
+//選取的資料 取出圖片路徑
 const starchDishesListImg = computed(() => {
   // 合併選取的 case 中的所有 sideDishesList 陣列，並取出 img 屬性
-  const allStarchDishes = Object.values(currentCase.value.starchDishesList).flat()
+  const allStarchDishes = Object.values(getCaseOption.value.starchDishesList).flat()
   return allStarchDishes.filter((dish) => dish && dish.img).map((dish) => dish.img)
 })
 
-const getDishes = async () => {
+const fetchDishesMenu = async () => {
   try {
     const response = await axiosInstance.get(getDishesApi)
-    // mainMealDishes.value = response.data.data.filter((dish) => dish.dishesType === 'mainMeal')
-    // sideDishes.value = response.data.data.filter((dish) => dish.dishesType === 'sideDishes')
-    // starchDishes.value = response.data.data.filter((dish) => dish.dishesType === 'starch')
-    console.log(response.data.data)
+    mainMealDishesMenu.value = response.data.data.filter((dish) => dish.dishesType === 'mainMeal')
+    sideDishesMenu.value = response.data.data.filter((dish) => dish.dishesType === 'sideDishes')
+    starchDishesMenu.value = response.data.data.filter((dish) => dish.dishesType === 'starch')
   } catch (error) {
-    console.log(error)
+    // console.log(error)
   }
 }
 
-const activeNames = ref(['1', '2', '3'])
-const handleChange = (val) => {
-  // console.log(val)
-}
-const value = ref('case1')
-const options = [
-  {
-    value: 'case1',
-    label: '1澱粉、1主食、3配菜'
-  },
-  {
-    value: 'case2',
-    label: '1澱粉、2主食、2配菜'
-  },
-  {
-    value: 'case3',
-    label: '1澱粉、0主食、4配菜'
-  },
-  {
-    value: 'case4',
-    label: '0澱粉、2主食、3配菜'
-  },
-  {
-    value: 'case5',
-    label: '0澱粉、1主食、4配菜'
-  }
-]
-const changeSelect = (val) => {
-  if (val === 'case1') {
-    selectedCase.value = 'case1'
-  } else if (val === 'case2') {
-    selectedCase.value = 'case2'
-  } else if (val === 'case3') {
-    selectedCase.value = 'case3'
-  } else if (val === 'case4') {
-    selectedCase.value = 'case4'
-  } else if (val === 'case5') {
-    selectedCase.value = 'case5'
-  }
+//下拉選單，選完後重製設定
+const changeSelect = () => {
+  // selectedCase.value = val
   resetCaseOption()
 }
 const nutrientNameMap = {
@@ -339,14 +199,9 @@ const nutrientNameMap = {
   fiber: '纖維',
   sodium: '鈉含量'
 }
-const test = (val) => {
-  console.log(val)
-}
+
 onMounted(async () => {
-  await getDishes()
-  console.log(mainMealDishes.value)
-  console.log(sideDishes.value)
-  console.log(starchDishes.value)
+  await fetchDishesMenu()
 })
 const plateComposition = ref(null)
 const generatedImage = ref('')
@@ -355,9 +210,9 @@ const generateImage = async () => {
     try {
       const canvas = await html2canvas(plateComposition.value)
       generatedImage.value = canvas.toDataURL('image/png')
-      const a = base64ToBlob(generatedImage.value)
-      const b = await blobToBase64(a)
-      console.log(b)
+      // const a = base64ToBlob(generatedImage.value)
+      // const b = await blobToBase64(a)
+      // console.log(b)
       console.log('圖片生成成功')
     } catch (error) {
       console.error('生成圖片時出錯：', error)
@@ -366,77 +221,44 @@ const generateImage = async () => {
 }
 
 // Base64 轉 Blob
-const base64ToBlob = (base64) => {
-  const parts = base64.split(';base64,')
-  const contentType = parts[0].split(':')[1]
-  const raw = window.atob(parts[1])
-  const rawLength = raw.length
-  const uInt8Array = new Uint8Array(rawLength)
-
-  for (let i = 0; i < rawLength; ++i) {
-    uInt8Array[i] = raw.charCodeAt(i)
+const base64ToBlob = (base64, contentType = 'image/png') => {
+  const byteString = atob(base64.split(',')[1])
+  const byteArray = new Uint8Array(byteString.length)
+  for (let i = 0; i < byteString.length; i++) {
+    byteArray[i] = byteString.charCodeAt(i)
   }
-
-  return new Blob([uInt8Array], { type: contentType })
+  return new Blob([byteArray], { type: contentType })
 }
 
-// Blob 轉 Base64
-const blobToBase64 = (blob) => {
-  return new Promise((resolve, reject) => {
-    const reader = new FileReader()
-    reader.onloadend = () => resolve(reader.result)
-    reader.onerror = reject
-    reader.readAsDataURL(blob)
-  })
-}
+// // Blob 轉 Base64
+// const blobToBase64 = (blob) => {
+//   return new Promise((resolve, reject) => {
+//     const reader = new FileReader()
+//     reader.onloadend = () => resolve(reader.result)
+//     reader.onerror = reject
+//     reader.readAsDataURL(blob)
+//   })
+// }
 
-//下載圖片
-const downloadImage = () => {
-  if (generatedImage.value) {
-    const link = document.createElement('a')
-    link.href = generatedImage.value
-    link.download = 'plate-composition.png' // 設置下載的文件名
-    link.click()
-  } else {
-    console.error('未找到生成的圖片')
-  }
-}
+// //下載圖片
+// const downloadImage = () => {
+//   if (generatedImage.value) {
+//     const link = document.createElement('a')
+//     link.href = generatedImage.value
+//     link.download = 'plate-composition.png' // 設置下載的文件名
+//     link.click()
+//   } else {
+//     console.error('未找到生成的圖片')
+//   }
+// }
 
-// 定義所有營養成分的預設值
-const defaultComposition = {
-  calories: 0,
-  protein: 0,
-  adipose: 0,
-  carbohydrate: 0,
-  fiber: 0,
-  sodium: 0
-}
-//根據選取的資料，做營養成分相加
-// const totalComposition = computed(() => {
-//   const allDishes = [
-//     ...mainMealList.value,
-//     ...sideDishesList.value,
-//     ...starchDishesList.value
-//   ].filter((dish) => dish && dish.composition)
-//   return allDishes.reduce(
-//     (total, dish) => {
-//       Object.keys(dish.composition).forEach((key) => {
-//         if (typeof total[key] === 'undefined') {
-//           total[key] = 0
-//         }
-//         total[key] += dish.composition[key]
-//       })
-//       return total
-//     },
-//     { ...defaultComposition }
-//   )
-// })
+//營養素累加
 const totalComposition = computed(() => {
   // 將三個菜品列表中的所有菜品合併成一個列表
   const allDishes = [
-    ...Object.values(currentCase.value.mainMealList).flat(),
-    ...Object.values(currentCase.value.sideDishesList).flat(),
-    ...Object.values(currentCase.value.starchDishesList).flat()
+    ...Object.values(getCaseOption.value.mainMealList).flat(),
+    ...Object.values(getCaseOption.value.sideDishesList).flat(),
+    ...Object.values(getCaseOption.value.starchDishesList).flat()
   ].filter((dish) => dish.composition) //將有 composition 的篩選出來
 
   // 對所有菜品的營養成分進行累加
@@ -462,36 +284,19 @@ const totalCompositionChinese = computed(() => {
   }))
 })
 
-//以下組件測試
-const handleUpdateStarchDisheSelected = (index, ischecked, checkItem) => {
-  currentCase.value.starchDishesList[index] = checkItem
-  // console.log(index, ischecked, checkItem)
-  // if (ischecked) {
-  //   starchDishesList.value[index] = checkItem
-  //   // starchDishesList.value.push(checkItem)
-  // } else {
-  //   starchDishesList.value[index] = null
-  //   // starchDishesList.value.pop()
-  // }
-}
-const handleupdateMealSelected = (index, ischecked, checkItem) => {
-  // console.log(index, ischecked, checkItem)
-  currentCase.value.mainMealList[index] = checkItem
-  // caseOption[getSelectCase.value].mainMealList[index] = checkItem
+//計算總和
+const totalPrice = computed(() => {
+  const allDishes = [
+    ...Object.values(getCaseOption.value.starchDishesList).flat(),
+    ...Object.values(getCaseOption.value.mainMealList).flat(),
+    ...Object.values(getCaseOption.value.sideDishesList).flat()
+  ]
 
-  // console.log(caseOption.case2.mainMealList)
-  // console.log(caseOption.case1.mainMealList)
-  // if (ischecked) {
-  //   mainMealList.value[index] = checkItem
-  // } else {
-  //   mainMealList.value[index] = null
-  // }
-}
-const handleupdateSideDishesSelected = (index, ischecked, checkItem) => {
-  // console.log(index, ischecked, checkItem)
-  currentCase.value.sideDishesList[index] = checkItem
-  // caseOption[getSelectCase.value].sideDishesList[index] = checkItem
-}
+  return allDishes.reduce((sum, dish) => {
+    return sum + dish.price
+  }, 0)
+})
+
 // 定義重置函數，用於清空所有列表
 const resetCaseOption = () => {
   Object.values(caseOption).forEach((caseData) => {
@@ -511,12 +316,64 @@ const resetCaseOption = () => {
     })
   })
 }
-const handleData = () => {
-  console.log(currentCase.value)
+const handleData = async () => {
+  await generateImage()
+  dialogShow.value = true
+  console.log(getCaseOption.value)
+}
+const handleEdit = () => {
+  console.log(getCaseOption.value)
+}
+const handleCloseDialog = () => {
+  dialogShow.value = false
+}
+
+//發送api
+const test = async () => {
+  // const blob = base64ToBlob(generatedImage.value, 'image/png')
+  // const formData = new FormData()
+  // formData.append('image', blob, 'canvas_image.png')
+  // console.log(formData)
+  // try {
+  //   const resposne = await fetchApi.customUpdateImg(formData)
+  //   console.log(resposne)
+  // } catch (error) {
+  //   console.log(error)
+  // }
+  collectMealBoxData()
+  console.log(setCustomData.value)
+}
+
+//整合資料後 傳遞給後端
+const collectMealBoxData = (imgdata) => {
+  setCustomData.value.name = customName.value
+  setCustomData.value.remark = customContent.value
+  setCustomData.value.title = getCaseOption.value.title
+  setCustomData.value.imgSrc = imgdata
+  setCustomData.value.starch = Object.values(getCaseOption.value.starchDishesList)
+    .flat()
+    .map((dish) => dish.id)
+  setCustomData.value.mainMeal = Object.values(getCaseOption.value.mainMealList)
+    .flat()
+    .map((dish) => dish.id)
+  setCustomData.value.sideDishes = Object.values(getCaseOption.value.sideDishesList)
+    .flat()
+    .map((dish) => dish.id)
 }
 </script>
 <template>
   <main>
+    <CustomDialog
+      :dialogShow="dialogShow"
+      :totalCompositionChinese="totalCompositionChinese"
+      :currentCase="getCaseOption"
+      :totalPrice="totalPrice"
+      :generatedImage="generatedImage"
+      v-model:customName="customName"
+      v-model:customContent="customContent"
+      :fetchData="test"
+      @closeDialog="handleCloseDialog"
+    />
     <div class="bg-primary-400">
       <div class="container relative flex items-center justify-center">
         <button class="absolute left-0 top-1/2 block -translate-y-1/2 p-2 md:hidden">
@@ -537,7 +394,7 @@ const handleData = () => {
     <div class="container py-4 md:py-14">
       <div class="flex w-full items-center justify-between py-3 md:w-2/3">
         <el-select
-          v-model="value"
+          v-model="selectValue"
           placeholder="Select"
           size="small"
           class="el-select-width"
@@ -554,245 +411,62 @@ const handleData = () => {
       </div>
       <div class="flex flex-col gap-x-6 md:flex-row">
         <div class="w-full md:w-2/3">
-          <div
-            v-if="['case1', 'case2', 'case4'].includes(getSelectCase)"
-            class="test w-full"
-            ref="plateComposition"
-          >
-            <div class="flex">
-              <div class="relative">
-                <img src="../assets/image/餐盤測試/左.png" />
-                <div class="absolute left-1/2 top-1/2 w-1/2 -translate-x-1/2 -translate-y-1/2">
-                  <div v-if="sideDishesListImg.length >= 1" class="flex">
-                    <img :src="sideDishesListImg[0]" alt="Main meal" />
-                  </div>
-                </div>
-              </div>
-              <div class="relative">
-                <img src="../assets/image/餐盤測試/中.png" />
-                <div class="absolute left-1/2 top-1/2 w-1/2 -translate-x-1/2 -translate-y-1/2">
-                  <div v-if="sideDishesListImg.length >= 2" class="flex">
-                    <img :src="sideDishesListImg[1]" alt="Main meal" />
-                  </div>
-                </div>
-              </div>
-              <div class="relative">
-                <img src="../assets/image/餐盤測試/右.png" />
-                <div class="absolute left-1/2 top-1/2 w-1/2 -translate-x-1/2 -translate-y-1/2">
-                  <div v-if="sideDishesListImg.length >= 3" class="flex">
-                    <img :src="sideDishesListImg[2]" alt="Main meal" />
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="flex">
-              <div class="relative">
-                <img src="../assets/image/餐盤測試/底餐盤-2.png" />
-                <div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
-                  <div class="flex items-center justify-center">
-                    <img
-                      :src="item"
-                      alt="Main meal"
-                      class="w-1/2"
-                      v-for="item in mainMealListImg"
-                      :key="item"
-                    />
-                    <img
-                      :src="item"
-                      alt="starchDishes-img"
-                      class="w-1/2"
-                      v-for="item in starchDishesListImg"
-                      :key="item"
-                    />
-                  </div>
-                </div>
-              </div>
+          <div v-if="['case1', 'case2', 'case4'].includes(getSelectCase)" class="meal-bg w-full">
+            <div class="flex w-fit flex-col" ref="plateComposition">
+              <TheDinnerPlate
+                :sideDishesListImg="sideDishesListImg"
+                :mainMealListImg="mainMealListImg"
+                :starchDishesListImg="starchDishesListImg"
+              />
             </div>
           </div>
           <!-- 另一個餐盤模組 -->
-          <div v-else class="test w-full" ref="plateComposition">
-            <div class="flex">
-              <div class="relative">
-                <img src="../assets/image/餐盤測試2/左上.png" />
-                <div class="absolute left-1/2 top-1/2 w-1/2 -translate-x-1/2 -translate-y-1/2">
-                  <div v-if="sideDishesListImg.length >= 1" class="flex">
-                    <img :src="sideDishesListImg[0]" alt="Main meal" />
-                  </div>
-                </div>
-              </div>
-              <div class="relative">
-                <img src="../assets/image/餐盤測試2/中上.png" />
-                <div class="absolute left-1/2 top-1/2 w-1/2 -translate-x-1/2 -translate-y-1/2">
-                  <div v-if="sideDishesListImg.length >= 2" class="flex">
-                    <img :src="sideDishesListImg[1]" alt="Main meal" />
-                  </div>
-                </div>
-              </div>
-              <div class="relative">
-                <img src="../assets/image/餐盤測試2/右上.png" />
-                <div class="absolute left-1/2 top-1/2 w-1/2 -translate-x-1/2 -translate-y-1/2">
-                  <div v-if="sideDishesListImg.length >= 3" class="flex">
-                    <img :src="sideDishesListImg[2]" alt="Main meal" />
-                  </div>
-                </div>
-              </div>
+          <div v-else class="meal-bg w-full">
+            <div class="flex w-fit flex-col" ref="plateComposition">
+              <TheDinnerPlate2
+                :sideDishesListImg="sideDishesListImg"
+                :mainMealListImg="mainMealListImg"
+                :starchDishesListImg="starchDishesListImg"
+              />
             </div>
-            <div class="flex">
-              <div class="relative">
-                <img src="../assets/image/餐盤測試2/左下.png" />
-                <div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
-                  <div class="flex items-center justify-center">
-                    <img
-                      :src="item"
-                      alt="Main meal"
-                      class="w-2/3"
-                      v-for="item in mainMealListImg"
-                      :key="item"
-                    />
-                    <img
-                      :src="item"
-                      alt="starchDishes-img"
-                      class="w-2/3"
-                      v-for="item in starchDishesListImg"
-                      :key="item"
-                    />
-                  </div>
-                </div>
-              </div>
-              <div class="relative">
-                <img src="../assets/image/餐盤測試2/右下.png" />
-                <div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
-                  <div
-                    v-if="sideDishesListImg.length >= 4"
-                    class="flex items-center justify-center"
-                  >
-                    <img :src="sideDishesListImg[3]" alt="Main meal" class="w-2/3" />
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div>
-            <img :src="generatedImage" />
           </div>
         </div>
         <div class="w-full md:w-1/3">
-          <el-collapse v-model="activeNames" @change="handleChange">
+          <el-collapse v-model="activeNames">
             <StarchDishes
-              v-for="(item, index) in currentCase.starchDishesList"
-              :starchDishesList="item"
+              v-for="(item, index) in getCaseOption.starchDishesList"
               :key="item"
-              @updateStarchDisheSelected="
-                (ischecked, checkItem) =>
-                  handleUpdateStarchDisheSelected(index, ischecked, checkItem)
-              "
+              v-model:starchDisheList="caseOption[getSelectCase].starchDishesList[index]"
             />
             <MainDishes
-              v-for="(item, index) in currentCase.mainMealList"
-              :mainMealList="item"
+              v-for="(item, index) in getCaseOption.mainMealList"
               :key="item"
-              @updateMainSelected="
-                (ischecked, checkItem) => handleupdateMealSelected(index, ischecked, checkItem)
-              "
+              v-model:mainMealList="caseOption[getSelectCase].mainMealList[index]"
             />
-
             <SideDishes
-              v-for="(item, index) in currentCase.sideDishesList"
-              :sideDishesList="item"
+              v-for="(item, index) in getCaseOption.sideDishesList"
               :key="item"
-              @updateSideDishesSelected="
-                (ischecked, checkItem) =>
-                  handleupdateSideDishesSelected(index, ischecked, checkItem)
-              "
+              v-model:sideDishesList="caseOption[getSelectCase].sideDishesList[index]"
             />
-
-            <!-- <el-collapse-item
-              :title="`澱粉-${starchDishesList.length}/${maxStarchDishes}`"
-              name="1"
-            >
-              <el-checkbox-group
-                v-model="starchDishesList"
-                :min="0"
-                :max="maxStarchDishes"
-                class="flex flex-col"
-              >
-                <el-checkbox
-                  v-for="item in getstarchDishes"
-                  :key="item.id"
-                  :label="item.name"
-                  :value="item"
-                />
-              </el-checkbox-group>
-            </el-collapse-item> -->
-
-            <!-- <el-collapse-item :title="`主食-${mainMealList.length}/${maxMainMealDishes}`" name="2">
-              <el-checkbox-group
-                v-model="mainMealList"
-                :min="0"
-                :max="maxMainMealDishes"
-                @change="test"
-                class="flex flex-col"
-              >
-                <el-checkbox
-                  v-for="item in getMainMealDishes"
-                  :key="item.id"
-                  :label="item.name"
-                  :value="item"
-                />
-              </el-checkbox-group>
-            </el-collapse-item> -->
-
-            <!-- <el-collapse-item :title="`配菜-${sideDishesList.length}/${maxSideDishes}`" name="3">
-              <el-checkbox-group
-                v-model="sideDishesList"
-                :min="0"
-                :max="maxSideDishes"
-                class="flex flex-col"
-              >
-                <el-checkbox
-                  v-for="item in getSideDishes"
-                  :key="item.id"
-                  :label="item.name"
-                  :value="item"
-                />
-              </el-checkbox-group>
-            </el-collapse-item> -->
           </el-collapse>
         </div>
       </div>
       <div class="container">
         <div class="grid grid-cols-12 gap-x-6">
           <div class="col-span-full col-start-1 lg:col-span-8">
-            <ul class="flex w-full flex-wrap items-center py-6 md:flex-nowrap">
-              <li
-                v-for="(item, index) in totalCompositionChinese"
-                :key="item.name"
-                class="flex w-1/3 flex-col items-center justify-center gap-y-4 border-black py-2 md:py-0"
-                :class="[
-                  index < 3 ? 'border-b md:border-b-0' : 'border-t md:border-t-0',
-                  index % 3 === 0 ? 'md:border-l' : 'border-l',
-                  (index + 1) % 3 === 0 ? 'border-r-0' : 'border-r',
-                  'md:border-x',
-                  { 'md:first:border-l-0': index === 0 },
-                  { 'md:last:border-r-0': index === totalCompositionChinese.length - 1 }
-                ]"
-              >
-                <h3>{{ item.name }}</h3>
-                <p>{{ item.value }}</p>
-              </li>
-            </ul>
+            <TheIngredient :ingredientData="totalCompositionChinese" />
           </div>
           <div class="col-span-full col-start-1 lg:col-span-4 lg:col-start-9">
             <div class="grid h-full grid-cols-4 items-center gap-x-6">
               <button
                 class="col-span-2 col-start-1 rounded bg-[#DCDCDC] py-4 hover:cursor-pointer"
-                @click="handleData"
+                @click="handleEdit"
               >
                 重新編輯
               </button>
               <button
                 class="col-span-2 rounded bg-secondary-400 py-4 hover:cursor-pointer hover:shadow-base"
-                @click="generateImage"
+                @click="handleData"
               >
                 儲存
               </button>
@@ -810,7 +484,7 @@ const handleData = () => {
     width: 40%;
   }
 }
-.test {
+.meal-bg {
   background-image: url('../assets/image/餐盤測試/底圖.jpg');
 }
 </style>

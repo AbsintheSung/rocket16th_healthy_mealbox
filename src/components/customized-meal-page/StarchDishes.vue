@@ -1,15 +1,6 @@
 <script setup>
-import { ref, computed, watch } from 'vue'
-
-// const starchDishesList = ref([])
-const props = defineProps({
-  starchDishesList: {
-    type: Array,
-    default: () => []
-  }
-})
-const localstarchDisheList = ref([...props.starchDishesList])
-
+import { ref, computed } from 'vue'
+const starchDisheList = defineModel('starchDisheList')
 const starchDishes = ref([
   {
     id: 2,
@@ -56,28 +47,15 @@ const getstarchDishes = computed(() => {
     composition: { ...item.composition }
   }))
 })
-const emits = defineEmits({
-  updateStarchDisheSelected: () => {
-    return true
-  }
-})
-const test = (checked, item) => {
-  if (checked) {
-    emits('updateStarchDisheSelected', checked, [item])
-  } else {
-    emits('updateStarchDisheSelected', checked, [])
-  }
-}
 </script>
 <template>
   <el-collapse-item :title="`澱粉`" name="1">
-    <el-checkbox-group v-model="localstarchDisheList" :min="0" :max="1" class="flex flex-col">
+    <el-checkbox-group v-model="starchDisheList" :min="0" :max="1" class="flex flex-col">
       <el-checkbox
         v-for="item in getstarchDishes"
         :key="item.id"
         :label="item.name"
         :value="item"
-        @change="(checked) => test(checked, item)"
       />
     </el-checkbox-group>
   </el-collapse-item>

@@ -111,7 +111,7 @@ onMounted(() => {
 //送出表單
 const onSubmit = () => {
     if (form.shippingRegion && form.shippingMethod && form.paymentMethod) {
-        // 將表單數據儲存到 localStorage
+        // 將表單數據存儲到 localStorage
         localStorage.setItem('shippingPaymentForm', JSON.stringify(form))
         router.push('/checkout/order-information')
     } else {

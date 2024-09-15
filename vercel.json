@@ -1,6 +1,7 @@
 {
     "rewrites": [  
         {  "source": "/api/:path*","destination": "http://20.2.249.137:80/api/:path*"},
+        { "source": "/Images/:path*", "destination": "http://20.2.249.137:80/Images/:path*" },
         { "source": "/(.*)","destination": "/index.html" }
     ]
 }
