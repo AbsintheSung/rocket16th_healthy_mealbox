@@ -93,6 +93,7 @@ const getTwCityArea = () => {
 
 // 送出表單
 const onSubmit = async () => {
+
     if (!formRef.value) return
 
     try {
@@ -104,13 +105,14 @@ const onSubmit = async () => {
             throw new Error('請選擇付款方式')
         }
 
-        const formattedData = {
+        const orderData = {
             shippingRegion: "台灣",
             shippingMethod: shippingMethod.value,
             paymentMethod: paymentMethod.value === 'LINE PAY' ? 'onlinePayment' : 'cashOnDelivery',
             senderName: form.customer.name,
             senderEmail: form.customer.email,
             senderPhoneNumber: form.customer.phone,
+            senderBirthday: "", // 未出現在表單中，非必填，待討論
             orderNotes: form.orderNotes,
             recipientName: form.recipient.name,
             recipientPhoneNumber: form.recipient.phone,
@@ -121,8 +123,38 @@ const onSubmit = async () => {
             creditCardCVC: "",
             creditCardExp: ""
         }
-        console.log('準備提交到後端的數據:', formattedData)
-        // 資料尚未回傳至後端
+        console.log('準備提交到後端的數據:', orderData)
+
+        //提交到後端
+        // const response = await cartStore.submitOrder(orderData)
+
+        // if (response.status === 200 && response.code === 0) {
+        //     ElMessage.success(response.message || '訂單提交成功')
+        //     router.push('/order-complete')
+        //     router.push({ name: 'OrderConfirmation', params: { orderId: response.id } })
+        // } else {
+        //     throw new Error(response.message || '訂單提交失敗')
+        // }
+
+        // 提交到後端 - 測試
+        const response = await fetch('http://20.2.249.137/api/order', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(orderData)
+        })
+
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`)
+        }
+
+        const result = await response.json()
+        console.log('API 回應:', result)
+
+        ElMessage.success(result.message || '訂單提交成功')
+        router.push('/order-complete')
+
     } catch (error) {
         console.error('表單驗證失敗:', error)
         ElMessage.error(error.message || '請填寫所有必要資訊')
