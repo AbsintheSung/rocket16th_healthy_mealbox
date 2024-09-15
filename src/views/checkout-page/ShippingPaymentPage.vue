@@ -21,7 +21,7 @@ const totalQuantity = computed(() => cartStore.getMealBoxTotal)
 // 計算總價
 const totalPrice = computed(() => {
     const prize = cartInfo.value.prize || 0
-    return cartInfo.value.freightFree ? prize : prize + 100
+    return cartInfo.value.freightFree ? prize : prize + 300
 })
 
 // 確認購物車內是否有商品
@@ -148,7 +148,7 @@ const onSubmit = () => {
                             <td class="pl-3 py-2 flex items-center md:pl-6">
                                 <p>訂餐計畫 {{ totalQuantity }} 餐</p>
                             </td>
-                            <td class="pl-6 md:pl-0">{{ cartInfo.freightFree ? '免運' : '' }}</td>
+                            <td class="pl-6 md:pl-0">{{ cartInfo.freightFree ? '免運' : 'NT$300' }}</td>
                             <td>NT${{ cartInfo.prize }}</td>
                             <td>1</td>
                             <td>NT${{ cartInfo.prize }}</td>

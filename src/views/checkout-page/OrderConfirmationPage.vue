@@ -68,7 +68,7 @@ const totalQuantity = computed(() => cartStore.getMealBoxTotal)
 // 加入運費後的值(若免運則+0)
 const totalPrice = computed(() => {
     const prize = cartInfo.value.prize || 0
-    return cartInfo.value.freightFree ? prize : prize + 100
+    return cartInfo.value.freightFree ? prize : prize + 300
 })
 // 確認購物車內是否有商品
 const hasCartItems = computed(() => generalBoxes.value.length > 0)
@@ -162,7 +162,7 @@ onMounted(async () => {
                 </div>
                 <div class="flex justify-between pt-6 pb-6 border-b border-black md:text-xl md:pt-9">
                     <p>運費</p>
-                    <p>{{ cartInfo.freightFree ? '免運' : 'NT$100' }}</p>
+                    <p>{{ cartInfo.freightFree ? '免運' : 'NT$300' }}</p>
                 </div>
                 <div class="flex justify-between pt-6 pb-6 border-b border-black md:text-xl md:pt-9">
                     <p>合計</p>
