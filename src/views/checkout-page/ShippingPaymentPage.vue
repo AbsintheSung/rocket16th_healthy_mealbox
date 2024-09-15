@@ -231,7 +231,7 @@ const onSubmit = () => {
                     </div>
                     <div class="flex justify-between text-xl pt-9 pb-6 border-b border-black">
                         <p>運費</p>
-                        <p>{{ cartInfo.freightFree ? '免運' : 'NT$100' }}</p>
+                        <p>{{ cartInfo.freightFree ? '免運' : 'NT$300' }}</p>
                     </div>
                     <div class="flex justify-between text-xl pt-9 pb-6 border-b border-black">
                         <p>合計</p>
