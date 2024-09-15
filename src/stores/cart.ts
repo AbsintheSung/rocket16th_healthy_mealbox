@@ -79,7 +79,7 @@ export const useCartStore = defineStore('cart', () => {
       generalBoxes.value = response.data.data.generalBoxes
       customizeBoxes.value = response.data.data.customizeBoxes
       cartInfo.value = {
-        prize: response.data.data.prize,
+        prize: response.data.data.price,
         freightFree: response.data.data.freightFree,
         expirationDate: response.data.data.expirationDate,
       }
@@ -152,7 +152,7 @@ export const useCartStore = defineStore('cart', () => {
         generalBoxes.value = response.data.data.generalBoxes
         customizeBoxes.value = response.data.data.customizeBoxes
         cartInfo.value = {
-          prize: response.data.data.prize,
+          prize: response.data.data.price,
           freightFree: response.data.data.freightFree,
           expirationDate: response.data.data.expirationDate,
         }
@@ -180,7 +180,7 @@ export const useCartStore = defineStore('cart', () => {
         generalBoxes.value = response.data.data.generalBoxes
         customizeBoxes.value = response.data.data.customizeBoxes
         cartInfo.value = {
-          prize: response.data.data.prize,
+          prize: response.data.data.price,
           freightFree: response.data.data.freightFree,
           expirationDate: response.data.data.expirationDate,
         }
@@ -209,7 +209,7 @@ export const useCartStore = defineStore('cart', () => {
         generalBoxes.value = response.data.data.generalBoxes
         customizeBoxes.value = response.data.data.customizeBoxes
         cartInfo.value = {
-          prize: response.data.data.prize,
+          prize: response.data.data.price,
           freightFree: response.data.data.freightFree,
           expirationDate: response.data.data.expirationDate,
         }
