@@ -1,28 +1,6 @@
 <script setup>
-import { ref, computed, watch } from 'vue'
-const props = defineProps({
-  mainMealList: {
-    type: Array,
-    default: () => []
-  }
-})
-// 定義 emits 來將數據發送回父組件
-const emits = defineEmits({
-  updateMainSelected: () => {
-    return true
-  }
-})
-const test = (checked, item) => {
-  if (checked) {
-    emits('updateMainSelected', [item])
-  } else {
-    emits('updateMainSelected', [])
-  }
-}
-
-// 創建一個本地的 ref 副本來儲存 mainMealList
-const localMainMealList = ref([...props.mainMealList])
-
+import { ref, computed } from 'vue'
+const mainMealList = defineModel('mainMealList')
 const mainMealDishes = ref([
   {
     id: 6,
@@ -70,25 +48,15 @@ const getMainMealDishes = computed(() => {
     composition: { ...item.composition }
   }))
 })
-// const emits = defineEmits({
-//   updateMealSelected: () => {
-//     return true
-//   }
-// })
-// const test = (checked, item) => {
-//   emits('updateMealSelected', checked, item)
-//   //   console.log(val)
-// }
 </script>
 <template>
   <el-collapse-item :title="`主食`" name="2">
-    <el-checkbox-group v-model="localMainMealList" :min="0" :max="1" class="flex flex-col">
+    <el-checkbox-group v-model="mainMealList" :min="0" :max="1" class="flex flex-col">
       <el-checkbox
         v-for="item in getMainMealDishes"
         :key="item.id"
         :label="item.name"
         :value="item"
-        @change="(checked) => test(checked, item)"
       />
     </el-checkbox-group>
   </el-collapse-item>
