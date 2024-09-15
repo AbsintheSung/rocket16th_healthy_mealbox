@@ -84,3 +84,117 @@ export type CartInfo = {
   freightFree: boolean;
   expirationDate: string;
 };
+
+//會員資料型別
+// export type MemberInfo = {
+//   id: number | null
+//   userImg: string | null
+//   name: string | null
+//   account: string | null
+//   permission: string | null
+//   phoneNumber: string | null
+//   birthDate: string | null
+//   gender: number | null // 0: 男生 1:女 2:其他
+//   city: string | null
+//   area: string | null
+//   address: string | null
+//   createTime: string | null
+// }
+export type MemberInfo = {
+  id: number
+  userImg: string
+  name: string
+  account: string
+  permission: string
+  phoneNumber: string
+  birthDate: string
+  gender: number  // 0: 男生 1:女 2:其他
+  city: string
+  area: string
+  address: string
+  createTime: string
+}
+
+// 定義 GeneralBoxes訂單 型別
+export type GeneralBoxesOrder = {
+  id: number
+  name: string
+  price: number
+  composition: {
+    calories: number
+    protein: number
+    adipose: number
+    carbohydrate: number
+    fiber: number
+    sodium: number
+  }
+  ingredient: string
+  allergens: string
+  description?: string
+  menuDescription?: string
+  imgArr: string[]
+  star: number
+  quantity: number
+  boxQuantity: number
+  createTime?: string
+}
+
+// 定義 CustomizeBoxes訂單 型別
+export type CustomizeBoxesOrder = {
+  id: number
+  userId: number
+  name: string
+  price: number
+  template: string
+  starch: number[] // 澱粉類
+  mainMeal: number[] // 主餐
+  sideDishes: number[] // 配菜
+  remark: string
+  composition: {
+    calories: number
+    protein: number
+    adipose: number
+    carbohydrate: number
+    fiber: number
+    sodium: number
+  }
+  allergens: string
+  imgSrc: string
+  boxQuantity: number
+}
+
+// 定義 CartOrder 型別
+export type CartOrder = {
+  id: number
+  userId: number
+  caseType: number
+  customizeBoxes: CustomizeBoxesOrder[]
+  generalBoxes: GeneralBoxesOrder[]
+  price: number
+  freightFree: boolean
+  expirationDate: string // ISO 日期格式
+}
+
+// 定義 Order 型別
+export type Order = {
+  id: number // 訂單 id
+  userId: number // 會員 id
+  orderNumber: string // 訂單號碼
+  orderStatus: 'paid' | 'unpaid' // 付款狀態
+  orderPrice: number // 含運費的總價
+  shippingRegion: string // 送貨地區
+  shippingMethod: '新竹貨運' | '超商冷凍宅配' // 送貨方式
+  paymentMethod: 'onlinePayment' | 'cashOnDelivery' // 付款方式
+  senderName: string // 寄貨者名稱
+  senderEmail: string // 寄貨者電子信箱
+  senderPhoneNumber: string // 寄貨者電話號碼
+  senderBirthday: string // 寄貨者生日 (ISO 日期格式)
+  orderNotes: string // 訂單備註
+  recipientName: string // 收貨者名稱
+  recipientPhoneNumber: string // 收貨者電話
+  recipientCity: string // 收貨者城市
+  recipientArea: string // 收貨者地區
+  recipientAddress: string // 收貨者詳細地址
+  createTime: string // 訂單建立時間 (ISO 日期格式)
+  cartOrder: CartOrder // 購物車訂單資料
+}

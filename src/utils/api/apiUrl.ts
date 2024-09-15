@@ -17,7 +17,7 @@ const updateCaseTypeApi = `/${urlName}/cart/caseType`
 const submitOrder = `/${urlName}/order` //新增購物車訂單並送出
 const cleanCart = `/${urlName}/cart/clean` //清空購物車
 const customUpdateImgApi = `/${urlName}/image/customizeBoxes/upload` //自定義圖片上傳
-const getMemberOrderApi = `/${urlName}/order` //取得會員的歷史訂單
+const getMemberOrderApi = `/${urlName}/orders` //取得會員的歷史訂單
 
 //匯出要使用的 api method
 export const fetchApi = {
