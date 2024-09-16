@@ -226,7 +226,6 @@ export const useCartStore = defineStore('cart', () => {
     try {
       const response = await fetchApi.submitOrder(orderData)
       if (response.status === 200) {
-        // Clear cart after successful order
         await fetchMemberCartInfo()
         return response.data
       }

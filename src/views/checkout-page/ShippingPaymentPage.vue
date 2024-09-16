@@ -76,7 +76,7 @@ const form = reactive({
 
 //付款方式
 const paymentOptions = ref([
-    { label: 'LINE Pay付款', value: 'linePay', disabled: false },
+    { label: 'LINE Pay付款', value: 'LINE PAY', disabled: false },
     { label: '超商取付', value: 'storePickup', disabled: true }
 ])
 
@@ -84,7 +84,7 @@ const paymentOptions = ref([
 watch(() => form.shippingMethod, (newShippingMethod) => {
     if (newShippingMethod === '新竹貨運') {
         paymentOptions.value = [
-            { label: 'LINE Pay付款', value: 'linePay', disabled: false },
+            { label: 'LINE Pay付款', value: 'LINE PAY', disabled: false },
             { label: '超商取付', value: 'storePickup', disabled: true }
         ]
         // 若為超取，則兩種付款方式都能使用
@@ -93,7 +93,7 @@ watch(() => form.shippingMethod, (newShippingMethod) => {
         }
     } else if (newShippingMethod === '超商冷凍宅配') {
         paymentOptions.value = [
-            { label: 'LINE Pay付款', value: 'linePay', disabled: false },
+            { label: 'LINE Pay付款', value: 'LINE PAY', disabled: false },
             { label: '超商取付', value: 'storePickup', disabled: false }
         ]
     }
@@ -231,7 +231,7 @@ const onSubmit = () => {
                     </div>
                     <div class="flex justify-between text-xl pt-9 pb-6 border-b border-black">
                         <p>運費</p>
-                        <p>{{ cartInfo.freightFree ? '免運' : 'NT$100' }}</p>
+                        <p>{{ cartInfo.freightFree ? '免運' : 'NT$300' }}</p>
                     </div>
                     <div class="flex justify-between text-xl pt-9 pb-6 border-b border-black">
                         <p>合計</p>
