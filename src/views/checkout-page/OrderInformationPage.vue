@@ -17,7 +17,13 @@ const paymentMethod = ref('')
 
 //獲取購物車資訊
 const cartInfo = computed(() => cartStore.getCartInfo)
-const totalPrice = computed(() => cartInfo.value.prize || 0)
+
+// 計算總價
+const totalPrice = computed(() => {
+    const prize = cartInfo.value.prize || 0
+    return cartInfo.value.freightFree ? prize : prize + 300
+})
+
 
 //購物車狀態列函式
 const steps = ref(['購物車', '填寫資料', '訂單確認'])
@@ -224,7 +230,7 @@ onMounted(async () => {
         <div class="col-start-7 col-span-6">
             <div class="bg-primary-300 border-2 border-black flex justify-between">
                 <p class="px-6 py-2 font-bold">送貨資料</p>
-                <p class="px-6 py-2 font-bold">運費: {{ cartInfo.freightFree ? '免運' : 'NT$100' }}</p>
+                <p class="px-6 py-2 font-bold">運費: {{ cartInfo.freightFree ? '免運' : 'NT$300' }}</p>
             </div>
             <div class="border-2 border-black px-6 py-4">
                 <el-form :model="form" :rules="rules" label-width="auto" style="max-width: 100%">
