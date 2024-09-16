@@ -37,6 +37,11 @@ export const useMemberStore = defineStore('member', () => {
   //會員資料存放處
   const memberInfo = ref<Partial<MemberInfo>>({});
   const memberOrder = ref<Order[]>([])
+  const orderCurrentPage = ref(1) // 訂單當前分頁
+  const orderPageSize = ref(10) //訂單每頁該顯示的資料數量
+
+
+
 
   /* Getter */
   const getMemberInfo = computed(() => {
@@ -79,6 +84,21 @@ export const useMemberStore = defineStore('member', () => {
       };
     });
   });
+
+  //取得獲取 訂單 的資料總數
+  const getOrderTotal = computed(() => getMemberOrders.value.length)
+  //取得 訂單 每頁該顯示的資料數量
+  const getOrderPageSize = computed(() => orderPageSize.value)
+  // 訂單 總頁碼共幾個
+  const getTotalPages = computed(() => Math.ceil(getOrderTotal.value / getOrderPageSize.value))
+  //顯示在前台的 訂單  10筆資料
+  const getPaginatedMeals = computed(() => {
+    const start = (orderCurrentPage.value - 1) * orderPageSize.value
+    const end = start + orderPageSize.value
+    return getMemberOrders.value.slice(start, end)
+  })
+
+
   /* Action */
 
   //取得會員資料
@@ -140,15 +160,24 @@ export const useMemberStore = defineStore('member', () => {
     return `${year}/${month}/${day}`;
   };
 
+  // //傳遞頁碼，觸發更動( 訂單 ) 
+  const changeOrderPage = (page: any) => (orderCurrentPage.value = page)
+
   return {
+    orderCurrentPage,
     memberInfo,
     getMemberInfo,
     getMemberName,
     getMemberAccount,
     getMemberOrders,
+    getOrderTotal,
+    getOrderPageSize,
+    getTotalPages,
+    getPaginatedMeals,
     fetchMemberInfo,
     fetchMemberOrder,
     updateMemberInfo,
-    updateMemberPassword
+    updateMemberPassword,
+    changeOrderPage
   }
 })
