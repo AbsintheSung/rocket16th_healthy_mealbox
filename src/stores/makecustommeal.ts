@@ -59,12 +59,23 @@ export const useMakeCustomMealStore = defineStore('makeCustomMeal', () => {
     }
   }
 
+  //編輯自定義餐盒
+  const updateCusomMeal = async (id: any, mealData: any) => {
+    try {
+      const response = await fetchApi.updateCusomMeal(id, mealData)
+      return response.data
+    } catch (error: any) {
+      throw error.response.data
+    }
+  }
+
   return {
     getMainMealDishes,
     getSideDishes,
     getstarchDishes,
     fetchCustomMenu,
     updateCustomImg,
-    featCustomMealData
+    featCustomMealData,
+    updateCusomMeal
   }
 })

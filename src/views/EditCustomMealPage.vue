@@ -279,7 +279,7 @@ const test = async () => {
     // const imgurl = await makeCustomMealStore.updateCustomImg(formData)
     const imgurl = '/Images/Uploads/CustomizeBoxes/29a75a80-7b1b-47df-bba2-ed6d48630d72.png' //測試用 之後要刪除(開啟上面那個)
     collectMealBoxData(imgurl)
-    const response = await makeCustomMealStore.featCustomMealData(setCustomData.value)
+    const response = await makeCustomMealStore.updateCusomMeal(route.params.id, setCustomData.value)
     message(response.message, 'success')
     dialogShow.value = false
     router.push('/member/custommeal')
