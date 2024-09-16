@@ -1,6 +1,7 @@
 <script setup>
 import { computed } from 'vue'
-import MealCard from '@/components/global/MealCard.vue'
+// import MealCard from '@/components/global/MealCard.vue'
+import CustomCard from '@/components/global/CustomCard.vue'
 import ThePagination from '@/components/global/ThePagination.vue'
 import TheSvg from '@/components/global/TheSvg.vue'
 import { useCustomMealBoxStore } from '@/stores/custommealbox'
@@ -20,7 +21,11 @@ const handleAddCustom = () => {
       v-if="customMealBoxStore.getDataTotal > 0"
       class="custom-mealcard-row grid grid-cols-2 gap-x-6 gap-y-3 md:grid-cols-3 md:gap-y-12 lg:grid-cols-4"
     >
-      <!-- <MealCard v-for="item in customMealBoxStore.getPaginatedMeals" :key="item" /> -->
+      <CustomCard
+        v-for="custItem in customMealBoxStore.getCustomMeal"
+        :key="custItem.id"
+        :mealInfo="custItem"
+      />
       <li v-if="isLastPage" class="flex h-full flex-col gap-y-4 rounded border border-dashed p-4">
         <button
           class="flex flex-grow flex-col items-center justify-center gap-y-6"

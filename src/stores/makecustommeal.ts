@@ -1,12 +1,12 @@
 import { defineStore } from 'pinia'
 import { fetchApi } from '@/utils/api/apiUrl'
 import { ref, computed } from 'vue'
-import type { customMenu, } from '@/types/type'
+import type { CustomMenu, } from '@/types/type'
 
 export const useMakeCustomMealStore = defineStore('makeCustomMeal', () => {
-  const mainMealDishesMenu = ref<customMenu[]>([]) // 主食菜單-會從後端獲取，一開始空陣列
-  const sideDishesMenu = ref<customMenu[]>([]) // 配菜菜單-會從後端獲取，一開始空陣列
-  const starchDishesMenu = ref<customMenu[]>([]) // 澱粉菜單-會從後端獲取，一開始空陣列
+  const mainMealDishesMenu = ref<CustomMenu[]>([]) // 主食菜單-會從後端獲取，一開始空陣列
+  const sideDishesMenu = ref<CustomMenu[]>([]) // 配菜菜單-會從後端獲取，一開始空陣列
+  const starchDishesMenu = ref<CustomMenu[]>([]) // 澱粉菜單-會從後端獲取，一開始空陣列
 
 
   //取得 主食菜單
