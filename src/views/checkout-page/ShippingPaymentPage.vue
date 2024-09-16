@@ -76,7 +76,7 @@ const form = reactive({
 
 //付款方式
 const paymentOptions = ref([
-    { label: 'LINE Pay付款', value: 'linePay', disabled: false },
+    { label: 'LINE Pay付款', value: 'LINE PAY', disabled: false },
     { label: '超商取付', value: 'storePickup', disabled: true }
 ])
 

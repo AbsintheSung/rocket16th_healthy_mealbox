@@ -121,9 +121,9 @@ const onSubmit = async () => {
             recipientCity: form.recipient.cityName,
             recipientArea: form.recipient.cityArea,
             recipientAddress: form.recipient.address,
-            creditCardNumber: "",
-            creditCardCVC: "",
-            creditCardExp: ""
+            creditCardNumber: "", // 非必填
+            creditCardCVC: "", // 非必填
+            creditCardExp: "" // 非必填
         }
         console.log('準備提交到後端的數據:', orderData)
 
@@ -217,7 +217,7 @@ onMounted(async () => {
                 </div>
                 <div class="border-2 border-black px-6 py-9 -mt-[2px]">
                     <p>已選擇的付款方式: </p>
-                    <p class="text-2xl">{{ paymentMethod === 'linePay' ? 'LINE PAY' : '超商取付' }}</p>
+                    <p class="text-2xl">{{ paymentMethod === 'LINE PAY' ? 'LINE PAY' : '超商取付' }}</p>
                 </div>
             </div>
         </div>
