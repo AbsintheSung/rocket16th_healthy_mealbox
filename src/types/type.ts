@@ -200,7 +200,7 @@ export type Order = {
 }
 
 //定義自定義菜單型別
-export type customMenu = {
+export type CustomMenu = {
   id: number;
   dishesType: "mainMeal" | "sideDishes" | "starch";
   name: string;
