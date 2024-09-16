@@ -84,7 +84,7 @@ const paymentOptions = ref([
 watch(() => form.shippingMethod, (newShippingMethod) => {
     if (newShippingMethod === '新竹貨運') {
         paymentOptions.value = [
-            { label: 'LINE Pay付款', value: 'linePay', disabled: false },
+            { label: 'LINE Pay付款', value: 'LINE PAY', disabled: false },
             { label: '超商取付', value: 'storePickup', disabled: true }
         ]
         // 若為超取，則兩種付款方式都能使用
@@ -93,7 +93,7 @@ watch(() => form.shippingMethod, (newShippingMethod) => {
         }
     } else if (newShippingMethod === '超商冷凍宅配') {
         paymentOptions.value = [
-            { label: 'LINE Pay付款', value: 'linePay', disabled: false },
+            { label: 'LINE Pay付款', value: 'LINE PAY', disabled: false },
             { label: '超商取付', value: 'storePickup', disabled: false }
         ]
     }

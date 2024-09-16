@@ -226,8 +226,7 @@ export const useCartStore = defineStore('cart', () => {
     try {
       const response = await fetchApi.submitOrder(orderData)
       if (response.status === 200) {
-        // 提交完成後清除購物車 - 9/16 15:00測試中先關掉，不要再砍我的資料了
-        // await fetchMemberCartInfo()
+        await fetchMemberCartInfo()
         return response.data
       }
     } catch (error) {

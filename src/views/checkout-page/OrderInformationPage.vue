@@ -132,8 +132,7 @@ const onSubmit = async () => {
 
         if (response.status === 200 && response.code === 0) {
             ElMessage.success(response.message || '訂單提交成功')
-            router.push('/order-complete')
-            router.push({ name: 'OrderConfirmation', params: { orderId: response.id } })
+            router.push('/checkout/order-complete')
         } else {
             throw new Error(response.message || '訂單提交失敗')
         }
