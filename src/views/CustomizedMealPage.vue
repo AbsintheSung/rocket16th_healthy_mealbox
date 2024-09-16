@@ -1,6 +1,7 @@
 <script setup>
 //非常醜- 找時間優化
 import { onMounted, ref, computed, watch, reactive } from 'vue'
+import { useRouter } from 'vue-router'
 import { useMakeCustomMealStore } from '@/stores/makecustommeal'
 import axiosInstance from '@/utils/api/axios'
 import html2canvas from 'html2canvas'
@@ -16,6 +17,7 @@ import { fetchApi } from '@/utils/api/apiUrl'
 const urlName = import.meta.env.VITE_APP_API_NAME
 const getDishesApi = `/${urlName}/dishes`
 const makeCustomMealStore = useMakeCustomMealStore()
+const router = useRouter()
 const dialogShow = ref(false) //控制彈窗開關
 const activeNames = ref([]) // 手風琴選取到的，會放入陣列
 const selectedCase = ref('case1') //目前選擇的類型 case1 => 1澱粉、1主食、3配菜 ( 重複了，可能移除 )
@@ -340,10 +342,12 @@ const test = async () => {
   // console.log(formData)
   try {
     // const imgurl = await makeCustomMealStore.updateCustomImg(formData)
-    // const imgurl = '/Images/Uploads/CustomizeBoxes/29a75a80-7b1b-47df-bba2-ed6d48630d72.png' //測試用 之後要刪除
-    // collectMealBoxData(imgurl)
-    // const response = await makeCustomMealStore.featCustomMealData(setCustomData.value)
-    // message(response.message, 'success')
+    const imgurl = '/Images/Uploads/CustomizeBoxes/29a75a80-7b1b-47df-bba2-ed6d48630d72.png' //測試用 之後要刪除
+    collectMealBoxData(imgurl)
+    const response = await makeCustomMealStore.featCustomMealData(setCustomData.value)
+    message(response.message, 'success')
+    dialogShow.value = false
+    router.push('/mealboxlist/mealcustomized')
   } catch (error) {
     message(error.message, 'error')
     // console.log(error)
