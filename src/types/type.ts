@@ -198,3 +198,23 @@ export type Order = {
   createTime: string // 訂單建立時間 (ISO 日期格式)
   cartOrder: CartOrder // 購物車訂單資料
 }
+
+//定義自定義菜單型別
+export type customMenu = {
+  id: number;
+  dishesType: "mainMeal" | "sideDishes" | "starch";
+  name: string;
+  price: number;
+  grams: number;
+  img: string;
+  composition: {
+    calories: number;
+    protein: number;
+    adipose: number;
+    carbohydrate: number;
+    fiber: number;
+    sodium: number;
+  };
+  allergens: string;
+  quantity: number;
+};

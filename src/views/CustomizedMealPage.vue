@@ -1,8 +1,10 @@
 <script setup>
 //非常醜- 找時間優化
 import { onMounted, ref, computed, watch, reactive } from 'vue'
+import { useMakeCustomMealStore } from '@/stores/makecustommeal'
 import axiosInstance from '@/utils/api/axios'
 import html2canvas from 'html2canvas'
+import TheCustomMenu from '@/components/customized-meal-page/TheCustomMenu.vue'
 import StarchDishes from '@/components/customized-meal-page/StarchDishes.vue'
 import MainDishes from '@/components/customized-meal-page/MainDishes.vue'
 import SideDishes from '@/components/customized-meal-page/SideDishes.vue'
@@ -13,13 +15,14 @@ import TheDinnerPlate2 from '@/components/customized-meal-page/TheDinnerPlate2.v
 import { fetchApi } from '@/utils/api/apiUrl'
 const urlName = import.meta.env.VITE_APP_API_NAME
 const getDishesApi = `/${urlName}/dishes`
+const makeCustomMealStore = useMakeCustomMealStore()
 const dialogShow = ref(false) //控制彈窗開關
 const activeNames = ref([]) // 手風琴選取到的，會放入陣列
 const selectedCase = ref('case1') //目前選擇的類型 case1 => 1澱粉、1主食、3配菜 ( 重複了，可能移除 )
 const selectValue = ref('case1') //目前選擇的類型 case1 => 1澱粉、1主食、3配菜
-const mainMealDishesMenu = ref([]) // 主食菜單-會從後端獲取，一開始空陣列
-const sideDishesMenu = ref([]) // 配菜菜單-會從後端獲取，一開始空陣列
-const starchDishesMenu = ref([]) // 澱粉菜單-會從後端獲取，一開始空陣列
+// const mainMealDishesMenu = ref([]) // 主食菜單-會從後端獲取，一開始空陣列
+// const sideDishesMenu = ref([]) // 配菜菜單-會從後端獲取，一開始空陣列
+// const starchDishesMenu = ref([]) // 澱粉菜單-會從後端獲取，一開始空陣列
 const customName = ref('') // 使用者輸入 的 餐盒名稱
 const customContent = ref('') // 使用者輸入 的 餐宏內容
 // 定義所有營養成分的預設值
@@ -56,7 +59,7 @@ const options = [
 //傳遞給 後端的 資料格式
 const setCustomData = ref({
   name: '', // 使用者自定義餐盒名稱
-  title: '', // 選擇的title
+  template: '', // 選擇的title
   starch: [], // 澱粉的 ID 列表
   mainMeal: [], // 主餐的 ID 列表
   sideDishes: [], // 配菜的 ID 列表
@@ -137,24 +140,24 @@ const getSelectCase = computed(() => selectValue.value)
 const getCaseOption = computed(() => caseOption[selectValue.value])
 
 //渲染列表用
-const getMainMealDishes = computed(() => {
-  return mainMealDishesMenu.value.map((item) => ({
-    ...item,
-    composition: { ...item.composition }
-  }))
-})
-const getSideDishes = computed(() => {
-  return sideDishesMenu.value.map((item) => ({
-    ...item,
-    composition: { ...item.composition }
-  }))
-})
-const getstarchDishes = computed(() => {
-  return starchDishesMenu.value.map((item) => ({
-    ...item,
-    composition: { ...item.composition }
-  }))
-})
+// const getMainMealDishes = computed(() => {
+//   return mainMealDishesMenu.value.map((item) => ({
+//     ...item,
+//     composition: { ...item.composition }
+//   }))
+// })
+// const getSideDishes = computed(() => {
+//   return sideDishesMenu.value.map((item) => ({
+//     ...item,
+//     composition: { ...item.composition }
+//   }))
+// })
+// const getstarchDishes = computed(() => {
+//   return starchDishesMenu.value.map((item) => ({
+//     ...item,
+//     composition: { ...item.composition }
+//   }))
+// })
 
 //選取的資料 取出圖片路徑
 const mainMealListImg = computed(() => {
@@ -175,16 +178,16 @@ const starchDishesListImg = computed(() => {
   return allStarchDishes.filter((dish) => dish && dish.img).map((dish) => dish.img)
 })
 
-const fetchDishesMenu = async () => {
-  try {
-    const response = await axiosInstance.get(getDishesApi)
-    mainMealDishesMenu.value = response.data.data.filter((dish) => dish.dishesType === 'mainMeal')
-    sideDishesMenu.value = response.data.data.filter((dish) => dish.dishesType === 'sideDishes')
-    starchDishesMenu.value = response.data.data.filter((dish) => dish.dishesType === 'starch')
-  } catch (error) {
-    // console.log(error)
-  }
-}
+// const fetchDishesMenu = async () => {
+//   try {
+//     const response = await axiosInstance.get(getDishesApi)
+//     mainMealDishesMenu.value = response.data.data.filter((dish) => dish.dishesType === 'mainMeal')
+//     sideDishesMenu.value = response.data.data.filter((dish) => dish.dishesType === 'sideDishes')
+//     starchDishesMenu.value = response.data.data.filter((dish) => dish.dishesType === 'starch')
+//   } catch (error) {
+//     // console.log(error)
+//   }
+// }
 
 //下拉選單，選完後重製設定
 const changeSelect = () => {
@@ -201,7 +204,8 @@ const nutrientNameMap = {
 }
 
 onMounted(async () => {
-  await fetchDishesMenu()
+  // await fetchDishesMenu()
+  await makeCustomMealStore.fetchCustomMenu()
 })
 const plateComposition = ref(null)
 const generatedImage = ref('')
@@ -330,25 +334,29 @@ const handleCloseDialog = () => {
 
 //發送api
 const test = async () => {
-  // const blob = base64ToBlob(generatedImage.value, 'image/png')
-  // const formData = new FormData()
-  // formData.append('image', blob, 'canvas_image.png')
+  const blob = base64ToBlob(generatedImage.value, 'image/png')
+  const formData = new FormData()
+  formData.append('image', blob, 'canvas_image.png')
   // console.log(formData)
-  // try {
-  //   const resposne = await fetchApi.customUpdateImg(formData)
-  //   console.log(resposne)
-  // } catch (error) {
-  //   console.log(error)
-  // }
-  collectMealBoxData()
-  console.log(setCustomData.value)
+  try {
+    // const imgurl = await makeCustomMealStore.updateCustomImg(formData)
+    // const imgurl = '/Images/Uploads/CustomizeBoxes/29a75a80-7b1b-47df-bba2-ed6d48630d72.png' //測試用 之後要刪除
+    // collectMealBoxData(imgurl)
+    // const response = await makeCustomMealStore.featCustomMealData(setCustomData.value)
+    // message(response.message, 'success')
+  } catch (error) {
+    message(error.message, 'error')
+    // console.log(error)
+  }
+  // collectMealBoxData()
+  // console.log(setCustomData.value)
 }
 
 //整合資料後 傳遞給後端
 const collectMealBoxData = (imgdata) => {
   setCustomData.value.name = customName.value
   setCustomData.value.remark = customContent.value
-  setCustomData.value.title = getCaseOption.value.title
+  setCustomData.value.template = getCaseOption.value.title
   setCustomData.value.imgSrc = imgdata
   setCustomData.value.starch = Object.values(getCaseOption.value.starchDishesList)
     .flat()
@@ -359,6 +367,14 @@ const collectMealBoxData = (imgdata) => {
   setCustomData.value.sideDishes = Object.values(getCaseOption.value.sideDishesList)
     .flat()
     .map((dish) => dish.id)
+}
+const message = (mes, mesType) => {
+  //@ts-ignore
+  ElMessage({
+    message: mes,
+    type: mesType,
+    duration: 1500
+  })
 }
 </script>
 <template>
@@ -433,7 +449,31 @@ const collectMealBoxData = (imgdata) => {
         </div>
         <div class="w-full md:w-1/3">
           <el-collapse v-model="activeNames">
-            <StarchDishes
+            <TheCustomMenu
+              v-for="(item, index) in getCaseOption.starchDishesList"
+              :key="item"
+              :menuList="makeCustomMealStore.getstarchDishes"
+              :accordionCode="`1${index}`"
+              title="澱粉"
+              v-model:selectMenu="caseOption[getSelectCase].starchDishesList[index]"
+            />
+            <TheCustomMenu
+              v-for="(item, index) in getCaseOption.mainMealList"
+              :key="item"
+              :menuList="makeCustomMealStore.getMainMealDishes"
+              :accordionCode="`2${index}`"
+              title="主食"
+              v-model:selectMenu="caseOption[getSelectCase].mainMealList[index]"
+            />
+            <TheCustomMenu
+              v-for="(item, index) in getCaseOption.sideDishesList"
+              :key="item"
+              :menuList="makeCustomMealStore.getSideDishes"
+              :accordionCode="`3${index}`"
+              title="配菜"
+              v-model:selectMenu="caseOption[getSelectCase].sideDishesList[index]"
+            />
+            <!-- <StarchDishes
               v-for="(item, index) in getCaseOption.starchDishesList"
               :key="item"
               v-model:starchDisheList="caseOption[getSelectCase].starchDishesList[index]"
@@ -447,7 +487,7 @@ const collectMealBoxData = (imgdata) => {
               v-for="(item, index) in getCaseOption.sideDishesList"
               :key="item"
               v-model:sideDishesList="caseOption[getSelectCase].sideDishesList[index]"
-            />
+            /> -->
           </el-collapse>
         </div>
       </div>
