@@ -8,6 +8,7 @@ import MealboxlistPage from '@/views/MealboxlistPage.vue'
 import MemberPage from '@/views/MemberPage.vue'
 import CheckoutPage from '@/views/CheckoutPage.vue'
 import Customized from '@/views/CustomizedMealPage.vue'
+import EditCustomMealPage from '@/views/EditCustomMealPage.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -132,6 +133,11 @@ const router = createRouter({
       path: '/customized',
       name: 'Customized',
       component: Customized
+    },
+    {
+      path: '/editcustommeal/:id',
+      name: 'EditCustomMeal',
+      component: EditCustomMealPage
     },
     //配置404 ( 此配置在最下面，之後新增的路由請新增在此路由設定上面 )
     {
