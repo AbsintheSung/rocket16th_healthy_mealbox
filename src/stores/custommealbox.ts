@@ -1,9 +1,10 @@
 import { defineStore } from 'pinia'
 import { fetchApi } from '@/utils/api/apiUrl'
 import { ref, computed } from 'vue'
+import type { customMealBox } from '@/types/type'
 export const useCustomMealBoxStore = defineStore('custommealbox', () => {
   //State
-  const customMeal = ref([]) //自定義餐盒資料，預設空陣列
+  const customMeal = ref<customMealBox[]>([]) //自定義餐盒資料，預設空陣列
   const currentPage = ref(1) //當前分頁
   const pageSize = ref(10) //每頁該顯示的資料數量
   const oneCustomMeal = ref({})
@@ -14,8 +15,6 @@ export const useCustomMealBoxStore = defineStore('custommealbox', () => {
   // const getCurrentPage = computed(() => currentPage.value)
   //取得獲取一般餐盒的資料總數
   const getDataTotal = computed(() => customMeal.value.length)
-  //取得單一餐盒資訊
-  const getOneCustomMeal = computed(() => oneCustomMeal.value)
   //取得每頁該顯示的資料數量
   const getPageSize = computed(() => pageSize.value)
   //總頁碼共幾個
@@ -27,9 +26,29 @@ export const useCustomMealBoxStore = defineStore('custommealbox', () => {
     return customMeal.value.slice(start, end)
   })
 
+  //取得自定義餐盒列表
+  const getCustomMeal = computed(() => {
+    return customMeal.value.map(item => ({
+      ...item,
+      composition: { ...item.composition },
+      starch: [...item.starch],
+      mainMeal: [...item.mainMeal],
+      sideDishes: [...item.sideDishes]
+    }));
+  });
+
   //Action
 
-  //獲取所有一般餐盒子資料
+  //獲取所有自定義餐盒資料
+  const fetchCustomMeal = async () => {
+    try {
+      const response = await fetchApi.getCusomMeal();
+      customMeal.value = response.data.data
+      // console.log(response.data.data)
+    } catch (error) {
+      console.log(error)
+    }
+  }
 
   //傳遞頁碼，觸發更動
   const changePage = (page: any) => (currentPage.value = page)
@@ -37,10 +56,11 @@ export const useCustomMealBoxStore = defineStore('custommealbox', () => {
   return {
     currentPage,
     getDataTotal,
-    getOneCustomMeal,
     getPageSize,
     getTotalPages,
     getPaginatedMeals,
+    getCustomMeal,
+    fetchCustomMeal,
     changePage
   }
 })

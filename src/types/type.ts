@@ -218,3 +218,27 @@ export type customMenu = {
   allergens: string;
   quantity: number;
 };
+
+
+//自定義餐盒列表 型別
+export type customMealBox = {
+  id: number;
+  name: string;
+  price: number;
+  template: string;
+  starch: number[]; // 澱粉，裡面只裝id
+  mainMeal: number[]; // 主食，裡面只裝id
+  sideDishes: number[]; // 配菜 裡面只裝id
+  remark: string;
+  composition: {
+    calories: number;
+    protein: number;
+    adipose: number;
+    carbohydrate: number;
+    fiber: number;
+    sodium: number;
+  };
+  allergens: string;
+  imgSrc: string;
+  createTime: string;
+};

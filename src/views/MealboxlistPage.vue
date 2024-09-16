@@ -3,8 +3,10 @@ import { ref, onMounted } from 'vue'
 import ThePreview from '@/components/mealboxlist-page/ThePreview.vue'
 import DaysSelectionButton from '@/components/global/DaysSelectionButton.vue'
 import { useGeneralMealBoxStore } from '@/stores/generalmealbox'
+import { useCustomMealBoxStore } from '@/stores/custommealbox'
 import { useCartStore } from '@/stores/cart'
 const generalMealBoxStore = useGeneralMealBoxStore()
+const customMealBoxStore = useCustomMealBoxStore()
 const cartStore = useCartStore()
 const drawer = ref(false)
 const message = (mes: any, mesType: any): void => {
@@ -42,6 +44,7 @@ const minusGeneralCart = async (id: number) => {
 
 onMounted(async () => {
   await generalMealBoxStore.fetchGeneralMeal()
+  await customMealBoxStore.fetchCustomMeal()
   await cartStore.fetchMemberCartInfo()
 })
 </script>
