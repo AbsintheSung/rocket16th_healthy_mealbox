@@ -1,0 +1,535 @@
+<script setup>
+//非常醜- 找時間優化
+import { onMounted, ref, computed, watch, reactive } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
+import { useMakeCustomMealStore } from '@/stores/makecustommeal'
+import { useCustomMealBoxStore } from '@/stores/custommealbox'
+import html2canvas from 'html2canvas'
+import TheCustomMenu from '@/components/customized-meal-page/TheCustomMenu.vue'
+import CustomDialog from '@/components/customized-meal-page/CustomDialog.vue'
+import TheIngredient from '@/components/global/TheIngredient.vue'
+import TheDinnerPlate from '@/components/customized-meal-page/TheDinnerPlate.vue'
+import TheDinnerPlate2 from '@/components/customized-meal-page/TheDinnerPlate2.vue'
+const makeCustomMealStore = useMakeCustomMealStore()
+const customMealBoxStore = useCustomMealBoxStore()
+const router = useRouter()
+const route = useRoute()
+const dialogShow = ref(false) //控制彈窗開關
+const activeNames = ref([]) // 手風琴選取到的，會放入陣列
+const selectValue = ref('case1') //目前選擇的類型 case1 => 1澱粉、1主食、3配菜
+const customName = ref('') // 使用者輸入 的 餐盒名稱
+const customContent = ref('') // 使用者輸入 的 餐宏內容
+// 定義所有營養成分的預設值
+const defaultComposition = {
+  calories: 0,
+  protein: 0,
+  adipose: 0,
+  carbohydrate: 0,
+  fiber: 0,
+  sodium: 0
+}
+const options = [
+  {
+    value: 'case1',
+    label: '1澱粉、1主食、3配菜'
+  },
+  {
+    value: 'case2',
+    label: '1澱粉、2主食、2配菜'
+  },
+  {
+    value: 'case3',
+    label: '1澱粉、0主食、4配菜'
+  },
+  {
+    value: 'case4',
+    label: '0澱粉、2主食、3配菜'
+  },
+  {
+    value: 'case5',
+    label: '0澱粉、1主食、4配菜'
+  }
+]
+//傳遞給 後端的 資料格式
+const setCustomData = ref({
+  name: '', // 使用者自定義餐盒名稱
+  template: '', // 選擇的title
+  starch: [], // 澱粉的 ID 列表
+  mainMeal: [], // 主餐的 ID 列表
+  sideDishes: [], // 配菜的 ID 列表
+  remark: '', // 備註
+  imgSrc: '' // 自定義圖片的路徑
+})
+const caseOption = reactive({
+  case1: {
+    title: '1澱粉、1主食、3配菜',
+    starchDishesList: {
+      0: []
+    },
+    mainMealList: {
+      0: []
+    },
+    sideDishesList: {
+      0: [],
+      1: [],
+      2: []
+    }
+  },
+  case2: {
+    title: '1澱粉、2主食、2配菜',
+    starchDishesList: {
+      0: []
+    },
+    mainMealList: {
+      0: [],
+      1: []
+    },
+    sideDishesList: {
+      0: [],
+      1: []
+    }
+  },
+  case3: {
+    title: '1澱粉、0主食、4配菜',
+    starchDishesList: {
+      0: []
+    },
+    mainMealList: {},
+    sideDishesList: {
+      0: [],
+      1: [],
+      2: [],
+      3: []
+    }
+  },
+  case4: {
+    title: '0澱粉、2主食、3配菜',
+    starchDishesList: {},
+    mainMealList: {
+      0: [],
+      1: []
+    },
+    sideDishesList: {
+      0: [],
+      1: [],
+      2: []
+    }
+  },
+  case5: {
+    title: '0澱粉、1主食、4配菜',
+    starchDishesList: {},
+    mainMealList: {
+      0: []
+    },
+    sideDishesList: {
+      0: [],
+      1: [],
+      2: [],
+      3: []
+    }
+  }
+})
+
+const getSelectCase = computed(() => selectValue.value)
+const getCaseOption = computed(() => caseOption[selectValue.value])
+
+//選取的資料 取出圖片路徑
+const mainMealListImg = computed(() => {
+  // 合併選取的 case 中的所有 mainMealList 陣列，並取出 img 屬性
+  const allMainMeals = Object.values(getCaseOption.value.mainMealList).flat()
+  return allMainMeals.filter((dish) => dish && dish.img).map((dish) => dish.img)
+})
+//選取的資料 取出圖片路徑
+const sideDishesListImg = computed(() => {
+  // 合併選取的 case 中的所有 sideDishesList 陣列，並取出 img 屬性
+  const allSideDishes = Object.values(getCaseOption.value.sideDishesList).flat()
+  return allSideDishes.filter((dish) => dish && dish.img).map((dish) => dish.img)
+})
+//選取的資料 取出圖片路徑
+const starchDishesListImg = computed(() => {
+  // 合併選取的 case 中的所有 sideDishesList 陣列，並取出 img 屬性
+  const allStarchDishes = Object.values(getCaseOption.value.starchDishesList).flat()
+  return allStarchDishes.filter((dish) => dish && dish.img).map((dish) => dish.img)
+})
+
+//下拉選單，選完後重製設定
+const changeSelect = () => {
+  // selectedCase.value = val
+  resetCaseOption()
+}
+const nutrientNameMap = {
+  calories: '卡路里',
+  protein: '蛋白質',
+  adipose: '脂肪',
+  carbohydrate: '碳水化合物',
+  fiber: '纖維',
+  sodium: '鈉含量'
+}
+
+const plateComposition = ref(null)
+const generatedImage = ref('')
+const generateImage = async () => {
+  if (plateComposition.value) {
+    try {
+      const canvas = await html2canvas(plateComposition.value)
+      generatedImage.value = canvas.toDataURL('image/png')
+      // const a = base64ToBlob(generatedImage.value)
+      // const b = await blobToBase64(a)
+      // console.log(b)
+      console.log('圖片生成成功')
+    } catch (error) {
+      console.error('生成圖片時出錯：', error)
+    }
+  }
+}
+
+// Base64 轉 Blob
+const base64ToBlob = (base64, contentType = 'image/png') => {
+  const byteString = atob(base64.split(',')[1])
+  const byteArray = new Uint8Array(byteString.length)
+  for (let i = 0; i < byteString.length; i++) {
+    byteArray[i] = byteString.charCodeAt(i)
+  }
+  return new Blob([byteArray], { type: contentType })
+}
+
+//營養素累加
+const totalComposition = computed(() => {
+  // 將三個菜品列表中的所有菜品合併成一個列表
+  const allDishes = [
+    ...Object.values(getCaseOption.value.mainMealList).flat(),
+    ...Object.values(getCaseOption.value.sideDishesList).flat(),
+    ...Object.values(getCaseOption.value.starchDishesList).flat()
+  ].filter((dish) => dish.composition) //將有 composition 的篩選出來
+
+  // 對所有菜品的營養成分進行累加
+  return allDishes.reduce(
+    (total, dish) => {
+      Object.keys(dish.composition).forEach((key) => {
+        if (typeof total[key] === 'undefined') {
+          total[key] = 0
+        }
+        total[key] += dish.composition[key]
+      })
+      return total
+    },
+    { ...defaultComposition }
+  )
+})
+
+//將上面轉成中文，並以 [ {name:卡路里,value:450kcal},... ]方式輸出
+const totalCompositionChinese = computed(() => {
+  return Object.entries(totalComposition.value).map(([key, value]) => ({
+    name: nutrientNameMap[key] || key,
+    value: `${value}${key === 'calories' ? 'kcal' : 'g'}`
+  }))
+})
+
+//計算總和
+const totalPrice = computed(() => {
+  const allDishes = [
+    ...Object.values(getCaseOption.value.starchDishesList).flat(),
+    ...Object.values(getCaseOption.value.mainMealList).flat(),
+    ...Object.values(getCaseOption.value.sideDishesList).flat()
+  ]
+
+  return allDishes.reduce((sum, dish) => {
+    return sum + dish.price
+  }, 0)
+})
+
+// 定義重置函數，用於清空所有列表
+const resetCaseOption = () => {
+  Object.values(caseOption).forEach((caseData) => {
+    // 清空 starchDishesList
+    Object.keys(caseData.starchDishesList).forEach((key) => {
+      caseData.starchDishesList[key] = []
+    })
+
+    // 清空 mainMealList
+    Object.keys(caseData.mainMealList).forEach((key) => {
+      caseData.mainMealList[key] = []
+    })
+
+    // 清空 sideDishesList
+    Object.keys(caseData.sideDishesList).forEach((key) => {
+      caseData.sideDishesList[key] = []
+    })
+  })
+}
+const handleData = async () => {
+  await generateImage()
+  dialogShow.value = true
+  console.log(getCaseOption.value)
+}
+const handleEdit = () => {
+  console.log(getCaseOption.value)
+}
+const handleCloseDialog = () => {
+  dialogShow.value = false
+}
+
+//發送api
+const test = async () => {
+  const blob = base64ToBlob(generatedImage.value, 'image/png')
+  const formData = new FormData()
+  formData.append('image', blob, 'canvas_image.png')
+  // console.log(formData)
+  try {
+    // const imgurl = await makeCustomMealStore.updateCustomImg(formData)
+    const imgurl = '/Images/Uploads/CustomizeBoxes/29a75a80-7b1b-47df-bba2-ed6d48630d72.png' //測試用 之後要刪除(開啟上面那個)
+    collectMealBoxData(imgurl)
+    const response = await makeCustomMealStore.updateCusomMeal(route.params.id, setCustomData.value)
+    message(response.message, 'success')
+    dialogShow.value = false
+    router.push('/member/custommeal')
+  } catch (error) {
+    message(error.message, 'error')
+    // console.log(error)
+  }
+  // collectMealBoxData()
+  // console.log(setCustomData.value)
+}
+
+//整合資料後 傳遞給後端
+const collectMealBoxData = (imgdata) => {
+  setCustomData.value.name = customName.value
+  setCustomData.value.remark = customContent.value
+  setCustomData.value.template = getCaseOption.value.title
+  setCustomData.value.imgSrc = imgdata
+  setCustomData.value.starch = Object.values(getCaseOption.value.starchDishesList)
+    .flat()
+    .map((dish) => dish.id)
+  setCustomData.value.mainMeal = Object.values(getCaseOption.value.mainMealList)
+    .flat()
+    .map((dish) => dish.id)
+  setCustomData.value.sideDishes = Object.values(getCaseOption.value.sideDishesList)
+    .flat()
+    .map((dish) => dish.id)
+}
+const message = (mes, mesType) => {
+  //@ts-ignore
+  ElMessage({
+    message: mes,
+    type: mesType,
+    duration: 1500
+  })
+}
+
+onMounted(async () => {
+  // await fetchDishesMenu()
+  await makeCustomMealStore.fetchCustomMenu()
+  await customMealBoxStore.fetchCustomMeal()
+  const data = customMealBoxStore.getCustomMeal
+  const id = Number(route.params.id)
+  const item = findDishById(id, data)
+  assignBoxToCase(item)
+})
+
+const findDishById = (id, dishesArray) => {
+  return dishesArray.find((dish) => dish.id === id)
+}
+const caseMap = {
+  '1,1,3': 'case1', //( 1澱粉、1主食、3配菜 )
+  '1,2,2': 'case2',
+  '1,0,4': 'case3',
+  '0,2,3': 'case4',
+  '0,1,4': 'case5'
+}
+function assignBoxToCase(mealData) {
+  // 1. 判斷 case
+  const { starch, mainMeal, sideDishes } = mealData
+  //   let selectedCase = ''
+  //   if (starch.length === 1 && mainMeal.length === 1 && sideDishes.length === 3) {
+  //     selectedCase = 'case1'
+  //   } else if (starch.length === 1 && mainMeal.length === 2 && sideDishes.length === 2) {
+  //     selectedCase = 'case2'
+  //   } else if (starch.length === 1 && mainMeal.length === 0 && sideDishes.length === 4) {
+  //     selectedCase = 'case3'
+  //   } else if (starch.length === 0 && mainMeal.length === 2 && sideDishes.length === 3) {
+  //     selectedCase = 'case4'
+  //   } else if (starch.length === 0 && mainMeal.length === 1 && sideDishes.length === 4) {
+  //     selectedCase = 'case5'
+  //   } else {
+  //     console.error('無法匹配任何已知的 case')
+  //     return
+  //   }
+  const key = `${starch.length},${mainMeal.length},${sideDishes.length}`
+  if (key in caseMap) {
+    selectValue.value = caseMap[key]
+  }
+  // 2. 更新 selectValue
+  //   selectValue.value = selectedCase
+
+  // 3. 分配值到相應的陣列
+
+  // 分配澱粉
+  starch.forEach((id, index) => {
+    if (getCaseOption.value.starchDishesList[index]) {
+      const dish = findDishById(id, makeCustomMealStore.getstarchDishes)
+      if (dish) {
+        getCaseOption.value.starchDishesList[index] = [dish]
+      }
+    }
+  })
+
+  // 分配主食
+  mainMeal.forEach((id, index) => {
+    if (getCaseOption.value.mainMealList[index]) {
+      const dish = findDishById(id, makeCustomMealStore.getMainMealDishes)
+      if (dish) {
+        getCaseOption.value.mainMealList[index] = [dish]
+      }
+    }
+  })
+
+  // 分配配菜
+  sideDishes.forEach((id, index) => {
+    if (getCaseOption.value.sideDishesList[index]) {
+      const dish = findDishById(id, makeCustomMealStore.getSideDishes)
+      if (dish) {
+        getCaseOption.value.sideDishesList[index] = [dish]
+      }
+    }
+  })
+  //分配名稱 + 內容
+  customName.value = mealData.name
+  customContent.value = mealData.remark
+}
+</script>
+<template>
+  <main>
+    <CustomDialog
+      :dialogShow="dialogShow"
+      :totalCompositionChinese="totalCompositionChinese"
+      :currentCase="getCaseOption"
+      :totalPrice="totalPrice"
+      :generatedImage="generatedImage"
+      v-model:customName="customName"
+      v-model:customContent="customContent"
+      :fetchData="test"
+      @closeDialog="handleCloseDialog"
+    />
+    <div class="bg-primary-400">
+      <div class="container relative flex items-center justify-center">
+        <button class="absolute left-0 top-1/2 block -translate-y-1/2 p-2 md:hidden">
+          <FontAwesomeIcon :icon="['fas', 'chevron-left']" />
+        </button>
+        <h2 class="py-2 text-center text-2xl font-bold text-white md:text-4xl">自定義餐盒</h2>
+      </div>
+    </div>
+    <div class="bg-none md:bg-custom-main">
+      <div class="py-6 md:py-28">
+        <h3 class="mb-3 text-center text-2xl font-bold text-black md:text-3xl md:text-white">
+          從列表中選擇您最愛的自製餐點
+        </h3>
+        <p class="text-center text-black md:text-white">選擇符合您需求的內容，根據喜好調整餐點</p>
+        <p class="text-center text-black md:text-white">一起來組合你的自定義餐盒吧！</p>
+      </div>
+    </div>
+    <div class="container py-4 md:py-14">
+      <div class="flex w-full items-center justify-between py-3 md:w-2/3">
+        <el-select
+          v-model="selectValue"
+          placeholder="Select"
+          size="small"
+          class="el-select-width"
+          @change="changeSelect"
+        >
+          <el-option
+            v-for="item in options"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value"
+          />
+        </el-select>
+        <RouterLink class="hidden md:flex" to="/">返回上一頁</RouterLink>
+      </div>
+      <div class="flex flex-col gap-x-6 md:flex-row">
+        <div class="w-full md:w-2/3">
+          <div v-if="['case1', 'case2', 'case4'].includes(getSelectCase)" class="meal-bg w-full">
+            <div class="flex w-fit flex-col" ref="plateComposition">
+              <TheDinnerPlate
+                :sideDishesListImg="sideDishesListImg"
+                :mainMealListImg="mainMealListImg"
+                :starchDishesListImg="starchDishesListImg"
+              />
+            </div>
+          </div>
+          <!-- 另一個餐盤模組 -->
+          <div v-else class="meal-bg w-full">
+            <div class="flex w-fit flex-col" ref="plateComposition">
+              <TheDinnerPlate2
+                :sideDishesListImg="sideDishesListImg"
+                :mainMealListImg="mainMealListImg"
+                :starchDishesListImg="starchDishesListImg"
+              />
+            </div>
+          </div>
+        </div>
+        <div class="w-full md:w-1/3">
+          <el-collapse v-model="activeNames">
+            <TheCustomMenu
+              v-for="(item, index) in getCaseOption.starchDishesList"
+              :key="item"
+              :menuList="makeCustomMealStore.getstarchDishes"
+              :accordionCode="`1${index}`"
+              title="澱粉"
+              v-model:selectMenu="caseOption[getSelectCase].starchDishesList[index]"
+            />
+            <TheCustomMenu
+              v-for="(item, index) in getCaseOption.mainMealList"
+              :key="item"
+              :menuList="makeCustomMealStore.getMainMealDishes"
+              :accordionCode="`2${index}`"
+              title="主食"
+              v-model:selectMenu="caseOption[getSelectCase].mainMealList[index]"
+            />
+            <TheCustomMenu
+              v-for="(item, index) in getCaseOption.sideDishesList"
+              :key="item"
+              :menuList="makeCustomMealStore.getSideDishes"
+              :accordionCode="`3${index}`"
+              title="配菜"
+              v-model:selectMenu="caseOption[getSelectCase].sideDishesList[index]"
+            />
+          </el-collapse>
+        </div>
+      </div>
+      <div class="container">
+        <div class="grid grid-cols-12 gap-x-6">
+          <div class="col-span-full col-start-1 lg:col-span-8">
+            <TheIngredient :ingredientData="totalCompositionChinese" />
+          </div>
+          <div class="col-span-full col-start-1 lg:col-span-4 lg:col-start-9">
+            <div class="grid h-full grid-cols-4 items-center gap-x-6">
+              <button
+                class="col-span-2 col-start-1 rounded bg-[#DCDCDC] py-4 hover:cursor-pointer"
+                @click="handleEdit"
+              >
+                重新編輯
+              </button>
+              <button
+                class="col-span-2 rounded bg-secondary-400 py-4 hover:cursor-pointer hover:shadow-base"
+                @click="handleData"
+              >
+                儲存
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</template>
+<style scoped lang="scss">
+.el-select-width {
+  width: 100%;
+  @media (min-width: 576px) {
+    width: 40%;
+  }
+}
+.meal-bg {
+  background-image: url('../assets/image/餐盤測試/底圖.jpg');
+}
+</style>
