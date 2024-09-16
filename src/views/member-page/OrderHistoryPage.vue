@@ -59,7 +59,7 @@ const testData = ref(['豬肉漢堡排佐馬鈴薯', '雞胸蛋白沙拉碗'])
       歷史訂單
     </h2>
     <el-collapse class="el-flex-grow" v-model="activeNames" @change="handleChange">
-      <template v-for="(item, index) in memberStore.getMemberOrders" :key="item">
+      <template v-for="(item, index) in memberStore.getPaginatedMeals" :key="item">
         <el-collapse-item
           :title="`訂單日期 ${item.createTime} | 訂單金額：$${item.orderPrice}元`"
           :name="index"
@@ -169,8 +169,15 @@ const testData = ref(['豬肉漢堡排佐馬鈴薯', '雞胸蛋白沙拉碗'])
         </el-collapse-item>
       </template>
     </el-collapse>
-    <!-- <div class="mt-auto flex w-full items-center justify-center py-4">
-      <el-pagination
+    <div class="mt-auto flex w-full items-center justify-center py-4">
+      <ThePagination
+        v-model:currentPageNum="memberStore.orderCurrentPage"
+        :pagerCount="5"
+        :pageSize="memberStore.getOrderPageSize"
+        :pageTotal="memberStore.getOrderTotal"
+        :changePage="memberStore.changeOrderPage"
+      />
+      <!-- <el-pagination
         style="--el-fill-color: white"
         layout="prev, pager, next"
         v-model:current-page="currentPage1"
@@ -181,8 +188,8 @@ const testData = ref(['豬肉漢堡排佐馬鈴薯', '雞胸蛋白沙拉碗'])
         :prev-text="'上一頁'"
         :next-text="'下一頁'"
         @current-change="handleCurrentChange"
-      />
-    </div> -->
+      /> -->
+    </div>
   </div>
 </template>
 <style lang="scss" scoped>
