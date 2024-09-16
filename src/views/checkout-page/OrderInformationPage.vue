@@ -1,11 +1,13 @@
 <script setup>
 import { ref, reactive, watch, onMounted, computed } from 'vue'
+import { useRouter } from 'vue-router'
 import { useCartStore } from '@/stores/cart'
 import ShoppingCartProgressBar from '@/components/global/ShoppingCartProgressBar.vue'
 import { ElMessage } from 'element-plus'
 import { taiwanCity } from '@/content/city' //引入城市鄉鎮
 
 const cartStore = useCartStore()
+const router = useRouter()
 const formRef = ref(null)
 
 const twCityArea = ref({ city: [], area: [] }) //用來存放城市鄉鎮的資料，select使用
@@ -112,7 +114,7 @@ const onSubmit = async () => {
             senderName: form.customer.name,
             senderEmail: form.customer.email,
             senderPhoneNumber: form.customer.phone,
-            senderBirthday: "", // 未出現在表單中，非必填，待討論
+            senderBirthday: null, // 未出現在表單中，非必填
             orderNotes: form.orderNotes,
             recipientName: form.recipient.name,
             recipientPhoneNumber: form.recipient.phone,
@@ -126,34 +128,15 @@ const onSubmit = async () => {
         console.log('準備提交到後端的數據:', orderData)
 
         //提交到後端
-        // const response = await cartStore.submitOrder(orderData)
+        const response = await cartStore.submitOrder(orderData)
 
-        // if (response.status === 200 && response.code === 0) {
-        //     ElMessage.success(response.message || '訂單提交成功')
-        //     router.push('/order-complete')
-        //     router.push({ name: 'OrderConfirmation', params: { orderId: response.id } })
-        // } else {
-        //     throw new Error(response.message || '訂單提交失敗')
-        // }
-
-        // 提交到後端 - 測試
-        const response = await fetch('http://20.2.249.137/api/order', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(orderData)
-        })
-
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`)
+        if (response.status === 200 && response.code === 0) {
+            ElMessage.success(response.message || '訂單提交成功')
+            router.push('/order-complete')
+            router.push({ name: 'OrderConfirmation', params: { orderId: response.id } })
+        } else {
+            throw new Error(response.message || '訂單提交失敗')
         }
-
-        const result = await response.json()
-        console.log('API 回應:', result)
-
-        ElMessage.success(result.message || '訂單提交成功')
-        router.push('/order-complete')
 
     } catch (error) {
         console.error('表單驗證失敗:', error)

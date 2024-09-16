@@ -224,11 +224,10 @@ export const useCartStore = defineStore('cart', () => {
   //送出購物車
   const submitOrder = async (orderData: any) => {
     try {
-      console.log('準備呼叫 API 路徑:', `${import.meta.env.VITE_APP_API_URL}${submitOrder}`)
       const response = await fetchApi.submitOrder(orderData)
       if (response.status === 200) {
-        // 提交完成後清除購物車
-        await fetchMemberCartInfo()
+        // 提交完成後清除購物車 - 9/16 15:00測試中先關掉，不要再砍我的資料了
+        // await fetchMemberCartInfo()
         return response.data
       }
     } catch (error) {
