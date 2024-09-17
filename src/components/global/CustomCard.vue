@@ -1,4 +1,8 @@
 <script setup>
+import { computed } from 'vue'
+import { useRoute } from 'vue-router'
+const route = useRoute()
+const routerPath = computed(() => route.path)
 const props = defineProps({
   mealInfo: {
     type: Object,
@@ -12,6 +16,14 @@ const props = defineProps({
     default: () => {}
   },
   minusData: {
+    type: Function,
+    default: () => {}
+  },
+  deleteData: {
+    type: Function,
+    default: () => {}
+  },
+  editData: {
     type: Function,
     default: () => {}
   }
@@ -33,7 +45,21 @@ const props = defineProps({
         <li class="flex-grow text-center">蛋白質{{ mealInfo.composition.protein }}g</li>
       </ul>
     </div>
-    <div class="mt-auto flex gap-x-3">
+    <div v-if="routerPath === '/member/custommeal'" class="mt-auto flex gap-x-3">
+      <button
+        @click="deleteData(mealInfo.id, mealInfo.name)"
+        class="hidden flex-grow items-center justify-center gap-x-2 rounded border border-black py-2 md:flex"
+      >
+        刪除
+      </button>
+      <button
+        @click="editData(mealInfo.id)"
+        class="flex flex-grow items-center justify-center gap-x-2 rounded border border-primary-700 py-2 text-primary-700"
+      >
+        編輯
+      </button>
+    </div>
+    <div v-else-if="routerPath === '/mealboxlist/mealcustomized'" class="mt-auto flex gap-x-3">
       <button
         @click="minusData(mealInfo.id)"
         class="hidden flex-grow items-center justify-center gap-x-2 rounded border border-black py-2 md:flex"
