@@ -65,6 +65,14 @@ const minusCustomCart = async (id: number) => {
     message(error.message, 'error')
   }
 }
+const deleteAllCart = async () => {
+  try {
+    await cartStore.cleanCart()
+    message('餐盒已移除', 'warning')
+  } catch (error: any) {
+    message(error.message, 'error')
+  }
+}
 
 onMounted(async () => {
   await generalMealBoxStore.fetchGeneralMeal()
@@ -140,6 +148,7 @@ onMounted(async () => {
         :addCustomCart="addCustomCart"
         :minusCustomCart="minusCustomCart"
         :isEndOrder="cartStore.getIsEndOrder"
+        :deleteAllCart="deleteAllCart"
       />
     </section>
   </main>

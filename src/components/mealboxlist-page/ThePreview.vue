@@ -10,6 +10,7 @@ type Props = {
   minusGeneralCart: (id: number) => Promise<void>
   addCustomCart: (id: number) => Promise<void>
   minusCustomCart: (id: number) => Promise<void>
+  deleteAllCart: () => Promise<void>
 }
 const props = defineProps<Props>()
 const drawer = defineModel('drawer')
@@ -42,6 +43,7 @@ const drawer = defineModel('drawer')
         <div class="grid grid-cols-4 gap-6 sm:grid-cols-12">
           <button
             class="col-span-2 col-start-1 rounded border-2 border-secondary-900 bg-white py-3 text-secondary-900 sm:col-span-5 sm:col-start-2 md:col-span-4 md:col-start-3 lg:col-span-3 lg:col-start-4"
+            @click="deleteAllCart"
           >
             全部刪除
           </button>
