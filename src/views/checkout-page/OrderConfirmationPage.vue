@@ -12,14 +12,6 @@ const router = useRouter()
 const isLoading = ref(true)
 const isLoggedIn = ref(false)
 
-// 提示訊息
-// const message = (mes: any, mesType: any) => {
-//     ElMessage({
-//         message: mes,
-//         type: mesType,
-//         duration: 1500
-//     })
-// }
 
 // 身分驗證 - 因為取得購物車資料需要登入，無法取得則判斷為未登入
 const authenticate = async () => {
@@ -59,8 +51,13 @@ const authenticate = async () => {
     }
 }
 
-//餐盒數量
-const generalBoxes = computed(() => cartStore.getGeneralBoxes)
+//獲取 一般餐盒+自訂義餐盒資訊
+const allMealBoxes = computed(() => {
+    const generalBoxes = cartStore.getGeneralBoxes.map(box => ({ ...box, type: 'general' }))
+    const customBoxes = cartStore.getCustomizedBoxes.map(box => ({ ...box, type: 'custom' }))
+    return [...generalBoxes, ...customBoxes]
+})
+
 // 購物車資訊
 const cartInfo = computed(() => cartStore.getCartInfo)
 // 餐盒總數
@@ -71,7 +68,9 @@ const totalPrice = computed(() => {
     return cartInfo.value.freightFree ? prize : prize + 300
 })
 // 確認購物車內是否有商品
-const hasCartItems = computed(() => generalBoxes.value.length > 0)
+const hasCartItems = computed(() =>
+    allMealBoxes.value.length > 0
+)
 
 // 清空購物車
 const handleClearCart = async () => {
@@ -120,9 +119,9 @@ onMounted(async () => {
                             <font-awesome-icon :icon="['fas', 'trash']" />
                         </button>
                     </div>
-                    <!-- 套餐細項 -->
+                    <!-- 一般套餐細項 -->
                     <div class="text-sm md:text-base md:pr-6">
-                        <div v-for="item in generalBoxes" :key="item.id" class="flex justify-between items-center">
+                        <div v-for="item in allMealBoxes" :key="item.id" class="flex justify-between items-center">
                             <p>{{ item.name }} x{{ item.boxQuantity }}</p>
                             <span>NT${{ item.price * item.boxQuantity }}</span>
                         </div>
