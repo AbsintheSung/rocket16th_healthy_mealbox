@@ -123,9 +123,9 @@ const getCaseOption = computed(() => caseOption[selectValue.value])
 //將 caseOpen 的 各個陣列合成同一個陣列
 const allDishList = computed(() => {
   return [
-    ...Object.values(getCaseOption.value.mainMealList).flat(),
-    ...Object.values(getCaseOption.value.sideDishesList).flat(),
-    ...Object.values(getCaseOption.value.starchDishesList).flat()
+    ...Object.values(caseOption[getSelectCase.value].mainMealList).flat(),
+    ...Object.values(caseOption[getSelectCase.value].sideDishesList).flat(),
+    ...Object.values(caseOption[getSelectCase.value].starchDishesList).flat()
   ]
 })
 // 前台 計算價格總和
@@ -138,19 +138,19 @@ const totalPrice = computed(() => {
 //選取的資料 取出圖片路徑
 const mainMealListImg = computed(() => {
   // 合併選取的 case 中的所有 mainMealList 陣列，並取出 img 屬性
-  const allMainMeals = Object.values(getCaseOption.value.mainMealList).flat()
+  const allMainMeals = Object.values(caseOption[getSelectCase.value].mainMealList).flat()
   return allMainMeals.filter((dish) => dish && dish.img).map((dish) => dish.img)
 })
 //選取的資料 取出圖片路徑
 const sideDishesListImg = computed(() => {
   // 合併選取的 case 中的所有 sideDishesList 陣列，並取出 img 屬性
-  const allSideDishes = Object.values(getCaseOption.value.sideDishesList).flat()
+  const allSideDishes = Object.values(caseOption[getSelectCase.value].sideDishesList).flat()
   return allSideDishes.filter((dish) => dish && dish.img).map((dish) => dish.img)
 })
 //選取的資料 取出圖片路徑
 const starchDishesListImg = computed(() => {
   // 合併選取的 case 中的所有 sideDishesList 陣列，並取出 img 屬性
-  const allStarchDishes = Object.values(getCaseOption.value.starchDishesList).flat()
+  const allStarchDishes = Object.values(caseOption[getSelectCase.value].starchDishesList).flat()
   return allStarchDishes.filter((dish) => dish && dish.img).map((dish) => dish.img)
 })
 
@@ -235,10 +235,10 @@ const resetCaseOption = () => {
 const handleData = async () => {
   await generateImage()
   dialogShow.value = true
-  console.log(getCaseOption.value)
+  console.log(caseOption[getSelectCase.value])
 }
 const handleEdit = () => {
-  console.log(getCaseOption.value)
+  console.log(caseOption[getSelectCase.value])
 }
 const handleCloseDialog = () => {
   dialogShow.value = false
@@ -270,15 +270,15 @@ const test = async () => {
 const collectMealBoxData = (imgdata) => {
   setCustomData.value.name = customName.value
   setCustomData.value.remark = customContent.value
-  setCustomData.value.template = getCaseOption.value.title
+  setCustomData.value.template = caseOption[getSelectCase.value].title
   setCustomData.value.imgSrc = imgdata
-  setCustomData.value.starch = Object.values(getCaseOption.value.starchDishesList)
+  setCustomData.value.starch = Object.values(caseOption[getSelectCase.value].starchDishesList)
     .flat()
     .map((dish) => dish.id)
-  setCustomData.value.mainMeal = Object.values(getCaseOption.value.mainMealList)
+  setCustomData.value.mainMeal = Object.values(caseOption[getSelectCase.value].mainMealList)
     .flat()
     .map((dish) => dish.id)
-  setCustomData.value.sideDishes = Object.values(getCaseOption.value.sideDishesList)
+  setCustomData.value.sideDishes = Object.values(caseOption[getSelectCase.value].sideDishesList)
     .flat()
     .map((dish) => dish.id)
 }
@@ -296,7 +296,7 @@ const message = (mes, mesType) => {
     <CustomDialog
       :dialogShow="dialogShow"
       :allDishList="allDishList"
-      :currentCase="getCaseOption"
+      :currentCase="caseOption[getSelectCase]"
       :totalPrice="totalPrice"
       :generatedImage="generatedImage"
       v-model:customName="customName"
@@ -364,7 +364,7 @@ const message = (mes, mesType) => {
         <div class="w-full md:w-1/3">
           <el-collapse v-model="activeNames">
             <TheCustomMenu
-              v-for="(item, index) in getCaseOption.starchDishesList"
+              v-for="(item, index) in caseOption[getSelectCase].starchDishesList"
               :key="item"
               :menuList="makeCustomMealStore.getstarchDishes"
               :accordionCode="`1${index}`"
@@ -372,7 +372,7 @@ const message = (mes, mesType) => {
               v-model:selectMenu="caseOption[getSelectCase].starchDishesList[index]"
             />
             <TheCustomMenu
-              v-for="(item, index) in getCaseOption.mainMealList"
+              v-for="(item, index) in caseOption[getSelectCase].mainMealList"
               :key="item"
               :menuList="makeCustomMealStore.getMainMealDishes"
               :accordionCode="`2${index}`"
@@ -380,7 +380,7 @@ const message = (mes, mesType) => {
               v-model:selectMenu="caseOption[getSelectCase].mainMealList[index]"
             />
             <TheCustomMenu
-              v-for="(item, index) in getCaseOption.sideDishesList"
+              v-for="(item, index) in caseOption[getSelectCase].sideDishesList"
               :key="item"
               :menuList="makeCustomMealStore.getSideDishes"
               :accordionCode="`3${index}`"
