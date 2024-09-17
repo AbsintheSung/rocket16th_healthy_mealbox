@@ -225,14 +225,14 @@ const handleCloseDialog = () => {
 }
 
 //發送api
-const test = async () => {
+const saveData = async () => {
   const blob = base64ToBlob(generatedImage.value, 'image/png')
   const formData = new FormData()
   formData.append('image', blob, 'canvas_image.png')
   // console.log(formData)
   try {
-    // const imgurl = await makeCustomMealStore.updateCustomImg(formData)
-    const imgurl = '/Images/Uploads/CustomizeBoxes/29a75a80-7b1b-47df-bba2-ed6d48630d72.png' //測試用 之後要刪除(開啟上面那個)
+    const imgurl = await makeCustomMealStore.updateCustomImg(formData)
+    // const imgurl = '/Images/Uploads/CustomizeBoxes/29a75a80-7b1b-47df-bba2-ed6d48630d72.png' //測試用 之後要刪除(開啟上面那個)
     collectMealBoxData(imgurl)
     const response = await makeCustomMealStore.updateCusomMeal(route.params.id, setCustomData.value)
     message(response.message, 'success')
@@ -351,7 +351,7 @@ function assignBoxToCase(mealData) {
       :generatedImage="generatedImage"
       v-model:customName="customName"
       v-model:customContent="customContent"
-      :fetchData="test"
+      :fetchData="saveData"
       @closeDialog="handleCloseDialog"
     />
     <div class="bg-primary-400">
@@ -475,5 +475,21 @@ function assignBoxToCase(mealData) {
 }
 .meal-bg {
   background-image: url('../assets/image/餐盤測試/底圖.jpg');
+}
+:deep(.el-collapse-item__header) {
+  padding: 4px 16px;
+  background-color: $primary-100;
+}
+.el-collapse {
+  > :deep(.el-collapse-item:first-child) {
+    > button {
+      border-radius: 4px 4px 0px 0px;
+    }
+  }
+  > :deep(.el-collapse-item:last-child) {
+    > button {
+      border-radius: 0px 0px 4px 4px;
+    }
+  }
 }
 </style>
