@@ -6,8 +6,8 @@ const { width } = useWindowSize()
 const iconSize = computed(() => (width.value < 576 ? 'sm' : 'lg'))
 
 const mainNav = ref([
-  { id: 'accoumt', title: '我的帳戶', path: '/' },
-  { id: 'faq', title: '常見問題', path: '/' },
+  { id: 'account', title: '我的帳戶', path: '/member' },
+  { id: 'faq', title: '常見問題', path: '/fqa' },
   { id: 'privacy-policy', title: '隱私權保護政策', path: '/' }
 ])
 const utilNav = ref([
