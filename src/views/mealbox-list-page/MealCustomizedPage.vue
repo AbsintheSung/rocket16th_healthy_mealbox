@@ -1,18 +1,52 @@
-<script setup>
+<script setup lang="ts">
 import { computed } from 'vue'
 // import MealCard from '@/components/global/MealCard.vue'
 import CustomCard from '@/components/global/CustomCard.vue'
 import ThePagination from '@/components/global/ThePagination.vue'
 import TheSvg from '@/components/global/TheSvg.vue'
 import { useCustomMealBoxStore } from '@/stores/custommealbox'
+import { useCartStore } from '@/stores/cart'
 import { useRouter } from 'vue-router'
 const router = useRouter()
+const cartStore = useCartStore()
 const customMealBoxStore = useCustomMealBoxStore()
 const isLastPage = computed(() => {
   return customMealBoxStore.currentPage === customMealBoxStore.getTotalPages
 })
 const handleAddCustom = () => {
   router.push('/customized')
+}
+const message = (mes: any, mesType: string) => {
+  //@ts-ignore
+  ElMessage({
+    message: mes,
+    type: mesType,
+    duration: 1500
+  })
+}
+const addCustomCart = async (id: number) => {
+  try {
+    const response = await cartStore.fetchaddCustomCart(id)
+    if (response === 'endOrder') {
+      return
+    } else {
+      message('餐盒已加入', 'success')
+    }
+  } catch (error: any) {
+    message(error.message, 'error')
+  }
+}
+const minusCustomCart = async (id: number) => {
+  try {
+    const response = await cartStore.fetchMinusCustomCart(id)
+    if (response === 'notExist') {
+      return
+    } else {
+      message('餐盒已移除', 'warning')
+    }
+  } catch (error: any) {
+    message(error.message, 'error')
+  }
 }
 </script>
 <template>
@@ -25,6 +59,8 @@ const handleAddCustom = () => {
         v-for="custItem in customMealBoxStore.getCustomMeal"
         :key="custItem.id"
         :mealInfo="custItem"
+        :addData="addCustomCart"
+        :minusData="minusCustomCart"
       />
       <li v-if="isLastPage" class="flex h-full flex-col gap-y-4 rounded border border-dashed p-4">
         <button

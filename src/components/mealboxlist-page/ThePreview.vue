@@ -1,12 +1,16 @@
 <script setup lang="ts">
-import type { CartGeneralMealBoxes } from '@/types/type'
+import type { CartGeneralMealBoxes, CartCustomBoxes } from '@/types/type'
 type Props = {
   mealBoxTotal: number
   caseType: number
   cartGeneralBoxes: CartGeneralMealBoxes[]
+  cartCustomBoxes: CartCustomBoxes[]
   isEndOrder: boolean
   addGeneralCart: (id: number) => Promise<void>
   minusGeneralCart: (id: number) => Promise<void>
+  addCustomCart: (id: number) => Promise<void>
+  minusCustomCart: (id: number) => Promise<void>
+  deleteAllCart: () => Promise<void>
 }
 const props = defineProps<Props>()
 const drawer = defineModel('drawer')
@@ -39,6 +43,7 @@ const drawer = defineModel('drawer')
         <div class="grid grid-cols-4 gap-6 sm:grid-cols-12">
           <button
             class="col-span-2 col-start-1 rounded border-2 border-secondary-900 bg-white py-3 text-secondary-900 sm:col-span-5 sm:col-start-2 md:col-span-4 md:col-start-3 lg:col-span-3 lg:col-start-4"
+            @click="deleteAllCart"
           >
             全部刪除
           </button>
@@ -97,6 +102,47 @@ const drawer = defineModel('drawer')
                     <button
                       class="border bg-primary-base p-1"
                       @click="addGeneralCart(generalItem.id)"
+                    >
+                      <FontAwesomeIcon :icon="['fas', 'plus']" />
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </li>
+
+            <li
+              v-for="customItem in cartCustomBoxes"
+              :key="customItem.id"
+              class="grid grid-cols-4 items-center gap-6 sm:grid-cols-12"
+            >
+              <div class="col-span-4 bg-white p-2 sm:col-span-10 sm:col-start-2">
+                <div class="grid grid-cols-4 items-center gap-6 sm:grid-cols-10">
+                  <!-- <img
+                    src="https://picsum.photos/200/200?random=1"
+                    class="col-span-1 h-[66px] sm:col-span-2 lg:col-span-1"
+                  /> -->
+                  <img
+                    :src="customItem.imgSrc"
+                    class="col-span-1 h-[66px] sm:col-span-2 lg:col-span-1"
+                  />
+                  <div class="col-span-2 flex flex-col gap-y-4 sm:col-span-5 lg:col-span-5">
+                    <h3 class="font-bold">{{ customItem.name }}</h3>
+                    <p>
+                      <span> {{ customItem.composition.calories }}Kcal |</span>
+                      <span>蛋白質{{ customItem.composition.protein }}g |</span>
+                      <span>脂肪{{ customItem.composition.adipose }}g</span>
+                    </p>
+                  </div>
+                  <div
+                    class="col-span-1 flex items-center justify-end gap-x-5 self-end sm:col-span-3 lg:col-span-4"
+                  >
+                    <button class="border p-1" @click="minusCustomCart(customItem.id)">
+                      <FontAwesomeIcon :icon="['fas', 'minus']" />
+                    </button>
+                    <span>{{ customItem.boxQuantity }}</span>
+                    <button
+                      class="border bg-primary-base p-1"
+                      @click="addCustomCart(customItem.id)"
                     >
                       <FontAwesomeIcon :icon="['fas', 'plus']" />
                     </button>
