@@ -2,46 +2,19 @@ import { defineStore } from 'pinia'
 import { fetchApi } from '@/utils/api/apiUrl'
 import { ref, computed } from 'vue'
 import type { MemberInfo, GeneralBoxesOrder, CustomizeBoxesOrder, Order } from '@/types/type'
-// type MemberInfo = {
-//   id: number | null
-//   userImg: string | null
-//   name: string | null
-//   account: string | null
-//   permission: string | null
-//   phoneNumber: string | null
-//   birthDate: string | null
-//   gender: number | null // 0: 男生 1:女 2:其他
-//   city: string | null
-//   area: string | null
-//   address: string | null
-//   createTime: string | null
-// }
+import { useCustomMealBoxStore } from './custommealbox'
 export const useMemberStore = defineStore('member', () => {
+  const customMealBoxStore = useCustomMealBoxStore()
   /* State */
 
-  //會員資料存放處
-  // const memberInfo = ref<MemberInfo>({
-  //   id: null,
-  //   userImg: null,
-  //   name: null,
-  //   account: null,
-  //   permission: null,
-  //   phoneNumber: null,
-  //   birthDate: null,
-  //   gender: null, // 0: 男生 1:女 2:其他
-  //   city: null,
-  //   area: null,
-  //   address: null,
-  //   createTime: null
-  // })
+
   //會員資料存放處
   const memberInfo = ref<Partial<MemberInfo>>({});
   const memberOrder = ref<Order[]>([])
   const orderCurrentPage = ref(1) // 訂單當前分頁
   const orderPageSize = ref(10) //訂單每頁該顯示的資料數量
-
-
-
+  const customCurrentPage = ref(1) // 自定義當前分頁
+  const customPageSize = ref(10) //自定義每頁該顯示的資料數量
 
   /* Getter */
   const getMemberInfo = computed(() => {
@@ -92,12 +65,24 @@ export const useMemberStore = defineStore('member', () => {
   // 訂單 總頁碼共幾個
   const getTotalPages = computed(() => Math.ceil(getOrderTotal.value / getOrderPageSize.value))
   //顯示在前台的 訂單  10筆資料
-  const getPaginatedMeals = computed(() => {
+  const getPaginatedOrder = computed(() => {
     const start = (orderCurrentPage.value - 1) * orderPageSize.value
     const end = start + orderPageSize.value
     return getMemberOrders.value.slice(start, end)
   })
 
+  //取得獲取 自定義餐盒 的資料總數
+  const getCustomTotal = computed(() => customMealBoxStore.getCustomMeal.length)
+  //取得 訂單 每頁該顯示的資料數量
+  const getCustomPageSize = computed(() => customPageSize.value)
+  // 訂單 總頁碼共幾個
+  const getCustomPages = computed(() => Math.ceil(getCustomTotal.value / getCustomPageSize.value))
+  //顯示在前台的 訂單  10筆資料
+  const getPaginatedCustom = computed(() => {
+    const start = (customCurrentPage.value - 1) * customPageSize.value
+    const end = start + customPageSize.value
+    return customMealBoxStore.getCustomMeal.slice(start, end)
+  })
 
   /* Action */
 
@@ -151,6 +136,17 @@ export const useMemberStore = defineStore('member', () => {
     }
   }
 
+  //刪除創建的自定義餐盒
+  const deleteCustom = async (id: any) => {
+    try {
+      const response = await fetchApi.deleteCustom(id)
+      await customMealBoxStore.fetchCustomMeal()
+      return response.data
+    } catch (error: any) {
+      throw error.response.data
+    }
+  }
+
   // 日期格式轉換函數( 內部調用 )
   const formatDate = (isoDate: string) => {
     const date = new Date(isoDate);
@@ -163,6 +159,9 @@ export const useMemberStore = defineStore('member', () => {
   // //傳遞頁碼，觸發更動( 訂單 ) 
   const changeOrderPage = (page: any) => (orderCurrentPage.value = page)
 
+  // 傳遞頁碼，觸發更動( 自定義會員 ) 
+  const changeCustomPage = (page: any) => (customCurrentPage.value = page)
+
   return {
     orderCurrentPage,
     memberInfo,
@@ -173,11 +172,17 @@ export const useMemberStore = defineStore('member', () => {
     getOrderTotal,
     getOrderPageSize,
     getTotalPages,
-    getPaginatedMeals,
+    getPaginatedOrder,
+    getCustomTotal,
+    getCustomPageSize,
+    getCustomPages,
+    getPaginatedCustom,
     fetchMemberInfo,
     fetchMemberOrder,
     updateMemberInfo,
     updateMemberPassword,
-    changeOrderPage
+    deleteCustom,
+    changeOrderPage,
+    changeCustomPage
   }
 })

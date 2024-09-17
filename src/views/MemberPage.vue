@@ -2,11 +2,13 @@
 import { computed, ref, onMounted } from 'vue'
 import { useRoute, type RouteLocationNormalizedLoadedGeneric } from 'vue-router'
 import { useMemberStore } from '@/stores/member'
+import { useCustomMealBoxStore } from '@/stores/custommealbox'
 import TheSvg from '@/components/global/TheSvg.vue'
 import { ElLoading } from 'element-plus'
 
 const route: RouteLocationNormalizedLoadedGeneric = useRoute()
 const memberStore = useMemberStore()
+const customMealBoxStore = useCustomMealBoxStore()
 const memberLink = ref([
   { id: 'editmember', title: '個人資訊', path: '/member' },
   { id: 'orderhistory', title: '歷史訂單', path: '/member/orderhistory' },
@@ -44,6 +46,7 @@ onMounted(async () => {
   try {
     await memberStore.fetchMemberInfo()
     await memberStore.fetchMemberOrder()
+    await customMealBoxStore.fetchCustomMeal()
   } catch (error: any) {
     message(error.message, 'error')
   } finally {

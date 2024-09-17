@@ -1,10 +1,10 @@
 <script setup>
 import { computed, watch } from 'vue'
 const props = defineProps({
-  ingredientData: {
-    type: Array,
-    default: () => []
-  },
+  // ingredientData: {
+  //   type: Array,
+  //   default: () => []
+  // },
   allDishList: {
     type: Array,
     default: () => []
@@ -31,16 +31,31 @@ const nutrientNameMap = {
 const dishIngredient = computed(() => {
   return props.allDishList.reduce(
     (total, dish) => {
-      Object.keys(dish.composition).forEach((key) => {
-        if (typeof total[key] === 'undefined') {
-          total[key] = 0
+      const composition = dish.composition || {} //排除空物件 - 無法累加
+
+      Object.keys(composition).forEach((key) => {
+        // 排除不在 defaultComposition 中的屬性
+        if (key in total) {
+          total[key] += composition[key] || 0 // 如果為 undefined 或 null 則加 0
         }
-        total[key] += dish.composition[key]
       })
+
       return total
     },
     { ...defaultComposition }
   )
+  // return props.allDishList.reduce(
+  //   (total, dish) => {
+  //     Object.keys(dish.composition).forEach((key) => {
+  //       if (typeof total[key] === 'undefined') {
+  //         total[key] = 0
+  //       }
+  //       total[key] += dish.composition[key]
+  //     })
+  //     return total
+  //   },
+  //   { ...defaultComposition }
+  // )
 })
 //將上面轉成中文，並以 [ {name:卡路里,value:450kcal},... ]方式輸出
 const dishIngredientChinese = computed(() => {

@@ -59,7 +59,7 @@ const testData = ref(['豬肉漢堡排佐馬鈴薯', '雞胸蛋白沙拉碗'])
       歷史訂單
     </h2>
     <el-collapse class="el-flex-grow" v-model="activeNames" @change="handleChange">
-      <template v-for="(item, index) in memberStore.getPaginatedMeals" :key="item">
+      <template v-for="(item, index) in memberStore.getPaginatedOrder" :key="item">
         <el-collapse-item
           :title="`訂單日期 ${item.createTime} | 訂單金額：$${item.orderPrice}元`"
           :name="index"

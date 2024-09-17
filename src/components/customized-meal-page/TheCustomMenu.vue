@@ -35,5 +35,6 @@ defineProps({
 }
 :deep(.el-checkbox) {
   margin-right: 30px;
+  margin-left: 16px;
 }
 </style>
