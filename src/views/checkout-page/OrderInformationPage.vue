@@ -17,7 +17,13 @@ const paymentMethod = ref('')
 
 //獲取購物車資訊
 const cartInfo = computed(() => cartStore.getCartInfo)
-const totalPrice = computed(() => cartInfo.value.prize || 0)
+
+// 計算總價
+const totalPrice = computed(() => {
+    const prize = cartInfo.value.prize || 0
+    return cartInfo.value.freightFree ? prize : prize + 300
+})
+
 
 //購物車狀態列函式
 const steps = ref(['購物車', '填寫資料', '訂單確認'])
@@ -129,17 +135,17 @@ const onSubmit = async () => {
 
         //提交到後端
         const response = await cartStore.submitOrder(orderData)
+        // console.log('Submit order response:', response)
 
-        if (response.status === 200 && response.code === 0) {
-            ElMessage.success(response.message || '訂單提交成功')
+        if (response && response.status === 200) {
+            ElMessage.success(response.data.message || '訂單提交成功')
             router.push('/checkout/order-complete')
         } else {
-            throw new Error(response.message || '訂單提交失敗')
+            throw new Error(response?.data?.message || '訂單提交失敗')
         }
-
     } catch (error) {
-        console.error('表單驗證失敗:', error)
-        ElMessage.error(error.message || '請填寫所有必要資訊')
+        console.error('錯誤詳情:', error)
+        ElMessage.error(error.message || '提交訂單時出錯')
     }
 }
 
@@ -224,7 +230,7 @@ onMounted(async () => {
         <div class="col-start-7 col-span-6">
             <div class="bg-primary-300 border-2 border-black flex justify-between">
                 <p class="px-6 py-2 font-bold">送貨資料</p>
-                <p class="px-6 py-2 font-bold">運費: {{ cartInfo.freightFree ? '免運' : 'NT$100' }}</p>
+                <p class="px-6 py-2 font-bold">運費: {{ cartInfo.freightFree ? '免運' : 'NT$300' }}</p>
             </div>
             <div class="border-2 border-black px-6 py-4">
                 <el-form :model="form" :rules="rules" label-width="auto" style="max-width: 100%">

@@ -1,10 +1,26 @@
 <script setup>
-import { ref } from 'vue'
+import { ref, onMounted,computed } from 'vue'
 import ShoppingCartProgressBar from '@/components/global/ShoppingCartProgressBar.vue'
+import { useCartStore } from '@/stores/cart'
+
+const cartStore = useCartStore()
+const orderInfo = computed(() => cartStore.getLastSubmittedOrder)
 
 //購物車狀態列函式
 const steps = ref(['購物車', '填寫資料', '訂單確認'])
 const activeStep = ref(3)
+
+onMounted(() => {
+    orderInfo.value = cartStore.getLastSubmittedOrder
+    // console.log('獲得的訂單資訊：', orderInfo.value)
+})
+// 格式化日期時間的函數
+const formatDateTime = (dateTimeString) => {
+    if (!dateTimeString) return '無資料';
+    const date = new Date(dateTimeString);
+    return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')} ${String(date.getHours()).padStart(2, '0')}:${String(date.getMinutes()).padStart(2, '0')}`;
+}
+
 
 </script>
 <template>
@@ -21,9 +37,9 @@ const activeStep = ref(3)
                     <h2 class="text-2xl font-bold pl-5">謝謝您！您的訂單已成立！</h2>
                 </div>
                 <div class="text-left pb-8">
-                    <p>訂單號碼：202407311130088332</p>
+                    <p>訂單號碼：{{ orderInfo?.id }}</p>
                     <p>訂單確認電郵已發送到您的電子信箱：</p>
-                    <p>hello@gmail.com</p>
+                    <p>{{ orderInfo?.senderEmail }}</p>
                 </div>
             </div>
         </div>
@@ -35,11 +51,11 @@ const activeStep = ref(3)
                     <h2 class="font-bold text-2xl mb-2">訂單資訊</h2>
                     <div class="flex mb-1">
                         <span>訂單編號：</span>
-                        <span>202407311130088332</span>
+                        <span>{{ orderInfo?.orderNumber }}</span>
                     </div>
                     <div class="flex">
                         <span>訂單建立時間：</span>
-                        <span>2024-07-31 11:30</span>
+                        <span>{{ formatDateTime(orderInfo?.createTime) }}</span>
                     </div>
                 </div>
 
@@ -48,11 +64,11 @@ const activeStep = ref(3)
                     <h2 class="font-bold text-2xl mb-2">顧客資訊</h2>
                     <div class="flex mb-1">
                         <span>姓名：</span>
-                        <span>林飯糰</span>
+                        <span>{{ orderInfo?.senderName }}</span>
                     </div>
                     <div class="flex">
                         <span>電話號碼：</span>
-                        <span>222 *** 666</span>
+                        <span>{{ orderInfo?.senderPhoneNumber }}</span>
                     </div>
                 </div>
 
@@ -61,7 +77,7 @@ const activeStep = ref(3)
                     <h2 class="font-bold text-2xl mb-2">送貨資訊</h2>
                     <div class="flex">
                         <span>送貨方式：</span>
-                        <span>宅配 新竹物流</span>
+                        <span>{{ orderInfo?.shippingMethod }}</span>
                     </div>
                 </div>
 
@@ -71,11 +87,11 @@ const activeStep = ref(3)
                         <h2 class="font-bold text-2xl mb-2">付款資訊</h2>
                         <div class="flex mb-1">
                             <span>付款方式：</span>
-                            <span>信用卡付款</span>
+                            <span>{{ orderInfo?.paymentMethod === 'onlinePayment' ? 'LINE PAY' : '超商取付' }}</span>
                         </div>
                         <div class="flex">
                             <span>付款狀態：</span>
-                            <span>已付款</span>
+                            <span>{{ orderInfo?.orderStatus ==='paid' ? '已付款' : '未付款' }}</span>
                         </div>
                     </div>
                 </div>

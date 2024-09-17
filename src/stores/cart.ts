@@ -12,6 +12,8 @@ export const useCartStore = defineStore('cart', () => {
   const generalBoxes = ref<CartGeneralMealBoxes[]>([]) //存放獲取後的一般餐盒
   const customizeBoxes = ref([]) //存放獲取後的自定義餐盒
   const cartInfo = ref<Partial<CartInfo>>({}); //存放購物車 價錢 優惠資訊
+  const lastSubmittedOrder = ref(null) //存放當前一筆訂單完成資訊
+
   /* Getter */
 
   //取得caseType的資訊
@@ -64,8 +66,8 @@ export const useCartStore = defineStore('cart', () => {
     return { ...cartInfo.value }
   })
 
-  // 檢查購物車是否已滿(待討論)
-  // const isCartFull = computed(() => getMealBoxTotal.value >= getCaseType.value)
+  // 取得當前提交訂單
+  const getLastSubmittedOrder = computed(() => lastSubmittedOrder.value)
 
 
   /* Action */
@@ -225,15 +227,22 @@ export const useCartStore = defineStore('cart', () => {
   const submitOrder = async (orderData: any) => {
     try {
       const response = await fetchApi.submitOrder(orderData)
-      if (response.status === 200) {
+
+      if (response.status === 200 && response.data.code === 0) {
+        lastSubmittedOrder.value = response.data.data
+
         await fetchMemberCartInfo()
         return response.data
+
+      } else {
+        throw new Error(response.data.message || '訂單提交失敗')
       }
     } catch (error) {
       console.error('提交訂單時出錯：', error)
       throw error
     }
   }
+
 
   //清空購物車
   const cleanCart = async () => {
@@ -267,6 +276,7 @@ export const useCartStore = defineStore('cart', () => {
     fetchNutritionistPlanById,
     addNutritionistPlanToCart,
     submitOrder,
+    getLastSubmittedOrder,
     cleanCart
   }
 })
