@@ -5,7 +5,7 @@ import TheSvg from '@/components/global/TheSvg.vue'
 const mainNav = ref([
   { id: 'plan', title: '方案選擇', path: '/plan-selection' },
   { id: 'usage', title: '使用方式', path: '/' },
-  { id: 'faq', title: '常見問題', path: '/' }
+  { id: 'faq', title: '常見問題', path: '/fqa' }
 ])
 const utilNav = ref([
   { id: 'cart', iconStyle: ['fas', 'cart-shopping'], path: '/checkout' },
