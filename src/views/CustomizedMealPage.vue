@@ -3,39 +3,19 @@
 import { onMounted, ref, computed, watch, reactive } from 'vue'
 import { useRouter } from 'vue-router'
 import { useMakeCustomMealStore } from '@/stores/makecustommeal'
-import axiosInstance from '@/utils/api/axios'
 import html2canvas from 'html2canvas'
 import TheCustomMenu from '@/components/customized-meal-page/TheCustomMenu.vue'
-import StarchDishes from '@/components/customized-meal-page/StarchDishes.vue'
-import MainDishes from '@/components/customized-meal-page/MainDishes.vue'
-import SideDishes from '@/components/customized-meal-page/SideDishes.vue'
 import CustomDialog from '@/components/customized-meal-page/CustomDialog.vue'
 import TheIngredient from '@/components/global/TheIngredient.vue'
 import TheDinnerPlate from '@/components/customized-meal-page/TheDinnerPlate.vue'
 import TheDinnerPlate2 from '@/components/customized-meal-page/TheDinnerPlate2.vue'
-import { fetchApi } from '@/utils/api/apiUrl'
-const urlName = import.meta.env.VITE_APP_API_NAME
-const getDishesApi = `/${urlName}/dishes`
 const makeCustomMealStore = useMakeCustomMealStore()
 const router = useRouter()
 const dialogShow = ref(false) //控制彈窗開關
 const activeNames = ref([]) // 手風琴選取到的，會放入陣列
-const selectedCase = ref('case1') //目前選擇的類型 case1 => 1澱粉、1主食、3配菜 ( 重複了，可能移除 )
 const selectValue = ref('case1') //目前選擇的類型 case1 => 1澱粉、1主食、3配菜
-// const mainMealDishesMenu = ref([]) // 主食菜單-會從後端獲取，一開始空陣列
-// const sideDishesMenu = ref([]) // 配菜菜單-會從後端獲取，一開始空陣列
-// const starchDishesMenu = ref([]) // 澱粉菜單-會從後端獲取，一開始空陣列
 const customName = ref('') // 使用者輸入 的 餐盒名稱
 const customContent = ref('') // 使用者輸入 的 餐宏內容
-// 定義所有營養成分的預設值
-// const defaultComposition = {
-//   calories: 0,
-//   protein: 0,
-//   adipose: 0,
-//   carbohydrate: 0,
-//   fiber: 0,
-//   sodium: 0
-// }
 const options = [
   {
     value: 'case1',
@@ -155,26 +135,6 @@ const totalPrice = computed(() => {
   }, 0)
 })
 
-//渲染列表用
-// const getMainMealDishes = computed(() => {
-//   return mainMealDishesMenu.value.map((item) => ({
-//     ...item,
-//     composition: { ...item.composition }
-//   }))
-// })
-// const getSideDishes = computed(() => {
-//   return sideDishesMenu.value.map((item) => ({
-//     ...item,
-//     composition: { ...item.composition }
-//   }))
-// })
-// const getstarchDishes = computed(() => {
-//   return starchDishesMenu.value.map((item) => ({
-//     ...item,
-//     composition: { ...item.composition }
-//   }))
-// })
-
 //選取的資料 取出圖片路徑
 const mainMealListImg = computed(() => {
   // 合併選取的 case 中的所有 mainMealList 陣列，並取出 img 屬性
@@ -194,30 +154,11 @@ const starchDishesListImg = computed(() => {
   return allStarchDishes.filter((dish) => dish && dish.img).map((dish) => dish.img)
 })
 
-// const fetchDishesMenu = async () => {
-//   try {
-//     const response = await axiosInstance.get(getDishesApi)
-//     mainMealDishesMenu.value = response.data.data.filter((dish) => dish.dishesType === 'mainMeal')
-//     sideDishesMenu.value = response.data.data.filter((dish) => dish.dishesType === 'sideDishes')
-//     starchDishesMenu.value = response.data.data.filter((dish) => dish.dishesType === 'starch')
-//   } catch (error) {
-//     // console.log(error)
-//   }
-// }
-
 //下拉選單，選完後重製設定
 const changeSelect = () => {
   // selectedCase.value = val
   resetCaseOption()
 }
-// const nutrientNameMap = {
-//   calories: '卡路里',
-//   protein: '蛋白質',
-//   adipose: '脂肪',
-//   carbohydrate: '碳水化合物',
-//   fiber: '纖維',
-//   sodium: '鈉含量'
-// }
 
 onMounted(async () => {
   // await fetchDishesMenu()
@@ -271,51 +212,6 @@ const base64ToBlob = (base64, contentType = 'image/png') => {
 //     console.error('未找到生成的圖片')
 //   }
 // }
-
-//營養素累加
-// const totalComposition = computed(() => {
-//   // 將三個菜品列表中的所有菜品合併成一個列表
-//   const allDishes = [
-//     ...Object.values(getCaseOption.value.mainMealList).flat(),
-//     ...Object.values(getCaseOption.value.sideDishesList).flat(),
-//     ...Object.values(getCaseOption.value.starchDishesList).flat()
-//   ].filter((dish) => dish.composition) //將有 composition 的篩選出來
-
-//   // 對所有菜品的營養成分進行累加
-//   return allDishes.reduce(
-//     (total, dish) => {
-//       Object.keys(dish.composition).forEach((key) => {
-//         if (typeof total[key] === 'undefined') {
-//           total[key] = 0
-//         }
-//         total[key] += dish.composition[key]
-//       })
-//       return total
-//     },
-//     { ...defaultComposition }
-//   )
-// })
-
-// //將上面轉成中文，並以 [ {name:卡路里,value:450kcal},... ]方式輸出
-// const totalCompositionChinese = computed(() => {
-//   return Object.entries(totalComposition.value).map(([key, value]) => ({
-//     name: nutrientNameMap[key] || key,
-//     value: `${value}${key === 'calories' ? 'kcal' : 'g'}`
-//   }))
-// })
-
-//計算總和
-// const totalPrice = computed(() => {
-//   // const allDishes = [
-//   //   ...Object.values(getCaseOption.value.starchDishesList).flat(),
-//   //   ...Object.values(getCaseOption.value.mainMealList).flat(),
-//   //   ...Object.values(getCaseOption.value.sideDishesList).flat()
-//   // ]
-
-//   return allDishList.value.reduce((sum, dish) => {
-//     return sum + dish.price
-//   }, 0)
-// })
 
 // 定義重置函數，用於清空所有列表
 const resetCaseOption = () => {
@@ -491,21 +387,6 @@ const message = (mes, mesType) => {
               title="配菜"
               v-model:selectMenu="caseOption[getSelectCase].sideDishesList[index]"
             />
-            <!-- <StarchDishes
-              v-for="(item, index) in getCaseOption.starchDishesList"
-              :key="item"
-              v-model:starchDisheList="caseOption[getSelectCase].starchDishesList[index]"
-            />
-            <MainDishes
-              v-for="(item, index) in getCaseOption.mainMealList"
-              :key="item"
-              v-model:mainMealList="caseOption[getSelectCase].mainMealList[index]"
-            />
-            <SideDishes
-              v-for="(item, index) in getCaseOption.sideDishesList"
-              :key="item"
-              v-model:sideDishesList="caseOption[getSelectCase].sideDishesList[index]"
-            /> -->
           </el-collapse>
         </div>
       </div>

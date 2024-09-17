@@ -19,15 +19,6 @@ const activeNames = ref([]) // 手風琴選取到的，會放入陣列
 const selectValue = ref('case1') //目前選擇的類型 case1 => 1澱粉、1主食、3配菜
 const customName = ref('') // 使用者輸入 的 餐盒名稱
 const customContent = ref('') // 使用者輸入 的 餐宏內容
-// 定義所有營養成分的預設值
-// const defaultComposition = {
-//   calories: 0,
-//   protein: 0,
-//   adipose: 0,
-//   carbohydrate: 0,
-//   fiber: 0,
-//   sodium: 0
-// }
 const options = [
   {
     value: 'case1',
@@ -171,14 +162,6 @@ const changeSelect = () => {
   // selectedCase.value = val
   resetCaseOption()
 }
-// const nutrientNameMap = {
-//   calories: '卡路里',
-//   protein: '蛋白質',
-//   adipose: '脂肪',
-//   carbohydrate: '碳水化合物',
-//   fiber: '纖維',
-//   sodium: '鈉含量'
-// }
 
 const plateComposition = ref(null)
 const generatedImage = ref('')
@@ -206,51 +189,6 @@ const base64ToBlob = (base64, contentType = 'image/png') => {
   }
   return new Blob([byteArray], { type: contentType })
 }
-
-// //營養素累加
-// const totalComposition = computed(() => {
-//   // 將三個菜品列表中的所有菜品合併成一個列表
-//   const allDishes = [
-//     ...Object.values(getCaseOption.value.mainMealList).flat(),
-//     ...Object.values(getCaseOption.value.sideDishesList).flat(),
-//     ...Object.values(getCaseOption.value.starchDishesList).flat()
-//   ]
-
-//   // 對所有菜品的營養成分進行累加
-//   return allDishes.reduce(
-//     (total, dish) => {
-//       Object.keys(dish.composition).forEach((key) => {
-//         if (typeof total[key] === 'undefined') {
-//           total[key] = 0
-//         }
-//         total[key] += dish.composition[key]
-//       })
-//       return total
-//     },
-//     { ...defaultComposition }
-//   )
-// })
-
-// //將上面轉成中文，並以 [ {name:卡路里,value:450kcal},... ]方式輸出
-// const totalCompositionChinese = computed(() => {
-//   return Object.entries(totalComposition.value).map(([key, value]) => ({
-//     name: nutrientNameMap[key] || key,
-//     value: `${value}${key === 'calories' ? 'kcal' : 'g'}`
-//   }))
-// })
-
-//計算總和
-// const totalPrice = computed(() => {
-//   // const allDishes = [
-//   //   ...Object.values(getCaseOption.value.starchDishesList).flat(),
-//   //   ...Object.values(getCaseOption.value.mainMealList).flat(),
-//   //   ...Object.values(getCaseOption.value.sideDishesList).flat()
-//   // ]
-
-//   return allDishList.value.reduce((sum, dish) => {
-//     return sum + dish.price
-//   }, 0)
-// })
 
 // 定義重置函數，用於清空所有列表
 const resetCaseOption = () => {
@@ -357,21 +295,6 @@ const caseMap = {
 function assignBoxToCase(mealData) {
   // 1. 判斷 case
   const { starch, mainMeal, sideDishes } = mealData
-  //   let selectedCase = ''
-  //   if (starch.length === 1 && mainMeal.length === 1 && sideDishes.length === 3) {
-  //     selectedCase = 'case1'
-  //   } else if (starch.length === 1 && mainMeal.length === 2 && sideDishes.length === 2) {
-  //     selectedCase = 'case2'
-  //   } else if (starch.length === 1 && mainMeal.length === 0 && sideDishes.length === 4) {
-  //     selectedCase = 'case3'
-  //   } else if (starch.length === 0 && mainMeal.length === 2 && sideDishes.length === 3) {
-  //     selectedCase = 'case4'
-  //   } else if (starch.length === 0 && mainMeal.length === 1 && sideDishes.length === 4) {
-  //     selectedCase = 'case5'
-  //   } else {
-  //     console.error('無法匹配任何已知的 case')
-  //     return
-  //   }
   const key = `${starch.length},${mainMeal.length},${sideDishes.length}`
   if (key in caseMap) {
     selectValue.value = caseMap[key]
