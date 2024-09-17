@@ -78,6 +78,30 @@ export type CartGeneralMealBoxes = {
   boxQuantity: number
 }
 
+///購物車預覽列-獲取使用者 自定義餐盒型別 購物車 型別 
+export type CartCustomBoxes = {
+  id: number;
+  userId: number;
+  name: string;
+  price: number;
+  template: string;
+  starch: number[];        // 澱粉選項ID陣列
+  mainMeal: number[];      // 主食選項ID陣列
+  sideDishes: number[];    // 配菜選項ID陣列
+  remark: string;
+  composition: { // 營養素組成
+    calories: number // 卡路里
+    protein: number // 蛋白質
+    adipose: number // 脂肪
+    carbohydrate: number // 碳水化合物
+    fiber: number  // 纖維
+    sodium: number  // 鈉含量
+  };
+  allergens: string;
+  imgSrc: string;          // 圖片來源路徑
+  boxQuantity: number;
+};
+
 //購物車價錢資訊 型別
 export type CartInfo = {
   prize: number;

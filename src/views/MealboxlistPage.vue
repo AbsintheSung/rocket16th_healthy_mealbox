@@ -41,6 +41,30 @@ const minusGeneralCart = async (id: number) => {
     message(error.message, 'error')
   }
 }
+const addCustomCart = async (id: number) => {
+  try {
+    const response = await cartStore.fetchaddCustomCart(id)
+    if (response === 'endOrder') {
+      return
+    } else {
+      message('餐盒已加入', 'success')
+    }
+  } catch (error: any) {
+    message(error.message, 'error')
+  }
+}
+const minusCustomCart = async (id: number) => {
+  try {
+    const response = await cartStore.fetchMinusCustomCart(id)
+    if (response === 'notExist') {
+      return
+    } else {
+      message('餐盒已移除', 'warning')
+    }
+  } catch (error: any) {
+    message(error.message, 'error')
+  }
+}
 
 onMounted(async () => {
   await generalMealBoxStore.fetchGeneralMeal()
@@ -110,8 +134,11 @@ onMounted(async () => {
         :mealBoxTotal="cartStore.getMealBoxTotal"
         :caseType="cartStore.getCaseType"
         :cartGeneralBoxes="cartStore.getGeneralBoxes"
+        :cartCustomBoxes="cartStore.getCustomizedBoxes"
         :addGeneralCart="addGeneralCart"
         :minusGeneralCart="minusGeneralCart"
+        :addCustomCart="addCustomCart"
+        :minusCustomCart="minusCustomCart"
         :isEndOrder="cartStore.getIsEndOrder"
       />
     </section>
