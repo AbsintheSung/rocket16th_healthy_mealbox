@@ -17,9 +17,9 @@ const props = defineProps({
     type: Boolean,
     default: false
   },
-  totalCompositionChinese: {
-    type: Object
-    // default:{}
+  allDishList: {
+    type: Array,
+    default: () => []
   },
   currentCase: {
     type: Object
@@ -95,7 +95,8 @@ const handleVerify = () => {
         class="h-full w-full rounded border border-black px-3 py-2"
       ></textarea>
     </div>
-    <TheIngredient :ingredientData="totalCompositionChinese" />
+    <!-- <TheIngredient :ingredientData="totalCompositionChinese" /> -->
+    <TheIngredient :allDishList="allDishList" />
 
     <div class="flex items-center gap-x-6 md:gap-x-16">
       <button @click="handleClose" class="w-1/2 bg-[#DCDCDC] py-3">取消</button>

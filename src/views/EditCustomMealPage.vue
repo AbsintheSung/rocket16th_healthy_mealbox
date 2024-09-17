@@ -20,14 +20,14 @@ const selectValue = ref('case1') //目前選擇的類型 case1 => 1澱粉、1主
 const customName = ref('') // 使用者輸入 的 餐盒名稱
 const customContent = ref('') // 使用者輸入 的 餐宏內容
 // 定義所有營養成分的預設值
-const defaultComposition = {
-  calories: 0,
-  protein: 0,
-  adipose: 0,
-  carbohydrate: 0,
-  fiber: 0,
-  sodium: 0
-}
+// const defaultComposition = {
+//   calories: 0,
+//   protein: 0,
+//   adipose: 0,
+//   carbohydrate: 0,
+//   fiber: 0,
+//   sodium: 0
+// }
 const options = [
   {
     value: 'case1',
@@ -132,6 +132,20 @@ const caseOption = reactive({
 
 const getSelectCase = computed(() => selectValue.value)
 const getCaseOption = computed(() => caseOption[selectValue.value])
+//將 caseOpen 的 各個陣列合成同一個陣列
+const allDishList = computed(() => {
+  return [
+    ...Object.values(getCaseOption.value.mainMealList).flat(),
+    ...Object.values(getCaseOption.value.sideDishesList).flat(),
+    ...Object.values(getCaseOption.value.starchDishesList).flat()
+  ]
+})
+// 前台 計算價格總和
+const totalPrice = computed(() => {
+  return allDishList.value.reduce((sum, dish) => {
+    return sum + dish.price
+  }, 0)
+})
 
 //選取的資料 取出圖片路徑
 const mainMealListImg = computed(() => {
@@ -157,14 +171,14 @@ const changeSelect = () => {
   // selectedCase.value = val
   resetCaseOption()
 }
-const nutrientNameMap = {
-  calories: '卡路里',
-  protein: '蛋白質',
-  adipose: '脂肪',
-  carbohydrate: '碳水化合物',
-  fiber: '纖維',
-  sodium: '鈉含量'
-}
+// const nutrientNameMap = {
+//   calories: '卡路里',
+//   protein: '蛋白質',
+//   adipose: '脂肪',
+//   carbohydrate: '碳水化合物',
+//   fiber: '纖維',
+//   sodium: '鈉含量'
+// }
 
 const plateComposition = ref(null)
 const generatedImage = ref('')
@@ -193,50 +207,50 @@ const base64ToBlob = (base64, contentType = 'image/png') => {
   return new Blob([byteArray], { type: contentType })
 }
 
-//營養素累加
-const totalComposition = computed(() => {
-  // 將三個菜品列表中的所有菜品合併成一個列表
-  const allDishes = [
-    ...Object.values(getCaseOption.value.mainMealList).flat(),
-    ...Object.values(getCaseOption.value.sideDishesList).flat(),
-    ...Object.values(getCaseOption.value.starchDishesList).flat()
-  ].filter((dish) => dish.composition) //將有 composition 的篩選出來
+// //營養素累加
+// const totalComposition = computed(() => {
+//   // 將三個菜品列表中的所有菜品合併成一個列表
+//   const allDishes = [
+//     ...Object.values(getCaseOption.value.mainMealList).flat(),
+//     ...Object.values(getCaseOption.value.sideDishesList).flat(),
+//     ...Object.values(getCaseOption.value.starchDishesList).flat()
+//   ]
 
-  // 對所有菜品的營養成分進行累加
-  return allDishes.reduce(
-    (total, dish) => {
-      Object.keys(dish.composition).forEach((key) => {
-        if (typeof total[key] === 'undefined') {
-          total[key] = 0
-        }
-        total[key] += dish.composition[key]
-      })
-      return total
-    },
-    { ...defaultComposition }
-  )
-})
+//   // 對所有菜品的營養成分進行累加
+//   return allDishes.reduce(
+//     (total, dish) => {
+//       Object.keys(dish.composition).forEach((key) => {
+//         if (typeof total[key] === 'undefined') {
+//           total[key] = 0
+//         }
+//         total[key] += dish.composition[key]
+//       })
+//       return total
+//     },
+//     { ...defaultComposition }
+//   )
+// })
 
-//將上面轉成中文，並以 [ {name:卡路里,value:450kcal},... ]方式輸出
-const totalCompositionChinese = computed(() => {
-  return Object.entries(totalComposition.value).map(([key, value]) => ({
-    name: nutrientNameMap[key] || key,
-    value: `${value}${key === 'calories' ? 'kcal' : 'g'}`
-  }))
-})
+// //將上面轉成中文，並以 [ {name:卡路里,value:450kcal},... ]方式輸出
+// const totalCompositionChinese = computed(() => {
+//   return Object.entries(totalComposition.value).map(([key, value]) => ({
+//     name: nutrientNameMap[key] || key,
+//     value: `${value}${key === 'calories' ? 'kcal' : 'g'}`
+//   }))
+// })
 
 //計算總和
-const totalPrice = computed(() => {
-  const allDishes = [
-    ...Object.values(getCaseOption.value.starchDishesList).flat(),
-    ...Object.values(getCaseOption.value.mainMealList).flat(),
-    ...Object.values(getCaseOption.value.sideDishesList).flat()
-  ]
+// const totalPrice = computed(() => {
+//   // const allDishes = [
+//   //   ...Object.values(getCaseOption.value.starchDishesList).flat(),
+//   //   ...Object.values(getCaseOption.value.mainMealList).flat(),
+//   //   ...Object.values(getCaseOption.value.sideDishesList).flat()
+//   // ]
 
-  return allDishes.reduce((sum, dish) => {
-    return sum + dish.price
-  }, 0)
-})
+//   return allDishList.value.reduce((sum, dish) => {
+//     return sum + dish.price
+//   }, 0)
+// })
 
 // 定義重置函數，用於清空所有列表
 const resetCaseOption = () => {
@@ -324,7 +338,10 @@ onMounted(async () => {
   const id = Number(route.params.id)
   const item = findDishById(id, data)
   assignBoxToCase(item)
-  console.log(data)
+  // console.log(data)
+  // console.log(makeCustomMealStore.getMainMealDishes)
+  // console.log(makeCustomMealStore.getSideDishes)
+  // console.log(makeCustomMealStore.getstarchDishes)
 })
 
 const findDishById = (id, dishesArray) => {
@@ -402,7 +419,7 @@ function assignBoxToCase(mealData) {
   <main>
     <CustomDialog
       :dialogShow="dialogShow"
-      :totalCompositionChinese="totalCompositionChinese"
+      :allDishList="allDishList"
       :currentCase="getCaseOption"
       :totalPrice="totalPrice"
       :generatedImage="generatedImage"
@@ -500,7 +517,7 @@ function assignBoxToCase(mealData) {
       <div class="container">
         <div class="grid grid-cols-12 gap-x-6">
           <div class="col-span-full col-start-1 lg:col-span-8">
-            <TheIngredient :ingredientData="totalCompositionChinese" />
+            <TheIngredient :allDishList="allDishList" />
           </div>
           <div class="col-span-full col-start-1 lg:col-span-4 lg:col-start-9">
             <div class="grid h-full grid-cols-4 items-center gap-x-6">
