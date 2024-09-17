@@ -85,6 +85,7 @@ export const useCartStore = defineStore('cart', () => {
   //修改caseType調用此function
   const fetchChangeSelectPlan = async (planDay: number) => {
     try {
+      await fetchApi.cleanCart()
       const caseTypeData = { caseType: planDay }
       const response = await fetchApi.updateCaseType(caseTypeData)
       caseType.value = response.data.data.caseType
