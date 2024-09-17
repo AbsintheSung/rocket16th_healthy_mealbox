@@ -19,15 +19,6 @@ const activeNames = ref([]) // 手風琴選取到的，會放入陣列
 const selectValue = ref('case1') //目前選擇的類型 case1 => 1澱粉、1主食、3配菜
 const customName = ref('') // 使用者輸入 的 餐盒名稱
 const customContent = ref('') // 使用者輸入 的 餐宏內容
-// 定義所有營養成分的預設值
-const defaultComposition = {
-  calories: 0,
-  protein: 0,
-  adipose: 0,
-  carbohydrate: 0,
-  fiber: 0,
-  sodium: 0
-}
 const options = [
   {
     value: 'case1',
@@ -131,24 +122,38 @@ const caseOption = reactive({
 })
 
 const getSelectCase = computed(() => selectValue.value)
-const getCaseOption = computed(() => caseOption[selectValue.value])
+// const getCaseOption = computed(() => caseOption[selectValue.value])
+//將 caseOpen 的 各個陣列合成同一個陣列
+const allDishList = computed(() => {
+  return [
+    ...Object.values(caseOption[getSelectCase.value].mainMealList).flat(),
+    ...Object.values(caseOption[getSelectCase.value].sideDishesList).flat(),
+    ...Object.values(caseOption[getSelectCase.value].starchDishesList).flat()
+  ]
+})
+// 前台 計算價格總和
+const totalPrice = computed(() => {
+  return allDishList.value.reduce((sum, dish) => {
+    return sum + dish.price
+  }, 0)
+})
 
 //選取的資料 取出圖片路徑
 const mainMealListImg = computed(() => {
   // 合併選取的 case 中的所有 mainMealList 陣列，並取出 img 屬性
-  const allMainMeals = Object.values(getCaseOption.value.mainMealList).flat()
+  const allMainMeals = Object.values(caseOption[getSelectCase.value].mainMealList).flat()
   return allMainMeals.filter((dish) => dish && dish.img).map((dish) => dish.img)
 })
 //選取的資料 取出圖片路徑
 const sideDishesListImg = computed(() => {
   // 合併選取的 case 中的所有 sideDishesList 陣列，並取出 img 屬性
-  const allSideDishes = Object.values(getCaseOption.value.sideDishesList).flat()
+  const allSideDishes = Object.values(caseOption[getSelectCase.value].sideDishesList).flat()
   return allSideDishes.filter((dish) => dish && dish.img).map((dish) => dish.img)
 })
 //選取的資料 取出圖片路徑
 const starchDishesListImg = computed(() => {
   // 合併選取的 case 中的所有 sideDishesList 陣列，並取出 img 屬性
-  const allStarchDishes = Object.values(getCaseOption.value.starchDishesList).flat()
+  const allStarchDishes = Object.values(caseOption[getSelectCase.value].starchDishesList).flat()
   return allStarchDishes.filter((dish) => dish && dish.img).map((dish) => dish.img)
 })
 
@@ -156,14 +161,6 @@ const starchDishesListImg = computed(() => {
 const changeSelect = () => {
   // selectedCase.value = val
   resetCaseOption()
-}
-const nutrientNameMap = {
-  calories: '卡路里',
-  protein: '蛋白質',
-  adipose: '脂肪',
-  carbohydrate: '碳水化合物',
-  fiber: '纖維',
-  sodium: '鈉含量'
 }
 
 const plateComposition = ref(null)
@@ -193,51 +190,6 @@ const base64ToBlob = (base64, contentType = 'image/png') => {
   return new Blob([byteArray], { type: contentType })
 }
 
-//營養素累加
-const totalComposition = computed(() => {
-  // 將三個菜品列表中的所有菜品合併成一個列表
-  const allDishes = [
-    ...Object.values(getCaseOption.value.mainMealList).flat(),
-    ...Object.values(getCaseOption.value.sideDishesList).flat(),
-    ...Object.values(getCaseOption.value.starchDishesList).flat()
-  ].filter((dish) => dish.composition) //將有 composition 的篩選出來
-
-  // 對所有菜品的營養成分進行累加
-  return allDishes.reduce(
-    (total, dish) => {
-      Object.keys(dish.composition).forEach((key) => {
-        if (typeof total[key] === 'undefined') {
-          total[key] = 0
-        }
-        total[key] += dish.composition[key]
-      })
-      return total
-    },
-    { ...defaultComposition }
-  )
-})
-
-//將上面轉成中文，並以 [ {name:卡路里,value:450kcal},... ]方式輸出
-const totalCompositionChinese = computed(() => {
-  return Object.entries(totalComposition.value).map(([key, value]) => ({
-    name: nutrientNameMap[key] || key,
-    value: `${value}${key === 'calories' ? 'kcal' : 'g'}`
-  }))
-})
-
-//計算總和
-const totalPrice = computed(() => {
-  const allDishes = [
-    ...Object.values(getCaseOption.value.starchDishesList).flat(),
-    ...Object.values(getCaseOption.value.mainMealList).flat(),
-    ...Object.values(getCaseOption.value.sideDishesList).flat()
-  ]
-
-  return allDishes.reduce((sum, dish) => {
-    return sum + dish.price
-  }, 0)
-})
-
 // 定義重置函數，用於清空所有列表
 const resetCaseOption = () => {
   Object.values(caseOption).forEach((caseData) => {
@@ -260,10 +212,13 @@ const resetCaseOption = () => {
 const handleData = async () => {
   await generateImage()
   dialogShow.value = true
-  console.log(getCaseOption.value)
+  console.log(caseOption[getSelectCase.value])
 }
 const handleEdit = () => {
-  console.log(getCaseOption.value)
+  const data = customMealBoxStore.getCustomMeal
+  const id = Number(route.params.id)
+  const item = findDishById(id, data)
+  assignBoxToCase(item)
 }
 const handleCloseDialog = () => {
   dialogShow.value = false
@@ -295,15 +250,15 @@ const test = async () => {
 const collectMealBoxData = (imgdata) => {
   setCustomData.value.name = customName.value
   setCustomData.value.remark = customContent.value
-  setCustomData.value.template = getCaseOption.value.title
+  setCustomData.value.template = caseOption[getSelectCase.value].title
   setCustomData.value.imgSrc = imgdata
-  setCustomData.value.starch = Object.values(getCaseOption.value.starchDishesList)
+  setCustomData.value.starch = Object.values(caseOption[getSelectCase.value].starchDishesList)
     .flat()
     .map((dish) => dish.id)
-  setCustomData.value.mainMeal = Object.values(getCaseOption.value.mainMealList)
+  setCustomData.value.mainMeal = Object.values(caseOption[getSelectCase.value].mainMealList)
     .flat()
     .map((dish) => dish.id)
-  setCustomData.value.sideDishes = Object.values(getCaseOption.value.sideDishesList)
+  setCustomData.value.sideDishes = Object.values(caseOption[getSelectCase.value].sideDishesList)
     .flat()
     .map((dish) => dish.id)
 }
@@ -324,6 +279,10 @@ onMounted(async () => {
   const id = Number(route.params.id)
   const item = findDishById(id, data)
   assignBoxToCase(item)
+  // console.log(data)
+  // console.log(makeCustomMealStore.getMainMealDishes)
+  // console.log(makeCustomMealStore.getSideDishes)
+  // console.log(makeCustomMealStore.getstarchDishes)
 })
 
 const findDishById = (id, dishesArray) => {
@@ -339,21 +298,6 @@ const caseMap = {
 function assignBoxToCase(mealData) {
   // 1. 判斷 case
   const { starch, mainMeal, sideDishes } = mealData
-  //   let selectedCase = ''
-  //   if (starch.length === 1 && mainMeal.length === 1 && sideDishes.length === 3) {
-  //     selectedCase = 'case1'
-  //   } else if (starch.length === 1 && mainMeal.length === 2 && sideDishes.length === 2) {
-  //     selectedCase = 'case2'
-  //   } else if (starch.length === 1 && mainMeal.length === 0 && sideDishes.length === 4) {
-  //     selectedCase = 'case3'
-  //   } else if (starch.length === 0 && mainMeal.length === 2 && sideDishes.length === 3) {
-  //     selectedCase = 'case4'
-  //   } else if (starch.length === 0 && mainMeal.length === 1 && sideDishes.length === 4) {
-  //     selectedCase = 'case5'
-  //   } else {
-  //     console.error('無法匹配任何已知的 case')
-  //     return
-  //   }
   const key = `${starch.length},${mainMeal.length},${sideDishes.length}`
   if (key in caseMap) {
     selectValue.value = caseMap[key]
@@ -365,30 +309,30 @@ function assignBoxToCase(mealData) {
 
   // 分配澱粉
   starch.forEach((id, index) => {
-    if (getCaseOption.value.starchDishesList[index]) {
+    if (caseOption[getSelectCase.value].starchDishesList[index]) {
       const dish = findDishById(id, makeCustomMealStore.getstarchDishes)
       if (dish) {
-        getCaseOption.value.starchDishesList[index] = [dish]
+        caseOption[getSelectCase.value].starchDishesList[index] = [dish]
       }
     }
   })
 
   // 分配主食
   mainMeal.forEach((id, index) => {
-    if (getCaseOption.value.mainMealList[index]) {
+    if (caseOption[getSelectCase.value].mainMealList[index]) {
       const dish = findDishById(id, makeCustomMealStore.getMainMealDishes)
       if (dish) {
-        getCaseOption.value.mainMealList[index] = [dish]
+        caseOption[getSelectCase.value].mainMealList[index] = [dish]
       }
     }
   })
 
   // 分配配菜
   sideDishes.forEach((id, index) => {
-    if (getCaseOption.value.sideDishesList[index]) {
+    if (caseOption[getSelectCase.value].sideDishesList[index]) {
       const dish = findDishById(id, makeCustomMealStore.getSideDishes)
       if (dish) {
-        getCaseOption.value.sideDishesList[index] = [dish]
+        caseOption[getSelectCase.value].sideDishesList[index] = [dish]
       }
     }
   })
@@ -401,8 +345,8 @@ function assignBoxToCase(mealData) {
   <main>
     <CustomDialog
       :dialogShow="dialogShow"
-      :totalCompositionChinese="totalCompositionChinese"
-      :currentCase="getCaseOption"
+      :allDishList="allDishList"
+      :currentCase="caseOption[getSelectCase]"
       :totalPrice="totalPrice"
       :generatedImage="generatedImage"
       v-model:customName="customName"
@@ -470,7 +414,7 @@ function assignBoxToCase(mealData) {
         <div class="w-full md:w-1/3">
           <el-collapse v-model="activeNames">
             <TheCustomMenu
-              v-for="(item, index) in getCaseOption.starchDishesList"
+              v-for="(item, index) in caseOption[getSelectCase].starchDishesList"
               :key="item"
               :menuList="makeCustomMealStore.getstarchDishes"
               :accordionCode="`1${index}`"
@@ -478,7 +422,7 @@ function assignBoxToCase(mealData) {
               v-model:selectMenu="caseOption[getSelectCase].starchDishesList[index]"
             />
             <TheCustomMenu
-              v-for="(item, index) in getCaseOption.mainMealList"
+              v-for="(item, index) in caseOption[getSelectCase].mainMealList"
               :key="item"
               :menuList="makeCustomMealStore.getMainMealDishes"
               :accordionCode="`2${index}`"
@@ -486,7 +430,7 @@ function assignBoxToCase(mealData) {
               v-model:selectMenu="caseOption[getSelectCase].mainMealList[index]"
             />
             <TheCustomMenu
-              v-for="(item, index) in getCaseOption.sideDishesList"
+              v-for="(item, index) in caseOption[getSelectCase].sideDishesList"
               :key="item"
               :menuList="makeCustomMealStore.getSideDishes"
               :accordionCode="`3${index}`"
@@ -499,7 +443,7 @@ function assignBoxToCase(mealData) {
       <div class="container">
         <div class="grid grid-cols-12 gap-x-6">
           <div class="col-span-full col-start-1 lg:col-span-8">
-            <TheIngredient :ingredientData="totalCompositionChinese" />
+            <TheIngredient :allDishList="allDishList" />
           </div>
           <div class="col-span-full col-start-1 lg:col-span-4 lg:col-start-9">
             <div class="grid h-full grid-cols-4 items-center gap-x-6">

@@ -43,7 +43,7 @@ defineProps({
   </div>
   <div class="flex">
     <div class="relative">
-      <img src="../../assets/image/餐盤測試/底餐盤-2.png" />
+      <img src="../../assets/image/餐盤測試/底餐盤.png" />
       <div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
         <div class="flex items-center justify-center">
           <img

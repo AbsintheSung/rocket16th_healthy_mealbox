@@ -135,17 +135,17 @@ const onSubmit = async () => {
 
         //提交到後端
         const response = await cartStore.submitOrder(orderData)
+        // console.log('Submit order response:', response)
 
-        if (response.status === 200 && response.code === 0) {
-            ElMessage.success(response.message || '訂單提交成功')
+        if (response && response.status === 200) {
+            ElMessage.success(response.data.message || '訂單提交成功')
             router.push('/checkout/order-complete')
         } else {
-            throw new Error(response.message || '訂單提交失敗')
+            throw new Error(response?.data?.message || '訂單提交失敗')
         }
-
     } catch (error) {
-        console.error('表單驗證失敗:', error)
-        ElMessage.error(error.message || '請填寫所有必要資訊')
+        console.error('錯誤詳情:', error)
+        ElMessage.error(error.message || '提交訂單時出錯')
     }
 }
 
