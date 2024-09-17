@@ -11,6 +11,7 @@ import TheDinnerPlate from '@/components/customized-meal-page/TheDinnerPlate.vue
 import TheDinnerPlate2 from '@/components/customized-meal-page/TheDinnerPlate2.vue'
 const makeCustomMealStore = useMakeCustomMealStore()
 const router = useRouter()
+const fullscreenLoading = ref(false)
 const dialogShow = ref(false) //控制彈窗開關
 const activeNames = ref([]) // 手風琴選取到的，會放入陣列
 const selectValue = ref('case1') //目前選擇的類型 case1 => 1澱粉、1主食、3配菜
@@ -233,8 +234,10 @@ const resetCaseOption = () => {
   })
 }
 const handleData = async () => {
+  fullscreenLoading.value = true
   await generateImage()
   dialogShow.value = true
+  fullscreenLoading.value = false
   console.log(caseOption[getSelectCase.value])
 }
 const handleEdit = () => {
@@ -251,16 +254,20 @@ const saveData = async () => {
   formData.append('image', blob, 'canvas_image.png')
   // console.log(formData)
   try {
+    fullscreenLoading.value = true
     const imgurl = await makeCustomMealStore.updateCustomImg(formData)
     // const imgurl = '/Images/Uploads/CustomizeBoxes/29a75a80-7b1b-47df-bba2-ed6d48630d72.png' //測試用 之後要刪除
     collectMealBoxData(imgurl)
     const response = await makeCustomMealStore.featCustomMealData(setCustomData.value)
     message(response.message, 'success')
     dialogShow.value = false
+    fullscreenLoading.value = false
     router.push('/mealboxlist/mealcustomized')
   } catch (error) {
     message(error.message, 'error')
     // console.log(error)
+  } finally {
+    fullscreenLoading.value = false
   }
   // collectMealBoxData()
   // console.log(setCustomData.value)
@@ -407,6 +414,7 @@ const message = (mes, mesType) => {
               <button
                 class="col-span-2 rounded bg-secondary-400 py-4 hover:cursor-pointer hover:shadow-base"
                 @click="handleData"
+                v-loading.fullscreen.lock="fullscreenLoading"
               >
                 儲存
               </button>
