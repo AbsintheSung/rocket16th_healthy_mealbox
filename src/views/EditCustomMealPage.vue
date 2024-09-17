@@ -215,7 +215,10 @@ const handleData = async () => {
   console.log(caseOption[getSelectCase.value])
 }
 const handleEdit = () => {
-  console.log(caseOption[getSelectCase.value])
+  const data = customMealBoxStore.getCustomMeal
+  const id = Number(route.params.id)
+  const item = findDishById(id, data)
+  assignBoxToCase(item)
 }
 const handleCloseDialog = () => {
   dialogShow.value = false
