@@ -324,6 +324,7 @@ onMounted(async () => {
   const id = Number(route.params.id)
   const item = findDishById(id, data)
   assignBoxToCase(item)
+  console.log(data)
 })
 
 const findDishById = (id, dishesArray) => {
