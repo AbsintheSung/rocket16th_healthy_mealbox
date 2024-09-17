@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, watch } from 'vue'
 import ThePreview from '@/components/mealboxlist-page/ThePreview.vue'
 import DaysSelectionButton from '@/components/global/DaysSelectionButton.vue'
 import { useGeneralMealBoxStore } from '@/stores/generalmealbox'

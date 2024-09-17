@@ -11,6 +11,7 @@ import TheDinnerPlate from '@/components/customized-meal-page/TheDinnerPlate.vue
 import TheDinnerPlate2 from '@/components/customized-meal-page/TheDinnerPlate2.vue'
 const makeCustomMealStore = useMakeCustomMealStore()
 const router = useRouter()
+const fullscreenLoading = ref(false)
 const dialogShow = ref(false) //控制彈窗開關
 const activeNames = ref([]) // 手風琴選取到的，會放入陣列
 const selectValue = ref('case1') //目前選擇的類型 case1 => 1澱粉、1主食、3配菜
@@ -233,8 +234,10 @@ const resetCaseOption = () => {
   })
 }
 const handleData = async () => {
+  fullscreenLoading.value = true
   await generateImage()
   dialogShow.value = true
+  fullscreenLoading.value = false
   console.log(caseOption[getSelectCase.value])
 }
 const handleEdit = () => {
@@ -245,22 +248,26 @@ const handleCloseDialog = () => {
 }
 
 //發送api
-const test = async () => {
+const saveData = async () => {
   const blob = base64ToBlob(generatedImage.value, 'image/png')
   const formData = new FormData()
   formData.append('image', blob, 'canvas_image.png')
   // console.log(formData)
   try {
-    // const imgurl = await makeCustomMealStore.updateCustomImg(formData)
-    const imgurl = '/Images/Uploads/CustomizeBoxes/29a75a80-7b1b-47df-bba2-ed6d48630d72.png' //測試用 之後要刪除
+    fullscreenLoading.value = true
+    const imgurl = await makeCustomMealStore.updateCustomImg(formData)
+    // const imgurl = '/Images/Uploads/CustomizeBoxes/29a75a80-7b1b-47df-bba2-ed6d48630d72.png' //測試用 之後要刪除
     collectMealBoxData(imgurl)
     const response = await makeCustomMealStore.featCustomMealData(setCustomData.value)
     message(response.message, 'success')
     dialogShow.value = false
+    fullscreenLoading.value = false
     router.push('/mealboxlist/mealcustomized')
   } catch (error) {
     message(error.message, 'error')
     // console.log(error)
+  } finally {
+    fullscreenLoading.value = false
   }
   // collectMealBoxData()
   // console.log(setCustomData.value)
@@ -301,7 +308,7 @@ const message = (mes, mesType) => {
       :generatedImage="generatedImage"
       v-model:customName="customName"
       v-model:customContent="customContent"
-      :fetchData="test"
+      :fetchData="saveData"
       @closeDialog="handleCloseDialog"
     />
     <div class="bg-primary-400">
@@ -407,6 +414,7 @@ const message = (mes, mesType) => {
               <button
                 class="col-span-2 rounded bg-secondary-400 py-4 hover:cursor-pointer hover:shadow-base"
                 @click="handleData"
+                v-loading.fullscreen.lock="fullscreenLoading"
               >
                 儲存
               </button>
@@ -426,5 +434,22 @@ const message = (mes, mesType) => {
 }
 .meal-bg {
   background-image: url('../assets/image/餐盤測試/底圖.jpg');
+}
+
+:deep(.el-collapse-item__header) {
+  padding: 4px 16px;
+  background-color: $primary-100;
+}
+.el-collapse {
+  > :deep(.el-collapse-item:first-child) {
+    > button {
+      border-radius: 4px 4px 0px 0px;
+    }
+  }
+  > :deep(.el-collapse-item:last-child) {
+    > button {
+      border-radius: 0px 0px 4px 4px;
+    }
+  }
 }
 </style>

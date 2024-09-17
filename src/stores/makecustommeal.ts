@@ -31,6 +31,7 @@ export const useMakeCustomMealStore = defineStore('makeCustomMeal', () => {
     }))
   })
 
+  //從後端取得所有菜單資料
   const fetchCustomMenu = async () => {
     try {
       const response = await fetchApi.getCustomMenu()
