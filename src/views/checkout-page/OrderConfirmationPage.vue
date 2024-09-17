@@ -51,6 +51,13 @@ const authenticate = async () => {
     }
 }
 
+//獲取 一般餐盒+自訂義餐盒資訊
+const allMealBoxes = computed(() => {
+    const generalBoxes = cartStore.getGeneralBoxes.map(box => ({ ...box, type: 'general' }))
+    const customBoxes = cartStore.getCustomizedBoxes.map(box => ({ ...box, type: 'custom' }))
+    return [...generalBoxes, ...customBoxes]
+})
+
 // 購物車資訊
 const cartInfo = computed(() => cartStore.getCartInfo)
 // 餐盒總數
@@ -61,7 +68,9 @@ const totalPrice = computed(() => {
     return cartInfo.value.freightFree ? prize : prize + 300
 })
 // 確認購物車內是否有商品
-const hasCartItems = computed(() => cartStore.getGeneralBoxes.length > 0)
+const hasCartItems = computed(() =>
+    allMealBoxes.value.length > 0
+)
 
 // 清空購物車
 const handleClearCart = async () => {
@@ -110,9 +119,9 @@ onMounted(async () => {
                             <font-awesome-icon :icon="['fas', 'trash']" />
                         </button>
                     </div>
-                    <!-- 套餐細項 -->
+                    <!-- 一般套餐細項 -->
                     <div class="text-sm md:text-base md:pr-6">
-                        <div v-for="item in cartStore.getGeneralBoxes" :key="item.id" class="flex justify-between items-center">
+                        <div v-for="item in allMealBoxes" :key="item.id" class="flex justify-between items-center">
                             <p>{{ item.name }} x{{ item.boxQuantity }}</p>
                             <span>NT${{ item.price * item.boxQuantity }}</span>
                         </div>
