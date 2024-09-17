@@ -20,11 +20,11 @@ const props = defineProps({
 <template>
   <li class="flex flex-col gap-y-4 rounded border p-4">
     <!-- <img src="https://picsum.photos/278/214?random=1" /> -->
-    <img :src="mealInfo.imgSrc" />
+    <img :src="mealInfo.imgSrc" class="h-[125px] sm:h-[225px] md:h-[220px]" />
     <div class="flex flex-col gap-y-4">
-      <!-- <RouterLink :to="`/singlemeal/${mealInfo.id}`"> -->
-      <p class="font-bold">{{ mealInfo.name }}</p>
-      <!-- </RouterLink> -->
+      <RouterLink :to="`/customsingle/${mealInfo.id}`">
+        <p class="font-bold">{{ mealInfo.name }}</p>
+      </RouterLink>
       <ul class="flex flex-row gap-y-4 text-[10px] sm:text-[14px]">
         <li class="flex-grow">{{ mealInfo.composition.calories }}Kcal</li>
         <li class="flex-grow border-e border-s border-black text-center">
