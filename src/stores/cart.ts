@@ -189,12 +189,12 @@ export const useCartStore = defineStore('cart', () => {
           freightFree: response.data.data.freightFree,
           expirationDate: response.data.data.expirationDate,
         }
-        console.log(customizeBoxes.value)
+        // console.log(customizeBoxes.value)
       }
 
-    } catch (error) {
-      console.log(error)
-      throw error
+    } catch (error: any) {
+      // console.log(error)
+      throw error.response.data
     }
   }
 

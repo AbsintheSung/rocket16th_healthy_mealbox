@@ -5,6 +5,7 @@ import ThePlaidAdorn from '@/components/global/ThePlaidAdorn.vue'
 import TheContact from '@/components/global/TheContact.vue'
 import { useCartStore } from '@/stores/cart'
 import { useRouter, type Router } from 'vue-router'
+import { onMounted } from 'vue'
 const cartStore = useCartStore()
 const router: Router = useRouter()
 const message = (mes: any, mesType: any): void => {
@@ -23,6 +24,9 @@ const handleSelectPlan = async (planNumber: number) => {
     message(error.message, 'error')
   }
 }
+onMounted(async () => {
+  await cartStore.fetchMemberCartInfo()
+})
 // import { watch, computed } from 'vue'
 // import { Swiper, SwiperSlide } from 'swiper/vue'
 // import { Mousewheel, Pagination } from 'swiper/modules'
