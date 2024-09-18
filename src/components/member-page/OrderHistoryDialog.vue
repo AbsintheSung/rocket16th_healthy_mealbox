@@ -44,7 +44,8 @@ const props = defineProps({
     <div class="flex flex-wrap pb-6 pt-5 sm:pb-16">
       <ul class="flex flex-wrap gap-x-3">
         <li class="border-e border-black pe-2" v-for="mealItem in generalList" :key="mealItem.id">
-          {{ mealItem.name }}
+          <RouterLink :to="`/singlemeal/${mealItem.id}`">{{ mealItem.name }}</RouterLink
+          >x {{ mealItem.boxQuantity }}
         </li>
       </ul>
 
@@ -54,7 +55,8 @@ const props = defineProps({
           v-for="customItem in customList"
           :key="customItem.id"
         >
-          {{ customItem.name }}
+          <RouterLink :to="`/customsingle/${customItem.id}`">{{ customItem.name }}</RouterLink> x
+          {{ customItem.boxQuantity }}
         </li>
       </ul>
     </div>
