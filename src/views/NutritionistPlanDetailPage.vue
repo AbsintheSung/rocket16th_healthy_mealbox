@@ -1,6 +1,6 @@
 <script setup>
 import { ref, computed, onMounted, watch } from 'vue'
-import { useRoute } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 import { useNutritionistPlanStore } from '@/stores/nutritionistPlan'
 import { useGeneralMealBoxStore } from '@/stores/generalmealbox'
 import { useCartStore } from '@/stores/cart'
@@ -11,6 +11,7 @@ import { ElMessage, ElLoading } from 'element-plus'
 
 
 const route = useRoute()
+const router = useRouter()
 const cartStore = useCartStore()
 const nutritionistPlanStore = useNutritionistPlanStore()
 const onePlanData = computed(() => nutritionistPlanStore.getOneNutritionistPlan)
@@ -61,11 +62,14 @@ const addToCart = async () => {
   try {
     const planId = Number(route.params.id)
     const result = await cartStore.addNutritionistPlanToCart(planId)
-    if (result === "success") {
-      ElMessage.success('成功加入購物車')
-    } else if (result === "cartFull") {
-      ElMessage.warning('購物車已滿')
-    }
+    setTimeout(() => {
+      if (result === "success") {
+        ElMessage.success('成功加入購物車')
+        router.push('/checkout/order-confirmation')
+      } else if (result === "cartFull") {
+        ElMessage.warning('購物車已滿')
+      }
+    }, 2000)
   } catch (error) {
     console.error('加入購物車失敗:', error)
     ElMessage.error('加入購物車失敗，請稍後再試')

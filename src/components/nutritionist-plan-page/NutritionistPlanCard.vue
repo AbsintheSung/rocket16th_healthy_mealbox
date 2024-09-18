@@ -1,8 +1,10 @@
 <script setup>
 import { useCartStore } from '@/stores/cart'
+import { useRouter } from 'vue-router'
 import { ElMessage, ElLoading } from 'element-plus'
 
 const cartStore = useCartStore()
+const router = useRouter()
 
 const props = defineProps({
   planInfo: {
@@ -33,6 +35,7 @@ const addToCart = async () => {
     setTimeout(() => {
       if (result === "success") {
         ElMessage.success('成功將所有餐盒加入購物車')
+        router.push('/checkout/order-confirmation')
       } else if (result === "partiallyAdded") {
         ElMessage.warning('部分餐盒已加入購物車，購物車已滿')
       } else if (result === "cartFull") {
