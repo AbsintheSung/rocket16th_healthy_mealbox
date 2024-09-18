@@ -129,6 +129,15 @@ const allDishList = computed(() => {
     ...Object.values(caseOption[getSelectCase.value].starchDishesList).flat()
   ]
 })
+//選取摺疊面板的陣列
+const allPanels = computed(() => {
+  return [
+    ...Object.keys(caseOption[getSelectCase.value].starchDishesList).map((index) => `1${index}`), //1是澱粉
+    ...Object.keys(caseOption[getSelectCase.value].mainMealList).map((index) => `2${index}`), //2是主食
+    ...Object.keys(caseOption[getSelectCase.value].sideDishesList).map((index) => `3${index}`) //3是配菜
+  ]
+})
+
 // 前台 計算價格總和
 const totalPrice = computed(() => {
   return allDishList.value.reduce((sum, dish) => {
@@ -159,11 +168,13 @@ const starchDishesListImg = computed(() => {
 const changeSelect = () => {
   // selectedCase.value = val
   resetCaseOption()
+  activeNames.value = allPanels.value[0]
 }
 
 onMounted(async () => {
   // await fetchDishesMenu()
   await makeCustomMealStore.fetchCustomMenu()
+  activeNames.value = allPanels.value[0]
 })
 const plateComposition = ref(null)
 const generatedImage = ref('')
@@ -297,6 +308,16 @@ const message = (mes, mesType) => {
     duration: 1500
   })
 }
+
+const handleSelectionChanged = (accordionCode) => {
+  const nextPanelIndex = allPanels.value.indexOf(accordionCode) + 1
+  if (nextPanelIndex < allPanels.value.length) {
+    activeNames.value = allPanels.value[nextPanelIndex]
+  }
+  if (allDishList.value.length === allPanels.value.length) {
+    activeNames.value = null
+  }
+}
 </script>
 <template>
   <main>
@@ -369,30 +390,33 @@ const message = (mes, mesType) => {
           </div>
         </div>
         <div class="w-full md:w-1/3">
-          <el-collapse v-model="activeNames">
+          <el-collapse v-model="activeNames" accordion>
             <TheCustomMenu
               v-for="(item, index) in caseOption[getSelectCase].starchDishesList"
               :key="item"
               :menuList="makeCustomMealStore.getstarchDishes"
               :accordionCode="`1${index}`"
-              title="澱粉"
+              :title="`澱粉-${Number(index) + 1}  `"
               v-model:selectMenu="caseOption[getSelectCase].starchDishesList[index]"
+              @selectionChanged="handleSelectionChanged"
             />
             <TheCustomMenu
               v-for="(item, index) in caseOption[getSelectCase].mainMealList"
               :key="item"
               :menuList="makeCustomMealStore.getMainMealDishes"
               :accordionCode="`2${index}`"
-              title="主食"
+              :title="`主食-${Number(index) + 1} `"
               v-model:selectMenu="caseOption[getSelectCase].mainMealList[index]"
+              @selectionChanged="handleSelectionChanged"
             />
             <TheCustomMenu
               v-for="(item, index) in caseOption[getSelectCase].sideDishesList"
               :key="item"
               :menuList="makeCustomMealStore.getSideDishes"
               :accordionCode="`3${index}`"
-              title="配菜"
+              :title="`配菜-${Number(index) + 1}  `"
               v-model:selectMenu="caseOption[getSelectCase].sideDishesList[index]"
+              @selectionChanged="handleSelectionChanged"
             />
           </el-collapse>
         </div>
