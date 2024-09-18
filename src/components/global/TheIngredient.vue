@@ -61,7 +61,8 @@ const dishIngredient = computed(() => {
 const dishIngredientChinese = computed(() => {
   return Object.entries(dishIngredient.value).map(([key, value]) => ({
     name: nutrientNameMap[key] || key,
-    value: `${value}${key === 'calories' ? 'kcal' : 'g'}`
+    // value: `${value}${key === 'calories' ? 'kcal' : 'g'}`
+    value: `${value}${key === 'calories' ? 'kcal' : key === 'sodium' ? 'mg' : 'g'}`
   }))
 })
 </script>
