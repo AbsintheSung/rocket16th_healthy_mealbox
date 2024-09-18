@@ -19,7 +19,7 @@ const handlePlanSelection = async (route) => {
     } catch (error) {
         console.error('獲取購物車資料時發生錯誤:', error)
         isLoggedIn.value = false
-        if (error.response && error.response.status === 401) {
+        if (error && error.status === 401) {
             ElMessage({
                 message: '請先登入會員',
                 type: 'warning',
@@ -31,15 +31,15 @@ const handlePlanSelection = async (route) => {
                     text: '正在跳轉至登入頁面...',
                 })
                 loading.close()
-            }, 3000)
+            }, 2000)
 
             setTimeout(() => {
                 router.push('/signin')
-            }, 3500)
+            }, 2500)
         } else {
-            console.log('發生其他錯誤:', error.message)
+            console.log('發生其他錯誤:', error.message || '未知錯誤')
             ElMessage({
-                message: '發生錯誤，請稍後再試',
+                message: error.message || '發生錯誤，請稍後再試',
                 type: 'error',
                 duration: 2000
             })
