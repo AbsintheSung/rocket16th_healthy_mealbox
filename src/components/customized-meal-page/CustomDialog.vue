@@ -67,13 +67,31 @@ const handleVerify = () => {
         </div>
         <ul>
           <li v-for="(item, index) in currentCase.starchDishesList" :key="item">
-            <p>{{ `澱粉${Number(index) + 1} : ${item[0]?.name || '未選填'}` }}</p>
+            <!-- <p>{{ `澱粉${Number(index) + 1} : ${item[0]?.name || '未選填'}` }}</p> -->
+            <p>
+              澱粉{{ Number(index) + 1 }} :
+              <span :class="{ 'text-red-500': !item[0]?.name }">
+                {{ item[0]?.name || '未選填' }}
+              </span>
+            </p>
           </li>
           <li v-for="(item, index) in currentCase.mainMealList" :key="item">
-            <p>{{ `主食${Number(index) + 1} : ${item[0]?.name || '未選填'}` }}</p>
+            <!-- <p>{{ `主食${Number(index) + 1} : ${item[0]?.name || '未選填'}` }}</p> -->
+            <p>
+              主食{{ Number(index) + 1 }} :
+              <span :class="{ 'text-red-500': !item[0]?.name }">
+                {{ item[0]?.name || '未選填' }}
+              </span>
+            </p>
           </li>
           <li v-for="(item, index) in currentCase.sideDishesList" :key="item">
-            <p>{{ `配菜${Number(index) + 1} : ${item[0]?.name || '未選填'}` }}</p>
+            <!-- <p>{{ `配菜${Number(index) + 1} : ${item[0]?.name || '未選填'}` }}</p> -->
+            <p>
+              配菜{{ Number(index) + 1 }} :
+              <span :class="{ 'text-red-500': !item[0]?.name }">
+                {{ item[0]?.name || '未選填' }}
+              </span>
+            </p>
           </li>
           <li>
             <p>價格 : {{ totalPrice }} 元</p>
