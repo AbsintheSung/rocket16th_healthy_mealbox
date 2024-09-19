@@ -355,13 +355,8 @@ export const useCartStore = defineStore('cart', () => {
 
   const fetchHistoryOrderToCart = async (historyOrder: any) => {
     try {
-      // 檢查是否已經結束點餐
-      // if (getIsEndOrder.value) {
-      //   console.log('點餐已結束')
-      //   return "endOrder"
-      // }
-      await fetchMemberCartInfo()
-      await fetchChangeSelectPlan(historyOrder.caseType)
+      await fetchMemberCartInfo() //取得購物車資訊
+      await fetchChangeSelectPlan(historyOrder.caseType) //取得資訊 才能清空並修改類型
       // 添加一般餐盒
       for (const box of historyOrder.generalBoxes || []) {
         for (let i = 0; i < box.boxQuantity; i++) {
@@ -380,6 +375,8 @@ export const useCartStore = defineStore('cart', () => {
       await fetchMemberCartInfo()
       return { message: '添加成功' }
     } catch (error: any) {
+      await fetchChangeSelectPlan(7) //失敗時 ，還原方案7，並在下方執行清空動作
+      await cleanCart()
       console.log(error)
       throw error
     }
