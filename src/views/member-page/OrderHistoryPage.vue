@@ -11,7 +11,7 @@ const router = useRouter()
 const customDialogList = ref([])
 const generalDialogList = ref([])
 const caseTypeDialog = ref(7)
-const activeNames = ref('1')
+const activeNames = ref(0)
 
 // 取得customDialogList
 const getCustomDialogList = computed(() => {
@@ -90,7 +90,7 @@ const message = (mes, mesType) => {
     >
       歷史訂單
     </h2>
-    <el-collapse class="el-flex-grow" v-model="activeNames" @change="handleChange">
+    <el-collapse class="el-flex-grow" v-model="activeNames" @change="handleChange" accordion>
       <template v-for="(item, index) in memberStore.getPaginatedOrder" :key="item">
         <el-collapse-item
           :title="`訂單日期 ${item.createTime} | 訂單金額：$${item.orderPrice}元`"
