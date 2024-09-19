@@ -353,6 +353,38 @@ export const useCartStore = defineStore('cart', () => {
     }
   }
 
+  const fetchHistoryOrderToCart = async (historyOrder: any) => {
+    try {
+      // 檢查是否已經結束點餐
+      // if (getIsEndOrder.value) {
+      //   console.log('點餐已結束')
+      //   return "endOrder"
+      // }
+      await fetchMemberCartInfo()
+      await fetchChangeSelectPlan(historyOrder.caseType)
+      // 添加一般餐盒
+      for (const box of historyOrder.generalBoxes || []) {
+        for (let i = 0; i < box.boxQuantity; i++) {
+          await fetchaddGeneralCart(box.id)
+        }
+      }
+
+      // 添加自定義餐盒
+      for (const box of historyOrder.customizeBoxes || []) {
+        for (let i = 0; i < box.boxQuantity; i++) {
+          await fetchaddCustomCart(box.id)
+        }
+      }
+
+      // 重新獲取購物車信息以確保數據同步
+      await fetchMemberCartInfo()
+      return { message: '添加成功' }
+    } catch (error: any) {
+      console.log(error)
+      throw error
+    }
+  }
+
 
   return {
     getCaseType,
@@ -372,6 +404,7 @@ export const useCartStore = defineStore('cart', () => {
     submitOrder,
     cleanCart,
     fetchaddCustomCart,
-    fetchMinusCustomCart
+    fetchMinusCustomCart,
+    fetchHistoryOrderToCart
   }
 })

@@ -1,9 +1,13 @@
 <script setup>
 import OrderHistoryDialog from '@/components/member-page/OrderHistoryDialog.vue'
 import { computed, ref, watch } from 'vue'
+import { useRouter } from 'vue-router'
 import { useMemberStore } from '@/stores/member'
+import { useCartStore } from '@/stores/cart'
+const cartStore = useCartStore()
 const memberStore = useMemberStore()
 const dialogShow = ref(false)
+const router = useRouter()
 const customDialogList = ref([])
 const generalDialogList = ref([])
 const caseTypeDialog = ref(7)
@@ -42,7 +46,35 @@ const handleCartList = (item) => {
   customDialogList.value = item.customizeBoxes
   generalDialogList.value = item.generalBoxes
 }
-const testData = ref(['豬肉漢堡排佐馬鈴薯', '雞胸蛋白沙拉碗'])
+
+const handleHistoryOrderToCart = async (historyOrder) => {
+  // console.log('安安')
+  try {
+    const response = await cartStore.fetchHistoryOrderToCart(historyOrder)
+    message(response.message, 'success')
+    router.push('/checkout/order-confirmation')
+    // if (result === 'success') {
+    //   // 顯示成功消息
+    //   console.log('歷史訂單已成功添加到購物車')
+    // } else if (result === 'endOrder') {
+    //   // 顯示點餐已結束的消息
+    //   console.log('點餐已結束，無法添加商品')
+    // }
+  } catch (error) {
+    // 處理錯誤
+    message(error.message, 'error')
+    // console.error('添加歷史訂單到購物車時出錯:', error)
+  }
+}
+const message = (mes, mesType) => {
+  //@ts-ignore
+  ElMessage({
+    message: mes,
+    type: mesType,
+    duration: 1500
+  })
+}
+// const testData = ref(['豬肉漢堡排佐馬鈴薯', '雞胸蛋白沙拉碗'])
 </script>
 <template>
   <OrderHistoryDialog
@@ -112,7 +144,10 @@ const testData = ref(['豬肉漢堡排佐馬鈴薯', '雞胸蛋白沙拉碗'])
                 </tbody>
               </table>
               <div class="hidden flex-grow lg:flex">
-                <button class="ms-auto rounded bg-primary-base p-2 shadow-base">
+                <button
+                  class="ms-auto rounded bg-primary-base p-2 shadow-base"
+                  @click="handleHistoryOrderToCart(item.cartOrder)"
+                >
                   再次加入購物車
                 </button>
               </div>
@@ -158,7 +193,10 @@ const testData = ref(['豬肉漢堡排佐馬鈴薯', '雞胸蛋白沙拉碗'])
                   <p v-if="item.paymentMethod === 'onlinePayment'">付款方式 : 線上支付</p>
                   <p v-else-if="item.paymentMethod === 'cashOnDelivery '">付款方式 : 貨到付款</p>
                   <div class="flex flex-grow lg:hidden">
-                    <button class="ms-auto rounded border-2 border-black bg-primary-base px-6 py-2">
+                    <button
+                      class="ms-auto rounded border-2 border-black bg-primary-base px-6 py-2"
+                      @click="handleHistoryOrderToCart(item.cartOrder)"
+                    >
                       再次加入購物車
                     </button>
                   </div>
