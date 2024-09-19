@@ -1,14 +1,18 @@
 <script setup lang="ts">
-import { ref, onMounted, watch } from 'vue'
+import { ref, onMounted, watch, computed } from 'vue'
 import ThePreview from '@/components/mealboxlist-page/ThePreview.vue'
 import DaysSelectionButton from '@/components/global/DaysSelectionButton.vue'
 import { useGeneralMealBoxStore } from '@/stores/generalmealbox'
 import { useCustomMealBoxStore } from '@/stores/custommealbox'
 import { useCartStore } from '@/stores/cart'
+import { useWindowSize } from '@vueuse/core'
+const { width } = useWindowSize()
 const generalMealBoxStore = useGeneralMealBoxStore()
 const customMealBoxStore = useCustomMealBoxStore()
 const cartStore = useCartStore()
 const drawer = ref(false)
+const getDirection = computed(() => (width.value >= 768 ? 'rtl' : 'btt'))
+const getDirectionHeight = computed(() => (width.value >= 768 ? '60%' : '50%'))
 const message = (mes: any, mesType: any): void => {
   //@ts-ignore
   ElMessage({
@@ -73,6 +77,13 @@ const deleteAllCart = async () => {
     message(error.message, 'error')
   }
 }
+const handlePreview = () => {
+  window.scrollTo({
+    top: 0,
+    behavior: 'smooth' // 可選，讓滾動有平滑過渡效果
+  })
+  drawer.value = true
+}
 
 onMounted(async () => {
   await generalMealBoxStore.fetchGeneralMeal()
@@ -114,10 +125,10 @@ onMounted(async () => {
     </section>
     <section class="mt-auto bg-secondary-50">
       <div class="container">
-        <div class="grid grid-cols-4 gap-6 py-10 sm:grid-cols-12">
+        <div class="grid grid-cols-4 gap-6 py-10 sm:grid-cols-12" v-if="!drawer">
           <button
             class="col-span-2 col-start-1 rounded border-2 border-secondary-900 bg-white py-3 text-secondary-900 sm:col-span-5 sm:col-start-2 md:col-span-4 md:col-start-3 lg:col-span-3 lg:col-start-4"
-            @click="drawer = true"
+            @click="handlePreview"
           >
             查看預覽
           </button>
@@ -139,6 +150,8 @@ onMounted(async () => {
       <!-- 預覽列 -->
       <ThePreview
         v-model:drawer="drawer"
+        :directionPosition="getDirection"
+        :directionWidth="getDirectionHeight"
         :mealBoxTotal="cartStore.getMealBoxTotal"
         :caseType="cartStore.getCaseType"
         :cartGeneralBoxes="cartStore.getGeneralBoxes"
@@ -165,7 +178,8 @@ onMounted(async () => {
 <style lang="scss">
 .el-drawer {
   background-color: $secondary-50;
-  height: 50% !important;
+  // height: v-bind(getDirectionHeight);
+  // height: 50% !important;
 }
 .el-drawer__body {
   // overflow-y: hidden;
