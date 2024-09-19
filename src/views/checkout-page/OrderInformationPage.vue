@@ -1,12 +1,13 @@
 <script setup>
 import { ref, reactive, watch, onMounted, computed } from 'vue'
-import { useRouter } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 import { useCartStore } from '@/stores/cart'
 import ShoppingCartProgressBar from '@/components/global/ShoppingCartProgressBar.vue'
 import { ElMessage } from 'element-plus'
 import { taiwanCity } from '@/content/city' //引入城市鄉鎮
 
 const cartStore = useCartStore()
+const route = useRoute()
 const router = useRouter()
 const formRef = ref(null)
 
@@ -139,7 +140,15 @@ const onSubmit = async () => {
 
         if (response && response.status === 200) {
             ElMessage.success(response.data.message || '訂單提交成功')
-            router.push('/checkout/order-complete')
+            if (response.data.paymentMethod === "onlinePayment") {
+                //轉跳至line pay頁面
+                console.log('取得的LINEPAY網址:', response.data.linePayUrl)
+                window.location.href = response.linePayUrl
+
+            } else {
+                // 非線上支付，直接到完成訂單頁
+                // router.push('/checkout/order-complete')
+            }
         } else {
             throw new Error(response?.data?.message || '訂單提交失敗')
         }
@@ -148,6 +157,29 @@ const onSubmit = async () => {
         ElMessage.error(error.message || '提交訂單時出錯')
     }
 }
+
+// line pay回傳
+const handleLinePayCallback = async () => {
+    const { transactionId, orderId } = route.query
+    if (transactionId && orderId) {
+        try {
+            const confirmData = {
+                transactionId: transactionId,
+                amount: cartStore.getLastSubmittedOrder.orderPrice, // 使用最後提交的訂單價格
+                orderId: orderId
+            }
+            const result = await cartStore.confirmLinePay(confirmData)
+            // 處理確認後的結果
+            console.log(result)
+            // 導航到訂單完成頁面
+            router.push('/checkout/order-complete')
+        } catch (error) {
+            console.error('LINE PAY 確認錯誤:', error)
+            ElMessage.error('LINE PAY 確認失敗')
+        }
+    }
+}
+
 
 // 透過監聽選取城市的變化，將 地區值作處理後assign到twCityArea.value.area
 watch(
@@ -181,6 +213,7 @@ onMounted(async () => {
     }
     await cartStore.fetchMemberCartInfo()
     getTwCityArea()
+    handleLinePayCallback()
 })
 
 </script>
