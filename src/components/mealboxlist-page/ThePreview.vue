@@ -38,10 +38,35 @@ const drawer = defineModel('drawer')
       v-model="drawer"
       :direction="directionPosition"
       :append-to-body="false"
-      :lock-scroll="false"
+      :lock-scroll="true"
       :show-close="false"
       :size="directionWidth"
     >
+      <template #header>
+        <div class="container p-4">
+          <div class="grid grid-cols-4 gap-6 md:grid-cols-12">
+            <button
+              class="col-span-2 col-start-1 rounded border-2 border-secondary-900 bg-white py-3 text-secondary-900 md:col-span-5 md:col-start-2"
+              @click="deleteAllCart"
+            >
+              全部刪除
+            </button>
+            <RouterLink
+              to="/checkout"
+              v-if="isEndOrder"
+              class="col-span-2 col-start-3 rounded border-2 border-black bg-secondary-base py-3 text-center text-black md:col-span-5"
+            >
+              確認餐點，加入購物車
+            </RouterLink>
+            <p
+              v-else
+              class="col-span-2 col-start-3 rounded bg-secondary-200 py-3 text-center text-black md:col-span-5"
+            >
+              已選擇{{ mealBoxTotal }} / {{ caseType }}餐
+            </p>
+          </div>
+        </div>
+      </template>
       <div class="container p-4">
         <div class="grid grid-cols-4 gap-6 md:grid-cols-12">
           <!-- <button
@@ -139,4 +164,19 @@ const drawer = defineModel('drawer')
     </el-drawer>
   </div>
 </template>
-<style scoped></style>
+<style scoped lang="scss">
+:deep(.el-drawer__header) {
+  padding: 0px;
+  margin: 0px;
+}
+:deep(.el-drawer) {
+  background-color: $secondary-50;
+  // height: v-bind(getDirectionHeight);
+  // height: 50% !important;
+}
+:deep(.el-drawer__body) {
+  // overflow-y: hidden;
+  padding: 0px;
+  scrollbar-width: none;
+}
+</style>

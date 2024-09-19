@@ -77,7 +77,13 @@ export const useGeneralMealBoxStore = defineStore('generalmealbox', () => {
   }
 
   //傳遞頁碼，觸發更動
-  const changePage = (page: any) => (currentPage.value = page)
+  const changePage = (page: any) => {
+    window.scrollTo({
+      top: 0
+      // behavior: 'smooth' // 可選，讓滾動有平滑過渡效果
+    })
+    currentPage.value = page
+  }
 
   return {
     currentPage,

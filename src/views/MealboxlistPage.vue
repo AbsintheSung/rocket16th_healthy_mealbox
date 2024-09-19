@@ -79,8 +79,8 @@ const deleteAllCart = async () => {
 }
 const handlePreview = () => {
   window.scrollTo({
-    top: 0,
-    behavior: 'smooth' // 可選，讓滾動有平滑過渡效果
+    top: 0
+    // behavior: 'smooth' // 可選，讓滾動有平滑過渡效果
   })
   drawer.value = true
 }
@@ -176,14 +176,14 @@ onMounted(async () => {
 }
 </style>
 <style lang="scss">
-.el-drawer {
-  background-color: $secondary-50;
-  // height: v-bind(getDirectionHeight);
-  // height: 50% !important;
-}
-.el-drawer__body {
-  // overflow-y: hidden;
-  padding: 0px;
-  scrollbar-width: none;
-}
+// .el-drawer {
+//   background-color: $secondary-50;
+//   // height: v-bind(getDirectionHeight);
+//   // height: 50% !important;
+// }
+// .el-drawer__body {
+//   // overflow-y: hidden;
+//   padding: 0px;
+//   scrollbar-width: none;
+// }
 </style>
