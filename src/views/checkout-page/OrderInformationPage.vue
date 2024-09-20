@@ -10,6 +10,8 @@ const cartStore = useCartStore()
 const route = useRoute()
 const router = useRouter()
 const formRef = ref(null)
+const formRef1 = ref(null)
+const formRef2 = ref(null)
 
 const twCityArea = ref({ city: [], area: [] }) //用來存放城市鄉鎮的資料，select使用
 
@@ -100,10 +102,58 @@ const getTwCityArea = () => {
     twCityArea.value.city = taiwanCity.map((item) => item.name)
 }
 
+// 表單驗證
+// 第一個驗證( 測試用 )
+// const submitForm1 = () => {
+//   if (!formRef1.value) return
+//   formRef1.value.validate((valid, fild) => {
+//     console.log(fild)
+//     if (valid) {
+//       console.log('Form 1 is valid!')
+//     } else {
+//       console.log('Form 1 validation failed!')
+//     }
+//   })
+// }
+
+// 第二個驗證( 測試用 )
+// const submitForm2 = () => {
+//   if (!formRef2.value) return
+//   formRef2.value.validate((valid,fild) => {
+//     if (valid) {
+//       console.log('Form 2 is valid!')
+//     } else {
+//       console.log('Form 2 validation failed!')
+//     }
+//   })
+// }
+
+//一次驗證多筆
+const submitVerifyForm = async () => {
+  if (!formRef.value || !formRef1.value || !formRef2.value) return
+  try {
+    // 使用 Promise.all 同時驗證多個表單
+    const [valid, valid1, valid2] = await Promise.all([
+      formRef.value.validate(),
+      formRef1.value.validate(),
+      formRef2.value.validate()
+    ])
+
+    if (valid && valid1 && valid2) {
+      return true
+    } else {
+      return false
+    }
+  } catch (error) {
+    console.error('Validation failed:', error)
+    return false
+  }
+}
 // 送出表單
 const onSubmit = async () => {
 
-    if (!formRef.value) return
+    const submitFormAll = await submitVerifyForm()
+    if (!submitFormAll) return // 驗證失敗則不進行後續操作
 
     try {
         await formRef.value.validate()
