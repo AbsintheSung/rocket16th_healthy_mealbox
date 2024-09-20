@@ -1,4 +1,6 @@
 <script setup>
+//接收邏輯待補
+
 </script>
 <template>
     <main class="container py-9">
