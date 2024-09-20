@@ -12,6 +12,7 @@ import EditCustomMealPage from '@/views/EditCustomMealPage.vue'
 import CustomSinglePage from '@/views/CustomSinglePage.vue'
 import FqaPage from '@/views/FqaPage.vue'
 import HowToUsePage from '@/views/HowToUsePage.vue'
+import MealboxlistPage2 from '@/views/MealboxlistPage2.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -146,7 +147,7 @@ const router = createRouter({
       path: '/customsingle/:id',
       name: 'CustomSingle',
       component: CustomSinglePage
-    },    
+    },
     {
       path: '/fqa',
       name: 'fqa',
@@ -154,8 +155,31 @@ const router = createRouter({
     },
     {
       path: '/how-to-use',
-      name:'HowToUseP',
+      name: 'HowToUseP',
       component: HowToUsePage
+    },
+    {
+      path: '/mealboxlist2',
+      name: 'Mealboxlist2',
+      component: MealboxlistPage2,
+      children: [
+        {
+          //沒有配置  /mealboxlist 下 的 RouterView預設頁面，當進入/mealboxlist後，重新導向到 /mealboxlist/mealgeneral
+          path: '',
+          name: 'MealboxlistIndex2',
+          redirect: { name: 'MealGeneral2' }
+        },
+        {
+          path: 'mealgeneral2',
+          name: 'MealGeneral2',
+          component: () => import('@/views/mealbox-list-page/MealGeneralPage2.vue')
+        },
+        {
+          path: 'mealcustomized2',
+          name: 'MealCustomized2',
+          component: () => import('@/views/mealbox-list-page/MealCustomizedPage2.vue')
+        }
+      ]
     },
     //配置404 ( 此配置在最下面，之後新增的路由請新增在此路由設定上面 )
     {
