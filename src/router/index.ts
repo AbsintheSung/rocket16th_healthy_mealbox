@@ -156,7 +156,7 @@ const router = createRouter({
     },
     {
       path: '/how-to-use',
-      name: 'HowToUseP',
+      name: 'HowToUse',
       component: HowToUsePage
     },
     {
