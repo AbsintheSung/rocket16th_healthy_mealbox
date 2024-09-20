@@ -303,7 +303,7 @@ onMounted(async () => {
                 <div class="bg-primary-300 border-2 border-black">
                     <p class="px-3 py-2 font-bold md:px-6">付款資料</p>
                 </div>
-                <div class="border-2 border-black px-3 py-4 -mt-[2px] md:px-6 md:py-9">
+                <div class="border-2 border-black px-3 py-4 md:px-6 md:py-[42px]">
                     <p>已選擇的付款方式: </p>
                     <p class="text-2xl">{{ paymentMethod === 'LINE PAY' ? 'LINE PAY' : '超商取付' }}</p>
                 </div>
@@ -316,7 +316,7 @@ onMounted(async () => {
                 <p class="px-3 py-2 font-bold md:px-6">運費: {{ cartInfo.freightFree ? '免運' : 'NT$300' }}</p>
             </div>
             <div class="border-2 border-black px-3 py-4 md:px-6">
-                <el-form :model="form" :rules="rules" label-width="auto" style="max-width: 100%">
+                <el-form ref="formRef1" :model="form" :rules="rules" label-width="auto" style="max-width: 100%">
                     <div>
                         <p>已選擇的送貨方式: {{ shippingMethod }}</p>
                         <el-checkbox v-model="form.UseCustomerInfo" label="收件人資料與顧客資料相同" size="large" />
@@ -330,7 +330,7 @@ onMounted(async () => {
                     </el-form-item>
                     <el-divider />
                     <el-form-item label="地址 運送地點: 台灣" label-position="top">
-                        <div class="w-full flex justify-between pb-2">
+                        <div class="w-full flex justify-between pb-4">
                             <el-form-item prop="recipient.cityName" class="w-[49%]">
                                 <el-select v-model="form.recipient.cityName" placeholder="城市">
                                     <el-option v-for="cityItem in twCityArea.city" :key="cityItem" :label="cityItem"
@@ -369,7 +369,7 @@ onMounted(async () => {
         </div>
         <!-- 隱私權與提交訂單 -->
         <div class="col-span-4 md:col-start-7 md:col-span-6">
-            <el-form ref="formRef" :model="form" :rules="rules" style="max-width: 100%;">
+            <el-form ref="formRef2" :model="form" :rules="rules" style="max-width: 100%;">
                 <el-form-item prop="agreeTermsPrivacy">
                     <div class="flex items-center mt-2 md:mt-10">
                         <el-checkbox v-model="form.agreeTermsPrivacy" size="large" />
