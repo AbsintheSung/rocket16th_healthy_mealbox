@@ -89,7 +89,7 @@ const minusCustomCart = async (id: number) => {
         </button>
       </div>
     </div>
-    <div class="mt-auto flex w-full items-center justify-center">
+    <!-- <div class="mt-auto flex w-full items-center justify-center">
       <ThePagination
         v-model:currentPageNum="customMealBoxStore.currentPage"
         :pagerCount="5"
@@ -97,7 +97,7 @@ const minusCustomCart = async (id: number) => {
         :pageTotal="customMealBoxStore.getDataTotal"
         :changePage="customMealBoxStore.changePage"
       />
-    </div>
+    </div> -->
   </div>
 </template>
 <style scoped lang="scss">

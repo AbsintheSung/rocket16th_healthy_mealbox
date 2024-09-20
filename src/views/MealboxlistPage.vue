@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import { ref, onMounted, watch, computed } from 'vue'
-import ThePreview from '@/components/mealboxlist-page/ThePreview.vue'
+import TheMask from '@/components/global/TheMask.vue'
 import DaysSelectionButton from '@/components/global/DaysSelectionButton.vue'
+import ThePreview from '@/components/mealboxlist-page/ThePreview.vue'
 import { useGeneralMealBoxStore } from '@/stores/generalmealbox'
 import { useCustomMealBoxStore } from '@/stores/custommealbox'
 import { useCartStore } from '@/stores/cart'
@@ -90,9 +91,16 @@ onMounted(async () => {
   await customMealBoxStore.fetchCustomMeal()
   await cartStore.fetchMemberCartInfo()
 })
+const isExpanded = ref(false) //控制預覽列以及遮罩
+
+const toggleExpand = () => {
+  isExpanded.value = !isExpanded.value
+}
 </script>
 <template>
-  <main class="flex flex-grow flex-col">
+  <main class="flex flex-grow flex-col pb-14">
+    <!-- 遮罩 -->
+    <TheMask :isExpanded="isExpanded" :toggleExpand="toggleExpand" />
     <DaysSelectionButton />
     <section class="container flex flex-grow flex-col">
       <div class="py-7">
@@ -123,14 +131,26 @@ onMounted(async () => {
         <RouterView class="flex flex-grow flex-col gap-y-6 py-6 md:gap-y-12"></RouterView>
       </div>
     </section>
-    <section class="mt-auto bg-secondary-50">
+
+    <!-- 預覽列-2  -->
+    <section
+      class="fixed bottom-0 left-0 right-0 z-10 bg-secondary-50 shadow-lg transition-all duration-300 ease-in-out"
+    >
       <div class="container">
         <div class="grid grid-cols-4 gap-6 py-10 sm:grid-cols-12" v-if="!drawer">
           <button
+            v-if="!isExpanded"
             class="col-span-2 col-start-1 rounded border-2 border-secondary-900 bg-white py-3 text-secondary-900 sm:col-span-5 sm:col-start-2 md:col-span-4 md:col-start-3 lg:col-span-3 lg:col-start-4"
-            @click="handlePreview"
+            @click="toggleExpand"
           >
             查看預覽
+          </button>
+          <button
+            v-else
+            class="col-span-2 col-start-1 rounded border-2 border-secondary-900 bg-white py-3 text-secondary-900 sm:col-span-5 sm:col-start-2 md:col-span-4 md:col-start-3 lg:col-span-3 lg:col-start-4"
+            @click="deleteAllCart"
+          >
+            全部刪除
           </button>
           <RouterLink
             to="/checkout"
@@ -147,20 +167,14 @@ onMounted(async () => {
           </p>
         </div>
       </div>
-      <!-- 預覽列 -->
       <ThePreview
-        v-model:drawer="drawer"
-        :directionPosition="getDirection"
-        :directionWidth="getDirectionHeight"
-        :mealBoxTotal="cartStore.getMealBoxTotal"
-        :caseType="cartStore.getCaseType"
+        :isExpanded="isExpanded"
         :cartGeneralBoxes="cartStore.getGeneralBoxes"
         :cartCustomBoxes="cartStore.getCustomizedBoxes"
         :addGeneralCart="addGeneralCart"
         :minusGeneralCart="minusGeneralCart"
         :addCustomCart="addCustomCart"
         :minusCustomCart="minusCustomCart"
-        :isEndOrder="cartStore.getIsEndOrder"
         :deleteAllCart="deleteAllCart"
       />
     </section>
@@ -174,16 +188,4 @@ onMounted(async () => {
 .meal-link:nth-child(1) {
   border-right: 1px solid black;
 }
-</style>
-<style lang="scss">
-// .el-drawer {
-//   background-color: $secondary-50;
-//   // height: v-bind(getDirectionHeight);
-//   // height: 50% !important;
-// }
-// .el-drawer__body {
-//   // overflow-y: hidden;
-//   padding: 0px;
-//   scrollbar-width: none;
-// }
 </style>
