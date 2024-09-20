@@ -22,7 +22,7 @@ const authenticate = async () => {
     } catch (error: any) {
         console.error('獲取購物車資料時發生錯誤:', error)
         isLoggedIn.value = false
-        if (error.response && error.response.status === 401) {
+        if (error && error.status === 401) {
             ElMessage({
                 message: '請先登入會員',
                 type: 'warning',
