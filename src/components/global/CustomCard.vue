@@ -59,7 +59,13 @@ const props = defineProps({
         編輯
       </button>
     </div>
-    <div v-else-if="routerPath === '/mealboxlist/mealcustomized'" class="mt-auto flex gap-x-3">
+    <div
+      v-else-if="
+        routerPath === '/mealboxlist/mealcustomized' ||
+        routerPath === '/mealboxlist2/mealcustomized2'
+      "
+      class="mt-auto flex gap-x-3"
+    >
       <button
         @click="minusData(mealInfo.id)"
         class="hidden flex-grow items-center justify-center gap-x-2 rounded border border-black py-2 md:flex"
