@@ -13,6 +13,7 @@ import CustomSinglePage from '@/views/CustomSinglePage.vue'
 import FqaPage from '@/views/FqaPage.vue'
 import HowToUsePage from '@/views/HowToUsePage.vue'
 import MealboxlistPage2 from '@/views/MealboxlistPage2.vue'
+import LinepayRedirectPage from '@/views/LinepayRedirect.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -155,7 +156,7 @@ const router = createRouter({
     },
     {
       path: '/how-to-use',
-      name: 'HowToUseP',
+      name: 'HowToUse',
       component: HowToUsePage
     },
     {
@@ -180,6 +181,11 @@ const router = createRouter({
           component: () => import('@/views/mealbox-list-page/MealCustomizedPage2.vue')
         }
       ]
+    },
+    {
+      path: '/linepay-redirect',
+      name:'LinePayRedirect',
+      component: LinepayRedirectPage
     },
     //配置404 ( 此配置在最下面，之後新增的路由請新增在此路由設定上面 )
     {
