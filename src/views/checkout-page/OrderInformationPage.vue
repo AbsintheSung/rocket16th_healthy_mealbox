@@ -130,24 +130,24 @@ const getTwCityArea = () => {
 
 //一次驗證多筆
 const submitVerifyForm = async () => {
-  if (!formRef.value || !formRef1.value || !formRef2.value) return
-  try {
-    // 使用 Promise.all 同時驗證多個表單
-    const [valid, valid1, valid2] = await Promise.all([
-      formRef.value.validate(),
-      formRef1.value.validate(),
-      formRef2.value.validate()
-    ])
+    if (!formRef.value || !formRef1.value || !formRef2.value) return
+    try {
+        // 使用 Promise.all 同時驗證多個表單
+        const [valid, valid1, valid2] = await Promise.all([
+            formRef.value.validate(),
+            formRef1.value.validate(),
+            formRef2.value.validate()
+        ])
 
-    if (valid && valid1 && valid2) {
-      return true
-    } else {
-      return false
+        if (valid && valid1 && valid2) {
+            return true
+        } else {
+            return false
+        }
+    } catch (error) {
+        console.error('Validation failed:', error)
+        return false
     }
-  } catch (error) {
-    console.error('Validation failed:', error)
-    return false
-  }
 }
 // 送出表單
 const onSubmit = async () => {
@@ -185,22 +185,21 @@ const onSubmit = async () => {
         console.log('準備提交到後端的數據:', orderData)
 
         //提交到後端
-        const response = await cartStore.submitOrder(orderData)
-        // console.log('Submit order response:', response)
+        const result = await cartStore.submitOrder(orderData)
+        console.log('Submit order response:', result.data.data)
 
-        if (response && response.status === 200) {
-            ElMessage.success(response.data.message || '訂單提交成功')
-            if (response.data.paymentMethod === "onlinePayment") {
-                //轉跳至line pay頁面
-                console.log('取得的LINEPAY網址:', response.data.linePayUrl)
-                window.location.href = response.linePayUrl
-
+        if (result.success) {
+            ElMessage.success('訂單提交成功')
+            if (result.data.data.paymentMethod === "onlinePayment") {
+                // LINE PAY 支付
+                console.log('取得的 LINE PAY 網址:', result.data.linePayUrl)
+                window.location.href = result.data.linePayUrl
             } else {
-                // 非線上支付，直接到完成訂單頁
-                // router.push('/checkout/order-complete')
+                // 非 LINE PAY 支付
+                router.push('/checkout/order-complete')
             }
         } else {
-            throw new Error(response?.data?.message || '訂單提交失敗')
+            throw new Error(result.data?.message || '訂單提交失敗')
         }
     } catch (error) {
         console.error('錯誤詳情:', error)

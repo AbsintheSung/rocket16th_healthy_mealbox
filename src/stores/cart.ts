@@ -337,7 +337,7 @@ export const useCartStore = defineStore('cart', () => {
         await fetchMemberCartInfo()
         return {
           success: true,
-          data: response.data.data
+          data: response.data
         }
       } else {
         throw new Error(response.data.message || '訂單提交失敗')
