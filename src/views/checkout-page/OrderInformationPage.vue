@@ -218,24 +218,24 @@ onMounted(async () => {
 
 </script>
 <template>
-    <div class="grid grid-cols-12 gap-6">
+    <div class="grid grid-cols-4 gap-3 md:grid-cols-12 md:gap-6">
         <!-- 購物車步驟 -->
-        <div class="col-start-5 col-span-4 mb-10">
+        <div class="col-span-4 md:col-start-5 mb-3 md:mb-9">
             <ShoppingCartProgressBar :active-step="activeStep" :steps="steps" />
         </div>
         <!-- 上方合計文字 -->
-        <div class="col-start-5 col-span-4 pb-10">
+        <div class="col-span-4 pb-4 md:pb-10 md:col-start-5">
             <div class="py-6 bg-primary-200 border-2 border-black rounded shadow-base">
                 <h3 class="text-2xl text-center">合計：NT$ {{ totalPrice }}</h3>
             </div>
         </div>
         <!-- 顧客資料與付款資料 -->
-        <div class="col-span-6 relative">
+        <div class="col-span-4 md:col-span-6 md:relative">
             <!-- 顧客資料 -->
             <div class="bg-primary-300 border-2 border-black">
-                <p class="px-6 py-2 font-bold">顧客資料</p>
+                <p class="px-3 py-2 font-bold md:px-6">顧客資料</p>
             </div>
-            <div class="border-2 border-black px-6 py-9 ">
+            <div class="border-2 border-black px-3 py-4 mb-3 md:mb-0 md:px-6 md:py-9">
                 <el-form ref="formRef" :model="form" :rules="rules" label-width="auto" style="max-width: 100%">
                     <el-form-item label="訂購人姓名" prop="customer.name" label-position="top">
                         <el-input v-model="form.customer.name" placeholder="林飯糰" />
@@ -249,23 +249,23 @@ onMounted(async () => {
                 </el-form>
             </div>
             <!-- 付款資料 -->
-            <div class="col-span-6 absolute w-full pt-7">
+            <div class="col-span-6 md:absolute md:w-full md:pt-7">
                 <div class="bg-primary-300 border-2 border-black">
-                    <p class="px-6 py-2 font-bold">付款資料</p>
+                    <p class="px-3 py-2 font-bold md:px-6">付款資料</p>
                 </div>
-                <div class="border-2 border-black px-6 py-9 -mt-[2px]">
+                <div class="border-2 border-black px-3 py-4 -mt-[2px] md:px-6 md:py-9">
                     <p>已選擇的付款方式: </p>
                     <p class="text-2xl">{{ paymentMethod === 'LINE PAY' ? 'LINE PAY' : '超商取付' }}</p>
                 </div>
             </div>
         </div>
         <!-- 送貨資料 -->
-        <div class="col-start-7 col-span-6">
+        <div class="col-span-4 md:col-start-7 md:col-span-6">
             <div class="bg-primary-300 border-2 border-black flex justify-between">
-                <p class="px-6 py-2 font-bold">送貨資料</p>
-                <p class="px-6 py-2 font-bold">運費: {{ cartInfo.freightFree ? '免運' : 'NT$300' }}</p>
+                <p class="px-3 py-2 font-bold md:px-6">送貨資料</p>
+                <p class="px-3 py-2 font-bold md:px-6">運費: {{ cartInfo.freightFree ? '免運' : 'NT$300' }}</p>
             </div>
-            <div class="border-2 border-black px-6 py-4">
+            <div class="border-2 border-black px-3 py-4 md:px-6">
                 <el-form :model="form" :rules="rules" label-width="auto" style="max-width: 100%">
                     <div>
                         <p>已選擇的送貨方式: {{ shippingMethod }}</p>
@@ -306,7 +306,7 @@ onMounted(async () => {
             </div>
         </div>
         <!-- 訂單備註 -->
-        <div class="col-span-12">
+        <div class="col-span-4 md:col-span-12">
             <div class="bg-primary-300 border-2 border-black">
                 <p class="px-6 py-2 font-bold">訂單備註</p>
             </div>
@@ -317,6 +317,25 @@ onMounted(async () => {
                 </div>
             </div>
         </div>
+        <!-- 隱私權與提交訂單 -->
+        <div class="col-span-4 md:col-start-7 md:col-span-6">
+            <el-form ref="formRef" :model="form" :rules="rules" style="max-width: 100%;">
+                <el-form-item prop="agreeTermsPrivacy">
+                    <div class="flex items-center mt-2 md:mt-10">
+                        <el-checkbox v-model="form.agreeTermsPrivacy" size="large" />
+                        <p class="pl-2">我同意<a href="#" class="text-primary-600 hover:text-primary-400">網站服務條款</a>及<a
+                                href="#" class="text-primary-600 hover:text-primary-400">隱私權政策</a></p>
+                    </div>
+                </el-form-item>
+            </el-form>
+            <div class="mt-0 md:mt-6">
+                <button
+                    class="w-full flex items-center justify-center text-center py-2 px-4 bg-secondary-400 rounded border-2 border-black hover:shadow-base transition active:shadow-none"
+                    type="primary" @click="onSubmit">
+                    <p>提交訂單</p>
+                </button>
+            </div>
+        </div>
         <!-- 返回購物車按鈕 -->
         <div class="col-span-2">
             <RouterLink
@@ -325,25 +344,6 @@ onMounted(async () => {
                 <font-awesome-icon :icon="['fas', 'caret-left']" class="pr-2" />
                 <p>返回購物車</p>
             </RouterLink>
-        </div>
-        <!-- 隱私權與提交訂單 -->
-        <div class="col-start-7 col-span-6">
-            <el-form ref="formRef" :model="form" :rules="rules">
-                <el-form-item prop="agreeTermsPrivacy">
-                    <div class="flex items-center mt-10">
-                        <el-checkbox v-model="form.agreeTermsPrivacy" size="large" />
-                        <p class="pl-2">我同意<a href="#" class="text-primary-600 hover:text-primary-400">網站服務條款</a>及<a
-                                href="#" class="text-primary-600 hover:text-primary-400">隱私權政策</a></p>
-                    </div>
-                </el-form-item>
-            </el-form>
-            <div class="mt-6">
-                <button
-                    class="w-full flex items-center justify-center text-center py-2 px-4 bg-secondary-400 rounded border-2 border-black hover:shadow-base transition active:shadow-none"
-                    type="primary" @click="onSubmit">
-                    <p>提交訂單</p>
-                </button>
-            </div>
         </div>
     </div>
 </template>
@@ -363,5 +363,11 @@ onMounted(async () => {
 
 :deep(.el-textarea__inner) {
     padding: 12px 24px;
+}
+
+@media (max-width: 768px) {
+    :deep(.el-textarea__inner) {
+        padding: 12px;
+    }
 }
 </style>
