@@ -4,13 +4,18 @@ import { taiwanCity } from '@/content/city' //引入城市鄉鎮
 import { useMemberStore } from '@/stores/member'
 import type { FormInstance } from 'element-plus'
 const memberStore = useMemberStore()
-const isLoading = ref<Boolean>(false)
-const isWatchAreas = ref<Boolean>(false)
-const isEditInfo = ref<Boolean>(false)
-const isEditPassWord = ref<Boolean>(false)
+const isLoading = ref<Boolean>(false) //讀取狀態
+const isWatchAreas = ref<Boolean>(false) //控制是否選取了城市區的select
+const isEditInfo = ref<Boolean>(false) //編輯會員資料狀態
+const isEditPassWord = ref<Boolean>(false) //編輯會員密碼狀態
+const ruleMemberInfo = ref<FormInstance>() //綁定 會員的驗證資訊
+const ruleFormRef = ref<FormInstance>() //綁定 密碼的驗證資訊
+//從 會員store 取得 會員資料，並置入新的響應式
 const memberInput = ref({
   ...memberStore.getMemberInfo
 })
+
+//響應式密碼資料
 const updatePassWord = ref({
   oldPassWord: '',
   newPassWord: '',
@@ -36,13 +41,63 @@ watch(
     }
   }
 )
+//確保dom渲染後，可以獲取資料
+watch(
+  () => memberStore.getMemberInfo,
+  (newValue) => {
+    memberInput.value = { ...newValue }
+  }
+)
+//alert訊息
+const message = (mes: any, mesType: any): void => {
+  //@ts-ignore
+  ElMessage({
+    message: mes,
+    type: mesType,
+    duration: 1500
+  })
+}
 
-const handleCitySelect = () => {
-  isWatchAreas.value = true
+//檢驗 2次密碼正確性的function
+const verifyNewPassWord = (rule: any, value: any, callback: any) => {
+  if (value === '') {
+    callback(new Error('請輸入密碼'))
+  } else if (value !== updatePassWord.value.newPassWord) {
+    callback(new Error('密碼與原先不符合'))
+  } else {
+    callback()
+  }
 }
-const handleAreaSelect = () => {
-  isWatchAreas.value = false
-}
+
+//驗證會員資訊規則
+const memberInfoRule = ref({
+  account: [
+    {
+      type: 'email',
+      required: true,
+      message: '信箱格式不相符',
+      trigger: ['change']
+    }
+  ]
+})
+//驗證密碼資訊規則
+const changePasswordRules = ref({
+  oldPassWord: [
+    // { min: 6, max: 30, message: '長度介於6到30之間', trigger: 'change' },
+    { required: true, message: '必填', trigger: 'change' }
+  ],
+  newPassWord: [
+    // { min: 6, max: 30, message: '長度介於6到30之間', trigger: 'change' },
+    { required: true, message: '必填', trigger: 'change' }
+  ],
+  checkNewPassWord: [
+    // { min: 6, max: 30, message: '長度介於6到30之間', trigger: 'change' },
+    { required: true, message: '必填', trigger: 'change' },
+    { validator: verifyNewPassWord, trigger: 'change' }
+  ]
+})
+
+//驗證會員資料(信箱必填)，成功後發送api到後台
 const handleMemberInfo = async (formEl: FormInstance | undefined) => {
   if (!formEl) return
   await formEl.validate(async (valid, fields) => {
@@ -62,62 +117,8 @@ const handleMemberInfo = async (formEl: FormInstance | undefined) => {
     }
   })
 }
-const message = (mes: any, mesType: any): void => {
-  //@ts-ignore
-  ElMessage({
-    message: mes,
-    type: mesType,
-    duration: 1500
-  })
-}
 
-//確保dom渲染後，可以獲取資料
-watch(
-  () => memberStore.getMemberInfo,
-  (newValue) => {
-    memberInput.value = { ...newValue }
-  }
-)
-
-const ruleMemberInfo = ref<FormInstance>()
-const memberInfoRule = ref({
-  account: [
-    {
-      type: 'email',
-      required: true,
-      message: '信箱格式不相符',
-      trigger: ['change']
-    }
-  ]
-})
-
-//以下為更改密碼 邏輯設定
-const ruleFormRef = ref<FormInstance>()
-const verifyNewPassWord = (rule: any, value: any, callback: any) => {
-  if (value === '') {
-    callback(new Error('請輸入密碼'))
-  } else if (value !== updatePassWord.value.newPassWord) {
-    callback(new Error('密碼與原先不符合'))
-  } else {
-    callback()
-  }
-}
-const changePasswordRules = ref({
-  oldPassWord: [
-    // { min: 6, max: 30, message: '長度介於6到30之間', trigger: 'change' },
-    { required: true, message: '必填', trigger: 'change' }
-  ],
-  newPassWord: [
-    // { min: 6, max: 30, message: '長度介於6到30之間', trigger: 'change' },
-    { required: true, message: '必填', trigger: 'change' }
-  ],
-  checkNewPassWord: [
-    // { min: 6, max: 30, message: '長度介於6到30之間', trigger: 'change' },
-    { required: true, message: '必填', trigger: 'change' },
-    { validator: verifyNewPassWord, trigger: 'change' }
-  ]
-})
-
+//驗證會員密碼(2次密碼須都正確且必填)，成功後發送api到後台
 const handleChangePassword = async (formEl: FormInstance | undefined) => {
   if (!formEl) return
   await formEl.validate(async (valid, fields) => {
@@ -141,13 +142,25 @@ const handleChangePassword = async (formEl: FormInstance | undefined) => {
     }
   })
 }
+//選取 城市 select選單
+const handleCitySelect = () => {
+  isWatchAreas.value = true
+}
 
+//選取 地區 select選單
+const handleAreaSelect = () => {
+  isWatchAreas.value = false
+}
+
+// 開啟&關閉 會員編輯狀態
 const handleEditInfo = (formEl: FormInstance | undefined) => {
   isEditInfo.value = !isEditInfo.value
-  memberInput.value = { ...memberStore.getMemberInfo }
+  memberInput.value = { ...memberStore.getMemberInfo } //用於使用者輸入完，點選取消還原預設
   if (!formEl) return
-  formEl.clearValidate()
+  formEl.clearValidate() //假設驗證失敗顯示時候，使用者點擊取消，清除驗證資訊
 }
+
+// 開啟&關閉 密碼編輯狀態
 const handleEditPassWord = (formEl: FormInstance | undefined) => {
   isEditPassWord.value = !isEditPassWord.value
   if (!formEl) return
