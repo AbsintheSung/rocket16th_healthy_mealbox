@@ -23,6 +23,7 @@ const featCustomMealApi = `/${urlName}/customizeBoxes` //建立自定義餐盒
 const getCusomMealApi = `/${urlName}/customizeBoxes` //取得會員自定義餐盒列表
 const updateCusomMealApi = `/${urlName}/customizeBoxes` //編輯自定義
 const deleteCustomApi = `/${urlName}/customizeBoxes` //刪除自定義
+const linepayConfirmApi = `/${urlName}/linePay/confirm` //確認line pay付款成功
 
 //匯出要使用的 api method
 export const fetchApi = {
@@ -47,5 +48,6 @@ export const fetchApi = {
   getCusomMeal: () => axiosInstance.get(getCusomMealApi), //建立自定義餐盒
   updateCusomMeal: (id: any, data: any) => axiosInstance.patch(`${updateCusomMealApi}/${id}`, data), //編輯自定義餐盒
   deleteCustom: (id: any,) => axiosInstance.delete(`${deleteCustomApi}/${id}`), //編輯自定義餐盒
+  Checklinepay: (data: any) => axiosInstance.post(linepayConfirmApi, data) //檢查line pay付款狀態
   //要添加其他 API 服務(照上面的方式往下寫)
 }
