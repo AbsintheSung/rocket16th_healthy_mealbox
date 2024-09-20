@@ -323,9 +323,22 @@ export const useCartStore = defineStore('cart', () => {
       if (response.status === 200 && response.data.code === 0) {
         lastSubmittedOrder.value = response.data.data
 
-        await fetchMemberCartInfo()
-        return response.data
+        // 如果是 LINE PAY，返回 LINE PAY URL
+        if (response.data.data.paymentMethod === 'onlinePayment' && response.data.data.linePayUrl) {
+          return {
+            success: true,
+            linePayUrl: response.data.data.linePayUrl,
+            orderId: response.data.data.id,
+            transactionId: response.data.data.transactionId
+          }
+        }
 
+        // 非 LINE PAY 的情況
+        await fetchMemberCartInfo()
+        return {
+          success: true,
+          data: response.data.data
+        }
       } else {
         throw new Error(response.data.message || '訂單提交失敗')
       }
@@ -353,6 +366,7 @@ export const useCartStore = defineStore('cart', () => {
     }
   }
 
+  //取得歷史訂單餐盒加入購物車
   const fetchHistoryOrderToCart = async (historyOrder: any) => {
     try {
       await fetchMemberCartInfo() //取得購物車資訊
@@ -382,6 +396,25 @@ export const useCartStore = defineStore('cart', () => {
     }
   }
 
+  //取得line付款後資訊
+  const confirmLinePay = async (confirmData: { transactionId: string, amount: number, orderId: string }) => {
+    try {
+      const response = await fetchApi.Checklinepay(confirmData)
+      if (response.status === 200 && response.data.code === 0) {
+        // 更新最後提交的訂單資訊
+        lastSubmittedOrder.value = response.data.data
+        // 清空購物車
+        await cleanCart()
+        return response.data.data
+      } else {
+        throw new Error(response.data.message || 'LINE PAY 確認失敗')
+      }
+    } catch (error) {
+      console.error('LINE PAY 確認時出錯：', error)
+      throw error
+    }
+  }
+
 
   return {
     getCaseType,
@@ -402,6 +435,7 @@ export const useCartStore = defineStore('cart', () => {
     cleanCart,
     fetchaddCustomCart,
     fetchMinusCustomCart,
-    fetchHistoryOrderToCart
+    fetchHistoryOrderToCart,
+    confirmLinePay
   }
 })
