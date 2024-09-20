@@ -10,6 +10,8 @@ const cartStore = useCartStore()
 const route = useRoute()
 const router = useRouter()
 const formRef = ref(null)
+const formRef1 = ref(null)
+const formRef2 = ref(null)
 
 const twCityArea = ref({ city: [], area: [] }) //用來存放城市鄉鎮的資料，select使用
 
@@ -100,10 +102,58 @@ const getTwCityArea = () => {
     twCityArea.value.city = taiwanCity.map((item) => item.name)
 }
 
+// 表單驗證
+// 第一個驗證( 測試用 )
+// const submitForm1 = () => {
+//   if (!formRef1.value) return
+//   formRef1.value.validate((valid, fild) => {
+//     console.log(fild)
+//     if (valid) {
+//       console.log('Form 1 is valid!')
+//     } else {
+//       console.log('Form 1 validation failed!')
+//     }
+//   })
+// }
+
+// 第二個驗證( 測試用 )
+// const submitForm2 = () => {
+//   if (!formRef2.value) return
+//   formRef2.value.validate((valid,fild) => {
+//     if (valid) {
+//       console.log('Form 2 is valid!')
+//     } else {
+//       console.log('Form 2 validation failed!')
+//     }
+//   })
+// }
+
+//一次驗證多筆
+const submitVerifyForm = async () => {
+    if (!formRef.value || !formRef1.value || !formRef2.value) return
+    try {
+        // 使用 Promise.all 同時驗證多個表單
+        const [valid, valid1, valid2] = await Promise.all([
+            formRef.value.validate(),
+            formRef1.value.validate(),
+            formRef2.value.validate()
+        ])
+
+        if (valid && valid1 && valid2) {
+            return true
+        } else {
+            return false
+        }
+    } catch (error) {
+        console.error('Validation failed:', error)
+        return false
+    }
+}
 // 送出表單
 const onSubmit = async () => {
 
-    if (!formRef.value) return
+    const submitFormAll = await submitVerifyForm()
+    if (!submitFormAll) return // 驗證失敗則不進行後續操作
 
     try {
         await formRef.value.validate()
@@ -135,22 +185,21 @@ const onSubmit = async () => {
         console.log('準備提交到後端的數據:', orderData)
 
         //提交到後端
-        const response = await cartStore.submitOrder(orderData)
-        // console.log('Submit order response:', response)
+        const result = await cartStore.submitOrder(orderData)
+        console.log('Submit order response:', result.data.data)
 
-        if (response && response.status === 200) {
-            ElMessage.success(response.data.message || '訂單提交成功')
-            if (response.data.paymentMethod === "onlinePayment") {
-                //轉跳至line pay頁面
-                console.log('取得的LINEPAY網址:', response.data.linePayUrl)
-                window.location.href = response.linePayUrl
-
+        if (result.success) {
+            ElMessage.success('訂單提交成功')
+            if (result.data.data.paymentMethod === "onlinePayment") {
+                // LINE PAY 支付
+                console.log('取得的 LINE PAY 網址:', result.data.linePayUrl)
+                window.location.href = result.data.linePayUrl
             } else {
-                // 非線上支付，直接到完成訂單頁
-                // router.push('/checkout/order-complete')
+                // 非 LINE PAY 支付
+                router.push('/checkout/order-complete')
             }
         } else {
-            throw new Error(response?.data?.message || '訂單提交失敗')
+            throw new Error(result.data?.message || '訂單提交失敗')
         }
     } catch (error) {
         console.error('錯誤詳情:', error)
@@ -253,7 +302,7 @@ onMounted(async () => {
                 <div class="bg-primary-300 border-2 border-black">
                     <p class="px-3 py-2 font-bold md:px-6">付款資料</p>
                 </div>
-                <div class="border-2 border-black px-3 py-4 -mt-[2px] md:px-6 md:py-9">
+                <div class="border-2 border-black px-3 py-4 md:px-6 md:py-[42px]">
                     <p>已選擇的付款方式: </p>
                     <p class="text-2xl">{{ paymentMethod === 'LINE PAY' ? 'LINE PAY' : '超商取付' }}</p>
                 </div>
@@ -266,7 +315,7 @@ onMounted(async () => {
                 <p class="px-3 py-2 font-bold md:px-6">運費: {{ cartInfo.freightFree ? '免運' : 'NT$300' }}</p>
             </div>
             <div class="border-2 border-black px-3 py-4 md:px-6">
-                <el-form :model="form" :rules="rules" label-width="auto" style="max-width: 100%">
+                <el-form ref="formRef1" :model="form" :rules="rules" label-width="auto" style="max-width: 100%">
                     <div>
                         <p>已選擇的送貨方式: {{ shippingMethod }}</p>
                         <el-checkbox v-model="form.UseCustomerInfo" label="收件人資料與顧客資料相同" size="large" />
@@ -280,7 +329,7 @@ onMounted(async () => {
                     </el-form-item>
                     <el-divider />
                     <el-form-item label="地址 運送地點: 台灣" label-position="top">
-                        <div class="w-full flex justify-between pb-2">
+                        <div class="w-full flex justify-between pb-4">
                             <el-form-item prop="recipient.cityName" class="w-[49%]">
                                 <el-select v-model="form.recipient.cityName" placeholder="城市">
                                     <el-option v-for="cityItem in twCityArea.city" :key="cityItem" :label="cityItem"
@@ -319,7 +368,7 @@ onMounted(async () => {
         </div>
         <!-- 隱私權與提交訂單 -->
         <div class="col-span-4 md:col-start-7 md:col-span-6">
-            <el-form ref="formRef" :model="form" :rules="rules" style="max-width: 100%;">
+            <el-form ref="formRef2" :model="form" :rules="rules" style="max-width: 100%;">
                 <el-form-item prop="agreeTermsPrivacy">
                     <div class="flex items-center mt-2 md:mt-10">
                         <el-checkbox v-model="form.agreeTermsPrivacy" size="large" />
