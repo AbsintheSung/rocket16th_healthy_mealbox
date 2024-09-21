@@ -12,7 +12,6 @@ import EditCustomMealPage from '@/views/EditCustomMealPage.vue'
 import CustomSinglePage from '@/views/CustomSinglePage.vue'
 import FqaPage from '@/views/FqaPage.vue'
 import HowToUsePage from '@/views/HowToUsePage.vue'
-import LinepayRedirectPage from '@/views/LinepayRedirect.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -130,7 +129,12 @@ const router = createRouter({
           path: 'order-complete',
           name: 'OrderComplete',
           component: () => import('@/views/checkout-page/OrderCompletePage.vue')
-        }
+        },
+        {
+          path: 'linepay-redirect',
+          name: 'LinePayRedirect',
+          component: () => import('@/views/LinepayRedirect.vue')
+        },
       ]
     },
     {
@@ -157,11 +161,6 @@ const router = createRouter({
       path: '/how-to-use',
       name: 'HowToUse',
       component: HowToUsePage
-    },
-    {
-      path: '/linepay-redirect',
-      name: 'LinePayRedirect',
-      component: LinepayRedirectPage
     },
     //配置404 ( 此配置在最下面，之後新增的路由請新增在此路由設定上面 )
     {
