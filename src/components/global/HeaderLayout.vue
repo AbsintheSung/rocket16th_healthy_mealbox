@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { RouterLink } from 'vue-router'
-import { ref } from 'vue'
+import { RouterLink, useRouter, type Router } from 'vue-router'
+import { ref, watch } from 'vue'
 import TheSvg from '@/components/global/TheSvg.vue'
 const mainNav = ref([
   { id: 'plan', title: '方案選擇', path: '/plan-selection' },
@@ -13,10 +13,17 @@ const utilNav = ref([
   { id: 'signin', iconStyle: ['fas', 'right-to-bracket'], path: '/signin' }
 ])
 const isOpen = ref(false)
+const router: Router = useRouter()
 
 const toggleMenu = () => {
   isOpen.value = !isOpen.value
 }
+watch(
+  () => router.currentRoute.value.path,
+  () => {
+    isOpen.value = false
+  }
+)
 </script>
 <template>
   <header class="relative">
