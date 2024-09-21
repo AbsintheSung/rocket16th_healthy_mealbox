@@ -27,14 +27,14 @@ const nutrientsOptions = [
   //   value: 'adipose',
   //   label: '依 脂肪排序'
   // },
-  {
-    value: 'carbohydrate',
-    label: '依 碳水化合物排序'
-  }
   // {
-  //   value: 'fiber',
-  //   label: '依 纖維排序'
+  //   value: 'carbohydrate',
+  //   label: '依 碳水化合物排序'
   // },
+  {
+    value: 'fiber',
+    label: '依 纖維排序'
+  }
   // {
   //   value: 'sodium',
   //   label: '依 鈉含量排序'
