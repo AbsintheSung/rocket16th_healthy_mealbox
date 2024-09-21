@@ -101,7 +101,7 @@ const toggleExpand = () => {
 }
 </script>
 <template>
-  <main class="flex flex-grow flex-col pb-14">
+  <main class="flex flex-grow flex-col pb-40">
     <!-- 遮罩 -->
     <TheMask :isExpanded="isExpanded" :toggleExpand="toggleExpand" />
     <DaysSelectionButton />
