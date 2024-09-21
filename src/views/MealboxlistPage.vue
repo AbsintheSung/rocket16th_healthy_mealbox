@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, onMounted, watch, computed } from 'vue'
+import { ref, onMounted, watch, computed, provide } from 'vue'
 import TheMask from '@/components/global/TheMask.vue'
 import DaysSelectionButton from '@/components/global/DaysSelectionButton.vue'
 import ThePreview from '@/components/mealboxlist-page/ThePreview.vue'
@@ -12,6 +12,8 @@ const generalMealBoxStore = useGeneralMealBoxStore()
 const customMealBoxStore = useCustomMealBoxStore()
 const cartStore = useCartStore()
 const drawer = ref(false)
+const isCardLoaning = ref(false)
+const isExpanded = ref(false) //控制預覽列以及遮罩
 const getDirection = computed(() => (width.value >= 768 ? 'rtl' : 'btt'))
 const getDirectionHeight = computed(() => (width.value >= 768 ? '60%' : '50%'))
 const message = (mes: any, mesType: any): void => {
@@ -85,13 +87,14 @@ const handlePreview = () => {
   })
   drawer.value = true
 }
-
+provide('isCardLoaning', isCardLoaning)
 onMounted(async () => {
+  isCardLoaning.value = true
   await generalMealBoxStore.fetchGeneralMeal()
   await customMealBoxStore.fetchCustomMeal()
   await cartStore.fetchMemberCartInfo()
+  isCardLoaning.value = false
 })
-const isExpanded = ref(false) //控制預覽列以及遮罩
 
 const toggleExpand = () => {
   isExpanded.value = !isExpanded.value
