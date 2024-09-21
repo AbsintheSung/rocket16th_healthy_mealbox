@@ -25,12 +25,10 @@ const props = defineProps({
       <RouterLink :to="`/singlemeal/${mealInfo.id}`">
         <p class="font-bold">{{ mealInfo.name }}</p>
       </RouterLink>
-      <ul class="flex flex-row gap-y-4 text-[10px] sm:text-[14px]">
-        <li class="flex-grow">{{ mealInfo.composition.calories }}Kcal</li>
-        <li class="flex-grow border-e border-s border-black text-center">
-          醣類{{ mealInfo.composition.carbohydrate }}g
-        </li>
-        <li class="flex-grow text-center">蛋白質{{ mealInfo.composition.protein }}g</li>
+      <ul class="flex flex-row flex-wrap items-center gap-x-4 gap-y-4 text-[10px] sm:text-[14px]">
+        <li class="text-center">{{ mealInfo.composition.calories }}Kcal</li>
+        <li class="text-center">蛋白質{{ mealInfo.composition.protein }}g</li>
+        <li class="text-center">纖維{{ mealInfo.composition.fiber }}g</li>
       </ul>
     </div>
     <div class="mt-auto flex gap-x-3">
