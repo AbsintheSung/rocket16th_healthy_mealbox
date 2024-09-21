@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, onMounted, watch, computed, provide } from 'vue'
+import { ref, onMounted, watch, computed, provide, readonly } from 'vue'
 import TheMask from '@/components/global/TheMask.vue'
 import DaysSelectionButton from '@/components/global/DaysSelectionButton.vue'
 import ThePreview from '@/components/mealboxlist-page/ThePreview.vue'
@@ -87,18 +87,23 @@ const handlePreview = () => {
   })
   drawer.value = true
 }
-provide('isCardLoaning', isCardLoaning)
-onMounted(async () => {
-  isCardLoaning.value = true
-  await generalMealBoxStore.fetchGeneralMeal()
-  await customMealBoxStore.fetchCustomMeal()
-  await cartStore.fetchMemberCartInfo()
-  isCardLoaning.value = false
-})
-
 const toggleExpand = () => {
   isExpanded.value = !isExpanded.value
 }
+const changeIsCardLoaning = () => {
+  isCardLoaning.value = !isCardLoaning.value
+}
+onMounted(async () => {
+  // isCardLoaning.value = true
+  changeIsCardLoaning()
+  await generalMealBoxStore.fetchGeneralMeal()
+  await customMealBoxStore.fetchCustomMeal()
+  await cartStore.fetchMemberCartInfo()
+  changeIsCardLoaning()
+})
+
+provide('isCardLoaning', readonly(isCardLoaning))
+provide('changeIsCardLoaning', changeIsCardLoaning)
 </script>
 <template>
   <main class="flex flex-grow flex-col pb-40">

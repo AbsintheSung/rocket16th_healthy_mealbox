@@ -24,6 +24,7 @@ const getCusomMealApi = `/${urlName}/customizeBoxes` //取得會員自定義餐�
 const updateCusomMealApi = `/${urlName}/customizeBoxes` //編輯自定義
 const deleteCustomApi = `/${urlName}/customizeBoxes` //刪除自定義
 const linepayConfirmApi = `/${urlName}/linePay/confirm` //確認line pay付款成功
+const filterGenerMealApi = `/${urlName}/generalBoxes/sorted` //篩選一般餐盒營養素 api
 
 //匯出要使用的 api method
 export const fetchApi = {
@@ -48,6 +49,7 @@ export const fetchApi = {
   getCusomMeal: () => axiosInstance.get(getCusomMealApi), //建立自定義餐盒
   updateCusomMeal: (id: any, data: any) => axiosInstance.patch(`${updateCusomMealApi}/${id}`, data), //編輯自定義餐盒
   deleteCustom: (id: any,) => axiosInstance.delete(`${deleteCustomApi}/${id}`), //編輯自定義餐盒
-  Checklinepay: (data: any) => axiosInstance.post(linepayConfirmApi, data) //檢查line pay付款狀態
+  Checklinepay: (data: any) => axiosInstance.post(linepayConfirmApi, data), //檢查line pay付款狀態
+  filterGenerMealApi: (nutrients: string) => axiosInstance.get(`${filterGenerMealApi}/${nutrients}`) //篩選一般餐盒營養素 
   //要添加其他 API 服務(照上面的方式往下寫)
 }

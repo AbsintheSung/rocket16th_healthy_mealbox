@@ -7,6 +7,7 @@ const imgUrl = import.meta.env.VITE_APP_API_URL
 export const useGeneralMealBoxStore = defineStore('generalmealbox', () => {
   //State
   const generalMeal = ref<GeneralBoxes[]>([]) //一般餐盒資料，預設空陣列
+  const filterGeneralMeal = ref<GeneralBoxes[]>([]) //篩選一般餐盒資料，預設空陣列
   const currentPage = ref(1) //當前分頁
   const pageSize = ref(10) //每頁該顯示的資料數量
   const oneGeneralMeal = ref<Partial<OneGeneralBox>>({});
@@ -26,6 +27,15 @@ export const useGeneralMealBoxStore = defineStore('generalmealbox', () => {
       // imgArr: item.imgArr.map(imgPath => `${imgUrl}${imgPath}`),
     }));
   })
+  //取得篩選所有餐盒
+  const getFilterGeneralBoxes = computed(() => {
+    return filterGeneralMeal.value.map(item => ({
+      ...item,
+      composition: { ...item.composition },
+      imgArr: [...item.imgArr],
+      // imgArr: item.imgArr.map(imgPath => `${imgUrl}${imgPath}`),
+    }));
+  })
   //取得單一餐盒資訊
   const getOneGeneralMeal = computed(() => {
     const item = oneGeneralMeal.value;
@@ -36,6 +46,7 @@ export const useGeneralMealBoxStore = defineStore('generalmealbox', () => {
       imgArr: [...item.imgArr || []]
     };
   })
+
   //取得每頁該顯示的資料數量
   const getPageSize = computed(() => pageSize.value)
   //總頁碼共幾個
@@ -49,13 +60,28 @@ export const useGeneralMealBoxStore = defineStore('generalmealbox', () => {
 
   //Action
 
-  //獲取所有一般餐盒子資料
+  //獲取所有一般餐盒資料
   const fetchGeneralMeal = async () => {
     try {
       const response = await fetchApi.getGeneralmeal()
       if (response.status === 200) {
         generalMeal.value = response?.data?.data || []
-        // console.log(response.data)
+        filterGeneralMeal.value = response?.data?.data || []
+        // console.log('一般', response.data)
+        // console.log(generalMeal.value)
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  //獲取 篩選後的所有一般餐盒資料
+  const fetchFilterGeneralMeal = async (nutrients: string) => {
+    try {
+      const response = await fetchApi.filterGenerMealApi(nutrients)
+      if (response.status === 200) {
+        filterGeneralMeal.value = response?.data?.data || []
+        // console.log('有篩選', response.data)
         // console.log(generalMeal.value)
       }
     } catch (error) {
@@ -93,8 +119,10 @@ export const useGeneralMealBoxStore = defineStore('generalmealbox', () => {
     getPaginatedMeals,
     getOneGeneralMeal,
     getGeneralBoxes,
+    getFilterGeneralBoxes,
     changePage,
     fetchGeneralMeal,
-    fetchOneGeneralMeal
+    fetchOneGeneralMeal,
+    fetchFilterGeneralMeal
   }
 })
