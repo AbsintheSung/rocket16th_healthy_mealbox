@@ -1,10 +1,13 @@
 <script setup lang="ts">
+import { inject } from 'vue'
 import MealCard from '@/components/global/MealCard.vue'
+import TheCardSkeleton from '@/components/global/TheCardSkeleton.vue'
 import ThePagination from '@/components/global/ThePagination.vue'
 import { useGeneralMealBoxStore } from '@/stores/generalmealbox'
 import { useCartStore } from '@/stores/cart'
 const generalMealBoxStore = useGeneralMealBoxStore()
 const cartStore = useCartStore()
+const isCardLoaning = inject('isCardLoaning')
 const message = (mes: any, mesType: string) => {
   //@ts-ignore
   ElMessage({
@@ -41,13 +44,26 @@ const minusGeneralCart = async (id: number) => {
 <template>
   <div>
     <ul class="grid grid-cols-2 gap-x-6 gap-y-3 md:grid-cols-3 md:gap-y-12 lg:grid-cols-4">
-      <MealCard
+      <template v-if="isCardLoaning">
+        <TheCardSkeleton :isCardLoaning="isCardLoaning" v-for="item in 8" :key="item" />
+      </template>
+      <template v-else>
+        <MealCard
+          v-for="mealItem in generalMealBoxStore.getGeneralBoxes"
+          :key="mealItem.id"
+          :mealInfo="mealItem"
+          :addData="addGeneralCart"
+          :minusData="minusGeneralCart"
+        />
+      </template>
+
+      <!-- <MealCard
         v-for="mealItem in generalMealBoxStore.getGeneralBoxes"
         :key="mealItem.id"
         :mealInfo="mealItem"
         :addData="addGeneralCart"
         :minusData="minusGeneralCart"
-      />
+      /> -->
     </ul>
     <!-- <div class="mt-auto flex w-full items-center justify-center">
       <ThePagination
