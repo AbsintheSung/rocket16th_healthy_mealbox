@@ -419,10 +419,9 @@ export const useCartStore = defineStore('cart', () => {
     }
   }
 
-  //根據id取得訂單資訊
+  //根據id取得單筆訂單資訊
   const fetchOrderById = async (orderId:any) => {
     try {
-      // 假設我們沒有直接獲取單個訂單的 API，我們可以使用現有的獲取訂單歷史的 API
       const response = await fetchApi.getMemberOrder()
       if (response.status === 200 && response.data.code === 0) {
         const orderList = response.data.data
@@ -464,6 +463,7 @@ export const useCartStore = defineStore('cart', () => {
     fetchMinusCustomCart,
     fetchHistoryOrderToCart,
     setLastSubmittedOrder,
-    confirmLinePay
+    confirmLinePay,
+    fetchOrderById
   }
 })
