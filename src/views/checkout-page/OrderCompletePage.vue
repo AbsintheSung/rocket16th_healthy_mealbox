@@ -23,13 +23,12 @@ onMounted(async () => {
     // 檢查 URL 參數中是否有訂單 ID
     const routeOrderId = route.query.orderId?.toString()
     if (routeOrderId) {
-        // 如果有訂單 ID，獲取最新的訂單信息
+        // 透過訂單ID，獲取最新的訂單信息
         try {
             const fetchedOrder = await cartStore.fetchOrderById(routeOrderId)
             orderInfo.value = fetchedOrder
         } catch (error) {
             console.error('獲取訂單信息失敗:', error)
-            // 處理錯誤，例如顯示錯誤消息
         }
     } else {
         // 如果沒有訂單 ID，使用 store 中的最後提交訂單
