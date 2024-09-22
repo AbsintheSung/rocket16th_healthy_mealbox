@@ -1,19 +1,42 @@
 <script setup>
 import { ref, onMounted,computed } from 'vue'
-import ShoppingCartProgressBar from '@/components/global/ShoppingCartProgressBar.vue'
+import { useRoute } from 'vue-router'
 import { useCartStore } from '@/stores/cart'
 
+import ShoppingCartProgressBar from '@/components/global/ShoppingCartProgressBar.vue'
+
+const route = useRoute()
 const cartStore = useCartStore()
-const orderInfo = computed(() => cartStore.getLastSubmittedOrder)
+const orderInfo = ref(null)
 
 //購物車狀態列函式
 const steps = ref(['購物車', '填寫資料', '訂單確認'])
 const activeStep = ref(3)
 
-onMounted(() => {
-    orderInfo.value = cartStore.getLastSubmittedOrder
-    // console.log('獲得的訂單資訊：', orderInfo.value)
+//原本取得訂單資訊的函式
+// onMounted(() => {
+//     orderInfo.value = cartStore.getLastSubmittedOrder
+//     // console.log('獲得的訂單資訊：', orderInfo.value)
+// })
+
+onMounted(async () => {
+    // 檢查 URL 參數中是否有訂單 ID
+    const routeOrderId = route.query.orderId?.toString()
+    if (routeOrderId) {
+        // 如果有訂單 ID，獲取最新的訂單信息
+        try {
+            const fetchedOrder = await cartStore.fetchOrderById(routeOrderId)
+            orderInfo.value = fetchedOrder
+        } catch (error) {
+            console.error('獲取訂單信息失敗:', error)
+            // 處理錯誤，例如顯示錯誤消息
+        }
+    } else {
+        // 如果沒有訂單 ID，使用 store 中的最後提交訂單
+        orderInfo.value = cartStore.getLastSubmittedOrder
+    }
 })
+
 // 格式化日期時間的函數
 const formatDateTime = (dateTimeString) => {
     if (!dateTimeString) return '無資料';

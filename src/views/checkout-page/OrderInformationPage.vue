@@ -186,11 +186,13 @@ const onSubmit = async () => {
 
         //提交到後端
         const result = await cartStore.submitOrder(orderData)
-        console.log('Submit order response:', result.data.data)
+        console.log('後端回傳資料：', result.data.data)
 
         if (result.success) {
             ElMessage.success('訂單提交成功')
             if (result.data.data.paymentMethod === "onlinePayment") {
+                // 儲存訂單資訊
+                cartStore.setLastSubmittedOrder(result.data.data)
                 // LINE PAY 支付
                 console.log('取得的 LINE PAY 網址:', result.data.linePayUrl)
                 window.location.href = result.data.linePayUrl
@@ -221,7 +223,7 @@ const handleLinePayCallback = async () => {
             // 處理確認後的結果
             console.log(result)
             // 導航到訂單完成頁面
-            router.push('/checkout/order-complete')
+            // router.push('/checkout/order-complete')
         } catch (error) {
             console.error('LINE PAY 確認錯誤:', error)
             ElMessage.error('LINE PAY 確認失敗')
