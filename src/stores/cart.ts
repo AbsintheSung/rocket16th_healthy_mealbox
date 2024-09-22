@@ -76,6 +76,11 @@ export const useCartStore = defineStore('cart', () => {
     return { ...cartInfo.value }
   })
 
+  // 更新當前提交訂單資訊
+  const setLastSubmittedOrder = (order: any) => {
+    lastSubmittedOrder.value = order
+  }
+
   // 取得當前提交訂單
   const getLastSubmittedOrder = computed(() => lastSubmittedOrder.value)
 
@@ -348,7 +353,6 @@ export const useCartStore = defineStore('cart', () => {
     }
   }
 
-
   //清空購物車
   const cleanCart = async () => {
     try {
@@ -415,6 +419,29 @@ export const useCartStore = defineStore('cart', () => {
     }
   }
 
+  //根據id取得訂單資訊
+  const fetchOrderById = async (orderId:any) => {
+    try {
+      // 假設我們沒有直接獲取單個訂單的 API，我們可以使用現有的獲取訂單歷史的 API
+      const response = await fetchApi.getMemberOrder()
+      if (response.status === 200 && response.data.code === 0) {
+        const orderList = response.data.data
+        const targetOrder = orderList.find((order: { id: any }) => order.id.toString() === orderId.toString())
+        
+        if (targetOrder) {
+          setLastSubmittedOrder(targetOrder)
+          return targetOrder
+        } else {
+          throw new Error('找不到指定的訂單')
+        }
+      } else {
+        throw new Error(response.data.message || '獲取訂單失敗')
+      }
+    } catch (error) {
+      console.error('獲取訂單時出錯：', error)
+      throw error
+    }
+  }
 
   return {
     getCaseType,
@@ -436,6 +463,7 @@ export const useCartStore = defineStore('cart', () => {
     fetchaddCustomCart,
     fetchMinusCustomCart,
     fetchHistoryOrderToCart,
+    setLastSubmittedOrder,
     confirmLinePay
   }
 })

@@ -1,9 +1,12 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
+import { useCartStore } from '@/stores/cart'
+import { ElMessage } from 'element-plus'
 
 const route = useRoute()
 const router = useRouter()
+const cartStore = useCartStore()
 
 const transactionId = ref('')
 const orderId = ref('')
@@ -14,9 +17,32 @@ onMounted(() => {
     handleLinePayCallback()
 })
 
-const handleLinePayCallback = () => {
+const handleLinePayCallback = async () => {
     console.log('處理 LinePayment 回調', { transactionId: transactionId.value, orderId: orderId.value })
-    router.push({ name: 'OrderComplete', params: { orderId: orderId.value } })
+    try {
+        if (!transactionId.value || !orderId.value) {
+            throw new Error('缺少必要的參數')
+        }
+
+        const confirmData = {
+            transactionId: transactionId.value,
+            orderId: orderId.value
+        }
+
+        await cartStore.confirmLinePay(confirmData)
+        
+        console.log('LINE PAY 付款確認成功')
+        ElMessage.success('付款確認成功')
+
+        // 確保使用正確的 orderId 進行跳轉
+        await router.push({
+            path: '/checkout/order-complete',
+            query: { orderId: orderId.value }
+        })
+    } catch (error) {
+        console.error('LINE PAY 確認失敗:', error)
+        ElMessage.error(error.message || '付款失敗，請聯繫客服')
+    }
 }
 
 </script>
