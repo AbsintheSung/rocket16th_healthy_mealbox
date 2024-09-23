@@ -4,10 +4,15 @@ import TheNewsTicker from '@/components/global/TheNewsTicker.vue'
 import ThePlaidAdorn from '@/components/global/ThePlaidAdorn.vue'
 import TheContact from '@/components/global/TheContact.vue'
 import { useCartStore } from '@/stores/cart'
+import { useNutritionistPlanStore } from '@/stores/nutritionistPlan'
 import { useRouter, type Router } from 'vue-router'
-import { onMounted } from 'vue'
-const cartStore = useCartStore()
+import { ref, onMounted } from 'vue'
+
 const router: Router = useRouter()
+const cartStore = useCartStore()
+const nutritionistPlanStore = useNutritionistPlanStore()
+const randomPlans:any = ref([])
+
 const message = (mes: any, mesType: any): void => {
   //@ts-ignore
   ElMessage({
@@ -26,7 +31,16 @@ const handleSelectPlan = async (planNumber: number) => {
 }
 onMounted(async () => {
   await cartStore.fetchMemberCartInfo()
+  await nutritionistPlanStore.fetchNutritionistPlans()
+  selectRandomPlans()
+  console.log('取得的隨機營養師資訊：',randomPlans.value)
 })
+
+// 首頁營養師卡片(資料隨機)
+const selectRandomPlans = () => {
+  const allPlans = nutritionistPlanStore.getPaginatedPlans
+  randomPlans.value = allPlans.sort(() => 0.5 - Math.random()).slice(0, 4)
+}
 // import { watch, computed } from 'vue'
 // import { Swiper, SwiperSlide } from 'swiper/vue'
 // import { Mousewheel, Pagination } from 'swiper/modules'
@@ -95,11 +109,9 @@ onMounted(async () => {
         <p class="text-center font-bold">選擇困難嗎？</p>
         <div class="relative flex items-center justify-center py-4">
           <h2 class="text-4xl font-bold text-primary-700">金牌營養師推薦套餐</h2>
-          <RouterLink
-            to="/"
-            class="absolute bottom-0 right-0 hidden items-center text-secondary-700 md:flex"
-          >
-            查看所有餐點<fontAwesomeIcon class="ms-2" :icon="['fas', 'chevron-right']" />
+          <RouterLink to="/nutritionist-plan" class="absolute bottom-0 right-0 hidden items-center text-secondary-700 md:flex">
+            查看所有餐點
+            <fontAwesomeIcon class="ms-2" :icon="['fas', 'chevron-right']" />
           </RouterLink>
         </div>
         <!-- <div class="hidden sm:block">
@@ -134,30 +146,21 @@ onMounted(async () => {
           </swiper>
         </div> -->
         <ul class="grid grid-cols-4 gap-6 py-6 md:grid-cols-12 md:py-16">
-          <li
-            class="col-span-2 rounded border-2 border-black md:col-span-3"
-            v-for="item in 4"
-            :key="item"
-          >
+          <li class="col-span-2 rounded border-2 border-black md:col-span-3" v-for="item in randomPlans" :key="item.id">
             <div class="flex flex-col gap-y-2">
               <div>
-                <img
-                  class="w-full object-fill"
-                  alt="營養師懶人包圖"
-                  src="../assets//image/mealpic.png"
-                />
+                <img class="w-full object-fill" :alt="item.caseName" :src="item.caseThumbnail" />
               </div>
-              <div class="px-3 font-bold">
-                <h3>簡單吃！</h3>
-                <p>忙碌生活的救世主</p>
-              </div>
+              <RouterLink :to="`/nutritionist-plan/${item.id}`" class="px-3 font-bold">
+                <h3>{{ item.nutritionistName }} 營養師</h3>
+                <p>{{ item.caseName }}</p>
+              </RouterLink>
               <div class="flex items-center justify-between p-3">
                 <button
-                  class="rounded border border-primary-700 px-2 py-1 text-[12px] text-primary-700 md:py-2 lg:px-5"
-                >
+                  class="rounded border border-primary-700 px-2 py-1 text-[12px] text-primary-700 md:py-2 lg:px-5">
                   加入購物車
                 </button>
-                <RouterLink to="/" class="flex items-center gap-x-1 text-[12px] text-secondary-700">
+                <RouterLink :to="`/nutritionist-plan/${item.id}`" class="flex items-center gap-x-1 text-[12px] text-secondary-700">
                   <p>查看更多</p>
                   <FontAwesomeIcon :icon="['fas', 'arrow-right']" size="sm" />
                 </RouterLink>
@@ -166,10 +169,7 @@ onMounted(async () => {
           </li>
         </ul>
         <div class="flex items-center justify-end py-14 md:hidden">
-          <RouterLink
-            to="/"
-            class="rounded border-2 border-secondary-900 px-12 py-2 text-secondary-900"
-          >
+          <RouterLink to="/" class="rounded border-2 border-secondary-900 px-12 py-2 text-secondary-900">
             查看更多方案
           </RouterLink>
         </div>
@@ -318,11 +318,7 @@ onMounted(async () => {
             </div>
             <div class="col-span-2">
               <div class="flex flex-col gap-y-2">
-                <img
-                  src="../assets//image/測試義大利麵.png"
-                  alt="義大利麵圖片"
-                  class="ms-auto w-1/2"
-                />
+                <img src="../assets//image/測試義大利麵.png" alt="義大利麵圖片" class="ms-auto w-1/2" />
                 <div class="col-span-full flex items-center gap-x-5">
                   <p class="flex h-full flex-col justify-around text-xl">
                     <span>蛋</span><span>白</span><span>質</span>
@@ -346,11 +342,7 @@ onMounted(async () => {
         </div>
       </div>
       <div>
-        <img
-          src="../assets/image/home-other-adorn.png"
-          class="max-h-[120px] w-full"
-          alt="裝飾圖片"
-        />
+        <img src="../assets/image/home-other-adorn.png" class="max-h-[120px] w-full" alt="裝飾圖片" />
       </div>
     </section>
 
@@ -361,9 +353,7 @@ onMounted(async () => {
           簡單下訂，一鍵送到家
         </h2>
         <ul class="grid grid-cols-4 gap-6 py-9 sm:grid-cols-12">
-          <li
-            class="col-span-2 flex flex-col gap-y-2 sm:col-span-6 sm:items-center xl:col-span-3 xl:items-start"
-          >
+          <li class="col-span-2 flex flex-col gap-y-2 sm:col-span-6 sm:items-center xl:col-span-3 xl:items-start">
             <div class="flex flex-col gap-x-6 gap-y-2 font-bold">
               <div class="flex items-center gap-x-2">
                 <h3 class="text-4xl sm:text-6xl">1</h3>
@@ -377,9 +367,7 @@ onMounted(async () => {
               </div>
             </div>
           </li>
-          <li
-            class="col-span-2 flex flex-col gap-y-2 sm:col-span-6 sm:items-center xl:col-span-3 xl:items-start"
-          >
+          <li class="col-span-2 flex flex-col gap-y-2 sm:col-span-6 sm:items-center xl:col-span-3 xl:items-start">
             <div class="flex flex-col gap-x-6 gap-y-2 font-bold">
               <div class="flex items-center gap-x-2">
                 <h3 class="text-4xl sm:text-6xl">2</h3>
@@ -393,9 +381,7 @@ onMounted(async () => {
               </div>
             </div>
           </li>
-          <li
-            class="col-span-2 flex flex-col gap-y-2 sm:col-span-6 sm:items-center xl:col-span-3 xl:items-start"
-          >
+          <li class="col-span-2 flex flex-col gap-y-2 sm:col-span-6 sm:items-center xl:col-span-3 xl:items-start">
             <div class="flex flex-col gap-x-6 gap-y-2 font-bold">
               <div class="flex items-center gap-x-2">
                 <h3 class="text-4xl sm:text-6xl">3</h3>
@@ -409,9 +395,7 @@ onMounted(async () => {
               </div>
             </div>
           </li>
-          <li
-            class="col-span-2 flex flex-col gap-y-2 sm:col-span-6 sm:items-center xl:col-span-3 xl:items-start"
-          >
+          <li class="col-span-2 flex flex-col gap-y-2 sm:col-span-6 sm:items-center xl:col-span-3 xl:items-start">
             <div class="flex flex-col gap-x-6 gap-y-2 font-bold">
               <div class="flex items-center gap-x-2">
                 <h3 class="text-4xl sm:text-6xl">4</h3>
@@ -448,10 +432,7 @@ onMounted(async () => {
               <span>總價700元起</span>
             </div>
             <div class="flex items-center justify-center pb-9">
-              <button
-                class="rounded border border-secondary-950 px-14 py-1"
-                @click="handleSelectPlan(7)"
-              >
+              <button class="rounded border border-secondary-950 px-14 py-1" @click="handleSelectPlan(7)">
                 選擇方案
               </button>
             </div>
@@ -464,10 +445,7 @@ onMounted(async () => {
               <span>總價700元起</span>
             </div>
             <div class="flex items-center justify-center pb-9">
-              <button
-                class="rounded border border-secondary-950 px-14 py-1"
-                @click="handleSelectPlan(14)"
-              >
+              <button class="rounded border border-secondary-950 px-14 py-1" @click="handleSelectPlan(14)">
                 選擇方案
               </button>
             </div>
@@ -480,10 +458,7 @@ onMounted(async () => {
               <span>總價700元起</span>
             </div>
             <div class="flex items-center justify-center pb-9">
-              <button
-                class="rounded border border-secondary-950 px-14 py-1"
-                @click="handleSelectPlan(21)"
-              >
+              <button class="rounded border border-secondary-950 px-14 py-1" @click="handleSelectPlan(21)">
                 選擇方案
               </button>
             </div>
@@ -541,14 +516,19 @@ onMounted(async () => {
   display: flex;
   gap: 24px !important;
 }
+
 :deep(.swiper-slide) {
   margin: 0px !important;
 }
+
 :deep(.swiper-pagination) {
-  position: relative; /* 將 position 設為 relative，讓它在文檔流中處於正常位置 */
-  text-align: center; /* 將分頁指示器居中 */
+  position: relative;
+  /* 將 position 設為 relative，讓它在文檔流中處於正常位置 */
+  text-align: center;
+  /* 將分頁指示器居中 */
   margin: 48px 0px 0px 0px;
 }
+
 :deep(.swiper-pagination-bullet-active) {
   background-color: $primary-700;
 }
