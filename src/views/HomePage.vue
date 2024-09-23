@@ -32,10 +32,10 @@ const handleSelectPlan = async (planNumber: number) => {
 }
 
 onMounted(async () => {
-  await cartStore.fetchMemberCartInfo()
   await nutritionistPlanStore.fetchNutritionistPlans()
   selectRandomPlans()
   console.log('取得的隨機營養師資訊：', randomPlans.value)
+  await cartStore.fetchMemberCartInfo()
 })
 
 // 營養師卡片(資料隨機)
@@ -68,8 +68,27 @@ const addToCart = async (planId: any) => {
     } else if (result === "cartFull") {
       ElMessage.warning('購物車已滿')
     }
-  } catch (error) {
-    ElMessage.error('加入購物車失敗')
+  } catch (error: any) {
+    if (error.status === 401) {
+      ElMessage({
+        message: '請先登入會員',
+        type: 'warning',
+        duration: 2000
+      })
+      setTimeout(() => {
+        const loading = ElLoading.service({
+          lock: true,
+          text: '正在跳轉至登入頁面...',
+        })
+        loading.close()
+      }, 2000)
+
+      setTimeout(() => {
+        router.push('/signin')
+      }, 2500)
+    } else {
+      ElMessage.error('加入購物車失敗')
+    }
   }
 }
 // import { watch, computed } from 'vue'
@@ -182,7 +201,8 @@ const addToCart = async (planId: any) => {
             <div class="flex flex-col">
               <div class="border-x-2 border-black ">
                 <!-- 圖片756px會破版，待修 -->
-                <img class="w-[189px] h-[156px] object-cover block border-b border-black md:w-[309px] md:h-[240px]" :alt="item.caseName" :src="item.caseThumbnail" />
+                <img class="w-[189px] h-[156px] object-cover block border-b border-black md:w-[309px] md:h-[240px]"
+                  :alt="item.caseName" :src="item.caseThumbnail" />
               </div>
               <div class="flex flex-col gap-y-2 border-2 border-black rounded-b bg-white">
                 <RouterLink :to="`/nutritionist-plan/${item.id}`" class="pt-2 px-3 font-bold md:pt-6">
@@ -205,7 +225,8 @@ const addToCart = async (planId: any) => {
           </li>
         </ul>
         <div class="flex items-center justify-end py-14 md:hidden">
-          <RouterLink to="/nutritionist-plan" class="rounded border-2 border-secondary-900 px-12 py-2 text-secondary-900 bg-white hover:bg-secondary-400 hover:border-black hover:shadow-base hover:transition hover:text-black active:shadow-none">
+          <RouterLink to="/nutritionist-plan"
+            class="rounded border-2 border-secondary-900 px-12 py-2 text-secondary-900 bg-white hover:bg-secondary-400 hover:border-black hover:shadow-base hover:transition hover:text-black active:shadow-none">
             查看更多方案
           </RouterLink>
         </div>
