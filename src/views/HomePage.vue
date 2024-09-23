@@ -181,10 +181,11 @@ const addToCart = async (planId: any) => {
           <li class="col-span-2 border-1 bounded md:col-span-3" v-for="item in randomPlans" :key="item.id">
             <div class="flex flex-col">
               <div class="border-x-2 border-black ">
-                <img class="w-[191px] h-[248px] object-cover block border-b border-black md:w-[309px] md:h-[240px]" :alt="item.caseName" :src="item.caseThumbnail" />
+                <!-- 圖片756px會破版，待修 -->
+                <img class="w-[189px] h-[156px] object-cover block border-b border-black md:w-[309px] md:h-[240px]" :alt="item.caseName" :src="item.caseThumbnail" />
               </div>
               <div class="flex flex-col gap-y-2 border-2 border-black rounded-b bg-white">
-                <RouterLink :to="`/nutritionist-plan/${item.id}`" class="pt-6 px-3 font-bold">
+                <RouterLink :to="`/nutritionist-plan/${item.id}`" class="pt-2 px-3 font-bold md:pt-6">
                   <h3>{{ item.nutritionistName }} 營養師</h3>
                   <p>{{ item.caseName }}</p>
                 </RouterLink>
@@ -194,7 +195,7 @@ const addToCart = async (planId: any) => {
                     加入購物車
                   </button>
                   <RouterLink :to="`/nutritionist-plan/${item.id}`"
-                    class="flex items-center gap-x-1 text-sm text-primary-700 font-bold hover:text-primary-500">
+                    class="hidden items-center gap-x-1 text-sm text-primary-700 font-bold hover:text-primary-500 md:flex">
                     <p>查看更多</p>
                     <FontAwesomeIcon :icon="['fas', 'arrow-right']" size="sm" />
                   </RouterLink>
@@ -204,7 +205,7 @@ const addToCart = async (planId: any) => {
           </li>
         </ul>
         <div class="flex items-center justify-end py-14 md:hidden">
-          <RouterLink to="/" class="rounded border-2 border-secondary-900 px-12 py-2 text-secondary-900">
+          <RouterLink to="/nutritionist-plan" class="rounded border-2 border-secondary-900 px-12 py-2 text-secondary-900 bg-white hover:bg-secondary-400 hover:border-black hover:shadow-base hover:transition hover:text-black active:shadow-none">
             查看更多方案
           </RouterLink>
         </div>
