@@ -7,11 +7,12 @@ import { useCartStore } from '@/stores/cart'
 import { useNutritionistPlanStore } from '@/stores/nutritionistPlan'
 import { useRouter, type Router } from 'vue-router'
 import { ref, onMounted } from 'vue'
+import { ElMessage, ElLoading } from 'element-plus'
 
 const router: Router = useRouter()
 const cartStore = useCartStore()
 const nutritionistPlanStore = useNutritionistPlanStore()
-const randomPlans:any = ref([])
+const randomPlans: any = ref([])
 
 const message = (mes: any, mesType: any): void => {
   //@ts-ignore
@@ -29,17 +30,47 @@ const handleSelectPlan = async (planNumber: number) => {
     message(error.message, 'error')
   }
 }
+
 onMounted(async () => {
   await cartStore.fetchMemberCartInfo()
   await nutritionistPlanStore.fetchNutritionistPlans()
   selectRandomPlans()
-  console.log('取得的隨機營養師資訊：',randomPlans.value)
+  console.log('取得的隨機營養師資訊：', randomPlans.value)
 })
 
-// 首頁營養師卡片(資料隨機)
+// 營養師卡片(資料隨機)
 const selectRandomPlans = () => {
   const allPlans = nutritionistPlanStore.getPaginatedPlans
   randomPlans.value = allPlans.sort(() => 0.5 - Math.random()).slice(0, 4)
+}
+
+// 營養師卡片加入購物車
+const addToCart = async (planId: any) => {
+  try {
+    const result = await cartStore.addNutritionistPlanToCart(planId)
+
+    const loading = ElLoading.service({
+      lock: true,
+      text: '正在加入至購物車...',
+    })
+
+    setTimeout(() => {
+      loading.close()
+    }, 1000)
+
+    if (result === "success") {
+      setTimeout(() => {
+        ElMessage.success('成功將套餐加入購物車')
+        router.push('/checkout/order-confirmation')
+      }, 2000)
+    } else if (result === "partiallyAdded") {
+      ElMessage.warning('購物車已滿')
+    } else if (result === "cartFull") {
+      ElMessage.warning('購物車已滿')
+    }
+  } catch (error) {
+    ElMessage.error('加入購物車失敗')
+  }
 }
 // import { watch, computed } from 'vue'
 // import { Swiper, SwiperSlide } from 'swiper/vue'
@@ -109,7 +140,8 @@ const selectRandomPlans = () => {
         <p class="text-center font-bold">選擇困難嗎？</p>
         <div class="relative flex items-center justify-center py-4">
           <h2 class="text-4xl font-bold text-primary-700">金牌營養師推薦套餐</h2>
-          <RouterLink to="/nutritionist-plan" class="absolute bottom-0 right-0 hidden items-center text-secondary-700 md:flex">
+          <RouterLink to="/nutritionist-plan"
+            class="absolute bottom-0 right-0 hidden items-center text-secondary-700 md:flex">
             查看所有餐點
             <fontAwesomeIcon class="ms-2" :icon="['fas', 'chevron-right']" />
           </RouterLink>
@@ -146,24 +178,27 @@ const selectRandomPlans = () => {
           </swiper>
         </div> -->
         <ul class="grid grid-cols-4 gap-6 py-6 md:grid-cols-12 md:py-16">
-          <li class="col-span-2 rounded border-2 border-black md:col-span-3" v-for="item in randomPlans" :key="item.id">
-            <div class="flex flex-col gap-y-2">
-              <div>
-                <img class="w-full object-fill" :alt="item.caseName" :src="item.caseThumbnail" />
+          <li class="col-span-2 border-1 bounded md:col-span-3" v-for="item in randomPlans" :key="item.id">
+            <div class="flex flex-col">
+              <div class="border-x-2 border-black ">
+                <img class="w-[191px] h-[248px] object-cover block border-b border-black md:w-[309px] md:h-[240px]" :alt="item.caseName" :src="item.caseThumbnail" />
               </div>
-              <RouterLink :to="`/nutritionist-plan/${item.id}`" class="px-3 font-bold">
-                <h3>{{ item.nutritionistName }} 營養師</h3>
-                <p>{{ item.caseName }}</p>
-              </RouterLink>
-              <div class="flex items-center justify-between p-3">
-                <button
-                  class="rounded border border-primary-700 px-2 py-1 text-[12px] text-primary-700 md:py-2 lg:px-5">
-                  加入購物車
-                </button>
-                <RouterLink :to="`/nutritionist-plan/${item.id}`" class="flex items-center gap-x-1 text-[12px] text-secondary-700">
-                  <p>查看更多</p>
-                  <FontAwesomeIcon :icon="['fas', 'arrow-right']" size="sm" />
+              <div class="flex flex-col gap-y-2 border-2 border-black rounded-b bg-white">
+                <RouterLink :to="`/nutritionist-plan/${item.id}`" class="pt-6 px-3 font-bold">
+                  <h3>{{ item.nutritionistName }} 營養師</h3>
+                  <p>{{ item.caseName }}</p>
                 </RouterLink>
+                <div class="flex items-center justify-between p-3">
+                  <button @click="addToCart(item.id)"
+                    class="rounded border-2 border-secondary-900 px-2 py-1 text-sm text-secondary-900 hover:bg-secondary-400 hover:border-black hover:shadow-base hover:transition hover:text-black active:shadow-none md:py-2 lg:px-5">
+                    加入購物車
+                  </button>
+                  <RouterLink :to="`/nutritionist-plan/${item.id}`"
+                    class="flex items-center gap-x-1 text-sm text-primary-700 font-bold hover:text-primary-500">
+                    <p>查看更多</p>
+                    <FontAwesomeIcon :icon="['fas', 'arrow-right']" size="sm" />
+                  </RouterLink>
+                </div>
               </div>
             </div>
           </li>
