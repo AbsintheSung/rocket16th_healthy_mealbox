@@ -536,7 +536,7 @@ const addToCart = async (planId: any) => {
 
       <div class="container py-14 md:py-20">
         <div class="flex flex-col items-center justify-center">
-          <TheSvg svgIcon="main-logo" class="h-[50px] w-[340px]" />
+          <TheSvg svgIcon="logo" class="w-[125px] h-[50px]" />
           <h2 class="my-5 text-3xl font-bold text-primary-700">「又懶又健康」</h2>
           <div class="hidden md:block">
             <p>這是 盒食 的宗旨，健康是財富之本，我們希望無論您的生活多麼忙碌都能吃得營養均衡。</p>
