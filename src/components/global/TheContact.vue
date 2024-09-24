@@ -10,21 +10,21 @@ import TheSvg from '@/components/global/TheSvg.vue'
           <TheSvg class="h-[40px] w-[92px] md:hidden" svgIcon="mobile-logo" />
           <div class="flex flex-col md:w-[200px]">
             <h3 class="text-primary-700 md:hidden">開盒即食，懶出新高度 - 盒食，輕鬆又健康</h3>
-            <h3 class="hidden md:text-primary-700">開盒即食，懶出新高度</h3>
-            <h3 class="hidden md:text-primary-700 self-end">- 盒食，輕鬆又健康</h3>
+            <h3 class="hidden md:block text-primary-700">開盒即食，懶出新高度</h3>
+            <h3 class="hidden md:block text-primary-700 self-end">- 盒食，輕鬆又健康</h3>
           </div>
         </div>
         <div class="col-span-full flex flex-col gap-y-6 md:col-span-2">
           <h3 class="text-primary-700">方案選擇</h3>
           <ul>
             <li>
-              <RouterLink to="/mealboxlist">7餐</RouterLink>
+              <RouterLink to="/mealboxlist" class="hover:text-primary-700">7餐</RouterLink>
             </li>
             <li>
-              <RouterLink to="/mealboxlist">14餐</RouterLink>
+              <RouterLink to="/mealboxlist" class="hover:text-primary-700">14餐</RouterLink>
             </li>
             <li>
-              <RouterLink to="/mealboxlist">21餐</RouterLink>
+              <RouterLink to="/mealboxlist" class="hover:text-primary-700">21餐</RouterLink>
             </li>
           </ul>
         </div>
@@ -32,10 +32,10 @@ import TheSvg from '@/components/global/TheSvg.vue'
           <h3 class="text-primary-700">套餐內容</h3>
           <ul>
             <li>
-              <RouterLink to="/nutritionist-plan">營養師推薦組合</RouterLink>
+              <RouterLink to="/nutritionist-plan" class="hover:text-primary-700">營養師推薦組合</RouterLink>
             </li>
             <li>
-              <RouterLink to="/mealboxlist">自定義套餐組合</RouterLink>
+              <RouterLink to="/mealboxlist" class="hover:text-primary-700">自定義套餐組合</RouterLink>
             </li>
           </ul>
         </div>

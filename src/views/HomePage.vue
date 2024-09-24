@@ -160,7 +160,7 @@ const addToCart = async (planId: any) => {
         <div class="relative flex items-center justify-center py-4">
           <h2 class="text-4xl font-bold text-primary-700">金牌營養師推薦套餐</h2>
           <RouterLink to="/nutritionist-plan"
-            class="absolute bottom-0 right-0 hidden items-center text-secondary-700 md:flex">
+            class="absolute bottom-0 right-0 hidden items-center text-secondary-700 hover:text-secondary-500  md:flex">
             查看所有餐點
             <fontAwesomeIcon class="ms-2" :icon="['fas', 'chevron-right']" />
           </RouterLink>
@@ -489,7 +489,7 @@ const addToCart = async (planId: any) => {
               <span>總價700元起*</span>
             </div>
             <div class="flex items-center justify-center pb-9">
-              <button class="rounded border border-secondary-950 px-14 py-1" @click="handleSelectPlan(7)">
+              <button class="rounded border border-secondary-950 px-14 py-1 bg-white hover:bg-secondary-400 hover:border-black hover:shadow-base hover:transition hover:text-black active:shadow-none" @click="handleSelectPlan(7)">
                 選擇方案
               </button>
             </div>
@@ -502,7 +502,7 @@ const addToCart = async (planId: any) => {
               <span>總價1400元起*</span>
             </div>
             <div class="flex items-center justify-center pb-9">
-              <button class="rounded border border-secondary-950 px-14 py-1" @click="handleSelectPlan(14)">
+              <button class="rounded border border-secondary-950 px-14 py-1 bg-white hover:bg-secondary-400 hover:border-black hover:shadow-base hover:transition hover:text-black active:shadow-none" @click="handleSelectPlan(14)">
                 選擇方案
               </button>
             </div>
@@ -515,7 +515,7 @@ const addToCart = async (planId: any) => {
               <span>總價2100元起*</span>
             </div>
             <div class="flex items-center justify-center pb-9">
-              <button class="rounded border border-secondary-950 px-14 py-1" @click="handleSelectPlan(21)">
+              <button class="rounded border border-secondary-950 px-14 py-1 bg-white hover:bg-secondary-400 hover:border-black hover:shadow-base hover:transition hover:text-black active:shadow-none" @click="handleSelectPlan(21)">
                 選擇方案
               </button>
             </div>
@@ -523,7 +523,7 @@ const addToCart = async (planId: any) => {
         </ul>
         <div class="mt-12 hidden md:block">
           <p class="text-center text-2xl font-medium">
-            您可以根據自身狀況選擇套餐方案，產品一律採用冷凍配送，<br />
+            您可以根據自身需求選擇套餐方案，產品一律採用冷凍配送，<br />
             我們也歡迎您與親朋好友一起訂購。
           </p>
         </div>
