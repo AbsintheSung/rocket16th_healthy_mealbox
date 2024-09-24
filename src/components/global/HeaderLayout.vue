@@ -42,7 +42,7 @@ watch(
 )
 </script>
 <template>
-  <header class="relative">
+  <header class="relative border-b-2 border-black">
     <nav class="container py-3 md:py-5">
       <!-- 左側LOGO -->
       <div class="flex flex-wrap">

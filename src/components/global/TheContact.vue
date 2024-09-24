@@ -6,11 +6,12 @@ import TheSvg from '@/components/global/TheSvg.vue'
     <div class="container py-6 md:py-12">
       <div class="gird-cols-4 grid gap-6 md:grid-cols-12">
         <div class="col-span-full flex flex-col gap-y-6 md:col-span-3 lg:col-span-4">
-          <TheSvg svgIcon="logo" class="hidden h-[40px] md:block md:w-[200px] lg:w-[270px]" />
+          <TheSvg svgIcon="footer-logo" class="hidden h-[40px] md:block md:w-[100px]" />
           <TheSvg class="h-[40px] w-[92px] md:hidden" svgIcon="mobile-logo" />
-          <div class="flex flex-col w-[200px]">
-            <h3 class="text-primary-700">開盒即食，懶出新高度</h3>
-            <h3 class="text-primary-700 self-end">- 盒食，輕鬆又健康</h3>
+          <div class="flex flex-col md:w-[200px]">
+            <h3 class="text-primary-700 md:hidden">開盒即食，懶出新高度 - 盒食，輕鬆又健康</h3>
+            <h3 class="hidden md:text-primary-700">開盒即食，懶出新高度</h3>
+            <h3 class="hidden md:text-primary-700 self-end">- 盒食，輕鬆又健康</h3>
           </div>
         </div>
         <div class="col-span-full flex flex-col gap-y-6 md:col-span-2">

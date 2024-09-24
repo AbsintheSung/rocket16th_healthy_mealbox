@@ -132,9 +132,9 @@ const addToCart = async (planId: any) => {
     <section class="bg-home-main bg-cover bg-center bg-no-repeat">
       <div class="container flex flex-col items-center justify-between sm:flex-row">
         <div class="w-full py-48 sm:w-1/2">
-          <TheSvg svgIcon="main-logo" class="h-[90px]" svgClassStyle="w-full md:w-fit" />
-          <p class="text-2xl text-white">
-            無論您的生活多麼忙碌都能吃得營養均衡，輕鬆快速訂購，<br />
+          <TheSvg svgIcon="healthy-and-lazy" class="h-[90px]" svgClassStyle="w-full" />
+          <p class="text-white text-balance md:text-2xl">
+            無論您多麼忙碌都能吃得營養均衡，輕鬆快速訂購，<br />
             盒食提供您日常飲食更多元的選擇，健康美味輕鬆上桌!
           </p>
         </div>
@@ -480,13 +480,13 @@ const addToCart = async (planId: any) => {
         <p class="mb-8 text-center font-medium md:hidden">
           您可以根據自身狀況選擇套餐方案，產品一律採用冷凍配送， 我們也歡迎您與親朋好友一起訂購。
         </p>
-        <ul class="flex flex-col items-center justify-around gap-y-7 md:flex-row">
+        <ul class="flex flex-col items-center justify-evenly gap-y-7 md:flex-row">
           <li class="rounded border-2 border-black bg-white">
             <h3 class="bg-secondary-950 py-2 text-center text-3xl font-bold text-white">7餐</h3>
-            <div class="flex flex-col items-center justify-center px-20 py-6 md:px-14">
+            <div class="flex flex-col items-center justify-center px-[66px] py-6 md:px-11">
               <p class="text-center text-2xl font-bold">平均一餐</p>
-              <h4 class="text-4xl font-bold">NT.70</h4>
-              <span>總價700元起</span>
+              <h4 class="text-4xl font-bold">NT.130<span class="text-sm">起</span></h4>
+              <span>總價700元起*</span>
             </div>
             <div class="flex items-center justify-center pb-9">
               <button class="rounded border border-secondary-950 px-14 py-1" @click="handleSelectPlan(7)">
@@ -496,10 +496,10 @@ const addToCart = async (planId: any) => {
           </li>
           <li class="rounded border-2 border-black bg-white">
             <h3 class="bg-primary-600 py-2 text-center text-3xl font-bold text-white">14餐</h3>
-            <div class="flex flex-col items-center justify-center px-20 py-6 md:px-14">
+            <div class="flex flex-col items-center justify-center px-[73px] py-6 md:px-12">
               <p class="text-center text-2xl font-bold">平均一餐</p>
-              <h4 class="text-4xl font-bold">NT.70</h4>
-              <span>總價700元起</span>
+              <h4 class="text-4xl font-bold">NT.100</h4>
+              <span>總價1400元起*</span>
             </div>
             <div class="flex items-center justify-center pb-9">
               <button class="rounded border border-secondary-950 px-14 py-1" @click="handleSelectPlan(14)">
@@ -512,7 +512,7 @@ const addToCart = async (planId: any) => {
             <div class="flex flex-col items-center justify-center px-20 py-6 md:px-14">
               <p class="text-center text-2xl font-bold">平均一餐</p>
               <h4 class="text-4xl font-bold">NT.70</h4>
-              <span>總價700元起</span>
+              <span>總價2100元起*</span>
             </div>
             <div class="flex items-center justify-center pb-9">
               <button class="rounded border border-secondary-950 px-14 py-1" @click="handleSelectPlan(21)">
