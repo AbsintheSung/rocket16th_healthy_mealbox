@@ -1,8 +1,7 @@
 <script setup>
-import { ref, onMounted,computed } from 'vue'
+import { ref, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
 import { useCartStore } from '@/stores/cart'
-
 import ShoppingCartProgressBar from '@/components/global/ShoppingCartProgressBar.vue'
 
 const route = useRoute()
@@ -12,12 +11,6 @@ const orderInfo = ref(null)
 //購物車狀態列函式
 const steps = ref(['購物車', '填寫資料', '訂單確認'])
 const activeStep = ref(3)
-
-//原本取得訂單資訊的函式
-// onMounted(() => {
-//     orderInfo.value = cartStore.getLastSubmittedOrder
-//     // console.log('獲得的訂單資訊：', orderInfo.value)
-// })
 
 onMounted(async () => {
     // 檢查 URL 參數中是否有訂單 ID
@@ -119,7 +112,7 @@ const formatDateTime = (dateTimeString) => {
                 </div>
             </div>
         </div>
-        <!-- 裝飾性按鈕 -->
+        <!-- 裝飾性圖片 -->
         <TheSvg svgIcon="polygon" class="mt-auto hidden w-[160px] md:block" />
         <!-- 底部按鈕 -->
         <div class="col-start-3 col-span-2 md:col-start-11">
