@@ -43,7 +43,7 @@ watch(
 </script>
 <template>
   <header class="relative">
-    <nav class="container py-5">
+    <nav class="container py-3 md:py-5">
       <!-- 左側LOGO -->
       <div class="flex flex-wrap">
         <div class="w-3/12">
@@ -52,9 +52,9 @@ watch(
               <TheSvg class="h-[40px]" svgIcon="logo" />
             </RouterLink>
           </h1>
-          <h1 class="block text-center md:hidden">
+          <h1 class="block text-center pt-3 md:hidden">
             <RouterLink to="/">
-              <TheSvg class="h-[40px] w-[92px]" svgIcon="mobile-logo" />
+              <TheSvg class="h-[40px] w-[100px]" svgIcon="mobile-logo" />
             </RouterLink>
           </h1>
         </div>
@@ -78,8 +78,7 @@ watch(
               </Transition>
             </li>
             <li v-for="mainNavItem in mainNav" :key="mainNavItem.id">
-              <RouterLink class="block p-2 font-bold text-[#7C7C7C] hover:text-primary-700"
-                :to="`${mainNavItem.path}`">
+              <RouterLink class="block p-2 font-bold text-[#7C7C7C] hover:text-primary-700" :to="`${mainNavItem.path}`">
                 {{ mainNavItem.title }}
               </RouterLink>
             </li>
@@ -93,8 +92,13 @@ watch(
             </li>
           </ul> -->
           <!-- 用來控制縮合的按鈕，手機板才會顯示 -->
-          <button class="hover: block cursor-pointer p-2 md:hidden" @click="toggleMenu">
-            <FontAwesomeIcon :icon="['fas', 'bars']" size="lg" />
+          <button class="hover:block cursor-pointer p-2 md:hidden" @click="toggleMenu">
+            <RouterLink key="cart" class="font-bold hover:text-primary-700" to="/checkout">
+              <font-awesome-icon :icon="['fas', 'cart-shopping']" size="xl" />
+            </RouterLink>
+          </button>
+          <button class="hover:block cursor-pointer p-2 md:hidden" @click="toggleMenu">
+            <FontAwesomeIcon :icon="['fas', 'bars']" size="xl" />
           </button>
         </div>
       </div>
@@ -104,7 +108,16 @@ watch(
       leave-from-class="opacity-100 translate-y-0" leave-to-class="opacity-0 -translate-y-1">
       <div v-show="isOpen" class="absolute left-0 right-0 z-10 w-full bg-white shadow-lg md:hidden">
         <ul class="py-2">
-          <li v-for="mainNavItem in mainNav" :key="mainNavItem.id">
+          <li>
+            <RouterLink v-if="!memberStore.getMemberInfo.id" key="signin" class="block p-4 hover:bg-primary-200"
+              to="/signin">
+              登入 / 註冊
+            </RouterLink>
+            <RouterLink v-else key="user" class="block p-4 hover:bg-primary-200" to="/member">
+              會員中心
+            </RouterLink>
+          </li>
+          <li v-for="mainNavItem in mainNav.filter(item => item.id !== 'cart')" :key="mainNavItem.id">
             <RouterLink class="block p-4 hover:bg-primary-200" :to="mainNavItem.path" @click="isOpen = false">
               {{ mainNavItem.title }}
             </RouterLink>
@@ -119,6 +132,7 @@ watch(
 .fade-leave-active {
   transition: opacity 0.3s ease, transform 0.3s ease;
 }
+
 .fade-enter-from,
 .fade-leave-to {
   opacity: 0;
