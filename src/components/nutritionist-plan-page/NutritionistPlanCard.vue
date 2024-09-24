@@ -34,7 +34,7 @@ const addToCart = async () => {
     }, 1500)
     setTimeout(() => {
       if (result === "success") {
-        ElMessage.success('成功將所有餐盒加入購物車')
+        ElMessage.success('成功加入購物車')
         router.push('/checkout/order-confirmation')
       } else if (result === "partiallyAdded") {
         ElMessage.warning('購物車已滿')
