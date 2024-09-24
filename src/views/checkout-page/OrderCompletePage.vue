@@ -1,8 +1,7 @@
 <script setup>
-import { ref, onMounted,computed } from 'vue'
+import { ref, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
 import { useCartStore } from '@/stores/cart'
-
 import ShoppingCartProgressBar from '@/components/global/ShoppingCartProgressBar.vue'
 
 const route = useRoute()
@@ -12,12 +11,6 @@ const orderInfo = ref(null)
 //購物車狀態列函式
 const steps = ref(['購物車', '填寫資料', '訂單確認'])
 const activeStep = ref(3)
-
-//原本取得訂單資訊的函式
-// onMounted(() => {
-//     orderInfo.value = cartStore.getLastSubmittedOrder
-//     // console.log('獲得的訂單資訊：', orderInfo.value)
-// })
 
 onMounted(async () => {
     // 檢查 URL 參數中是否有訂單 ID
@@ -46,16 +39,16 @@ const formatDateTime = (dateTimeString) => {
 
 </script>
 <template>
-    <div class="grid grid-cols-12 gap-6">
+    <div class="grid grid-cols-4 gap-3 md:grid-cols-12 md:gap-6">
         <!-- 購物車步驟 -->
-        <div class="col-start-5 col-span-4 mb-3">
+        <div class="col-span-4 md:col-start-5 mb-3 md:mb-9">
             <ShoppingCartProgressBar :active-step="activeStep" :steps="steps" />
         </div>
         <!-- 訂單已成立框框 -->
-        <div class="col-span-12">
+        <div class="col-span-4 md:col-span-12">
             <div class="flex flex-col justify-center items-center border-2 border-black">
                 <div class="flex justify-center items-center pt-7 pb-3">
-                    <TheSvg svgIcon="pac-man" class="mt-auto hidden w-[50px] h-[50px] md:block" />
+                    <TheSvg svgIcon="pac-man" class="mt-auto w-[50px] h-[50px] block" />
                     <h2 class="text-2xl font-bold pl-5">謝謝您！您的訂單已成立！</h2>
                 </div>
                 <div class="text-left pb-8">
@@ -66,10 +59,10 @@ const formatDateTime = (dateTimeString) => {
             </div>
         </div>
         <!-- 訂單資訊框框 -->
-        <div class="col-span-12 pt-6">
-            <div class="flex flex-wrap border-2 border-black p-6">
+        <div class="col-span-4 md:col-span-12 pt-3 md:pt-6">
+            <div class="flex flex-wrap border-2 border-black px-3 py-6 md:px-6  ">
                 <!-- 訂單資訊 -->
-                <div class="w-full md:w-1/2 px-2 mb-16">
+                <div class="w-full md:w-1/2 px-2 mb-6 md:mb-16">
                     <h2 class="font-bold text-2xl mb-2">訂單資訊</h2>
                     <div class="flex mb-1">
                         <span>訂單編號：</span>
@@ -119,10 +112,10 @@ const formatDateTime = (dateTimeString) => {
                 </div>
             </div>
         </div>
-        <!-- 裝飾性按鈕 -->
+        <!-- 裝飾性圖片 -->
         <TheSvg svgIcon="polygon" class="mt-auto hidden w-[160px] md:block" />
         <!-- 底部按鈕 -->
-        <div class="col-start-11 col-span-2">
+        <div class="col-start-3 col-span-2 md:col-start-11">
             <RouterLink
                 class="flex items-center justify-between py-2 px-4 mt-14 border-2 border-black rounded-sm hover:shadow-base transition active:shadow-none"
                 to="/">
