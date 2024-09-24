@@ -18,13 +18,13 @@ import TheSvg from '@/components/global/TheSvg.vue'
           <h3 class="text-primary-700">方案選擇</h3>
           <ul>
             <li>
-              <RouterLink to="/">7餐</RouterLink>
+              <RouterLink to="/mealboxlist">7餐</RouterLink>
             </li>
             <li>
-              <RouterLink to="/">14餐</RouterLink>
+              <RouterLink to="/mealboxlist">14餐</RouterLink>
             </li>
             <li>
-              <RouterLink to="/">21餐</RouterLink>
+              <RouterLink to="/mealboxlist">21餐</RouterLink>
             </li>
           </ul>
         </div>
@@ -32,10 +32,10 @@ import TheSvg from '@/components/global/TheSvg.vue'
           <h3 class="text-primary-700">套餐內容</h3>
           <ul>
             <li>
-              <RouterLink to="/">營養師推薦組合</RouterLink>
+              <RouterLink to="/nutritionist-plan">營養師推薦組合</RouterLink>
             </li>
             <li>
-              <RouterLink to="/">自定義套餐組合</RouterLink>
+              <RouterLink to="/mealboxlist">自定義套餐組合</RouterLink>
             </li>
           </ul>
         </div>
