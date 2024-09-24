@@ -1,17 +1,32 @@
 <script setup lang="ts">
 import { RouterLink, useRouter, type Router } from 'vue-router'
-import { ref, watch } from 'vue'
+import { ref, watch, computed } from 'vue'
+import { useMemberStore } from '@/stores/member'
 import TheSvg from '@/components/global/TheSvg.vue'
-const mainNav = ref([
-  { id: 'plan', title: '方案選擇', path: '/plan-selection' },
+// import { title } from 'process'
+
+const memberStore = useMemberStore()
+
+// const mainNav = ref([
+//   { id: 'plan', title: '方案選擇', path: '/plan-selection' },
+//   { id: 'usage', title: '使用方式', path: '/how-to-use' },
+//   { id: 'faq', title: '常見問題', path: '/fqa' }
+// ])
+// const utilNav = ref([
+//   { id: 'cart', iconStyle: ['fas', 'cart-shopping'], path: '/checkout' },
+//   { id: 'user', iconStyle: ['fas', 'user'], path: '/member' },
+//   { id: 'signin', iconStyle: ['fas', 'right-to-bracket'], path: '/signin' }
+// ])
+
+const mainNav = computed(() => [
+  ...(memberStore.getMemberInfo.id
+    ? [{ id: 'user', title: '會員中心', path: '/member' }]
+    : [{ id: 'signin', title: '登入 / 註冊', path: '/signin' }]),
   { id: 'usage', title: '使用方式', path: '/how-to-use' },
-  { id: 'faq', title: '常見問題', path: '/fqa' }
+  { id: 'plan', title: '方案選擇', path: '/plan-selection' },
+  { id: 'cart', title: '購物車', path: '/checkout' },
 ])
-const utilNav = ref([
-  { id: 'cart', iconStyle: ['fas', 'cart-shopping'], path: '/checkout' },
-  { id: 'user', iconStyle: ['fas', 'user'], path: '/member' },
-  { id: 'signin', iconStyle: ['fas', 'right-to-bracket'], path: '/signin' }
-])
+
 const isOpen = ref(false)
 const router: Router = useRouter()
 
@@ -48,18 +63,19 @@ watch(
           <!-- 手機板會隱藏此處 -->
           <ul class="hidden items-center gap-x-4 md:flex">
             <li v-for="mainNavItem in mainNav" :key="mainNavItem.id">
-              <RouterLink class="block p-2" :to="`${mainNavItem.path}`">
+              <RouterLink class="block p-2 font-bold text-[#7C7C7C] hover:text-primary-700" :to="`${mainNavItem.path}`">
                 {{ mainNavItem.title }}
               </RouterLink>
             </li>
           </ul>
-          <ul class="flex items-center gap-x-4">
+          <!-- 原icon區塊 -->
+          <!-- <ul class="flex items-center gap-x-4">
             <li v-for="utilNavItem in utilNav" :key="utilNavItem.id">
               <RouterLink class="block p-2" :to="`${utilNavItem.path}`">
                 <FontAwesomeIcon :icon="utilNavItem.iconStyle" size="lg" />
               </RouterLink>
             </li>
-          </ul>
+          </ul> -->
           <!-- 用來控制縮合的按鈕，手機板才會顯示 -->
           <button class="hover: block cursor-pointer p-2 md:hidden" @click="toggleMenu">
             <FontAwesomeIcon :icon="['fas', 'bars']" size="lg" />
@@ -67,22 +83,13 @@ watch(
         </div>
       </div>
     </nav>
-    <transition
-      enter-active-class="transition ease-out duration-200"
-      enter-from-class="opacity-0 -translate-y-1"
-      enter-to-class="opacity-100 translate-y-0"
-      leave-active-class="transition ease-in duration-150"
-      leave-from-class="opacity-100 translate-y-0"
-      leave-to-class="opacity-0 -translate-y-1"
-    >
+    <transition enter-active-class="transition ease-out duration-200" enter-from-class="opacity-0 -translate-y-1"
+      enter-to-class="opacity-100 translate-y-0" leave-active-class="transition ease-in duration-150"
+      leave-from-class="opacity-100 translate-y-0" leave-to-class="opacity-0 -translate-y-1">
       <div v-show="isOpen" class="absolute left-0 right-0 z-10 w-full bg-white shadow-lg md:hidden">
         <ul class="py-2">
           <li v-for="mainNavItem in mainNav" :key="mainNavItem.id">
-            <RouterLink
-              class="block p-4 hover:bg-primary-200"
-              :to="mainNavItem.path"
-              @click="isOpen = false"
-            >
+            <RouterLink class="block p-4 hover:bg-primary-200" :to="mainNavItem.path" @click="isOpen = false">
               {{ mainNavItem.title }}
             </RouterLink>
           </li>
