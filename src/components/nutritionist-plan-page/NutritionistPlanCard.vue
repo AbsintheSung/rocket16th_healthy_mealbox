@@ -37,13 +37,32 @@ const addToCart = async () => {
         ElMessage.success('成功將所有餐盒加入購物車')
         router.push('/checkout/order-confirmation')
       } else if (result === "partiallyAdded") {
-        ElMessage.warning('部分餐盒已加入購物車，購物車已滿')
+        ElMessage.warning('購物車已滿')
       } else if (result === "cartFull") {
-        ElMessage.warning('購物車已滿，無法加入更多餐盒')
+        ElMessage.warning('購物車已滿')
       }
     }, 2000)
   } catch (error) {
-    ElMessage.error('加入購物車失敗')
+    if (error && error.status === 401) {
+      ElMessage({
+        message: '請先登入會員',
+        type: 'warning',
+        duration: 3000
+      })
+      setTimeout(() => {
+        const loading = ElLoading.service({
+          lock: true,
+          text: '正在跳轉至登入頁面...',
+        })
+        loading.close()
+      }, 2000)
+
+      setTimeout(() => {
+        router.push('/signin')
+      }, 2500)
+    } else {
+      ElMessage.error('加入購物車失敗')
+    }
   }
 }
 
