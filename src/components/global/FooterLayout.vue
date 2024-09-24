@@ -22,7 +22,7 @@ const utilNav = ref([
       <div class="grid grid-cols-4 gap-6 text-[#FFFFFF] sm:grid-cols-12">
         <ul class="col-span-3 col-start-1 flex text-[12px] sm:col-span-9 sm:text-base">
           <li v-for="mainNavItem in mainNav" :key="mainNavItem.id" class="py-1">
-            <RouterLink class="block px-2" :to="`${mainNavItem.path}`" :id="mainNavItem.id">
+            <RouterLink class="block px-2 hover:font-bold" :to="`${mainNavItem.path}`" :id="mainNavItem.id">
               {{ mainNavItem.title }}
             </RouterLink>
           </li>
