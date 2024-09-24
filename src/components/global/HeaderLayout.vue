@@ -19,13 +19,14 @@ const memberStore = useMemberStore()
 // ])
 
 const mainNav = computed(() => [
-  ...(memberStore.getMemberInfo.id
-    ? [{ id: 'user', title: '會員中心', path: '/member' }]
-    : [{ id: 'signin', title: '登入 / 註冊', path: '/signin' }]),
   { id: 'usage', title: '使用方式', path: '/how-to-use' },
   { id: 'plan', title: '方案選擇', path: '/plan-selection' },
   { id: 'cart', title: '購物車', path: '/checkout' },
 ])
+
+// ...(memberStore.getMemberInfo.id
+//     ? [{ id: 'user', title: '會員中心', path: '/member' }]
+//     : [{ id: 'signin', title: '登入 / 註冊', path: '/signin' }]),
 
 const isOpen = ref(false)
 const router: Router = useRouter()
@@ -62,8 +63,23 @@ watch(
         <div class="flex w-9/12 items-center justify-end gap-x-4">
           <!-- 手機板會隱藏此處 -->
           <ul class="hidden items-center gap-x-4 md:flex">
+            <li class="relative w-24 h-10">
+              <Transition name="fade" mode="out-in">
+                <RouterLink v-if="!memberStore.getMemberInfo.id" key="signin"
+                  class="absolute inset-0 flex items-center justify-center p-2 font-bold text-[#7C7C7C] hover:text-primary-700"
+                  to="/signin">
+                  登入 / 註冊
+                </RouterLink>
+                <RouterLink v-else key="user"
+                  class="absolute inset-0 flex items-center justify-center p-2 font-bold text-[#7C7C7C] hover:text-primary-700"
+                  to="/member">
+                  會員中心
+                </RouterLink>
+              </Transition>
+            </li>
             <li v-for="mainNavItem in mainNav" :key="mainNavItem.id">
-              <RouterLink class="block p-2 font-bold text-[#7C7C7C] hover:text-primary-700" :to="`${mainNavItem.path}`">
+              <RouterLink class="block p-2 font-bold text-[#7C7C7C] hover:text-primary-700"
+                :to="`${mainNavItem.path}`">
                 {{ mainNavItem.title }}
               </RouterLink>
             </li>
@@ -98,4 +114,14 @@ watch(
     </transition>
   </header>
 </template>
-<style scoped></style>
+<style scoped>
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+  transform: translateY(-10px);
+}
+</style>
