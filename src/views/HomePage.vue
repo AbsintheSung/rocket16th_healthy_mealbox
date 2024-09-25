@@ -14,20 +14,39 @@ const cartStore = useCartStore()
 const nutritionistPlanStore = useNutritionistPlanStore()
 const randomPlans: any = ref([])
 
-const message = (mes: any, mesType: any): void => {
-  //@ts-ignore
-  ElMessage({
-    message: mes,
-    type: mesType,
-    duration: 1500
-  })
-}
+// const message = (mes: any, mesType: any): void => {
+//   //@ts-ignore
+//   ElMessage({
+//     message: mes,
+//     type: mesType,
+//     duration: 1500
+//   })
+// }
 const handleSelectPlan = async (planNumber: number) => {
   try {
     await cartStore.fetchChangeSelectPlan(planNumber)
     router.push('/mealboxlist')
-  } catch (error: any) {
-    message(error.message, 'error')
+  }catch (error: any) {
+    if (error.status === 401) {
+      ElMessage({
+        message: '請先登入會員',
+        type: 'warning',
+        duration: 2000
+      })
+      setTimeout(() => {
+        const loading = ElLoading.service({
+          lock: true,
+          text: '正在跳轉至登入頁面...',
+        })
+        loading.close()
+      }, 2000)
+
+      setTimeout(() => {
+        router.push('/signin')
+      }, 2500)
+    } else {
+      ElMessage.error('加入購物車失敗')
+    }
   }
 }
 
@@ -489,7 +508,9 @@ const addToCart = async (planId: any) => {
               <span>總價700元起*</span>
             </div>
             <div class="flex items-center justify-center pb-9">
-              <button class="rounded border border-secondary-950 px-14 py-1 bg-white hover:bg-secondary-400 hover:border-black hover:shadow-base hover:transition hover:text-black active:shadow-none" @click="handleSelectPlan(7)">
+              <button
+                class="rounded border border-secondary-950 px-14 py-1 bg-white hover:bg-secondary-400 hover:border-black hover:shadow-base hover:transition hover:text-black active:shadow-none"
+                @click="handleSelectPlan(7)">
                 選擇方案
               </button>
             </div>
@@ -502,7 +523,9 @@ const addToCart = async (planId: any) => {
               <span>總價1400元起*</span>
             </div>
             <div class="flex items-center justify-center pb-9">
-              <button class="rounded border border-secondary-950 px-14 py-1 bg-white hover:bg-secondary-400 hover:border-black hover:shadow-base hover:transition hover:text-black active:shadow-none" @click="handleSelectPlan(14)">
+              <button
+                class="rounded border border-secondary-950 px-14 py-1 bg-white hover:bg-secondary-400 hover:border-black hover:shadow-base hover:transition hover:text-black active:shadow-none"
+                @click="handleSelectPlan(14)">
                 選擇方案
               </button>
             </div>
@@ -515,7 +538,9 @@ const addToCart = async (planId: any) => {
               <span>總價2100元起*</span>
             </div>
             <div class="flex items-center justify-center pb-9">
-              <button class="rounded border border-secondary-950 px-14 py-1 bg-white hover:bg-secondary-400 hover:border-black hover:shadow-base hover:transition hover:text-black active:shadow-none" @click="handleSelectPlan(21)">
+              <button
+                class="rounded border border-secondary-950 px-14 py-1 bg-white hover:bg-secondary-400 hover:border-black hover:shadow-base hover:transition hover:text-black active:shadow-none"
+                @click="handleSelectPlan(21)">
                 選擇方案
               </button>
             </div>
