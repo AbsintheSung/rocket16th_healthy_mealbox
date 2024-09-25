@@ -79,7 +79,7 @@ const addToCart = async (planId: any) => {
 
     if (result === "success") {
       setTimeout(() => {
-        ElMessage.success('成功將套餐加入購物車')
+        ElMessage.success('成功加入購物車')
         router.push('/checkout/order-confirmation')
       }, 2000)
     } else if (result === "partiallyAdded") {
