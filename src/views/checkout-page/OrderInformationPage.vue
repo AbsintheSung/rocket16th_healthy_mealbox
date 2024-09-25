@@ -306,7 +306,9 @@ onMounted(async () => {
                 </div>
                 <div class="border-2 border-black px-3 py-4 md:px-6 md:py-[42px]">
                     <p>已選擇的付款方式: </p>
-                    <p class="text-2xl">{{ paymentMethod === 'LINE PAY' ? 'LINE PAY' : '超商取付' }}</p>
+                    <p class="text-2xl">{{ paymentMethod === 'LINE PAY' ? 'LINE PAY' : '超商取付' }}
+                        <span v-if="paymentMethod !== 'LINE PAY'" class="text-sm text-primary-700">※請在地址欄輸入超商店名與店號</span>
+                    </p>
                 </div>
             </div>
         </div>
