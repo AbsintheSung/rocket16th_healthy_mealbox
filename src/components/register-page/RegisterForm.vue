@@ -1,116 +1,123 @@
 <script lang="ts" setup>
 import { ref } from 'vue'
-import type { FormInstance } from 'element-plus'
-import { useRouter, type Router } from 'vue-router'
-import { useAuthStore } from '@/stores/auth'
-const authStore = useAuthStore()
+import type { FormRules,FormInstance } from 'element-plus'
+// import { useRouter, type Router } from 'vue-router'
+// import { useAuthStore } from '@/stores/auth'
+// const authStore = useAuthStore()
 const ruleFormRef = ref<FormInstance>()
-const isLoading = ref<Boolean>(false)
-const router: Router = useRouter()
-type RegisterInputType = {
-  account: string
-  password: string
-  checkPassWord: string
-  privacy: string[]
-  newSletter: string[]
-}
-const registerInput = ref<RegisterInputType>({
-  account: '',
-  password: '',
-  checkPassWord: '',
-  privacy: [],
-  newSletter: []
-})
-const validatePass = (rule: any, value: any, callback: any) => {
-  if (value === '') {
-    callback(new Error('請輸入密碼'))
-  } else {
-    if (registerInput.value.password !== '') {
-      if (!ruleFormRef.value) return
-      ruleFormRef.value.validateField('checkPassWord')
-    }
-    callback()
-  }
-}
-const validatePass2 = (rule: any, value: any, callback: any) => {
-  if (value === '') {
-    callback(new Error('請輸入密碼'))
-  } else if (value !== registerInput.value.password) {
-    callback(new Error('密碼與原先不符合'))
-  } else {
-    callback()
-  }
-}
+// const isLoading = ref<Boolean>(false)
+// const router: Router = useRouter()
+// type RegisterInputType = {
+//   account: string
+//   password: string
+//   checkPassWord: string
+//   privacy: string[]
+//   newSletter: string[]
+// }
+// const registerInput = ref<RegisterInputType>({
+//   account: '',
+//   password: '',
+//   checkPassWord: '',
+//   privacy: [],
+//   newSletter: []
+// })
+// const validatePass = (rule: any, value: any, callback: any) => {
+//   if (value === '') {
+//     callback(new Error('請輸入密碼'))
+//   } else {
+//     if (registerInput.value.password !== '') {
+//       if (!ruleFormRef.value) return
+//       ruleFormRef.value.validateField('checkPassWord')
+//     }
+//     callback()
+//   }
+// }
+// const validatePass2 = (rule: any, value: any, callback: any) => {
+//   if (value === '') {
+//     callback(new Error('請輸入密碼'))
+//   } else if (value !== registerInput.value.password) {
+//     callback(new Error('密碼與原先不符合'))
+//   } else {
+//     callback()
+//   }
+// }
 
-const registerRules = ref({
-  account: [
-    {
-      type: 'email',
-      required: true,
-      message: '信箱格式不相符',
-      trigger: ['blur', 'change']
-    }
-  ],
-  password: [
-    { min: 2, max: 30, message: '長度介於6到30之間', trigger: 'blur' },
-    { required: true, message: '必填', trigger: 'blur' },
-    { validator: validatePass, trigger: 'blur' }
-  ],
-  checkPassWord: [
-    { min: 6, max: 30, message: '長度介於6到30之間', trigger: 'blur' },
-    { required: true, message: '不能為空', trigger: 'blur' },
-    { validator: validatePass2, trigger: 'blur' }
-  ],
-  privacy: [
-    {
-      type: 'array',
-      required: true,
-      message: '請詳細閱讀隱私條款',
-      trigger: 'change'
-    }
-  ]
-})
-const handleRegister = async (formEl: FormInstance | undefined) => {
-  if (!formEl) return
-  await formEl.validate(async (valid, fields) => {
-    if (valid) {
-      await fetchRegister(registerInput.value)
-      // console.log('發送註冊API')
-    } else {
-      // console.log('error submit!', fields)
-    }
-  })
-}
-const message = (mes: any, mesType: any): void => {
-  //@ts-ignore
-  ElMessage({
-    message: mes,
-    type: mesType,
-    duration: 1500
-  })
-}
-const fetchRegister = async (data: RegisterInputType) => {
-  const { account, password } = data
-  const fetchData = { account, password }
-  try {
-    isLoading.value = true
-    const response: any = await authStore.register(fetchData)
-    message(response.message, 'success')
-    router.push('/signin')
-  } catch (error: any) {
-    message(error.message, 'error')
-  } finally {
-    isLoading.value = false
-  }
-}
+// const registerRules = ref({
+//   account: [
+//     {
+//       type: 'email',
+//       required: true,
+//       message: '信箱格式不相符',
+//       trigger: ['blur', 'change']
+//     }
+//   ],
+//   password: [
+//     { min: 2, max: 30, message: '長度介於6到30之間', trigger: 'blur' },
+//     { required: true, message: '必填', trigger: 'blur' },
+//     { validator: validatePass, trigger: 'blur' }
+//   ],
+//   checkPassWord: [
+//     { min: 6, max: 30, message: '長度介於6到30之間', trigger: 'blur' },
+//     { required: true, message: '不能為空', trigger: 'blur' },
+//     { validator: validatePass2, trigger: 'blur' }
+//   ],
+//   privacy: [
+//     {
+//       type: 'array',
+//       required: true,
+//       message: '請詳細閱讀隱私條款',
+//       trigger: 'change'
+//     }
+//   ]
+// })
+// const handleRegister = async (formEl: FormInstance | undefined) => {
+//   if (!formEl) return
+//   await formEl.validate(async (valid, fields) => {
+//     if (valid) {
+//       await fetchRegister(registerInput.value)
+//       // console.log('發送註冊API')
+//     } else {
+//       // console.log('error submit!', fields)
+//     }
+//   })
+// }
+// const message = (mes: any, mesType: any): void => {
+//   //@ts-ignore
+//   ElMessage({
+//     message: mes,
+//     type: mesType,
+//     duration: 1500
+//   })
+// }
+// const fetchRegister = async (data: RegisterInputType) => {
+//   const { account, password } = data
+//   const fetchData = { account, password }
+//   try {
+//     isLoading.value = true
+//     const response: any = await authStore.register(fetchData)
+//     message(response.message, 'success')
+//     router.push('/signin')
+//   } catch (error: any) {
+//     message(error.message, 'error')
+//   } finally {
+//     isLoading.value = false
+//   }
+// }
+const registerInput = defineModel('registerInput', { type: Object })
+const props = defineProps<{
+  rules: FormRules
+  loading: boolean
+  handleRegister: (formEl: FormInstance | undefined) => Promise<void>
+  // formRef: FormInstance | undefined
+}>()
 </script>
 <template>
   <el-form
     class="el-form-font-size"
     ref="ruleFormRef"
-    :rules="registerRules"
+    :rules="rules"
     :model="registerInput"
-    v-loading="isLoading"
+    v-loading="loading"
   >
     <el-form-item label="登入電子信箱帳號:" label-position="top" prop="account">
       <el-input v-model="registerInput.account" />
