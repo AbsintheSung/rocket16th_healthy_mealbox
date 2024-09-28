@@ -9,6 +9,7 @@ const router = useRouter()
 
 //餐盒數量
 const generalBoxes = computed(() => cartStore.getGeneralBoxes)
+const customBoxes = computed(() => cartStore.getCustomizedBoxes)
 
 //購物車狀態列函式
 const steps = ref(['購物車', '填寫資料', '訂單確認'])
@@ -25,7 +26,9 @@ const totalPrice = computed(() => {
 })
 
 // 確認購物車內是否有商品
-const hasCartItems = computed(() => generalBoxes.value.length > 0)
+const hasCartItems = computed(() => 
+  generalBoxes.value.length > 0 || customBoxes.value.length > 0
+)
 
 // 清空購物車
 const handleClearCart = async () => {
