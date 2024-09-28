@@ -403,17 +403,11 @@ export const useCartStore = defineStore('cart', () => {
   //取得line付款後資訊
   const confirmLinePay = async (confirmData: { transactionId: string, amount: number, orderId: string }) => {
     try {
+      console.log('發送 LINE Pay 確認請求:', confirmData)
       const response = await fetchApi.Checklinepay(confirmData)
-      console.log('LINE Pay 確認回應:', response)
-      if (response.status === 200 && response.data.code === 0) {
-        // 更新最後提交的訂單資訊
-        lastSubmittedOrder.value = response.data.data
-        // 清空購物車
-        await cleanCart()
-        return response.data.data
-      } else {
-        throw new Error(response.data.message || 'LINE PAY 確認失敗')
-      }
+      console.log('收到 LINE Pay 確認回應:', response)
+      return response.data
+
     } catch (error) {
       console.error('LINE PAY 確認時出錯：', error)
       throw error
