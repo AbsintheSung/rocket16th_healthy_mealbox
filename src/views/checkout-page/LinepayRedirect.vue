@@ -24,10 +24,17 @@ const handleLinePayCallback = async () => {
             throw new Error('缺少必要的參數')
         }
 
+        const orderDetails = await cartStore.fetchOrderById(orderId.value)
+        console.log('獲取到的訂單詳情:', orderDetails)
+
+        if (!orderDetails || !orderDetails.orderPrice) {
+            throw new Error('無法獲取訂單價格')
+        }
+
         const confirmData = {
             transactionId: transactionId.value,
-            amount: cartStore.getLastSubmittedOrder.orderPrice,
-            orderId: orderId.value
+            orderId: orderId.value,
+            amount: orderDetails.orderPrice
         }
 
         console.log('送出 LINE Pay 確認請求:', confirmData)
