@@ -2,10 +2,12 @@
 import { computed, onMounted, onBeforeMount } from 'vue'
 import { useRoute } from 'vue-router'
 import { RouterView } from 'vue-router'
+import { useMemberStore } from '@/stores/member'
 import HeaderLayout from '@/components/global/HeaderLayout.vue'
 import FooterLayout from '@/components/global/FooterLayout.vue'
 import ThePlaidAdorn from './components/global/ThePlaidAdorn.vue'
 const route = useRoute()
+const memberStore = useMemberStore()
 
 // 判斷是否應該隱藏 footer
 const hiddenFooter = computed(() => {
@@ -17,6 +19,10 @@ onBeforeMount(() => {
   if (loadingElement) {
     loadingElement.remove()
   }
+})
+onMounted(async () => {
+  //由是否取得到會員資料來判斷 會員是否已經登入，來維持登入狀態( 由member.ts內的 isLoginStatus 控制 )
+  await memberStore.fetchMemberInfo()
 })
 </script>
 

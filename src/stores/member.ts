@@ -16,6 +16,9 @@ export const useMemberStore = defineStore('member', () => {
   const customCurrentPage = ref(1) // 自定義當前分頁
   const customPageSize = ref(10) //自定義每頁該顯示的資料數量
 
+  //會員登入狀態
+  const isLoginStatus = ref(false)
+
   /* Getter */
   const getMemberInfo = computed(() => {
     return {
@@ -84,6 +87,9 @@ export const useMemberStore = defineStore('member', () => {
     return customMealBoxStore.getCustomMeal.slice(start, end)
   })
 
+  //取得會員登入狀態
+  const getLoginStatus = computed(() => isLoginStatus.value)
+
   /* Action */
 
   //取得會員資料
@@ -92,9 +98,11 @@ export const useMemberStore = defineStore('member', () => {
       const response = await fetchApi.getUserInfo()
       if (response.status === 200) {
         memberInfo.value = response.data.data
+        isLoginStatus.value = true
         // console.log(memberInfo.value)
       }
     } catch (error: any) {
+      isLoginStatus.value = false
       throw error.response.data
     }
   }
@@ -177,6 +185,7 @@ export const useMemberStore = defineStore('member', () => {
     getCustomPageSize,
     getCustomPages,
     getPaginatedCustom,
+    getLoginStatus,
     fetchMemberInfo,
     fetchMemberOrder,
     updateMemberInfo,
