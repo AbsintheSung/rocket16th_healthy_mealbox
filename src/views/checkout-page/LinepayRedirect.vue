@@ -34,13 +34,6 @@ const handleLinePayCallback = async () => {
         const result = await cartStore.confirmLinePay(confirmData)
         console.log('收到 LINE Pay 確認回應:', result)
 
-        ElMessage.success('付款確認成功')
-
-        await router.push({
-            path: '/checkout/order-complete',
-            query: { orderId: orderId.value }
-        })
-
         if (result) {
             console.log('LINE Pay 付款確認成功')
             ElMessage.success('付款確認成功')
@@ -48,12 +41,11 @@ const handleLinePayCallback = async () => {
                 path: '/checkout/order-complete',
                 query: { orderId: orderId.value }
             })
-        }
-        else {
+        } else {
             throw new Error('LINE Pay 確認失敗')
         }
     } catch (error) {
-        console.error('付款確認失敗:', error)
+        console.error('LINE PAY 確認失敗:', error)
         ElMessage.error(error.message || '付款失敗，請聯繫客服')
     }
 }
