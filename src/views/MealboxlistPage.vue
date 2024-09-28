@@ -14,6 +14,9 @@ const cartStore = useCartStore()
 const drawer = ref(false)
 const isCardLoaning = ref(false)
 const isExpanded = ref(false) //控制預覽列以及遮罩
+const isGeneralAddButtonLoad = ref(false) //一般餐盒 是否點擊添加按鈕 狀態
+const isGeneralDelButtonLoad = ref(false) //一般餐盒 是否點擊刪除按鈕 狀態
+const isGeneralMealId = ref(-1) //一般餐盒 選中餐盒的id
 const getDirection = computed(() => (width.value >= 768 ? 'rtl' : 'btt'))
 const getDirectionHeight = computed(() => (width.value >= 768 ? '60%' : '50%'))
 const message = (mes: any, mesType: any): void => {
@@ -21,7 +24,8 @@ const message = (mes: any, mesType: any): void => {
   ElMessage({
     message: mes,
     type: mesType,
-    duration: 1500
+    duration: 750,
+    grouping: true
   })
 }
 const addGeneralCart = async (id: number) => {
@@ -102,8 +106,26 @@ onMounted(async () => {
   changeIsCardLoaning()
 })
 
+//一般餐盒 點擊按鈕 修改 是否點擊添加按鈕 狀態
+const handleGeneralAddButton = () => {
+  isGeneralAddButtonLoad.value = !isGeneralAddButtonLoad.value
+}
+//一般餐盒 點擊按鈕 修改 是否點擊刪除按鈕 狀態
+const handleGeneralDelButton = () => {
+  isGeneralDelButtonLoad.value = !isGeneralDelButtonLoad.value
+}
+//一般餐盒 點擊按鈕 修改 選中餐盒id
+const handleGeneralMealId = (id: any) => {
+  isGeneralMealId.value = id
+}
 provide('isCardLoaning', readonly(isCardLoaning))
 provide('changeIsCardLoaning', changeIsCardLoaning)
+provide('isGeneralAddButtonLoad', readonly(isGeneralAddButtonLoad))
+provide('isGeneralDelButtonLoad', readonly(isGeneralDelButtonLoad))
+provide('isGeneralMealId', readonly(isGeneralMealId))
+provide('handleGeneralAddButton', handleGeneralAddButton)
+provide('handleGeneralDelButton', handleGeneralDelButton)
+provide('handleGeneralMealId', handleGeneralMealId)
 </script>
 <template>
   <main class="flex flex-grow flex-col pb-40">
