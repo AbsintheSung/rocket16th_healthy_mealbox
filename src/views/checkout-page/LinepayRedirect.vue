@@ -24,39 +24,28 @@ const handleLinePayCallback = async () => {
             throw new Error('缺少必要的參數')
         }
 
+        // 獲取訂單詳情
+        const orderDetails = await cartStore.fetchOrderById(orderId.value)
+        
         const confirmData = {
             transactionId: transactionId.value,
+            amount:orderDetails.orderPrice,
             orderId: orderId.value,
-            amount: orderDetails.orderPrice
         }
 
-        console.log('送出 LINE Pay 確認請求:', confirmData)
-        const result = await cartStore.confirmLinePay(confirmData)
-        console.log('收到 LINE Pay 確認回應:', result)
+        await cartStore.confirmLinePay(confirmData)
+        
+        console.log('LINE PAY 付款確認成功')
+        ElMessage.success('付款確認成功')
 
-        if (result && result.status === 200 && result.code === 0) {
-            console.log('LINE Pay 付款確認成功')
-            ElMessage.success(result.message || '付款確認成功')
-
-            if (result.data && result.data.id) {
-                await router.push({
-                    path: '/checkout/order-complete',
-                    query: { orderId: orderId.value }
-                })
-            } else {
-                throw new Error('未能獲取有效的訂單ID')
-            }
-        } else {
-            throw new Error(result?.message || 'LINE Pay 確認失敗')
-        }
+        // 付款成功，轉跳頁面
+        await router.push({
+            path: '/checkout/order-complete',
+            query: { orderId: orderId.value }
+        })
     } catch (error) {
         console.error('LINE PAY 確認失敗:', error)
         ElMessage.error(error.message || '付款失敗，請聯繫客服')
-        console.error('錯誤詳情:', {
-            error: error,
-            transactionId: transactionId.value,
-            orderId: orderId.value
-        })
     }
 }
 

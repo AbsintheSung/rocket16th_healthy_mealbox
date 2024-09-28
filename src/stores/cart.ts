@@ -404,7 +404,9 @@ export const useCartStore = defineStore('cart', () => {
   const confirmLinePay = async (confirmData: { transactionId: string, amount: number, orderId: string }) => {
     try {
       const response = await fetchApi.Checklinepay(confirmData)
+      console.log('回傳LINEPAY資料:',response.data)
       return response.data
+      
 
     } catch (error) {
       console.error('LINE PAY 確認時出錯：', error)
