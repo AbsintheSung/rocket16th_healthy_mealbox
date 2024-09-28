@@ -1,115 +1,14 @@
 <script lang="ts" setup>
 import { ref } from 'vue'
 import type { FormRules, FormInstance } from 'element-plus'
-// import { useRouter, type Router } from 'vue-router'
-// import { useAuthStore } from '@/stores/auth'
-// const authStore = useAuthStore()
 const ruleFormRef = ref<FormInstance>()
-// const isLoading = ref<Boolean>(false)
-// const router: Router = useRouter()
-// type RegisterInputType = {
-//   account: string
-//   password: string
-//   checkPassWord: string
-//   privacy: string[]
-//   newSletter: string[]
-// }
-// const registerInput = ref<RegisterInputType>({
-//   account: '',
-//   password: '',
-//   checkPassWord: '',
-//   privacy: [],
-//   newSletter: []
-// })
-// const validatePass = (rule: any, value: any, callback: any) => {
-//   if (value === '') {
-//     callback(new Error('請輸入密碼'))
-//   } else {
-//     if (registerInput.value.password !== '') {
-//       if (!ruleFormRef.value) return
-//       ruleFormRef.value.validateField('checkPassWord')
-//     }
-//     callback()
-//   }
-// }
-// const validatePass2 = (rule: any, value: any, callback: any) => {
-//   if (value === '') {
-//     callback(new Error('請輸入密碼'))
-//   } else if (value !== registerInput.value.password) {
-//     callback(new Error('密碼與原先不符合'))
-//   } else {
-//     callback()
-//   }
-// }
-
-// const registerRules = ref({
-//   account: [
-//     {
-//       type: 'email',
-//       required: true,
-//       message: '信箱格式不相符',
-//       trigger: ['blur', 'change']
-//     }
-//   ],
-//   password: [
-//     { min: 2, max: 30, message: '長度介於6到30之間', trigger: 'blur' },
-//     { required: true, message: '必填', trigger: 'blur' },
-//     { validator: validatePass, trigger: 'blur' }
-//   ],
-//   checkPassWord: [
-//     { min: 6, max: 30, message: '長度介於6到30之間', trigger: 'blur' },
-//     { required: true, message: '不能為空', trigger: 'blur' },
-//     { validator: validatePass2, trigger: 'blur' }
-//   ],
-//   privacy: [
-//     {
-//       type: 'array',
-//       required: true,
-//       message: '請詳細閱讀隱私條款',
-//       trigger: 'change'
-//     }
-//   ]
-// })
-// const handleRegister = async (formEl: FormInstance | undefined) => {
-//   if (!formEl) return
-//   await formEl.validate(async (valid, fields) => {
-//     if (valid) {
-//       await fetchRegister(registerInput.value)
-//       // console.log('發送註冊API')
-//     } else {
-//       // console.log('error submit!', fields)
-//     }
-//   })
-// }
-// const message = (mes: any, mesType: any): void => {
-//   //@ts-ignore
-//   ElMessage({
-//     message: mes,
-//     type: mesType,
-//     duration: 1500
-//   })
-// }
-// const fetchRegister = async (data: RegisterInputType) => {
-//   const { account, password } = data
-//   const fetchData = { account, password }
-//   try {
-//     isLoading.value = true
-//     const response: any = await authStore.register(fetchData)
-//     message(response.message, 'success')
-//     router.push('/signin')
-//   } catch (error: any) {
-//     message(error.message, 'error')
-//   } finally {
-//     isLoading.value = false
-//   }
-// }
 const registerInput = defineModel('registerInput', { type: Object })
 defineProps<{
-  // rules: FormRules
   loading: boolean
   handleRegister: (formEl: FormInstance | undefined) => Promise<void>
-  // formRef: FormInstance | undefined
 }>()
+
+//驗證 密碼
 const validatePass = (rule: any, value: any, callback: any) => {
   if (value === '') {
     callback(new Error('請輸入密碼'))
@@ -121,6 +20,8 @@ const validatePass = (rule: any, value: any, callback: any) => {
     callback()
   }
 }
+
+//驗證 2次密碼
 const validatePass2 = (rule: any, value: any, callback: any) => {
   if (value === '') {
     callback(new Error('請輸入密碼'))
@@ -131,6 +32,7 @@ const validatePass2 = (rule: any, value: any, callback: any) => {
   }
 }
 
+//其餘驗證規則
 const registerRules = ref<FormRules>({
   account: [
     {
@@ -141,14 +43,14 @@ const registerRules = ref<FormRules>({
     }
   ],
   password: [
-    { min: 2, max: 30, message: '長度介於2到30之間', trigger: 'blur' },
-    { required: true, message: '必填', trigger: 'blur' },
-    { validator: validatePass, trigger: 'blur' }
+    { min: 2, max: 30, message: '長度介於2到30之間', trigger: ['blur', 'change'] },
+    { required: true, message: '必填', trigger: ['blur', 'change'] },
+    { validator: validatePass, trigger: ['blur', 'change'] }
   ],
   checkPassWord: [
-    { min: 2, max: 30, message: '長度介於2到30之間', trigger: 'blur' },
-    { required: true, message: '必填', trigger: 'blur' },
-    { validator: validatePass2, trigger: 'blur' }
+    { min: 2, max: 30, message: '長度介於2到30之間', trigger: ['blur', 'change'] },
+    { required: true, message: '必填', trigger: ['blur', 'change'] },
+    { validator: validatePass2, trigger: ['blur', 'change'] }
   ],
   privacy: [
     {

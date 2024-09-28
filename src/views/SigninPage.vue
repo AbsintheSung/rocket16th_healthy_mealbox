@@ -1,8 +1,20 @@
 <script lang="ts" setup>
+import { ref } from 'vue'
+import { useRouter, type Router } from 'vue-router'
+import { useAuthStore } from '@/stores/auth'
+import type { SigninInputType } from '@/types/type'
+import type { FormRules, FormInstance } from 'element-plus'
 import SigninForm from '@/components/signin-page/SigninForm.vue'
 import AuthNavigation from '@/components/global/AuthNavigation.vue'
 import ExternalAuthButton from '@/components/global/ExternalAuthButton.vue'
 import TheSvg from '@/components/global/TheSvg.vue'
+const authStore = useAuthStore()
+const isLoading = ref<boolean>(false)
+const router: Router = useRouter()
+const signinInput = ref<SigninInputType>({
+  account: '',
+  password: ''
+})
 const authButtonData = [
   {
     buttonClass: 'border border-[#1161B4] text-[#1161B4]',
@@ -23,36 +35,14 @@ const authButtonData = [
     }
   }
 ]
-import { ref } from 'vue'
-import type { FormRules, FormInstance } from 'element-plus'
-import { useRouter, type Router } from 'vue-router'
-import { useAuthStore } from '@/stores/auth'
-const authStore = useAuthStore()
-const ruleFormRef = ref<FormInstance>()
-const isLoading = ref<boolean>(false)
-type SigninInputType = {
-  account: string
-  password: string
+const message = (mes: any, mesType: any): void => {
+  //@ts-ignore
+  ElMessage({
+    message: mes,
+    type: mesType,
+    duration: 1500
+  })
 }
-const router: Router = useRouter()
-const signinInput = ref<SigninInputType>({
-  account: '',
-  password: ''
-})
-const signinRules = ref<FormRules>({
-  account: [
-    {
-      type: 'email',
-      required: true,
-      message: '信箱格式不相符',
-      trigger: ['blur', 'change']
-    }
-  ],
-  password: [
-    { min: 2, max: 30, message: '長度介於2到30之間', trigger: ['blur', 'change'] },
-    { required: true, message: '必填', trigger: ['blur', 'change'] }
-  ]
-})
 const handleSignin = async (formEl: FormInstance | undefined) => {
   if (!formEl) return
   await formEl.validate(async (valid, fields) => {
@@ -62,14 +52,6 @@ const handleSignin = async (formEl: FormInstance | undefined) => {
     } else {
       // console.log('error submit!', fields)
     }
-  })
-}
-const message = (mes: any, mesType: any): void => {
-  //@ts-ignore
-  ElMessage({
-    message: mes,
-    type: mesType,
-    duration: 1500
   })
 }
 const fetchSignin = async (data: SigninInputType) => {

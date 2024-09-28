@@ -266,3 +266,18 @@ export type customMealBox = {
   imgSrc: string;
   createTime: string;
 };
+
+//註冊資料 型別
+export type RegisterInputType = {
+  account: string
+  password: string
+  checkPassWord: string
+  privacy: string[]
+  newSletter: string[]
+}
+
+//登入資料 型別
+export type SigninInputType = {
+  account: string
+  password: string
+}

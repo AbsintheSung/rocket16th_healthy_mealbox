@@ -1,72 +1,14 @@
 <script lang="ts" setup>
 import { ref } from 'vue'
 import type { FormRules, FormInstance } from 'element-plus'
-// import { useRouter, type Router } from 'vue-router'
-// import { useAuthStore } from '@/stores/auth'
-// const authStore = useAuthStore()
 const ruleFormRef = ref<FormInstance>()
-// const isLoading = ref<boolean>(false)
-// type SigninInputType = {
-//   account: string
-//   password: string
-// }
-// const router: Router = useRouter()
-// const signinInput = ref<SigninInputType>({
-//   account: '',
-//   password: ''
-// })
-// const registerRules = ref({
-//   account: [
-//     {
-//       type: 'email',
-//       required: true,
-//       message: '信箱格式不相符',
-//       trigger: ['blur', 'change']
-//     }
-//   ],
-//   password: [
-//     { min: 2, max: 30, message: '長度介於6到30之間', trigger: 'blur' },
-//     { required: true, message: '必填', trigger: 'blur' }
-//   ]
-// })
-// const handleRegister = async (formEl: FormInstance | undefined) => {
-//   if (!formEl) return
-//   await formEl.validate(async (valid, fields) => {
-//     if (valid) {
-//       await fetchSignin(signinInput.value)
-//       // console.log('發送登入API')
-//     } else {
-//       // console.log('error submit!', fields)
-//     }
-//   })
-// }
-// const message = (mes: any, mesType: any): void => {
-//   //@ts-ignore
-//   ElMessage({
-//     message: mes,
-//     type: mesType,
-//     duration: 1500
-//   })
-// }
-// const fetchSignin = async (data: SigninInputType) => {
-//   try {
-//     isLoading.value = true
-//     const response: any = await authStore.signin(data)
-//     message(response.message, 'success')
-//     router.push('/')
-//   } catch (error: any) {
-//     message(error.message, 'error')
-//   } finally {
-//     isLoading.value = false
-//   }
-// }
 const signinInput = defineModel('signinInput', { type: Object })
 defineProps<{
-  // rules: FormRules
   loading: boolean
   handleSignin: (formEl: FormInstance | undefined) => Promise<void>
-  // formRef: FormInstance | undefined
 }>()
+
+//登入 驗證規則
 const signinRules = ref<FormRules>({
   account: [
     {
