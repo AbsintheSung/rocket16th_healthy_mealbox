@@ -54,7 +54,6 @@ const signinRules = ref<FormRules>({
   ]
 })
 const handleSignin = async (formEl: FormInstance | undefined) => {
-  ruleFormRef.value = formEl
   if (!formEl) return
   await formEl.validate(async (valid, fields) => {
     if (valid) {
@@ -94,10 +93,8 @@ const fetchSignin = async (data: SigninInputType) => {
         <!-- <SigninForm /> -->
         <SigninForm
           v-model:signinInput="signinInput"
-          :rules="signinRules"
           :loading="isLoading"
           :handleSignin="handleSignin"
-          ref="ruleFormRef"
         />
         <el-divider><p style="color: #9cb0c9">OR</p></el-divider>
         <ExternalAuthButton

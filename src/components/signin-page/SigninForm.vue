@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { ref } from 'vue'
-import type { FormRules,FormInstance } from 'element-plus'
+import type { FormRules, FormInstance } from 'element-plus'
 // import { useRouter, type Router } from 'vue-router'
 // import { useAuthStore } from '@/stores/auth'
 // const authStore = useAuthStore()
@@ -61,18 +61,32 @@ const ruleFormRef = ref<FormInstance>()
 //   }
 // }
 const signinInput = defineModel('signinInput', { type: Object })
-const props = defineProps<{
-  rules: FormRules
+defineProps<{
+  // rules: FormRules
   loading: boolean
   handleSignin: (formEl: FormInstance | undefined) => Promise<void>
   // formRef: FormInstance | undefined
 }>()
+const signinRules = ref<FormRules>({
+  account: [
+    {
+      type: 'email',
+      required: true,
+      message: '信箱格式不相符',
+      trigger: ['blur', 'change']
+    }
+  ],
+  password: [
+    { min: 2, max: 30, message: '長度介於2到30之間', trigger: ['blur', 'change'] },
+    { required: true, message: '必填', trigger: ['blur', 'change'] }
+  ]
+})
 </script>
 <template>
   <el-form
     class="el-form-font-size"
     ref="ruleFormRef"
-    :rules="rules"
+    :rules="signinRules"
     :model="signinInput"
     v-loading="loading"
   >

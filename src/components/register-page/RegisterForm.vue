@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { ref } from 'vue'
-import type { FormRules,FormInstance } from 'element-plus'
+import type { FormRules, FormInstance } from 'element-plus'
 // import { useRouter, type Router } from 'vue-router'
 // import { useAuthStore } from '@/stores/auth'
 // const authStore = useAuthStore()
@@ -104,18 +104,67 @@ const ruleFormRef = ref<FormInstance>()
 //   }
 // }
 const registerInput = defineModel('registerInput', { type: Object })
-const props = defineProps<{
-  rules: FormRules
+defineProps<{
+  // rules: FormRules
   loading: boolean
   handleRegister: (formEl: FormInstance | undefined) => Promise<void>
   // formRef: FormInstance | undefined
 }>()
+const validatePass = (rule: any, value: any, callback: any) => {
+  if (value === '') {
+    callback(new Error('請輸入密碼'))
+  } else {
+    if (registerInput.value.password !== '') {
+      if (!ruleFormRef.value) return
+      ruleFormRef.value?.validateField('checkPassWord')
+    }
+    callback()
+  }
+}
+const validatePass2 = (rule: any, value: any, callback: any) => {
+  if (value === '') {
+    callback(new Error('請輸入密碼'))
+  } else if (value !== registerInput.value.password) {
+    callback(new Error('密碼與原先不符合'))
+  } else {
+    callback()
+  }
+}
+
+const registerRules = ref<FormRules>({
+  account: [
+    {
+      type: 'email',
+      required: true,
+      message: '信箱格式不相符',
+      trigger: ['blur', 'change']
+    }
+  ],
+  password: [
+    { min: 2, max: 30, message: '長度介於2到30之間', trigger: 'blur' },
+    { required: true, message: '必填', trigger: 'blur' },
+    { validator: validatePass, trigger: 'blur' }
+  ],
+  checkPassWord: [
+    { min: 2, max: 30, message: '長度介於2到30之間', trigger: 'blur' },
+    { required: true, message: '必填', trigger: 'blur' },
+    { validator: validatePass2, trigger: 'blur' }
+  ],
+  privacy: [
+    {
+      type: 'array',
+      required: true,
+      message: '請詳細閱讀隱私條款',
+      trigger: 'change'
+    }
+  ]
+})
 </script>
 <template>
   <el-form
     class="el-form-font-size"
     ref="ruleFormRef"
-    :rules="rules"
+    :rules="registerRules"
     :model="registerInput"
     v-loading="loading"
   >
