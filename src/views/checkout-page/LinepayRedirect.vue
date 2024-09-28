@@ -24,10 +24,11 @@ const handleLinePayCallback = async () => {
             throw new Error('缺少必要的參數')
         }
 
+        // 先獲取訂單詳情
         const orderDetails = await cartStore.fetchOrderById(orderId.value)
         console.log('獲取到的訂單詳情:', orderDetails)
 
-        if (!orderDetails || !orderDetails.orderPrice) {
+        if (!orderDetails || typeof orderDetails.orderPrice === 'undefined') {
             throw new Error('無法獲取訂單價格')
         }
 
@@ -54,6 +55,18 @@ const handleLinePayCallback = async () => {
     } catch (error) {
         console.error('LINE PAY 確認失敗:', error)
         ElMessage.error(error.message || '付款失敗，請聯繫客服')
+        // 添加更多錯誤詳情的日誌
+        console.error('錯誤詳情:', {
+            error: error,
+            orderDetails: cartStore.getLastSubmittedOrder,
+            confirmData: {
+                transactionId: transactionId.value,
+                orderId: orderId.value,
+                amount: cartStore.getLastSubmittedOrder?.orderPrice
+            }
+        })
+        // 可以考慮在這裡添加重定向到錯誤頁面
+        // await router.push('/payment-error')
     }
 }
 
