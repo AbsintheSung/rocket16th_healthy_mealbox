@@ -21,7 +21,7 @@ const memberStore = useMemberStore()
 const mainNav = computed(() => [
   { id: 'usage', title: '使用方式', path: '/how-to-use' },
   { id: 'plan', title: '方案選擇', path: '/plan-selection' },
-  { id: 'cart', title: '購物車', path: '/checkout' },
+  { id: 'cart', title: '購物車', path: '/checkout' }
 ])
 
 // ...(memberStore.getMemberInfo.id
@@ -52,7 +52,7 @@ watch(
               <TheSvg class="h-[40px]" svgIcon="logo" />
             </RouterLink>
           </h1>
-          <h1 class="block text-center pt-3 md:hidden">
+          <h1 class="block pt-3 text-center md:hidden">
             <RouterLink to="/">
               <TheSvg class="h-[40px] w-[100px]" svgIcon="mobile-logo" />
             </RouterLink>
@@ -63,22 +63,51 @@ watch(
         <div class="flex w-9/12 items-center justify-end gap-x-4">
           <!-- 手機板會隱藏此處 -->
           <ul class="hidden items-center gap-x-4 md:flex">
-            <li class="relative w-24 h-10">
+            <!-- <li class="relative h-10 w-24">
               <Transition name="fade" mode="out-in">
-                <RouterLink v-if="!memberStore.getMemberInfo.id" key="signin"
+                <RouterLink
+                  v-if="!memberStore.getLoginStatus"
+                  key="signin"
                   class="absolute inset-0 flex items-center justify-center p-2 font-bold text-[#7C7C7C] hover:text-primary-700"
-                  to="/signin">
+                  to="/signin"
+                >
                   登入 / 註冊
                 </RouterLink>
-                <RouterLink v-else key="user"
+                <RouterLink
+                  v-else
+                  key="user"
                   class="absolute inset-0 flex items-center justify-center p-2 font-bold text-[#7C7C7C] hover:text-primary-700"
-                  to="/member">
+                  to="/member"
+                >
+                  會員中心
+                </RouterLink>
+              </Transition>
+            </li> -->
+            <li class="h-10 w-24">
+              <Transition name="fade" mode="out-in">
+                <RouterLink
+                  v-if="!memberStore.getLoginStatus"
+                  key="signin"
+                  class="flex h-full w-full items-center justify-center p-2 font-bold text-[#7C7C7C] hover:text-primary-700"
+                  to="/signin"
+                >
+                  登入 / 註冊
+                </RouterLink>
+                <RouterLink
+                  v-else
+                  key="user"
+                  class="flex h-full w-full items-center justify-center p-2 font-bold text-[#7C7C7C] hover:text-primary-700"
+                  to="/member"
+                >
                   會員中心
                 </RouterLink>
               </Transition>
             </li>
             <li v-for="mainNavItem in mainNav" :key="mainNavItem.id">
-              <RouterLink class="block p-2 font-bold text-[#7C7C7C] hover:text-primary-700" :to="`${mainNavItem.path}`">
+              <RouterLink
+                class="block p-2 font-bold text-[#7C7C7C] hover:text-primary-700"
+                :to="`${mainNavItem.path}`"
+              >
                 {{ mainNavItem.title }}
               </RouterLink>
             </li>
@@ -92,33 +121,49 @@ watch(
             </li>
           </ul> -->
           <!-- 用來控制縮合的按鈕，手機板才會顯示 -->
-          <button class="hover:block cursor-pointer p-2 md:hidden" @click="toggleMenu">
+          <button class="cursor-pointer p-2 hover:block md:hidden" @click="toggleMenu">
             <RouterLink key="cart" class="font-bold hover:text-primary-700" to="/checkout">
               <font-awesome-icon :icon="['fas', 'cart-shopping']" size="xl" />
             </RouterLink>
           </button>
-          <button class="hover:block cursor-pointer p-2 md:hidden" @click="toggleMenu">
+          <button class="cursor-pointer p-2 hover:block md:hidden" @click="toggleMenu">
             <FontAwesomeIcon :icon="['fas', 'bars']" size="xl" />
           </button>
         </div>
       </div>
     </nav>
-    <transition enter-active-class="transition ease-out duration-200" enter-from-class="opacity-0 -translate-y-1"
-      enter-to-class="opacity-100 translate-y-0" leave-active-class="transition ease-in duration-150"
-      leave-from-class="opacity-100 translate-y-0" leave-to-class="opacity-0 -translate-y-1">
+    <transition
+      enter-active-class="transition ease-out duration-200"
+      enter-from-class="opacity-0 -translate-y-1"
+      enter-to-class="opacity-100 translate-y-0"
+      leave-active-class="transition ease-in duration-150"
+      leave-from-class="opacity-100 translate-y-0"
+      leave-to-class="opacity-0 -translate-y-1"
+    >
       <div v-show="isOpen" class="absolute left-0 right-0 z-10 w-full bg-white shadow-lg md:hidden">
         <ul class="py-2">
           <li>
-            <RouterLink v-if="!memberStore.getMemberInfo.id" key="signin" class="block p-4 hover:bg-primary-200"
-              to="/signin">
+            <RouterLink
+              v-if="!memberStore.getMemberInfo.id"
+              key="signin"
+              class="block p-4 hover:bg-primary-200"
+              to="/signin"
+            >
               登入 / 註冊
             </RouterLink>
             <RouterLink v-else key="user" class="block p-4 hover:bg-primary-200" to="/member">
               會員中心
             </RouterLink>
           </li>
-          <li v-for="mainNavItem in mainNav.filter(item => item.id !== 'cart')" :key="mainNavItem.id">
-            <RouterLink class="block p-4 hover:bg-primary-200" :to="mainNavItem.path" @click="isOpen = false">
+          <li
+            v-for="mainNavItem in mainNav.filter((item) => item.id !== 'cart')"
+            :key="mainNavItem.id"
+          >
+            <RouterLink
+              class="block p-4 hover:bg-primary-200"
+              :to="mainNavItem.path"
+              @click="isOpen = false"
+            >
               {{ mainNavItem.title }}
             </RouterLink>
           </li>
@@ -130,7 +175,9 @@ watch(
 <style scoped>
 .fade-enter-active,
 .fade-leave-active {
-  transition: opacity 0.3s ease, transform 0.3s ease;
+  transition:
+    opacity 0.3s ease,
+    transform 0.3s ease;
 }
 
 .fade-enter-from,

@@ -9,6 +9,9 @@ const generalMealBoxStore = useGeneralMealBoxStore()
 const cartStore = useCartStore()
 const isCardLoaning = inject('isCardLoaning')
 const changeIsCardLoaning = inject('changeIsCardLoaning')
+const handleGeneralMealId = inject('handleGeneralMealId')
+const handleGeneralAddButton = inject('handleGeneralAddButton')
+const handleGeneralDelButton = inject('handleGeneralDelButton')
 const nutrientsValue = ref('all')
 const nutrientsOptions = [
   {
@@ -27,14 +30,14 @@ const nutrientsOptions = [
   //   value: 'adipose',
   //   label: '依 脂肪排序'
   // },
-  // {
-  //   value: 'carbohydrate',
-  //   label: '依 碳水化合物排序'
-  // },
   {
-    value: 'fiber',
-    label: '依 纖維排序'
+    value: 'carbohydrate',
+    label: '依 碳水化合物排序'
   }
+  // {
+  //   value: 'fiber',
+  //   label: '依 纖維排序'
+  // }
   // {
   //   value: 'sodium',
   //   label: '依 鈉含量排序'
@@ -45,11 +48,14 @@ const message = (mes, mesType) => {
   ElMessage({
     message: mes,
     type: mesType,
-    duration: 1500
+    duration: 750,
+    grouping: true
   })
 }
 const addGeneralCart = async (id) => {
   try {
+    handleGeneralMealId(id)
+    handleGeneralAddButton()
     const response = await cartStore.fetchaddGeneralCart(id)
     if (response === 'endOrder') {
       return
@@ -58,10 +64,15 @@ const addGeneralCart = async (id) => {
     }
   } catch (error) {
     message(error.message, 'error')
+  } finally {
+    handleGeneralMealId(-1)
+    handleGeneralAddButton()
   }
 }
 const minusGeneralCart = async (id) => {
   try {
+    handleGeneralMealId(id)
+    handleGeneralDelButton()
     const response = await cartStore.fetchMinusGeneralCart(id)
     if (response === 'notExist') {
       return
@@ -70,6 +81,9 @@ const minusGeneralCart = async (id) => {
     }
   } catch (error) {
     message(error.message, 'error')
+  } finally {
+    handleGeneralMealId(-1)
+    handleGeneralDelButton()
   }
 }
 
