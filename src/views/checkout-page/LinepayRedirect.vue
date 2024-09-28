@@ -28,8 +28,8 @@ const handleLinePayCallback = async () => {
         const orderDetails = await cartStore.fetchOrderById(orderId.value)
         console.log('獲取到的訂單詳情:', orderDetails)
 
-        if (!orderDetails || typeof orderDetails.orderPrice === 'undefined') {
-            throw new Error('無法獲取訂單價格')
+        if (!orderDetails || typeof orderDetails.orderPrice === 'undefined' || orderDetails.orderPrice === null) {
+            throw new Error('無法獲取有效的訂單價格')
         }
 
         const confirmData = {
@@ -42,31 +42,27 @@ const handleLinePayCallback = async () => {
         const result = await cartStore.confirmLinePay(confirmData)
         console.log('收到 LINE Pay 確認回應:', result)
 
-        if (result) {
+        if (result && result.status === 200 && result.code === 0) {
             console.log('LINE Pay 付款確認成功')
-            ElMessage.success('付款確認成功')
+            ElMessage.success(result.message || '付款確認成功')
+            // 更新最後提交的訂單資訊
+            cartStore.setLastSubmittedOrder(result.data)
             await router.push({
                 path: '/checkout/order-complete',
-                query: { orderId: orderId.value }
+                query: { orderId: result.data.id }
             })
         } else {
-            throw new Error('LINE Pay 確認失敗')
+            throw new Error(result.message || 'LINE Pay 確認失敗')
         }
     } catch (error) {
         console.error('LINE PAY 確認失敗:', error)
         ElMessage.error(error.message || '付款失敗，請聯繫客服')
-        // 添加更多錯誤詳情的日誌
         console.error('錯誤詳情:', {
             error: error,
-            orderDetails: cartStore.getLastSubmittedOrder,
-            confirmData: {
-                transactionId: transactionId.value,
-                orderId: orderId.value,
-                amount: cartStore.getLastSubmittedOrder?.orderPrice
-            }
+            transactionId: transactionId.value,
+            orderId: orderId.value,
+            lastSubmittedOrder: cartStore.getLastSubmittedOrder
         })
-        // 可以考慮在這裡添加重定向到錯誤頁面
-        // await router.push('/payment-error')
     }
 }
 
