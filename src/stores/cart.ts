@@ -403,9 +403,7 @@ export const useCartStore = defineStore('cart', () => {
   //取得line付款後資訊
   const confirmLinePay = async (confirmData: { transactionId: string, amount: number, orderId: string }) => {
     try {
-      console.log('發送 LINE Pay 確認請求:', confirmData)
       const response = await fetchApi.Checklinepay(confirmData)
-      console.log('收到 LINE Pay 確認回應:', response)
       return response.data
 
     } catch (error) {
