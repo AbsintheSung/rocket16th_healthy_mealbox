@@ -134,7 +134,7 @@ const router = createRouter({
           //為了和後端接收資料，改為絕對路徑
           path: '/checkout/linepay-redirect',
           name: 'LinePayRedirect',
-          component: () => import('@/views/LinepayRedirect.vue')
+          component: () => import('@/views/checkout-page/LinepayRedirect.vue')
         },
       ]
     },
