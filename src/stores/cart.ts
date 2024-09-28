@@ -404,6 +404,7 @@ export const useCartStore = defineStore('cart', () => {
   const confirmLinePay = async (confirmData: { transactionId: string, amount: number, orderId: string }) => {
     try {
       const response = await fetchApi.Checklinepay(confirmData)
+      console.log('LINE Pay 確認回應:', response)
       if (response.status === 200 && response.data.code === 0) {
         // 更新最後提交的訂單資訊
         lastSubmittedOrder.value = response.data.data
@@ -420,13 +421,13 @@ export const useCartStore = defineStore('cart', () => {
   }
 
   //根據id取得單筆訂單資訊
-  const fetchOrderById = async (orderId:any) => {
+  const fetchOrderById = async (orderId: any) => {
     try {
       const response = await fetchApi.getMemberOrder()
       if (response.status === 200 && response.data.code === 0) {
         const orderList = response.data.data
         const targetOrder = orderList.find((order: { id: any }) => order.id.toString() === orderId.toString())
-        
+
         if (targetOrder) {
           setLastSubmittedOrder(targetOrder)
           return targetOrder
