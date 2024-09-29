@@ -4,7 +4,8 @@ import { useRouter } from 'vue-router'
 import { useMemberStore } from '@/stores/member'
 import { useCustomMealBoxStore } from '@/stores/custommealbox'
 import ThePagination from '@/components/global/ThePagination.vue'
-import CustomCard from '@/components/global/CustomCard.vue'
+// import CustomCard from '@/components/global/CustomCard.vue'
+import MmeberCustomCard from '@/components/member-page/MmeberCustomCard.vue'
 import { ElMessage, ElMessageBox } from 'element-plus'
 import 'element-plus/theme-chalk/src/message-box.scss'
 import 'element-plus/theme-chalk/src/button.scss'
@@ -12,13 +13,6 @@ const fullscreenLoading = ref(false)
 const memberStore = useMemberStore()
 const customMealBoxStore = useCustomMealBoxStore()
 const router = useRouter()
-// import MealCard from '@/components/global/MealCard.vue'
-
-// const currentPage1 = ref(1)
-
-// const handleCurrentChange = (val) => {
-//   console.log(`current page: ${val}`)
-// }
 const message = (mes, mesType) => {
   //@ts-ignore
   ElMessage({
@@ -49,15 +43,6 @@ const handleDelete = async (id, name) => {
   } catch (error) {
     return null
   }
-  // try {
-  //   fullscreenLoading.value = true
-  //   const response = await memberStore.deleteCustom(id)
-  //   message('刪除成功', 'success')
-  // } catch (error) {
-  //   message('刪除失敗', 'error')
-  // } finally {
-  //   fullscreenLoading.value = false
-  // }
 }
 </script>
 <template>
@@ -68,7 +53,7 @@ const handleDelete = async (id, name) => {
       自定義餐盒
     </h2>
     <ul class="grid grid-cols-2 gap-x-6 gap-y-2 lg:grid-cols-3 lg:gap-y-6">
-      <CustomCard
+      <MmeberCustomCard
         v-for="custItem in customMealBoxStore.getCustomMeal"
         :key="custItem.id"
         class="text-[12px] md:text-base"

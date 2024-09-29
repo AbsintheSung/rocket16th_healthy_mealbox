@@ -17,6 +17,9 @@ const isExpanded = ref(false) //控制預覽列以及遮罩
 const isGeneralAddButtonLoad = ref(false) //一般餐盒 是否點擊添加按鈕 狀態
 const isGeneralDelButtonLoad = ref(false) //一般餐盒 是否點擊刪除按鈕 狀態
 const isGeneralMealId = ref(-1) //一般餐盒 選中餐盒的id
+const isCustomAddButtonLoad = ref(false) //定義餐盒 是否點擊添加按鈕 狀態
+const isCustomDelButtonLoad = ref(false) //定義餐盒 是否點擊刪除按鈕 狀態
+const isCustomMealId = ref(-1) //定義餐盒 選中餐盒的id
 const getDirection = computed(() => (width.value >= 768 ? 'rtl' : 'btt'))
 const getDirectionHeight = computed(() => (width.value >= 768 ? '60%' : '50%'))
 const message = (mes: any, mesType: any): void => {
@@ -118,14 +121,32 @@ const handleGeneralDelButton = () => {
 const handleGeneralMealId = (id: any) => {
   isGeneralMealId.value = id
 }
+//定義餐盒 點擊按鈕 修改 是否點擊添加按鈕 狀態
+const handleCustomAddButton = () => {
+  isCustomAddButtonLoad.value = !isCustomAddButtonLoad.value
+}
+//定義餐盒 點擊按鈕 修改 是否點擊刪除按鈕 狀態
+const handleCustomDelButton = () => {
+  isCustomDelButtonLoad.value = !isCustomDelButtonLoad.value
+}
+//定義餐盒 點擊按鈕 修改 選中餐盒id
+const handleCustomMealId = (id: any) => {
+  isCustomMealId.value = id
+}
 provide('isCardLoaning', readonly(isCardLoaning))
 provide('changeIsCardLoaning', changeIsCardLoaning)
 provide('isGeneralAddButtonLoad', readonly(isGeneralAddButtonLoad))
 provide('isGeneralDelButtonLoad', readonly(isGeneralDelButtonLoad))
 provide('isGeneralMealId', readonly(isGeneralMealId))
+provide('isCustomAddButtonLoad', readonly(isCustomAddButtonLoad))
+provide('isCustomDelButtonLoad', readonly(isCustomDelButtonLoad))
+provide('isCustomMealId', readonly(isCustomMealId))
 provide('handleGeneralAddButton', handleGeneralAddButton)
 provide('handleGeneralDelButton', handleGeneralDelButton)
 provide('handleGeneralMealId', handleGeneralMealId)
+provide('handleCustomAddButton', handleCustomAddButton)
+provide('handleCustomDelButton', handleCustomDelButton)
+provide('handleCustomMealId', handleCustomMealId)
 </script>
 <template>
   <main class="flex flex-grow flex-col pb-40">

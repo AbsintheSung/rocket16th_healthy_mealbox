@@ -12,6 +12,9 @@ const router = useRouter()
 const cartStore = useCartStore()
 const customMealBoxStore = useCustomMealBoxStore()
 const isCardLoaning = inject('isCardLoaning')
+const handleCustomMealId = inject('handleCustomMealId') as (id: number) => void
+const handleCustomAddButton = inject('handleCustomAddButton') as () => void
+const handleCustomDelButton = inject('handleCustomDelButton') as () => void
 const isLastPage = computed(() => {
   return customMealBoxStore.currentPage === customMealBoxStore.getTotalPages
 })
@@ -28,6 +31,8 @@ const message = (mes: any, mesType: string) => {
 }
 const addCustomCart = async (id: number) => {
   try {
+    handleCustomMealId(id)
+    handleCustomAddButton()
     const response = await cartStore.fetchaddCustomCart(id)
     if (response === 'endOrder') {
       return
@@ -36,10 +41,15 @@ const addCustomCart = async (id: number) => {
     }
   } catch (error: any) {
     message(error.message, 'error')
+  } finally {
+    handleCustomMealId(-1)
+    handleCustomAddButton()
   }
 }
 const minusCustomCart = async (id: number) => {
   try {
+    handleCustomMealId(id)
+    handleCustomDelButton()
     const response = await cartStore.fetchMinusCustomCart(id)
     if (response === 'notExist') {
       return
@@ -48,6 +58,9 @@ const minusCustomCart = async (id: number) => {
     }
   } catch (error: any) {
     message(error.message, 'error')
+  } finally {
+    handleCustomMealId(-1)
+    handleCustomDelButton()
   }
 }
 </script>
