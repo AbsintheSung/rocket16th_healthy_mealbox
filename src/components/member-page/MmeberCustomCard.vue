@@ -1,8 +1,5 @@
 <script setup>
-import { computed, inject } from 'vue'
 import { Plus, Minus, Loading } from '@element-plus/icons-vue'
-import { useCartStore } from '@/stores/cart'
-const cartStore = useCartStore()
 const props = defineProps({
   mealInfo: {
     type: Object,
@@ -28,20 +25,6 @@ const props = defineProps({
     default: () => {}
   }
 })
-const isCustomAddButtonLoad = inject('isCustomAddButtonLoad')
-const isCustomDelButtonLoad = inject('isCustomDelButtonLoad')
-const isCustomMealId = inject('isCustomMealId')
-const addButtonLoad = computed(() => {
-  return isCustomMealId.value === props.mealInfo.id && isCustomAddButtonLoad.value
-})
-const delButtonLoad = computed(() => {
-  return isCustomMealId.value === props.mealInfo.id && isCustomDelButtonLoad.value
-})
-const lockButton = computed(() => isCustomAddButtonLoad.value || isCustomDelButtonLoad.value)
-const cartMealQty = computed(() => {
-  const cartItem = cartStore.getCustomizedBoxes.find((item) => item.id === props.mealInfo.id)
-  return cartItem ? cartItem.boxQuantity : 0
-})
 </script>
 <template>
   <li class="flex flex-col gap-y-4 rounded border p-4">
@@ -59,19 +42,15 @@ const cartMealQty = computed(() => {
     </div>
     <div class="mt-auto flex gap-x-3">
       <el-button
-        :disabled="lockButton"
-        @click="minusData(mealInfo.id)"
+        @click="deleteData(mealInfo.id, mealInfo.name)"
         size="large"
         type="default"
         class="custom-hover-button hidden w-1/2 flex-grow items-center justify-center gap-x-2 md:flex"
       >
         <template #default>
           <div class="flex items-center gap-x-3">
-            <el-icon v-if="!delButtonLoad">
+            <el-icon>
               <Minus />
-            </el-icon>
-            <el-icon class="is-loading" v-else>
-              <Loading />
             </el-icon>
             <p>刪除</p>
           </div>
@@ -79,29 +58,31 @@ const cartMealQty = computed(() => {
       </el-button>
 
       <el-button
-        :disabled="lockButton"
         size="large"
-        @click="addData(mealInfo.id)"
+        @click="editData(mealInfo.id)"
         class="custom-hover-button add-button flex w-1/2 flex-grow items-center justify-center gap-x-2"
       >
         <template #default>
           <div class="flex items-center gap-x-3">
-            <el-icon v-if="!addButtonLoad">
+            <el-icon>
               <Plus />
             </el-icon>
-            <el-icon class="is-loading" v-else>
-              <Loading />
-            </el-icon>
-            <p class="hover-text-black text-primary-700">加入</p>
+            <p class="hover-text-black text-primary-700">編輯</p>
           </div>
         </template>
       </el-button>
-      <div class="flex gap-x-1 self-end text-[12px] font-bold">
-        <p>
-          {{ cartMealQty }}
-        </p>
-        <p>餐</p>
-      </div>
+      <!-- <button
+        @click="deleteData(mealInfo.id, mealInfo.name)"
+        class="hidden flex-grow items-center justify-center gap-x-2 rounded border border-black py-2 md:flex"
+      >
+        刪除
+      </button>
+      <button
+        @click="editData(mealInfo.id)"
+        class="flex flex-grow items-center justify-center gap-x-2 rounded border border-primary-700 py-2 text-primary-700"
+      >
+        編輯
+      </button> -->
     </div>
   </li>
 </template>
