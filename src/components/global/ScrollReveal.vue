@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onMounted, onUnmounted } from 'vue'
+import { ref, onMounted, onUnmounted, computed } from 'vue'
 
 const props = defineProps({
     delay: {
@@ -9,11 +9,29 @@ const props = defineProps({
     threshold: {
         type: Number,
         default: 0.75
+    },
+    revealStyle: {
+        type: String,
+        default: 'bottomToTop',
+        validator: (value) => ['bottomToTop', 'topToBottom'].includes(value)
     }
 })
 
 const revealed = ref(false)
 const elementRef = ref(null)
+
+const revealStyles = {
+    bottomToTop: {
+        initial: 'translateY(50px)',
+        revealed: 'translateY(0)'
+    },
+    topToBottom: {
+        initial: 'translateY(-50px)',
+        revealed: 'translateY(0)'
+    }
+}
+
+const currentStyle = computed(() => revealStyles[props.revealStyle])
 
 const checkScroll = () => {
   if (!elementRef.value) return
@@ -23,7 +41,6 @@ const checkScroll = () => {
   if (rect.top <= windowHeight * props.threshold) {
     revealed.value = true
   } else {
-    // 當元素離開視窗頂部時重置動畫
     revealed.value = false
   }
 }
@@ -41,7 +58,7 @@ onUnmounted(() => {
 </script>
 
 <template>
-    <div ref="elementRef" :class="{ 'scroll-reveal': true, 'is-revealed': revealed }">
+    <div ref="elementRef" :class="{ 'scroll-reveal': true, 'is-revealed': revealed }" :style="{ '--initial-transform': currentStyle.initial, '--revealed-transform': currentStyle.revealed }">
         <slot></slot>
     </div>
 </template>
@@ -49,13 +66,13 @@ onUnmounted(() => {
 <style scoped>
 .scroll-reveal {
     opacity: 0;
-    transform: translateY(50px);
+    transform: var(--initial-transform);
     transition: opacity 0.6s ease-out, transform 0.6s ease-out;
     width: 100%;
 }
 
 .scroll-reveal.is-revealed {
     opacity: 1;
-    transform: translateY(0);
+    transform: var(--revealed-transform);
 }
 </style>

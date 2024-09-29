@@ -151,11 +151,10 @@ const addToCart = async (planId: any) => {
   <LenisWrapper scrollStyle="default">
     <main>
       <!-- 首頁大圖 -->
-
       <section class="bg-home-main bg-cover bg-center bg-no-repeat">
         <div class="container flex flex-col items-center justify-between sm:flex-row">
           <div class="w-full sm:w-1/2">
-            <ScrollReveal :threshold="0.75">
+            <ScrollReveal  revealStyle="bottomToTop">
               <div class="w-full py-48">
                 <TheSvg svgIcon="healthy-and-lazy" class="h-[90px]" svgClassStyle="w-full" />
                 <p class="text-white text-balance md:text-2xl">
@@ -223,7 +222,7 @@ const addToCart = async (planId: any) => {
             <div class="swiper-pagination home-swiper-page"></div>
           </swiper>
         </div> -->
-          <ScrollReveal>
+          <ScrollReveal revealStyle="bottomToTop">
             <ul class="grid grid-cols-4 gap-6 py-6 md:grid-cols-12 md:py-16">
               <li class="col-span-2 border-1 bounded md:col-span-3" v-for="item in randomPlans" :key="item.id">
                 <div class="flex flex-col">
