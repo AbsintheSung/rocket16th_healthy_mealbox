@@ -68,7 +68,13 @@ onMounted(async () => {
           <div class="relative bg-primary-100 py-6 text-xl">
             <TheSvg svgIcon="decorate-re" class="absolute left-4 top-4 h-[46px] w-[46px]" />
             <TheSvg svgIcon="single-star" class="absolute bottom-4 right-4 h-[46px] w-[46px]" />
-            <img class="mx-auto rounded-full" src="https://picsum.photos/160/160?random=1" />
+            <!-- <img class="mx-auto rounded-full" src="https://picsum.photos/160/160?random=1" /> -->
+            <div class="flex items-center justify-center">
+              <el-avatar
+                :size="160"
+                :src="'https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png'"
+              />
+            </div>
             <p class="py-3 text-center font-bold">{{ memberStore.getMemberName }}</p>
             <p class="text-center text-primary-base">一般會員</p>
           </div>
