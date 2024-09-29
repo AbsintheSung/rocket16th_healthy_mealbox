@@ -217,6 +217,7 @@ const handleEditPassWord = (formEl: FormInstance | undefined) => {
               format="YYYY/MM/DD"
               value-format="YYYY-MM-DD"
               :disabled="!isEditInfo"
+              :clearable="false"
             />
           </el-form-item>
         </div>
