@@ -446,6 +446,7 @@ const addToCart = async (planId: any) => {
             簡單下訂，一鍵送到家
           </h2>
           <ul class="grid grid-cols-4 gap-6 py-9 sm:grid-cols-12">
+
             <li class="col-span-2 flex flex-col gap-y-2 sm:col-span-6 sm:items-center xl:col-span-3 xl:items-start">
               <div class="flex flex-col gap-x-6 gap-y-2 font-bold">
                 <div class="flex items-center gap-x-2">
@@ -456,7 +457,9 @@ const addToCart = async (planId: any) => {
                   </div>
                 </div>
                 <div>
-                  <img class="object-fill" src="../assets/image/步驟1.png" alt="步驟1圖片" />
+                  <ScrollReveal revealStyle="bottomToTop">
+                    <img class="object-fill" src="../assets/image/步驟1.png" alt="步驟1圖片" />
+                  </ScrollReveal>
                 </div>
               </div>
             </li>
@@ -470,7 +473,9 @@ const addToCart = async (planId: any) => {
                   </div>
                 </div>
                 <div>
-                  <img class="object-fill" src="../assets/image/步驟2.png" alt="步驟2圖片" />
+                  <ScrollReveal revealStyle="topToBottom">
+                    <img class="object-fill" src="../assets/image/步驟2.png" alt="步驟2圖片" />
+                  </ScrollReveal>
                 </div>
               </div>
             </li>
@@ -484,7 +489,9 @@ const addToCart = async (planId: any) => {
                   </div>
                 </div>
                 <div>
-                  <img class="object-fill" src="../assets/image/步驟3.png" alt="步驟3圖片" />
+                  <ScrollReveal revealStyle="bottomToTop">
+                    <img class="object-fill" src="../assets/image/步驟3.png" alt="步驟3圖片" />
+                  </ScrollReveal>
                 </div>
               </div>
             </li>
@@ -498,7 +505,9 @@ const addToCart = async (planId: any) => {
                   </div>
                 </div>
                 <div>
-                  <img class="object-fill" src="../assets/image/步驟4.png" alt="步驟4圖片" />
+                  <ScrollReveal revealStyle="topToBottom">
+                    <img class="object-fill" src="../assets/image/步驟4.png" alt="步驟4圖片" />
+                  </ScrollReveal>
                 </div>
               </div>
             </li>
