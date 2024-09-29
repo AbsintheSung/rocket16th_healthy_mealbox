@@ -145,7 +145,7 @@ const message = (mes, mesType) => {
               </table>
               <div class="hidden flex-grow lg:flex">
                 <button
-                  class="ms-auto rounded border-2 border-secondary-900 p-2 font-bold text-secondary-900 hover:border-black hover:bg-secondary-400 hover:text-black hover:shadow-base hover:transition"
+                  class="ms-auto rounded border-2 border-secondary-900 bg-secondary-400 p-2 font-bold text-black hover:border-black hover:bg-secondary-400 hover:shadow-base hover:transition"
                   @click="handleHistoryOrderToCart(item.cartOrder)"
                 >
                   再次加入購物車
@@ -194,7 +194,7 @@ const message = (mes, mesType) => {
                   <p v-else-if="item.paymentMethod === 'cashOnDelivery '">付款方式 : 貨到付款</p>
                   <div class="flex flex-grow lg:hidden">
                     <button
-                      class="ms-auto rounded border-2 border-secondary-900 bg-white px-6 py-2 font-bold text-secondary-900 hover:border-black hover:bg-secondary-400 hover:text-black hover:shadow-base hover:transition"
+                      class="ms-auto rounded border-2 border-secondary-900 bg-secondary-400 px-6 py-2 font-bold text-black hover:border-black hover:bg-secondary-400 hover:shadow-base hover:transition"
                       @click="handleHistoryOrderToCart(item.cartOrder)"
                     >
                       再次加入購物車
