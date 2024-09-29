@@ -60,7 +60,7 @@ const cartMealQty = computed(() => {
         @click="minusData(mealInfo.id)"
         size="large"
         type="default"
-        class="hidden w-1/2 flex-grow items-center justify-center gap-x-2 md:flex"
+        class="custom-hover-button hidden w-1/2 flex-grow items-center justify-center gap-x-2 md:flex"
       >
         <template #default>
           <div class="flex items-center gap-x-3">
@@ -74,22 +74,22 @@ const cartMealQty = computed(() => {
           </div>
         </template>
       </el-button>
+
       <el-button
         :disabled="lockButton"
         size="large"
         @click="addData(mealInfo.id)"
-        class="add-button flex w-1/2 flex-grow items-center justify-center gap-x-2"
+        class="custom-hover-button add-button flex w-1/2 flex-grow items-center justify-center gap-x-2"
       >
         <template #default>
           <div class="flex items-center gap-x-3">
             <el-icon v-if="!addButtonLoad">
               <Plus />
             </el-icon>
-
             <el-icon class="is-loading" v-else>
               <Loading />
             </el-icon>
-            <p class="text-primary-700">加入</p>
+            <p class="hover-text-black text-primary-700">加入</p>
           </div>
         </template>
       </el-button>
@@ -127,5 +127,22 @@ const cartMealQty = computed(() => {
   :deep(.el-icon) {
     color: $primary-700;
   }
+  &:hover {
+    :deep(.el-icon) {
+      color: black;
+    }
+  }
+}
+.custom-hover-button {
+  @apply rounded border-2 border-secondary-900 bg-white text-secondary-900;
+}
+.custom-hover-button:hover {
+  @apply border-2 border-black bg-secondary-400 text-black shadow-base transition !important;
+}
+.custom-hover-button:hover .hover-text-black {
+  @apply text-black !important;
+}
+.custom-hover-button:active {
+  @apply shadow-none !important;
 }
 </style>
