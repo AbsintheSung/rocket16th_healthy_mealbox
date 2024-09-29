@@ -78,6 +78,13 @@ const memberInfoRule = ref({
       message: '信箱格式不相符',
       trigger: ['change']
     }
+  ],
+  phoneNumber: [
+    {
+      pattern: /^(09\d{8}|0[1-8]\d{7,8}|0800\d{6})$/,
+      message: '請輸入有效的台灣電話號碼格式或留空',
+      trigger: ['blur', 'change']
+    }
   ]
 })
 //驗證密碼資訊規則
@@ -197,7 +204,7 @@ const handleEditPassWord = (formEl: FormInstance | undefined) => {
         </div>
         <!-- 手機號碼 & 出生日期-->
         <div class="flex flex-col gap-x-6 md:flex-row md:items-center md:justify-between">
-          <el-form-item label="手機號碼" class="el-flex-grow">
+          <el-form-item label="手機號碼" class="el-flex-grow" prop="phoneNumber">
             <!-- <el-input v-model="memberData.phone" type="phone" /> -->
             <el-input v-model="memberInput.phoneNumber" type="phone" :disabled="!isEditInfo" />
           </el-form-item>
