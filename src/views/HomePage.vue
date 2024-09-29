@@ -525,53 +525,55 @@ const addToCart = async (planId: any) => {
           <p class="mb-8 text-center font-medium md:hidden">
             您可以根據自身狀況選擇套餐方案，產品一律採用冷凍配送， 我們也歡迎您與親朋好友一起訂購。
           </p>
-          <ul class="flex flex-col items-center justify-evenly gap-y-7 md:flex-row">
-            <li class="rounded border-2 border-black bg-white">
-              <h3 class="bg-secondary-950 py-2 text-center text-3xl font-bold text-white">7餐</h3>
-              <div class="flex flex-col items-center justify-center px-[66px] py-6 md:px-11">
-                <p class="text-center text-2xl font-bold">平均一餐</p>
-                <h4 class="text-4xl font-bold">NT.130<span class="text-sm">起</span></h4>
-                <span>總價700元起*</span>
-              </div>
-              <div class="flex items-center justify-center pb-9">
-                <button
-                  class="rounded border border-secondary-950 px-14 py-1 bg-white hover:bg-secondary-400 hover:border-black hover:shadow-base hover:transition hover:text-black active:shadow-none"
-                  @click="handleSelectPlan(7)">
-                  選擇方案
-                </button>
-              </div>
-            </li>
-            <li class="rounded border-2 border-black bg-white">
-              <h3 class="bg-primary-600 py-2 text-center text-3xl font-bold text-white">14餐</h3>
-              <div class="flex flex-col items-center justify-center px-[73px] py-6 md:px-12">
-                <p class="text-center text-2xl font-bold">平均一餐</p>
-                <h4 class="text-4xl font-bold">NT.100</h4>
-                <span>總價1400元起*</span>
-              </div>
-              <div class="flex items-center justify-center pb-9">
-                <button
-                  class="rounded border border-secondary-950 px-14 py-1 bg-white hover:bg-secondary-400 hover:border-black hover:shadow-base hover:transition hover:text-black active:shadow-none"
-                  @click="handleSelectPlan(14)">
-                  選擇方案
-                </button>
-              </div>
-            </li>
-            <li class="rounded border-2 border-black bg-white">
-              <h3 class="bg-secondary-400 py-2 text-center text-3xl font-bold text-white">21餐</h3>
-              <div class="flex flex-col items-center justify-center px-20 py-6 md:px-14">
-                <p class="text-center text-2xl font-bold">平均一餐</p>
-                <h4 class="text-4xl font-bold">NT.70</h4>
-                <span>總價2100元起*</span>
-              </div>
-              <div class="flex items-center justify-center pb-9">
-                <button
-                  class="rounded border border-secondary-950 px-14 py-1 bg-white hover:bg-secondary-400 hover:border-black hover:shadow-base hover:transition hover:text-black active:shadow-none"
-                  @click="handleSelectPlan(21)">
-                  選擇方案
-                </button>
-              </div>
-            </li>
-          </ul>
+          <ScrollReveal revealStyle="bottomToTop">
+            <ul class="flex flex-col items-center justify-evenly gap-y-7 md:flex-row">
+              <li class="rounded border-2 border-black bg-white">
+                <h3 class="bg-secondary-950 py-2 text-center text-3xl font-bold text-white">7餐</h3>
+                <div class="flex flex-col items-center justify-center px-[66px] py-6 md:px-11">
+                  <p class="text-center text-2xl font-bold">平均一餐</p>
+                  <h4 class="text-4xl font-bold">NT.130<span class="text-sm">起</span></h4>
+                  <span>總價700元起*</span>
+                </div>
+                <div class="flex items-center justify-center pb-9">
+                  <button
+                    class="rounded border border-secondary-950 px-14 py-1 bg-white hover:bg-secondary-400 hover:border-black hover:shadow-base hover:transition hover:text-black active:shadow-none"
+                    @click="handleSelectPlan(7)">
+                    選擇方案
+                  </button>
+                </div>
+              </li>
+              <li class="rounded border-2 border-black bg-white">
+                <h3 class="bg-primary-600 py-2 text-center text-3xl font-bold text-white">14餐</h3>
+                <div class="flex flex-col items-center justify-center px-[73px] py-6 md:px-12">
+                  <p class="text-center text-2xl font-bold">平均一餐</p>
+                  <h4 class="text-4xl font-bold">NT.100</h4>
+                  <span>總價1400元起*</span>
+                </div>
+                <div class="flex items-center justify-center pb-9">
+                  <button
+                    class="rounded border border-secondary-950 px-14 py-1 bg-white hover:bg-secondary-400 hover:border-black hover:shadow-base hover:transition hover:text-black active:shadow-none"
+                    @click="handleSelectPlan(14)">
+                    選擇方案
+                  </button>
+                </div>
+              </li>
+              <li class="rounded border-2 border-black bg-white">
+                <h3 class="bg-secondary-400 py-2 text-center text-3xl font-bold text-white">21餐</h3>
+                <div class="flex flex-col items-center justify-center px-20 py-6 md:px-14">
+                  <p class="text-center text-2xl font-bold">平均一餐</p>
+                  <h4 class="text-4xl font-bold">NT.70</h4>
+                  <span>總價2100元起*</span>
+                </div>
+                <div class="flex items-center justify-center pb-9">
+                  <button
+                    class="rounded border border-secondary-950 px-14 py-1 bg-white hover:bg-secondary-400 hover:border-black hover:shadow-base hover:transition hover:text-black active:shadow-none"
+                    @click="handleSelectPlan(21)">
+                    選擇方案
+                  </button>
+                </div>
+              </li>
+            </ul>
+          </ScrollReveal>
           <div class="mt-12 hidden md:block">
             <p class="text-center text-2xl font-medium">
               您可以根據自身需求選擇套餐方案，產品一律採用冷凍配送，<br />
