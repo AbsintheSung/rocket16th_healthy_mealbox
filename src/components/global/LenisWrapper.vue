@@ -32,6 +32,15 @@ const scrollStyles = {
         wheelMultiplier: 0.8,
         smoothTouch: true,
         touchMultiplier: 1.5,
+    },
+    smooth2: {
+        duration: 2.5,
+        easing: (t) => 1 - Math.cos((t * Math.PI) / 2),
+        orientation: 'vertical',
+        smoothWheel: true,
+        wheelMultiplier: 0.8,
+        smoothTouch: true,
+        touchMultiplier: 1.5,
     }
 }
 

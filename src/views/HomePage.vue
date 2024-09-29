@@ -4,6 +4,7 @@ import TheNewsTicker from '@/components/global/TheNewsTicker.vue'
 import ThePlaidAdorn from '@/components/global/ThePlaidAdorn.vue'
 import TheContact from '@/components/global/TheContact.vue'
 import LenisWrapper from '@/components/global/LenisWrapper.vue'
+import ScrollReveal from '@/components/global/ScrollReveal.vue'
 import { useCartStore } from '@/stores/cart'
 import { useNutritionistPlanStore } from '@/stores/nutritionistPlan'
 import { useRouter, type Router } from 'vue-router'
@@ -150,14 +151,19 @@ const addToCart = async (planId: any) => {
   <LenisWrapper scrollStyle="default">
     <main>
       <!-- 首頁大圖 -->
+
       <section class="bg-home-main bg-cover bg-center bg-no-repeat">
         <div class="container flex flex-col items-center justify-between sm:flex-row">
-          <div class="w-full py-48 sm:w-1/2">
-            <TheSvg svgIcon="healthy-and-lazy" class="h-[90px]" svgClassStyle="w-full" />
-            <p class="text-white text-balance md:text-2xl">
-              無論您多麼忙碌都能吃得營養均衡，輕鬆快速訂購，<br />
-              盒食提供您日常飲食更多元的選擇，健康美味輕鬆上桌!
-            </p>
+          <div class="w-full sm:w-1/2">
+            <ScrollReveal :threshold="0.75">
+              <div class="w-full py-48">
+                <TheSvg svgIcon="healthy-and-lazy" class="h-[90px]" svgClassStyle="w-full" />
+                <p class="text-white text-balance md:text-2xl">
+                  無論您多麼忙碌都能吃得營養均衡，輕鬆快速訂購，<br />
+                  盒食提供您日常飲食更多元的選擇，健康美味輕鬆上桌!
+                </p>
+              </div>
+            </ScrollReveal>
           </div>
           <div class="flex w-full justify-end self-end sm:w-1/2">
             <TheSvg svgIcon="rhombus-full" class="h-[50px] w-[45px] md:h-[100px] md:w-[80px]" />
