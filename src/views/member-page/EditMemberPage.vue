@@ -155,6 +155,7 @@ const handleAreaSelect = () => {
 // 開啟&關閉 會員編輯狀態
 const handleEditInfo = (formEl: FormInstance | undefined) => {
   isEditInfo.value = !isEditInfo.value
+  isWatchAreas.value = false //使用者點擊城市後，若沒有點擊地區 ，直接點擊取消 ，須解除鎖定才能還原地區的值
   memberInput.value = { ...memberStore.getMemberInfo } //用於使用者輸入完，點選取消還原預設
   if (!formEl) return
   formEl.clearValidate() //假設驗證失敗顯示時候，使用者點擊取消，清除驗證資訊
@@ -263,7 +264,7 @@ const handleEditPassWord = (formEl: FormInstance | undefined) => {
         </div>
         <div class="flex items-center justify-end py-5" v-if="!isEditInfo">
           <button
-            class="rounded border border-secondary-900 px-14 py-2 font-bold text-secondary-900 md:py-3"
+            class="rounded border border-secondary-900 px-14 py-2 font-bold text-secondary-900 hover:border-black hover:bg-secondary-400 hover:text-black hover:shadow-base hover:transition md:py-3"
             @click.prevent="handleEditInfo(ruleMemberInfo)"
           >
             更改資訊
@@ -271,13 +272,13 @@ const handleEditPassWord = (formEl: FormInstance | undefined) => {
         </div>
         <div class="flex items-center justify-end gap-x-4 py-5" v-else>
           <button
-            class="rounded border border-secondary-900 px-14 py-2 font-bold text-secondary-900 md:py-3"
+            class="rounded border border-secondary-900 px-14 py-2 font-bold text-secondary-900 hover:border-black hover:bg-secondary-400 hover:text-black hover:shadow-base hover:transition md:py-3"
             @click.prevent="handleEditInfo(ruleMemberInfo)"
           >
             取消
           </button>
           <button
-            class="rounded border border-secondary-900 px-14 py-2 font-bold text-secondary-900 md:py-3"
+            class="rounded border border-secondary-900 px-14 py-2 font-bold text-secondary-900 hover:border-black hover:bg-secondary-400 hover:text-black hover:shadow-base hover:transition md:py-3"
             @click.prevent="handleMemberInfo(ruleMemberInfo)"
           >
             儲存資料
@@ -323,7 +324,7 @@ const handleEditPassWord = (formEl: FormInstance | undefined) => {
         </el-form-item>
         <div class="flex items-center justify-end py-5" v-if="!isEditPassWord">
           <button
-            class="rounded border border-secondary-900 px-14 py-2 font-bold text-secondary-900 md:py-3"
+            class="rounded border border-secondary-900 px-14 py-2 font-bold text-secondary-900 hover:border-black hover:bg-secondary-400 hover:text-black hover:shadow-base hover:transition md:py-3"
             @click.prevent="handleEditPassWord(ruleFormRef)"
           >
             更改密碼
@@ -331,13 +332,13 @@ const handleEditPassWord = (formEl: FormInstance | undefined) => {
         </div>
         <div class="flex items-center justify-end gap-x-4 py-5" v-else>
           <button
-            class="rounded border border-secondary-900 px-14 py-2 font-bold text-secondary-900 md:py-3"
+            class="rounded border border-secondary-900 px-14 py-2 font-bold text-secondary-900 hover:border-black hover:bg-secondary-400 hover:text-black hover:shadow-base hover:transition md:py-3"
             @click.prevent="handleEditPassWord(ruleFormRef)"
           >
             取消
           </button>
           <button
-            class="rounded border border-secondary-900 px-14 py-2 font-bold text-secondary-900 md:py-3"
+            class="rounded border border-secondary-900 px-14 py-2 font-bold text-secondary-900 hover:border-black hover:bg-secondary-400 hover:text-black hover:shadow-base hover:transition md:py-3"
             @click.prevent="handleChangePassword(ruleFormRef)"
           >
             確認
