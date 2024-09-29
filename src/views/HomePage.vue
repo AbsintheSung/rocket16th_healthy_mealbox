@@ -154,7 +154,7 @@ const addToCart = async (planId: any) => {
       <section class="bg-home-main bg-cover bg-center bg-no-repeat">
         <div class="container flex flex-col items-center justify-between sm:flex-row">
           <div class="w-full sm:w-1/2">
-            <ScrollReveal  revealStyle="bottomToTop">
+            <ScrollReveal revealStyle="bottomToTop">
               <div class="w-full py-48">
                 <TheSvg svgIcon="healthy-and-lazy" class="h-[90px]" svgClassStyle="w-full" />
                 <p class="text-white text-balance md:text-2xl">
@@ -272,7 +272,9 @@ const addToCart = async (planId: any) => {
             <div class="col-span-3 flex flex-col">
               <div class="grid grid-cols-3 gap-6">
                 <div class="col-span-full">
-                  <img src="../assets/image/測試沙拉1.png" alt="網站介紹食物圖片" />
+                  <ScrollReveal revealStyle="bottomToTop">
+                    <img src="../assets/image/測試沙拉1.png" alt="網站介紹食物圖片" />
+                  </ScrollReveal>
                 </div>
                 <div class="col-span-full flex items-center gap-x-5">
                   <p class="flex h-full flex-col justify-around text-2xl">
@@ -305,7 +307,9 @@ const addToCart = async (planId: any) => {
                   <!-- <TheSvg svgIcon="rhombus-full" class="h-[80px] w-[60px]" /> -->
                 </div>
                 <div class="col-span-5 col-start-2">
-                  <img src="../assets/image/測試沙拉2.png" />
+                  <ScrollReveal revealStyle="topToBottom">
+                    <img src="../assets/image/測試沙拉2.png" />
+                  </ScrollReveal>
                 </div>
                 <div class="col-span-5 col-start-2 flex items-center gap-x-5">
                   <p class="flex h-full flex-col justify-around text-2xl">
@@ -325,7 +329,9 @@ const addToCart = async (planId: any) => {
             <div class="col-span-3">
               <div class="grid grid-cols-3 gap-6">
                 <div class="col-span-2 col-start-2">
-                  <img src="../assets/image/測試沙拉3.png" />
+                  <ScrollReveal revealStyle="bottomToTop">
+                    <img src="../assets/image/測試沙拉3.png" />
+                  </ScrollReveal>
                 </div>
                 <div class="col-span-full flex items-center gap-x-5">
                   <p class="flex h-full flex-col justify-around text-2xl">
@@ -342,7 +348,9 @@ const addToCart = async (planId: any) => {
                   </p>
                 </div>
                 <div class="col-span-full">
-                  <img src="../assets/image/測試義大利麵.png" />
+                  <ScrollReveal revealStyle="topToBottom">
+                    <img src="../assets/image/測試義大利麵.png" />
+                  </ScrollReveal>
                 </div>
               </div>
             </div>
