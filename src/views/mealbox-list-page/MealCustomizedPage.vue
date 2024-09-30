@@ -26,7 +26,8 @@ const message = (mes: any, mesType: string) => {
   ElMessage({
     message: mes,
     type: mesType,
-    duration: 1500
+    duration: 750,
+    grouping: true
   })
 }
 const addCustomCart = async (id: number) => {
