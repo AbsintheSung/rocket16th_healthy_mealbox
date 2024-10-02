@@ -1,14 +1,14 @@
 <p align="center">
   <a href="">
-    <img width="200" src ="">
+    <img width="200" src ="https://imgur.com/P6sIQRL.png">
   </a>
 </p>
 
-<h1 align="center" style="font-weight: 700">合食-健康餐盒平台</h1>
+<h1 align="center" style="font-weight: 700">盒食-健康餐盒平台</h1>
 
 <div align="center" style="margin-bottom:24px">
 
-  <a href="">
+  <a href="https://www.figma.com/slides/Pg2SmidUeP10779i9YY5KG/%E7%9B%92%E9%A3%9F_%E7%81%AB%E7%AE%AD%E9%9A%8A%E5%B0%88%E9%A1%8C?node-id=116-12761&t=IfwEZoYfs4pbd6k0-1">
   簡報內容
   </a>
   <span>｜</span>
@@ -25,15 +25,25 @@
   </a>
 
 <br>
-<p>開合即食-懶出新高度。輕鬆又健康</p>
+<p>開盒即食，懶出新高度 —— 盒食，輕鬆又健康。</p>
 <img
   style="border-radius: 16px;"
-  src="">
+  src="https://imgur.com/MYpeP3p.png">
 </div>
 
-# 合食-健康餐盒平台-專案發想原由
+# 盒食-健康餐盒平台-專案發想原由
+<p>我們的中心思想就是希望無論您有多忙碌，都能輕鬆的吃到健康的一餐。</p>
+<p>不知道您是否曾經有過以下困擾：</p>
 
-...
+- 有時一忙就超過了正常的用餐時間，想要吃得健康點，但打開外送平台通通都關門了…
+- 在公司午休時間只有一個小時，要是出去買飯，移動加上排隊的時間，午休就結束了…
+- 下班之後還要去採購、挑選食材、烹飪、收拾，自由時間又所剩無幾…
+
+<p>針對上述幾點，我們希望解決懶人也想吃的健康的問題，</p>
+<p>這裡所說的懶人，不是真的指那些好吃懶做的人，我們指的是：</p>
+<p>「因為忙碌的生活而精疲力盡，對於自己的生活品質有點懶惰的人」，也許就是我們自己。</p>
+<p>盒食便是為此而生。</p>
+<p>何時想吃，打開盒食，雙手合十，就可以開動囉！</p>
 
 ---
 
@@ -43,13 +53,12 @@
 
 - 會員註冊/登入
 - 會員資料修改
-- 會員預約諮商
 - 商城購物流程
+- 懶人快速結帳
 - 自選菜色種類
-- LinePay結帳
-- ...
--
--
+- LinePay付款
+- 歷史訂單回購
+- 支援手機操作
 
 ## 資料夾結構
 
@@ -67,7 +76,7 @@
 | `新增-feat` | `feat:建立首頁畫面` | `建立首頁畫面的commit message` |
 | `更新-update` | `update:首頁畫面部分修改` | `首頁畫面已存在，針對部份去做修改，且修改後與原先不同` |
 | `錯誤-fix` | `fix:修復請求商品失敗` | `發request失敗，修復此bug` |
-| `優化-refactor` | `refastor:登入邏輯優化 ( 要用更新分支也行 )` | `登入邏輯優化` |
+| `優化-refactor` | `refactor:登入邏輯優化 ( 要用更新分支也行 )` | `登入邏輯優化` |
 | `雜事-chore` | `chore:刪除部分console` | `刪除部分頁面的console` |
 
 ---
@@ -87,21 +96,36 @@
 
 ## 技術規格
 
-<h2 align="center">👩‍💻 設計工具</h2>
+<h2 align="center">🎨 設計工具</h2>
  <p>
   <img alt="MIRO" src="https://img.shields.io/badge/MIRO-yellow?style=for-the-badge&logo=MIRO"/>
   <img alt="Figma" src="https://img.shields.io/badge/Figma-blue?style=for-the-badge&logo=Figma"  />
   <img alt="Illustrator" src="https://img.shields.io/badge/Adobe_llustrator-orange?style=for-the-badge&logo=Adobe" />
   <img alt="claude" src="https://img.shields.io/badge/claude-%23D97757?style=for-the-badge&logo=claude" />
-  <img alt="ideogram" src="https://img.shields.io/badge/ideogram-green?style=for-the-badge&logo=ideogram" />
+  <img alt="Ideogram" src="https://img.shields.io/badge/ideogram-green?style=for-the-badge&logo=ideogram" />
 
 ### 工具說明：
 
 - [ 設計稿製作 ]：Figma
 
-  - ?
-  - ?
-  - ?
+  - 使用Figma線上製作網頁設計稿，能夠與前端工程師即時同步設計進度。
+
+- [ 泳道圖製作 ]：Miro
+
+  - 前期利用Miro進行專案流程規劃，視覺化展示各環節的任務與進度。
+  
+- [ 圖片後製 ]：Illustrator
+
+  - 進行圖片後製與視覺元素調整，包括主視覺與LOGO。
+  
+- [ 圖片文字生成發想 ]：claude
+
+  - 為了使用AI生圖，先利用claude進行餐點文字改寫，使圖片生成更加順利。
+  
+- [ 餐點圖片生成 ]：Ideogram
+
+  - 與claude搭配使用，生成在網站上使用的餐點圖片。
+  
   </p>
 
 <h2 align="center">💻 前端技術</h2>
@@ -128,7 +152,7 @@
 
 - [ 語言 ]：TypeScript/JavaScript
 
-  - 建立環境時已先建置 TypeScript 設定，主要為JavaScript，會在轉換為TypeScript。
+  - 建立環境時已先建置 TypeScript 設定，主要為JavaScript，會再轉換為TypeScript。
 
 - [ CSS ]：Tailwind
 
@@ -157,7 +181,7 @@
 
 - [ 環境 ]：Microsoft Visual Studio
 
-  - 使用的是.net Freamwork 平台，網頁技術版本則是asp.net。
+  - 使用的是.net Framework 平台，網頁技術版本則是asp.net。
 
 - [ 框架 ]：ASP.NET Web API 2
 
