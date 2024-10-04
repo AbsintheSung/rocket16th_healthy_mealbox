@@ -26,18 +26,18 @@ const authenticate = async () => {
             ElMessage({
                 message: '請先登入會員',
                 type: 'warning',
-                duration: 3000
+                duration: 800
             })
             setTimeout(() => {
                 const loading = ElLoading.service({
                     lock: true,
                     text: '正在跳轉至登入頁面...',
                 })
-                setTimeout(() => {
-                    loading.close()
-                    router.push('/signin')
-                }, 1000)
-            }, 2000)
+                loading.close()
+            }, 500)
+            setTimeout(() => {
+                router.push('/signin')
+            }, 800)
         } else {
             console.log('發生其他錯誤:', error.message)
             ElMessage({
