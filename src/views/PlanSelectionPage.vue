@@ -23,7 +23,7 @@ const handlePlanSelection = async (route) => {
             ElMessage({
                 message: '請先登入會員',
                 type: 'warning',
-                duration: 3000
+                duration: 800
             })
             setTimeout(() => {
                 const loading = ElLoading.service({
@@ -31,11 +31,11 @@ const handlePlanSelection = async (route) => {
                     text: '正在跳轉至登入頁面...',
                 })
                 loading.close()
-            }, 2000)
+            }, 500)
 
             setTimeout(() => {
                 router.push('/signin')
-            }, 2500)
+            }, 800)
         } else {
             console.log('發生其他錯誤:', error.message || '未知錯誤')
             ElMessage({
