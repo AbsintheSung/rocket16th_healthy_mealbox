@@ -219,11 +219,10 @@ const handleLinePayCallback = async () => {
                 amount: cartStore.getLastSubmittedOrder.orderPrice, // 使用最後提交的訂單價格
                 orderId: orderId
             }
-            const result = await cartStore.confirmLinePay(confirmData)
+            await cartStore.confirmLinePay(confirmData)
             // 處理確認後的結果
-            console.log(result)
-            // 導航到訂單完成頁面
-            // router.push('/checkout/order-complete')
+            // const result = await cartStore.confirmLinePay(confirmData)
+            // console.log(result)
         } catch (error) {
             console.error('LINE PAY 確認錯誤:', error)
             ElMessage.error('LINE PAY 確認失敗')

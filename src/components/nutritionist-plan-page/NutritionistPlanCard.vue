@@ -31,7 +31,7 @@ const addToCart = async () => {
     })
     setTimeout(() => {
       loading.close()
-    }, 1500)
+    }, 300)
     setTimeout(() => {
       if (result === "success") {
         ElMessage.success('成功加入購物車')
@@ -41,13 +41,13 @@ const addToCart = async () => {
       } else if (result === "cartFull") {
         ElMessage.warning('購物車已滿')
       }
-    }, 2000)
+    }, 500)
   } catch (error) {
     if (error && error.status === 401) {
       ElMessage({
         message: '請先登入會員',
         type: 'warning',
-        duration: 3000
+        duration: 800
       })
       setTimeout(() => {
         const loading = ElLoading.service({
@@ -55,11 +55,11 @@ const addToCart = async () => {
           text: '正在跳轉至登入頁面...',
         })
         loading.close()
-      }, 2000)
+      }, 500)
 
       setTimeout(() => {
         router.push('/signin')
-      }, 2500)
+      }, 800)
     } else {
       ElMessage.error('加入購物車失敗')
     }

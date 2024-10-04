@@ -59,8 +59,8 @@ const handleClearCart = async () => {
                 setTimeout(() => {
                     loading.close()
                     router.push('/plan-selection')
-                }, 3000)
-            }, 2000)
+                }, 500)
+            }, 800)
         }
     } catch (error) {
         console.error('清空購物車時發生錯誤:', error);

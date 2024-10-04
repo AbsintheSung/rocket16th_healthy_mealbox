@@ -94,7 +94,7 @@ const addToCart = async (planId: any) => {
       ElMessage({
         message: '請先登入會員',
         type: 'warning',
-        duration: 2000
+        duration: 800
       })
       setTimeout(() => {
         const loading = ElLoading.service({
@@ -102,11 +102,11 @@ const addToCart = async (planId: any) => {
           text: '正在跳轉至登入頁面...',
         })
         loading.close()
-      }, 2000)
+      }, 500)
 
       setTimeout(() => {
         router.push('/signin')
-      }, 2500)
+      }, 800)
     } else {
       ElMessage.error('加入購物車失敗')
     }
