@@ -35,7 +35,7 @@ const getGeneralDialogList = computed(() => {
 const getCaseTypeDialog = computed(() => caseTypeDialog.value)
 
 const handleChange = (val) => {
-  console.log(val)
+  // console.log(val)
 }
 const handleCloseDialog = () => {
   dialogShow.value = false

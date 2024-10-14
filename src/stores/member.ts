@@ -142,10 +142,11 @@ export const useMemberStore = defineStore('member', () => {
     try {
       const response = await fetchApi.getMemberOrder()
       memberOrder.value = response.data.data || []
-      // console.log(response.data)
+      // const test = '2024-10-14T23:52:16.447'
+      // console.log('測試', formatDate(test))
       console.log(getMemberOrders.value)
     } catch (error) {
-      console.log(error)
+      // console.log(error)
     }
   }
 
