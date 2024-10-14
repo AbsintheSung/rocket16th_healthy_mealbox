@@ -350,7 +350,7 @@ const handleSelectionChanged = (accordionCode) => {
       </div>
     </div>
     <div class="container py-4 md:py-14">
-      <div class="flex w-full items-center justify-between py-3 md:w-2/3">
+      <div class="flex w-full items-center justify-between py-3 pe-6 md:w-2/3">
         <el-select
           v-model="selectValue"
           placeholder="Select"
