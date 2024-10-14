@@ -35,7 +35,7 @@ const getGeneralDialogList = computed(() => {
 const getCaseTypeDialog = computed(() => caseTypeDialog.value)
 
 const handleChange = (val) => {
-  console.log(val)
+  // console.log(val)
 }
 const handleCloseDialog = () => {
   dialogShow.value = false
@@ -124,22 +124,59 @@ const message = (mes, mesType) => {
               >
                 <thead>
                   <tr class="border-b p-2 text-center">
-                    <th :class="{ 'text-primary-base': true }">訂單成立</th>
-                    <th :class="{ 'text-primary-base': true }">付款成功</th>
-                    <th :class="{ 'text-primary-base': true }">備貨中</th>
-                    <th :class="{ 'text-primary-base': true }">已出貨</th>
-                    <th :class="{ 'text-primary-base': true }">貨到門市</th>
+                    <th :class="{ 'text-primary-base': false }">訂單成立</th>
+                    <th :class="{ 'text-primary-base': false }">付款成功</th>
+                    <th :class="{ 'text-primary-base': false }">備貨中</th>
+                    <th :class="{ 'text-primary-base': false }">已出貨</th>
+                    <th :class="{ 'text-primary-base': false }">貨到門市</th>
                     <th :class="{ 'text-primary-base': false }">訂單完成</th>
+                    <!-- <th :class="{ 'text-primary-base': item.createTime !== null, 'text-black': item.createTime === null }">訂單成立</th>
+                    <th :class="{ 'text-primary-base': item.paymentSuccessTime !== null, 'text-black': item.paymentSuccessTime === null }">付款成功</th>
+                    <th :class="{ 'text-primary-base': item.preparingGoodsTime !== null, 'text-black': item.preparingGoodsTime === null }">備貨中</th>
+                    <th :class="{ 'text-primary-base': item.shippedTime !== null, 'text-black': item.shippedTime === null }">已出貨</th>
+                    <th :class="{ 'text-primary-base': item.arrivedAtStoreTime !== null, 'text-black': item.arrivedAtStoreTime === null }">貨到門市</th>
+                    <th :class="{ 'text-primary-base': item.orderCompletedTime !== null, 'text-black': item.orderCompletedTime === null }">訂單完成</th> -->
                   </tr>
                 </thead>
                 <tbody>
                   <tr class="text-center">
                     <td :class="{ 'text-primary-base': true }">{{ item.createTime }}</td>
-                    <td :class="{ 'text-primary-base': true }">2024/08/20</td>
-                    <td :class="{ 'text-primary-base': true }">2024/08/20</td>
-                    <td :class="{ 'text-primary-base': true }">2024/08/20</td>
-                    <td :class="{ 'text-primary-base': true }">2024/08/20</td>
-                    <td :class="{ 'text-primary-base': false }">2024/08/20</td>
+                    <td
+                      v-if="item.paymentSuccessTime != null"
+                      :class="{ 'text-primary-base': true }"
+                    >
+                      {{ item.paymentSuccessTime }}
+                    </td>
+                    <td v-else :class="{ 'text-danger-base': true }">未付款</td>
+                    <td
+                      v-if="item.preparingGoodsTime != null"
+                      :class="{ 'text-primary-base': true }"
+                    >
+                      {{ item.preparingGoodsTime }}
+                    </td>
+                    <td v-else :class="{ 'text-danger-base': true }">準備中</td>
+                    <td v-if="item.shippedTime != null" :class="{ 'text-primary-base': true }">
+                      {{ item.shippedTime }}
+                    </td>
+                    <td v-else :class="{ 'text-danger-base': true }">運送中</td>
+                    <td
+                      v-if="item.arrivedAtStoreTime != null"
+                      :class="{ 'text-primary-base': true }"
+                    >
+                      {{ item.arrivedAtStoreTime }}
+                    </td>
+                    <td v-else :class="{ 'text-danger-base': true }">運送中</td>
+                    <td
+                      v-if="item.orderCompletedTime != null"
+                      :class="{ 'text-primary-base': true }"
+                    >
+                      {{ item.orderCompletedTime }}
+                    </td>
+                    <td v-else :class="{ 'text-danger-base': true }">訂單未完成</td>
+
+                    <!-- <td :class="{ 'text-primary-base': true }">{{ item.shippedTime }}</td> -->
+                    <!-- <td :class="{ 'text-primary-base': true }">{{ item.arrivedAtStoreTime }}</td> -->
+                    <!-- <td :class="{ 'text-primary-base': false }">{{ item.orderCompletedTime }}</td> -->
                   </tr>
                 </tbody>
               </table>
@@ -183,10 +220,10 @@ const message = (mes, mesType) => {
                 <div>
                   <h4>配送資訊 :{{ item.shippingMethod }}</h4>
                   <address>
-                    <p>
+                    <!-- <p>
                       連絡電話 :
                       <a :href="`tel:${item.senderPhoneNumber}`">{{ item.senderPhoneNumber }}</a>
-                    </p>
+                    </p> -->
                   </address>
                 </div>
                 <div class="mt-auto flex items-center">

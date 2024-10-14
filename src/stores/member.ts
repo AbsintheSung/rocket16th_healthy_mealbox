@@ -44,6 +44,11 @@ export const useMemberStore = defineStore('member', () => {
       return {
         ...order,
         createTime: formatDate(order.createTime), // 格式化 createTime
+        orderCompletedTime: formatDate(order.orderCompletedTime), // 格式化 createTime
+        arrivedAtStoreTime: formatDate(order.arrivedAtStoreTime), // 格式化 createTime
+        preparingGoodsTime: formatDate(order.preparingGoodsTime), // 格式化 createTime
+        paymentSuccessTime: formatDate(order.paymentSuccessTime), // 格式化 createTime
+        shippedTime: formatDate(order.shippedTime), // 格式化 createTime
         cartOrder: {
           ...order.cartOrder,
           customizeBoxes: order.cartOrder.customizeBoxes.map(box => ({
@@ -137,10 +142,11 @@ export const useMemberStore = defineStore('member', () => {
     try {
       const response = await fetchApi.getMemberOrder()
       memberOrder.value = response.data.data || []
-      // console.log(response.data)
+      // const test = '2024-10-14T23:52:16.447'
+      // console.log('測試', formatDate(test))
       console.log(getMemberOrders.value)
     } catch (error) {
-      console.log(error)
+      // console.log(error)
     }
   }
 
@@ -156,8 +162,18 @@ export const useMemberStore = defineStore('member', () => {
   }
 
   // 日期格式轉換函數( 內部調用 )
-  const formatDate = (isoDate: string) => {
+  const formatDate = (isoDate: string | null): string | null => {
+    if (isoDate === null) {
+      return null;
+    }
+
     const date = new Date(isoDate);
+
+    // 檢查日期是否有效
+    if (isNaN(date.getTime())) {
+      return null;  // 如果日期無效，也返回 null
+    }
+
     const year = date.getFullYear();
     const month = String(date.getMonth() + 1).padStart(2, '0'); // 月份從 0 開始，所以需要 +1
     const day = String(date.getDate()).padStart(2, '0');

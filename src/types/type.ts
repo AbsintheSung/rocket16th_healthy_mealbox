@@ -136,7 +136,7 @@ export type MemberInfo = {
   city: string
   area: string
   address: string
-  createTime: string
+  createTime: string,//訂單建立時間
 }
 
 // 定義 GeneralBoxes訂單 型別
@@ -220,7 +220,12 @@ export type Order = {
   recipientArea: string // 收貨者地區
   recipientAddress: string // 收貨者詳細地址
   createTime: string // 訂單建立時間 (ISO 日期格式)
-  cartOrder: CartOrder // 購物車訂單資料
+  cartOrder: CartOrder, // 購物車訂單資料
+  orderCompletedTime: null | string//訂單完成時間
+  arrivedAtStoreTime: null | string, // 貨到門市時間
+  preparingGoodsTime: null | string, //備貨中時間
+  paymentSuccessTime: null | string, //付款成功時間
+  shippedTime: null | string, //已出貨時間
 }
 
 //定義自定義菜單型別

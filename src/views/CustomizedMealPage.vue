@@ -379,7 +379,7 @@ const handleSelectionChanged = (accordionCode) => {
             </div>
           </div>
           <!-- 另一個餐盤模組 -->
-          <div v-else class="meal-bg w-full">
+          <div v-else class="meal-bg-2 w-full">
             <div class="flex w-fit flex-col" ref="plateComposition">
               <TheDinnerPlate2
                 :sideDishesListImg="sideDishesListImg"
@@ -457,7 +457,10 @@ const handleSelectionChanged = (accordionCode) => {
   }
 }
 .meal-bg {
-  background-image: url('../assets/image/餐盤測試/底圖.jpg');
+  background-image: url('../assets/image/餐盤測試/底圖.png');
+}
+.meal-bg-2 {
+  background-image: url('../assets/image/餐盤測試2/底圖.png');
 }
 
 :deep(.el-collapse-item__header) {
