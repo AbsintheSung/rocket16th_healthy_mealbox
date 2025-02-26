@@ -1,0 +1,38 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html,
+  body,
+  #app {
+    @apply min-h-screen;
+  }
+  body {
+    @include Noto-Sans-TC;
+  }
+  footer {
+    margin-top: auto;
+  }
+}
+
+@layer components {
+  #app {
+    @apply flex flex-col;
+  }
+
+  .container {
+    @apply flex-grow;
+  }
+}
+
+//隱藏滾動條
+@layer utilities {
+  .scrollbar-hide {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+  }
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none; /* Chrome, Safari and Opera */
+  }
+}

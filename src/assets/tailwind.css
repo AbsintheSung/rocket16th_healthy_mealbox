@@ -1,0 +1,26 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100..900&family=Noto+Serif+TC:wght@200..900&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+ html {
+  @apply h-screen;
+}
+body {
+ font-family: "Noto Sans TC", sans-serif;
+}
+ body, #app {
+  @apply h-full;
+ }
+}
+  
+@layer components {
+ #app {
+  @apply flex flex-col;
+}
+
+.container {
+  @apply flex-grow;
+ }
+}
