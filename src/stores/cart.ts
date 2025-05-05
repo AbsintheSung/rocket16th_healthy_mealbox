@@ -66,8 +66,10 @@ export const useCartStore = defineStore('cart', () => {
         return response.data.data
       }
     } catch (error) {
-      console.error('獲取營養師方案詳情時出錯：', error)
-      throw error
+      // console.error('獲取營養師方案詳情時出錯：', error)
+      const errorMes = error
+      throw errorMes
+      // throw error
     }
   }
 
@@ -330,6 +332,7 @@ export const useCartStore = defineStore('cart', () => {
 
         // 如果是 LINE PAY，返回 LINE PAY URL
         if (response.data.data.paymentMethod === 'onlinePayment' && response.data.data.linePayUrl) {
+          // console.log(response.data)
           return {
             success: true,
             linePayUrl: response.data.data.linePayUrl,
@@ -395,7 +398,7 @@ export const useCartStore = defineStore('cart', () => {
     } catch (error: any) {
       await fetchChangeSelectPlan(7) //失敗時 ，還原方案7，並在下方執行清空動作
       await cleanCart()
-      console.log(error)
+      // console.log(error)
       throw error
     }
   }
@@ -404,13 +407,12 @@ export const useCartStore = defineStore('cart', () => {
   const confirmLinePay = async (confirmData: { transactionId: string, amount: number, orderId: string }) => {
     try {
       const response = await fetchApi.Checklinepay(confirmData)
-      console.log('回傳LINEPAY資料:',response.data)
+      // console.log('回傳LINEPAY資料:', response.data)
       return response.data
-      
-
     } catch (error) {
-      console.error('LINE PAY 確認時出錯：', error)
-      throw error
+      // console.error('LINE PAY 確認時出錯：', error)
+      const errorMes = error
+      throw errorMes
     }
   }
 
@@ -432,8 +434,10 @@ export const useCartStore = defineStore('cart', () => {
         throw new Error(response.data.message || '獲取訂單失敗')
       }
     } catch (error) {
-      console.error('獲取訂單時出錯：', error)
-      throw error
+      // console.error('獲取訂單時出錯：', error)
+      const errorMes = error
+      throw errorMes
+      // throw error
     }
   }
 

@@ -25,7 +25,7 @@ const authButtonData = [
     icon: ['fab', 'facebook'],
     iconSize: 'xl',
     handleButton: () => {
-      console.log('連結')
+      // console.log('連結')
     }
   },
   {
@@ -34,7 +34,7 @@ const authButtonData = [
     icon: ['fab', 'line'],
     iconSize: 'xl',
     handleButton: () => {
-      console.log('連結')
+      // console.log('連結')
     }
   }
 ]

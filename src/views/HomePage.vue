@@ -55,7 +55,7 @@ const handleSelectPlan = async (planNumber: number) => {
 onMounted(async () => {
   await nutritionistPlanStore.fetchNutritionistPlans()
   selectRandomPlans()
-  console.log('取得的隨機營養師資訊：', randomPlans.value)
+  // console.log('取得的隨機營養師資訊：', randomPlans.value)
   await cartStore.fetchMemberCartInfo()
 })
 

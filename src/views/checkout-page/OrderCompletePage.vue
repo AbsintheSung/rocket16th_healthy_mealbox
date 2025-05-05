@@ -21,7 +21,7 @@ onMounted(async () => {
             const fetchedOrder = await cartStore.fetchOrderById(routeOrderId)
             orderInfo.value = fetchedOrder
         } catch (error) {
-            console.error('獲取訂單信息失敗:', error)
+            // console.error('獲取訂單信息失敗:', error)
         }
     } else {
         // 如果沒有訂單 ID，使用 store 中的最後提交訂單

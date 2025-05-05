@@ -26,7 +26,7 @@ export const useAuthStore = defineStore('auth', () => {
         await memberStore.fetchMemberInfo(); //登入成功後，在發送獲取會員資料api
         return { message, status }
       }
-      console.log(response)
+      // console.log(response)
     } catch (error: any) {
       if (error.response.status === 400) {
         throw error.response.data
@@ -41,7 +41,7 @@ export const useAuthStore = defineStore('auth', () => {
         return response.data
       }
     } catch (error: any) {
-      console.log(error)
+      // console.log(error)
       if (error.response.status === 400) {
         throw error.response.data
       }

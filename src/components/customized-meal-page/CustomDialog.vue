@@ -41,7 +41,7 @@ const handleClose = () => {
 }
 const handleVerify = () => {
   props.fetchData()
-  console.log('確認')
+  // console.log('確認')
 }
 </script>
 <template>

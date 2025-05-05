@@ -145,7 +145,7 @@ const submitVerifyForm = async () => {
             return false
         }
     } catch (error) {
-        console.error('Validation failed:', error)
+        // console.error('Validation failed:', error)
         return false
     }
 }
@@ -182,11 +182,11 @@ const onSubmit = async () => {
             creditCardCVC: "", // 非必填
             creditCardExp: "" // 非必填
         }
-        console.log('準備提交到後端的數據:', orderData)
+        // console.log('準備提交到後端的數據:', orderData)
 
         //提交到後端
         const result = await cartStore.submitOrder(orderData)
-        console.log('後端回傳資料：', result.data.data)
+        // console.log('後端回傳資料：', result.data.data)
 
         if (result.success) {
             ElMessage.success('訂單提交成功')
@@ -194,7 +194,7 @@ const onSubmit = async () => {
                 // 儲存訂單資訊
                 cartStore.setLastSubmittedOrder(result.data.data)
                 // LINE PAY 支付
-                console.log('取得的 LINE PAY 網址:', result.data.linePayUrl)
+                // console.log('取得的 LINE PAY 網址:', result.data.linePayUrl)
                 window.location.href = result.data.linePayUrl
             } else {
                 // 非 LINE PAY 支付
@@ -204,7 +204,7 @@ const onSubmit = async () => {
             throw new Error(result.data?.message || '訂單提交失敗')
         }
     } catch (error) {
-        console.error('錯誤詳情:', error)
+        // console.error('錯誤詳情:', error)
         ElMessage.error(error.message || '提交訂單時出錯')
     }
 }
@@ -224,7 +224,7 @@ const handleLinePayCallback = async () => {
             // const result = await cartStore.confirmLinePay(confirmData)
             // console.log(result)
         } catch (error) {
-            console.error('LINE PAY 確認錯誤:', error)
+            // console.error('LINE PAY 確認錯誤:', error)
             ElMessage.error('LINE PAY 確認失敗')
         }
     }

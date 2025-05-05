@@ -49,7 +49,7 @@ const fetchMealBoxesDetails = async () => {
     //若獲取餐盒ID失敗，過濾此失敗ID
     mealBoxesData.value = mealBoxesData.value.filter(meal => meal !== null)
   } else {
-    console.log('無法獲取餐盒 ID！')
+    // console.log('無法獲取餐盒 ID！')
   }
 }
 

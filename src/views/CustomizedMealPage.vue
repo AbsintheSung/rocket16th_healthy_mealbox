@@ -186,9 +186,9 @@ const generateImage = async () => {
       // const a = base64ToBlob(generatedImage.value)
       // const b = await blobToBase64(a)
       // console.log(b)
-      console.log('圖片生成成功')
+      // console.log('圖片生成成功')
     } catch (error) {
-      console.error('生成圖片時出錯：', error)
+      // console.error('生成圖片時出錯：', error)
     }
   }
 }
@@ -249,10 +249,14 @@ const handleData = async () => {
   await generateImage()
   dialogShow.value = true
   fullscreenLoading.value = false
-  console.log(caseOption[getSelectCase.value])
+  // console.log(caseOption[getSelectCase.value])
 }
 const handleEdit = () => {
-  console.log(caseOption[getSelectCase.value])
+
+
+  //清空列表，重新開啟右側選單欄
+  resetCaseOption()
+  activeNames.value = allPanels.value[0]
 }
 const handleCloseDialog = () => {
   dialogShow.value = false

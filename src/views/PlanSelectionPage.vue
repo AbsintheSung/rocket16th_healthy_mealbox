@@ -17,7 +17,7 @@ const handlePlanSelection = async (route) => {
         isLoggedIn.value = true
         router.push(route)
     } catch (error) {
-        console.error('獲取購物車資料時發生錯誤:', error)
+        // console.error('獲取購物車資料時發生錯誤:', error)
         isLoggedIn.value = false
         if (error && error.status === 401) {
             ElMessage({
@@ -37,7 +37,7 @@ const handlePlanSelection = async (route) => {
                 router.push('/signin')
             }, 800)
         } else {
-            console.log('發生其他錯誤:', error.message || '未知錯誤')
+            // console.log('發生其他錯誤:', error.message || '未知錯誤')
             ElMessage({
                 message: error.message || '發生錯誤，請稍後再試',
                 type: 'error',

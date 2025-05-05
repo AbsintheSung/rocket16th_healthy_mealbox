@@ -10,7 +10,7 @@ import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 dotenv.config();
 
 // 使用環境變數
-const baseURL = process.env.VITE_APP_API_URL;
+// const baseURL = process.env.VITE_APP_API_URL;
 const apiName = process.env.VITE_APP_API_NAME;
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -41,13 +41,13 @@ export default defineConfig({
   server: {
     proxy: {
       [`/${apiName}`]: {
-        target: baseURL,
+        target: 'https://heshi.rocket-coding.com',
         changeOrigin: true,
         // 如果有字串需要替換可以加入 rewrite 這個屬性
         // rewrite: (path) => path.replace(/^\/api/, '')
       },
       '/Images': {
-        target: baseURL,
+        target: 'https://heshi.rocket-coding.com',
         changeOrigin: true,
       }
     },

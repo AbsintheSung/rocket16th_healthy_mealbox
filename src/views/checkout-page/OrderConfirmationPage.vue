@@ -39,7 +39,7 @@ const authenticate = async () => {
                 router.push('/signin')
             }, 800)
         } else {
-            console.log('發生其他錯誤:', error.message)
+            // console.log('發生其他錯誤:', error.message)
             ElMessage({
                 message: '發生錯誤，請稍後再試',
                 type: 'error',
@@ -90,7 +90,7 @@ const handleClearCart = async () => {
             await cartStore.fetchMemberCartInfo()
         }
     } catch (error) {
-        console.error('清空購物車時發生錯誤:', error);
+        // console.error('清空購物車時發生錯誤:', error);
         if (error !== 'cancel') {
             ElMessage.error('清空購物車失敗')
         }

@@ -37,7 +37,7 @@ export const useNutritionistPlanStore = defineStore('nutritionistPlan', () => {
                 nutritionistPlans.value = response?.data?.data || []
             }
         } catch (error) {
-            console.error('Error fetching nutritionist plans:', error)
+            // console.error('Error fetching nutritionist plans:', error)
         }
     }
 
@@ -49,7 +49,7 @@ export const useNutritionistPlanStore = defineStore('nutritionistPlan', () => {
                 oneNutritionistPlan.value = response?.data?.data || {}
             }
         } catch (error) {
-            console.error(error)
+            // console.error(error)
         }
     }
 

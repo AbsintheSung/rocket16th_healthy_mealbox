@@ -71,7 +71,7 @@ export const useGeneralMealBoxStore = defineStore('generalmealbox', () => {
         // console.log(generalMeal.value)
       }
     } catch (error) {
-      console.log(error)
+      // console.log(error)
     }
   }
 
@@ -85,7 +85,7 @@ export const useGeneralMealBoxStore = defineStore('generalmealbox', () => {
         // console.log(generalMeal.value)
       }
     } catch (error) {
-      console.log(error)
+      // console.log(error)
     }
   }
 
@@ -98,7 +98,7 @@ export const useGeneralMealBoxStore = defineStore('generalmealbox', () => {
         // console.log(generalMeal.value)
       }
     } catch (error) {
-      console.log(error)
+      // console.log(error)
     }
   }
 

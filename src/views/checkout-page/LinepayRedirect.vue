@@ -18,7 +18,7 @@ onMounted(() => {
 })
 
 const handleLinePayCallback = async () => {
-    console.log('處理 LinePayment 回調', { transactionId: transactionId.value, orderId: orderId.value })
+    // console.log('處理 LinePayment 回調', { transactionId: transactionId.value, orderId: orderId.value })
     try {
         if (!transactionId.value || !orderId.value) {
             throw new Error('缺少必要的參數')
@@ -35,7 +35,7 @@ const handleLinePayCallback = async () => {
 
         await cartStore.confirmLinePay(confirmData)
         
-        console.log('LINE PAY 付款確認成功')
+        // console.log('LINE PAY 付款確認成功')
         ElMessage.success('付款確認成功')
 
         // 付款成功，轉跳頁面
@@ -44,7 +44,7 @@ const handleLinePayCallback = async () => {
             query: { orderId: orderId.value }
         })
     } catch (error) {
-        console.error('LINE PAY 確認失敗:', error)
+        // console.error('LINE PAY 確認失敗:', error)
         ElMessage.error(error.message || '付款失敗，請聯繫客服')
     }
 }

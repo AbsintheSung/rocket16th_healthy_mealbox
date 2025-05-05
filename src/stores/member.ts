@@ -144,7 +144,7 @@ export const useMemberStore = defineStore('member', () => {
       memberOrder.value = response.data.data || []
       // const test = '2024-10-14T23:52:16.447'
       // console.log('測試', formatDate(test))
-      console.log(getMemberOrders.value)
+      // console.log(getMemberOrders.value)
     } catch (error) {
       // console.log(error)
     }

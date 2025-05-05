@@ -63,7 +63,7 @@ const handleClearCart = async () => {
             }, 800)
         }
     } catch (error) {
-        console.error('清空購物車時發生錯誤:', error);
+        // console.error('清空購物車時發生錯誤:', error);
         if (error !== 'cancel') {
             ElMessage.error('清空購物車失敗')
         }
